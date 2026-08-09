@@ -1,0 +1,1141 @@
+---
+import { Maximize2, X, ChevronLeft, ChevronRight } from "@lucide/astro";
+import { getImage } from "astro:assets";
+
+interface Props {
+  isHomepage?: boolean;
+}
+
+const { isHomepage = false } = Astro.props;
+
+// 1. Fetch images as Astro Image Metadata objects from /src/assets/art/
+const imageImports = import.meta.glob<{ default: ImageMetadata }>("/src/assets/art/*.{png,jpg,jpeg,webp,svg}", {
+  eager: true,
+});
+
+// 2. Process and optimize them automatically
+const allArtworks = await Promise.all(
+  Object.entries(imageImports).map(async ([path, module], index) => {
+    const rawImage = module.default;
+    const fileName = path.split("/").pop()?.split(".")[0].replace(/[-_]/g, " ") || "";
+    const title = fileName.charAt(0).toUpperCase() + fileName.slice(1);
+
+    const ratio = rawImage.width / rawImage.height;
+    const orientation = ratio > 1.15 ? "landscape" : ratio < 0.85 ? "portrait" : "square";
+
+    const optimizedGridImage = await getImage({
+      src: rawImage,
+      width: 900,
+      format: "webp",
+    });
+
+    const optimizedLightboxImage = await getImage({
+      src: rawImage,
+      width: 1800,
+      format: "webp",
+    });
+
+    return {
+      id: `art-${index + 1}`,
+      title,
+      src: optimizedGridImage.src,
+      lightboxSrc: optimizedLightboxImage.src,
+      orientation,
+      aspectRatio: ratio.toFixed(3),
+      gradientIdx: index % 6,
+    };
+  }),
+);
+
+// 3. Homepage sampling algorithm: Guarantees flush rows with no peaking portraits
+let artworks = [...allArtworks];
+
+if (isHomepage) {
+  const TARGET_ROWS = 3; // Desired number of grid rows
+  const COLS = 3;
+
+  // Matrix tracking filled cells [row][col]
+  const gridMatrix: boolean[][] = Array.from({ length: TARGET_ROWS + 2 }, () => Array(COLS).fill(false));
+  const homepageList: typeof allArtworks = [];
+
+  // Shuffle candidate pool
+  const pool = [...allArtworks].sort(() => Math.random() - 0.5);
+
+  for (let r = 0; r < TARGET_ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      // If cell is already filled by a portrait spanning down from the row above, skip
+      if (gridMatrix[r][c]) continue;
+
+      const remainingColsInRow = COLS - c;
+      const isLastRow = r === TARGET_ROWS - 1;
+
+      // Find the best fitting artwork from the pool
+      const matchIdx = pool.findIndex((art) => {
+        if (art.orientation === "landscape") {
+          // Landscape needs 2 horizontal columns
+          return remainingColsInRow >= 2;
+        } else if (art.orientation === "portrait") {
+          // Portrait needs 2 vertical rows -> CANNOT be placed on the last row!
+          return !isLastRow && !gridMatrix[r + 1][c];
+        } else {
+          // Square needs 1 column
+          return remainingColsInRow >= 1;
+        }
+      });
+
+      if (matchIdx !== -1) {
+        const [selected] = pool.splice(matchIdx, 1);
+        homepageList.push(selected);
+
+        // Mark matrix cells as occupied
+        if (selected.orientation === "landscape") {
+          gridMatrix[r][c] = true;
+          gridMatrix[r][c + 1] = true;
+        } else if (selected.orientation === "portrait") {
+          gridMatrix[r][c] = true;
+          gridMatrix[r + 1][c] = true; // Mark space in row below
+        } else {
+          gridMatrix[r][c] = true;
+        }
+      }
+    }
+  }
+
+  artworks = homepageList;
+} else {
+  artworks = artworks.sort(() => Math.random() - 0.5);
+}
+---
+
+<section id="art" class="section" aria-labelledby="art-heading">
+  <div class="container container--wide">
+    <div class="art-header">
+      <div>
+        <p class="section-tag" data-reveal data-i18n="art.tag">AI gallery</p>
+        <h2 id="art-heading" data-reveal data-delay="1">
+          <span class="gradient-text" data-i18n="art.heading">Shaun.ai</span>
+        </h2>
+        <p class="section-sub" data-reveal data-delay="2" data-i18n="art.sub">
+          A collection of AI-generated works exploring surreal aesthetics, digital landscapes, and fantasy architecture.
+          Follow <a
+            href="https://www.instagram.com/shaun.ai/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="insta-link"
+            ><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"
+              ><path
+                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+              ></path></svg
+            >@shaun.ai</a
+          > for more.
+        </p>
+      </div>
+    </div>
+
+    <!-- Responsive Max-Width Grid -->
+    <div class="art-grid" id="art-grid" role="list" data-artworks={JSON.stringify(artworks)}>
+      {
+        artworks.map((art, i) => (
+          <article
+            class={`art-item art-item--${art.orientation}`}
+            data-orientation={art.orientation}
+            data-reveal="scale"
+            data-delay={String((i % 4) + 1)}
+            role="listitem"
+          >
+            <div class="holo-scene">
+              <button
+                class="holo-card"
+                id={`artwork-${art.id}`}
+                aria-label={`View ${art.title} — Shaun.ai`}
+                data-art-id={art.id}
+                data-art-index={String(i)}
+              >
+                {/* Card content */}
+                <div class="holo-card__content">
+                  {art.src ? (
+                    <img src={art.src} alt={art.title} width="900" height="600" loading="lazy" class="art-img" />
+                  ) : (
+                    <div class={`art-placeholder art-ph--${art.gradientIdx}`} aria-hidden="true">
+                      <div class="art-shimmer" />
+                      <div class="art-label-inner">
+                        <svg
+                          width="32"
+                          height="32"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="1.5"
+                          opacity="0.35"
+                        >
+                          <rect x="3" y="3" width="18" height="18" rx="2" />
+                          <circle cx="8.5" cy="8.5" r="1.5" />
+                          <polyline points="21 15 16 10 5 21" />
+                        </svg>
+                        <span class="art-filename">Add your image</span>
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                {/* Amplified Holographic Foil Layers */}
+                <div class="holo-sheen" aria-hidden="true" />
+                <div class="holo-shimmer" aria-hidden="true" />
+                <div class="holo-rainbow" aria-hidden="true" />
+                <div class="holo-glare" aria-hidden="true" />
+
+                {/* Info Overlay */}
+                <div class="art-overlay" aria-hidden="true">
+                  <span class="art-title">{art.title}</span>
+                  <div class="art-expand-icon">
+                    <Maximize2 width="24" height="24" />
+                  </div>
+                </div>
+              </button>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    <!-- CTA to full gallery page if on Homepage -->
+    {
+      isHomepage && (
+        <div class="art-footer-cta" data-reveal data-delay="2">
+          <a href="/shaun-ai-gallery" class="btn-neu btn-neu--primary">
+            <span>Explore more works</span>
+          </a>
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<!-- Lightbox Modal -->
+<div id="art-lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Artwork viewer" hidden>
+  <div class="lightbox-backdrop" id="lightbox-backdrop"></div>
+  <div class="lightbox-inner glass">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close lightbox">
+      <X color="#fff" width="24" height="24" />
+    </button>
+
+    <div class="lb-holo-scene">
+      <div class="lb-holo-card" id="lb-holo-card">
+        <div class="lb-flip-inner" id="lb-flip-inner">
+          <div id="lightbox-placeholder" class="lightbox-placeholder"></div>
+
+          <!-- Lightbox Holographic Foil Layers -->
+          <div class="holo-sheen" aria-hidden="true"></div>
+          <div class="holo-shimmer" aria-hidden="true"></div>
+          <div class="holo-rainbow" aria-hidden="true"></div>
+          <div class="holo-glare" aria-hidden="true"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lightbox-info">
+      <h3 id="lightbox-title" class="lightbox-title"></h3>
+      <p id="lightbox-category" class="lightbox-cat"></p>
+    </div>
+
+    <div class="lightbox-nav">
+      <button class="lb-nav-btn" id="lb-prev" aria-label="Previous artwork">
+        <ChevronLeft color="#fff" width="24" height="24" />
+      </button>
+      <button class="lb-nav-btn" id="lb-next" aria-label="Next artwork">
+        <ChevronRight color="#fff" width="24" height="24" />
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .container--wide {
+    max-width: 1400px; /* Expands section layout to fill large desktop screens */
+  }
+
+  .art-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 2rem;
+  }
+
+  .section-sub {
+    color: var(--color-text-muted);
+    max-width: 640px;
+  }
+
+  :global(.insta-link) {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.2rem 0.65rem;
+    margin: 0 0.2rem;
+    border-radius: var(--radius-full);
+    background: linear-gradient(135deg, rgba(225, 48, 108, 0.15), rgba(131, 58, 180, 0.15));
+    border: 1px solid rgba(225, 48, 108, 0.35);
+    color: #e1306c;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    vertical-align: middle;
+  }
+
+  :global(.insta-link:hover) {
+    background: linear-gradient(135deg, rgba(225, 48, 108, 0.25), rgba(253, 29, 29, 0.25));
+    border-color: rgba(225, 48, 108, 0.6);
+    color: #fd1d1d;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(225, 48, 108, 0.25);
+  }
+
+  h2 {
+    margin-bottom: 0.5rem;
+  }
+
+  /* =============================================
+     RESPONSIVE GRID SYSTEM
+  ============================================= */
+  .art-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* grid-auto-rows: clamp(240px, 22vw, 360px); */
+    grid-auto-rows: clamp(240px, 20vw, 320px);
+    gap: 1.25rem;
+    /* CRITICAL: Backfills gaps when 2-space items shift */
+    grid-auto-flow: dense;
+  }
+
+  .art-item {
+    width: 100%;
+    height: 100%;
+    transition: opacity var(--transition-base);
+  }
+
+  .art-item--landscape {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+
+  .art-item--portrait {
+    grid-column: span 1;
+    grid-row: span 2;
+  }
+
+  .art-item--square {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+
+  .art-footer-cta {
+    margin-top: 3.5rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  /* =============================================
+     AMPLIFIED HOLOGRAPHIC CARD - Scene & 3D Tilt
+  ============================================= */
+  .holo-scene {
+    width: 100%;
+    height: 100%;
+    perspective: 1000px;
+    perspective-origin: center center;
+  }
+
+  .holo-card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    border: 1px solid var(--glass-border);
+    background: var(--color-surface);
+
+    /* Dynamic CSS Custom Properties */
+    --rx: 0deg;
+    --ry: 0deg;
+    --mx: 50%;
+    --my: 50%;
+    --intensity: 0;
+
+    transform-style: preserve-3d;
+    transform: rotateX(var(--rx)) rotateY(var(--ry)) scale3d(1, 1, 1);
+    transition:
+      transform 0.1s ease,
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
+
+    will-change: transform;
+  }
+
+  .holo-card.is-resting {
+    transition:
+      transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1),
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
+  }
+
+  .holo-card:hover {
+    border-color: rgba(108, 92, 231, 0.7);
+    box-shadow:
+      0 30px 70px -15px rgba(0, 0, 0, 0.65),
+      0 0 0 1px rgba(108, 92, 231, 0.3),
+      0 0 50px 0px rgba(108, 92, 231, 0.45);
+  }
+
+  .holo-card__content {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .art-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--transition-slow);
+  }
+
+  .holo-card:hover .art-img {
+    transform: scale(1.05);
+  }
+
+  /* =============================================
+     STRONGER HOLOGRAPHIC FOIL LAYERS
+  ============================================= */
+
+  /* Layer 1: Metallic Foil Sheen Lines */
+  .holo-sheen {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+      calc(var(--mx, 50%) * 2.5deg),
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.08) 8%,
+      rgba(255, 255, 255, 0) 16%
+    );
+    opacity: calc(var(--intensity, 0) * 0.9);
+    mix-blend-mode: color-dodge;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Layer 2: Shimmer Diagonal Light Sweep */
+  .holo-shimmer {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    background: linear-gradient(
+      calc(var(--mx, 50%) * 1.8deg),
+      transparent 20%,
+      rgba(255, 255, 255, 0.25) 50%,
+      transparent 80%
+    );
+    opacity: calc(var(--intensity, 0) * 0.85 + 0.05);
+    mix-blend-mode: overlay;
+    transition: opacity 0.35s ease;
+  }
+
+  /* Layer 3: Vibrant Conic Rainbow Spectrum */
+  .holo-rainbow {
+    position: absolute;
+    inset: -30%;
+    z-index: 3;
+    pointer-events: none;
+
+    background: conic-gradient(
+      from calc(var(--mx, 50%) * 4.2deg) at var(--mx, 50%) var(--my, 50%),
+      #ff0055,
+      #ff9900,
+      #33ff00,
+      #00ffff,
+      #0066ff,
+      #9900ff,
+      #ff0055
+    );
+
+    opacity: calc(var(--intensity, 0) * 0.52);
+    mix-blend-mode: color-dodge;
+    filter: blur(14px) contrast(130%);
+    transition: opacity 0.3s ease;
+  }
+
+  /* Layer 4: Specular Glare Highlight */
+  .holo-glare {
+    position: absolute;
+    inset: -25%;
+    z-index: 4;
+    pointer-events: none;
+
+    background: radial-gradient(
+      farthest-corner ellipse at var(--mx, 50%) var(--my, 50%),
+      rgba(255, 255, 255, 0.85) 0%,
+      rgba(255, 255, 255, 0) 60%
+    );
+
+    opacity: calc(var(--intensity, 0) * 0.8);
+    mix-blend-mode: overlay;
+    transition: opacity 0.3s ease;
+  }
+
+  /* Overlay info */
+  .art-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(12, 13, 20, 0.92) 0%, rgba(12, 13, 20, 0.2) 60%, transparent 100%);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem;
+    gap: 0.35rem;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  .holo-card:hover .art-overlay {
+    opacity: 1;
+  }
+
+  .art-title {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: white;
+    line-height: 1.25;
+  }
+
+  .art-expand-icon {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    color: rgba(255, 255, 255, 0.85);
+  }
+
+  /* Placeholders */
+  .art-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .art-ph--0 {
+    background: linear-gradient(135deg, #1a0a2e, #2d1065, #0d2645);
+  }
+  .art-ph--1 {
+    background: linear-gradient(135deg, #0a1628, #0c4a6e, #064e3b);
+  }
+  .art-ph--2 {
+    background: linear-gradient(135deg, #1a0f27, #4c1d95, #831843);
+  }
+  .art-ph--3 {
+    background: linear-gradient(135deg, #0f1729, #1e3a5f, #0f3460);
+  }
+  .art-ph--4 {
+    background: linear-gradient(135deg, #0d1f2d, #134e4a, #1e3a5f);
+  }
+  .art-ph--5 {
+    background: linear-gradient(135deg, #2d0b3b, #5b21b6, #1e1b4b);
+  }
+
+  .art-shimmer {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.08) 50%, transparent 100%);
+    background-size: 200% 100%;
+    animation: shimmer-sweep 3s ease-in-out infinite;
+  }
+
+  .art-label-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    z-index: 1;
+    text-align: center;
+  }
+
+  .art-filename {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    letter-spacing: 0.05em;
+  }
+
+  /* =============================================
+     EXPANDED LIGHTBOX MODAL
+  ============================================= */
+  .lightbox {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .lightbox[hidden] {
+    display: none;
+  }
+
+  .lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(8, 9, 13, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .lightbox-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1200px;
+    width: 92vw;
+    border-radius: var(--radius-xl);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    animation: lb-enter 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes lb-enter {
+    from {
+      opacity: 0;
+      transform: scale(0.92) translateY(1.5rem);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-full);
+    width: 42px;
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    transition: all var(--transition-fast);
+    z-index: 10;
+  }
+
+  .lightbox-close:hover {
+    color: var(--color-text);
+    background: rgba(255, 255, 255, 0.18);
+    transform: scale(1.05);
+  }
+
+  .lb-holo-scene {
+    perspective: 1200px;
+    perspective-origin: center center;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .lb-holo-card.is-landscape {
+    width: 100%;
+    max-height: 68vh;
+    aspect-ratio: 16 / 10;
+  }
+
+  .lb-holo-card.is-portrait {
+    height: 72vh;
+    max-width: 600px;
+    aspect-ratio: 3 / 4;
+  }
+
+  .lb-holo-card.is-square {
+    width: 100%;
+    max-height: 68vh;
+    max-width: 680px;
+    aspect-ratio: 1 / 1;
+  }
+
+  .lb-holo-card {
+    position: relative;
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(108, 92, 231, 0.3);
+    overflow: hidden;
+    transform-style: preserve-3d;
+    cursor: crosshair;
+
+    --rx: 0deg;
+    --ry: 0deg;
+    --mx: 50%;
+    --my: 50%;
+    --intensity: 0;
+
+    transform: rotateX(var(--rx)) rotateY(var(--ry));
+    transition:
+      transform 0.12s ease,
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
+    will-change: transform;
+  }
+
+  .lb-holo-card.is-resting {
+    transition:
+      transform 0.75s cubic-bezier(0.34, 1.56, 0.64, 1),
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
+  }
+
+  .lb-holo-card:hover {
+    border-color: rgba(108, 92, 231, 0.7);
+    box-shadow:
+      0 35px 90px -20px rgba(0, 0, 0, 0.8),
+      0 0 40px rgba(108, 92, 231, 0.3);
+  }
+
+  .lb-flip-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+  }
+
+  .lb-flip-inner.is-flipping {
+    animation: lb-flip 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  @keyframes lb-flip {
+    0% {
+      transform: rotateY(0deg);
+    }
+    45% {
+      transform: rotateY(90deg);
+      opacity: 0.3;
+    }
+    55% {
+      transform: rotateY(270deg);
+      opacity: 0.3;
+    }
+    100% {
+      transform: rotateY(360deg);
+    }
+  }
+
+  .lb-flip-inner.is-entering {
+    animation: lb-enter-flip 0.65s cubic-bezier(0.34, 1.2, 0.64, 1);
+  }
+
+  @keyframes lb-enter-flip {
+    0% {
+      transform: rotateY(-180deg);
+      opacity: 0;
+    }
+    60% {
+      opacity: 1;
+    }
+    100% {
+      transform: rotateY(0deg);
+    }
+  }
+
+  .lightbox-placeholder {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    overflow: hidden;
+  }
+
+  .lightbox-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .lightbox-title {
+    font-size: 1.35rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+  }
+
+  .lightbox-cat {
+    font-size: 0.85rem;
+    color: var(--color-secondary);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .lightbox-nav {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+
+  .lb-nav-btn {
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-full);
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: var(--color-text-muted);
+    transition: all var(--transition-base);
+  }
+
+  .lb-nav-btn:hover {
+    color: var(--color-text);
+    border-color: var(--color-primary);
+    background: rgba(108, 92, 231, 0.2);
+    transform: scale(1.05);
+  }
+
+  @media (max-width: 1100px) {
+    .art-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 280px;
+    }
+    .art-item--landscape {
+      grid-column: span 2;
+    }
+    .art-item--portrait {
+      grid-row: span 2;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .art-grid {
+      grid-template-columns: 1fr;
+      grid-auto-rows: 280px;
+    }
+    .art-item--landscape,
+    .art-item--portrait,
+    .art-item--square {
+      grid-column: span 1;
+      grid-row: span 1;
+    }
+    .art-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+</style>
+
+<script>
+  const gridEl = document.getElementById("art-grid");
+  const artworks = gridEl?.dataset.artworks ? JSON.parse(gridEl.dataset.artworks) : [];
+
+  const MAX_TILT = 22; // Stronger tilt range
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Grid Holographic Tilt Handler
+  document.querySelectorAll<HTMLElement>(".holo-card").forEach((card) => {
+    if (prefersReducedMotion) return;
+
+    let rafId: number | null = null;
+    let targetRx = 0,
+      targetRy = 0,
+      targetMx = 50,
+      targetMy = 50;
+    let currentRx = 0,
+      currentRy = 0,
+      currentMx = 50,
+      currentMy = 50;
+    let isHovered = false;
+
+    function lerp(a: number, b: number, t: number) {
+      return a + (b - a) * t;
+    }
+
+    function animate() {
+      const lerpFactor = isHovered ? 0.14 : 0.06;
+      currentRx = lerp(currentRx, targetRx, lerpFactor);
+      currentRy = lerp(currentRy, targetRy, lerpFactor);
+      currentMx = lerp(currentMx, targetMx, lerpFactor);
+      currentMy = lerp(currentMy, targetMy, lerpFactor);
+
+      const intensity = isHovered ? 1 : 0;
+      card.style.setProperty("--rx", `${currentRx}deg`);
+      card.style.setProperty("--ry", `${currentRy}deg`);
+      card.style.setProperty("--mx", `${currentMx}%`);
+      card.style.setProperty("--my", `${currentMy}%`);
+      card.style.setProperty(
+        "--intensity",
+        String(lerp(parseFloat(card.style.getPropertyValue("--intensity") || "0"), intensity, 0.12)),
+      );
+
+      card.style.transform = `rotateX(${currentRx}deg) rotateY(${currentRy}deg) scale3d(${isHovered ? 1.04 : 1}, ${isHovered ? 1.04 : 1}, 1)`;
+
+      const hasSettled =
+        Math.abs(currentRx - targetRx) < 0.01 &&
+        Math.abs(currentRy - targetRy) < 0.01 &&
+        Math.abs(currentMx - targetMx) < 0.1 &&
+        Math.abs(currentMy - targetMy) < 0.1;
+
+      if (!hasSettled || isHovered) {
+        rafId = requestAnimationFrame(animate);
+      } else {
+        rafId = null;
+      }
+    }
+
+    function startAnimation() {
+      if (rafId === null) rafId = requestAnimationFrame(animate);
+    }
+
+    card.addEventListener("mousemove", (e: MouseEvent) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+
+      targetRy = (x - 0.5) * MAX_TILT * 2;
+      targetRx = -(y - 0.5) * MAX_TILT * 2;
+      targetMx = x * 100;
+      targetMy = y * 100;
+
+      if (!isHovered) {
+        isHovered = true;
+        card.classList.remove("is-resting");
+      }
+      startAnimation();
+    });
+
+    card.addEventListener("mouseleave", () => {
+      isHovered = false;
+      targetRx = 0;
+      targetRy = 0;
+      targetMx = 50;
+      targetMy = 50;
+      card.classList.add("is-resting");
+      startAnimation();
+    });
+  });
+
+  // Lightbox Modal Logic
+  let currentIndex = 0;
+  let isFlipping = false;
+
+  const lightbox = document.getElementById("art-lightbox");
+  const lbTitle = document.getElementById("lightbox-title");
+  const lbCat = document.getElementById("lightbox-category");
+  const lbPlaceholder = document.getElementById("lightbox-placeholder") as HTMLElement | null;
+  const lbHoloCard = document.getElementById("lb-holo-card") as HTMLElement | null;
+  const lbFlipInner = document.getElementById("lb-flip-inner") as HTMLElement | null;
+
+  const gradients = [
+    "linear-gradient(135deg, #1a0a2e, #2d1065, #0d2645)",
+    "linear-gradient(135deg, #0a1628, #0c4a6e, #064e3b)",
+    "linear-gradient(135deg, #1a0f27, #4c1d95, #831843)",
+    "linear-gradient(135deg, #0f1729, #1e3a5f, #0f3460)",
+    "linear-gradient(135deg, #0d1f2d, #134e4a, #1e3a5f)",
+    "linear-gradient(135deg, #2d0b3b, #5b21b6, #1e1b4b)",
+  ];
+
+  function setLbContent(idx: number) {
+    const art = artworks[idx];
+    if (!art) return;
+
+    if (lbTitle) lbTitle.textContent = art.title;
+    if (lbCat) lbCat.textContent = "Generative Art by Shaun.ai";
+
+    if (lbHoloCard) {
+      lbHoloCard.classList.remove("is-landscape", "is-portrait", "is-square");
+      const orientation = art.orientation || "landscape";
+      lbHoloCard.classList.add(`is-${orientation}`);
+    }
+
+    if (!lbPlaceholder) return;
+    const imageToDisplay = art.lightboxSrc || art.src;
+    if (imageToDisplay) {
+      lbPlaceholder.style.background = "";
+      lbPlaceholder.innerHTML = `<img src="${imageToDisplay}" alt="${art.title}" style="width:100%;height:100%;object-fit:cover;display:block;" />`;
+    } else {
+      lbPlaceholder.innerHTML = "";
+      lbPlaceholder.style.background = gradients[art.gradientIdx] ?? gradients[0];
+    }
+  }
+
+  function openLightbox(idx: number) {
+    currentIndex = idx;
+    setLbContent(idx);
+    lightbox?.removeAttribute("hidden");
+    document.body.style.overflow = "hidden";
+
+    if (lbFlipInner && !prefersReducedMotion) {
+      lbFlipInner.classList.remove("is-flipping", "is-entering");
+      void lbFlipInner.offsetWidth;
+      lbFlipInner.classList.add("is-entering");
+      lbFlipInner.addEventListener(
+        "animationend",
+        () => {
+          lbFlipInner?.classList.remove("is-entering");
+        },
+        { once: true },
+      );
+    }
+    attachLbHolo();
+  }
+
+  function navigateLightbox(idx: number) {
+    if (isFlipping) return;
+    if (!lbFlipInner || prefersReducedMotion) {
+      currentIndex = idx;
+      setLbContent(idx);
+      return;
+    }
+
+    isFlipping = true;
+    lbFlipInner.classList.remove("is-flipping", "is-entering");
+    void lbFlipInner.offsetWidth;
+    lbFlipInner.classList.add("is-flipping");
+
+    setTimeout(() => {
+      currentIndex = idx;
+      setLbContent(idx);
+    }, 230);
+
+    lbFlipInner.addEventListener(
+      "animationend",
+      () => {
+        lbFlipInner?.classList.remove("is-flipping");
+        isFlipping = false;
+      },
+      { once: true },
+    );
+  }
+
+  function closeLightbox() {
+    lightbox?.setAttribute("hidden", "");
+    document.body.style.overflow = "";
+    if (lbHoloCard) {
+      lbHoloCard.style.setProperty("--intensity", "0");
+      lbHoloCard.style.transform = "rotateX(0deg) rotateY(0deg)";
+    }
+  }
+
+  let lbHoloAttached = false;
+  let lbRafId: number | null = null;
+  let lbTargetRx = 0,
+    lbTargetRy = 0,
+    lbTargetMx = 50,
+    lbTargetMy = 50;
+  let lbCurrentRx = 0,
+    lbCurrentRy = 0,
+    lbCurrentMx = 50,
+    lbCurrentMy = 50;
+  let lbIsHovered = false;
+  const LB_MAX_TILT = 16;
+
+  function lbLerp(a: number, b: number, t: number) {
+    return a + (b - a) * t;
+  }
+
+  function lbAnimate() {
+    const t = lbIsHovered ? 0.12 : 0.05;
+    lbCurrentRx = lbLerp(lbCurrentRx, lbTargetRx, t);
+    lbCurrentRy = lbLerp(lbCurrentRy, lbTargetRy, t);
+    lbCurrentMx = lbLerp(lbCurrentMx, lbTargetMx, t);
+    lbCurrentMy = lbLerp(lbCurrentMy, lbTargetMy, t);
+
+    const prevIntensity = parseFloat(lbHoloCard?.style.getPropertyValue("--intensity") || "0");
+    const targetIntensity = lbIsHovered ? 1 : 0;
+    const intensity = lbLerp(prevIntensity, targetIntensity, 0.08);
+
+    if (!lbHoloCard) return;
+    lbHoloCard.style.setProperty("--rx", `${lbCurrentRx}deg`);
+    lbHoloCard.style.setProperty("--ry", `${lbCurrentRy}deg`);
+    lbHoloCard.style.setProperty("--mx", `${lbCurrentMx}%`);
+    lbHoloCard.style.setProperty("--my", `${lbCurrentMy}%`);
+    lbHoloCard.style.setProperty("--intensity", String(intensity));
+    lbHoloCard.style.transform = `rotateX(${lbCurrentRx}deg) rotateY(${lbCurrentRy}deg) scale3d(${lbIsHovered ? 1.02 : 1}, ${lbIsHovered ? 1.02 : 1}, 1)`;
+
+    const hasSettled =
+      Math.abs(lbCurrentRx - lbTargetRx) < 0.01 &&
+      Math.abs(lbCurrentRy - lbTargetRy) < 0.01 &&
+      Math.abs(intensity - targetIntensity) < 0.005;
+
+    if (!hasSettled || lbIsHovered) {
+      lbRafId = requestAnimationFrame(lbAnimate);
+    } else {
+      lbRafId = null;
+    }
+  }
+
+  function lbStartAnim() {
+    if (lbRafId === null) lbRafId = requestAnimationFrame(lbAnimate);
+  }
+
+  function attachLbHolo() {
+    if (lbHoloAttached || prefersReducedMotion || !lbHoloCard) return;
+    lbHoloAttached = true;
+
+    lbHoloCard.addEventListener("mousemove", (e: MouseEvent) => {
+      const rect = lbHoloCard!.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width;
+      const y = (e.clientY - rect.top) / rect.height;
+      lbTargetRy = (x - 0.5) * LB_MAX_TILT * 2;
+      lbTargetRx = -(y - 0.5) * LB_MAX_TILT * 2;
+      lbTargetMx = x * 100;
+      lbTargetMy = y * 100;
+      if (!lbIsHovered) {
+        lbIsHovered = true;
+        lbHoloCard!.classList.remove("is-resting");
+      }
+      lbStartAnim();
+    });
+
+    lbHoloCard.addEventListener("mouseleave", () => {
+      lbIsHovered = false;
+      lbTargetRx = 0;
+      lbTargetRy = 0;
+      lbTargetMx = 50;
+      lbTargetMy = 50;
+      lbHoloCard!.classList.add("is-resting");
+      lbStartAnim();
+    });
+  }
+
+  document.querySelectorAll<HTMLElement>(".holo-card").forEach((btn, i) => {
+    btn.addEventListener("click", () => openLightbox(i));
+  });
+
+  document.getElementById("lightbox-close")?.addEventListener("click", closeLightbox);
+  document.getElementById("lightbox-backdrop")?.addEventListener("click", closeLightbox);
+
+  document.getElementById("lb-prev")?.addEventListener("click", () => {
+    navigateLightbox((currentIndex - 1 + artworks.length) % artworks.length);
+  });
+  document.getElementById("lb-next")?.addEventListener("click", () => {
+    navigateLightbox((currentIndex + 1) % artworks.length);
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!lightbox?.hasAttribute("hidden")) {
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") navigateLightbox((currentIndex - 1 + artworks.length) % artworks.length);
+      if (e.key === "ArrowRight") navigateLightbox((currentIndex + 1) % artworks.length);
+    }
+  });
+</script>

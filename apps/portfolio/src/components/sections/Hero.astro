@@ -1,0 +1,438 @@
+---
+import darkShaun from "../../assets/avatar/dark-shaun-transparent.png";
+import lightShaun from "../../assets/avatar/light-shaun-transparent.png";
+
+import { Send, Telescope } from "@lucide/astro";
+---
+
+<section id="hero" aria-label="Introduction">
+  <div class="container hero-grid">
+    <div class="hero-text-col">
+      <h1 class="hero-h1" aria-label="Hey, I'm Shaun Fischmann">
+        <span class="hero-greeting word-reveal" data-reveal data-delay="1">
+          <span data-i18n="hero.greeting">Hey, I'm</span>
+        </span>
+        <span class="gradient-text hero-name word-reveal" data-reveal data-delay="2" data-i18n="hero.name1">Shaun</span>
+        <span class="gradient-text hero-name word-reveal" data-reveal data-delay="3" data-i18n="hero.name2"
+          >Fischmann</span
+        >
+      </h1>
+
+      <div class="hero-typing" data-reveal data-delay="2" aria-hidden="true">
+        <span class="typing-text" id="typing-text"></span><span class="typing-caret" aria-hidden="true"></span>
+      </div>
+
+      <p class="hero-subtitle" data-reveal data-delay="3" data-i18n="hero.subtitle">
+        10+ years building real estate platforms and web applications specializing in <strong>PHP</strong>, <strong
+          >API integrations</strong
+        > &amp;
+        <strong>enterprise CRM architecture</strong>. Passionate about <strong>generative AI</strong> and creative digital
+        experiences.
+      </p>
+
+      <div class="hero-actions" data-reveal data-delay="4">
+        <a href="#contact" class="btn-neu btn-neu--primary" id="hero-contact-btn">
+          <span data-i18n="hero.cta_contact">Connect With Me</span>
+          <Send size={20} stroke-width="2" />
+        </a>
+        <a href="/shaun-ai-gallery" class="btn-neu" id="hero-art-btn">
+          <span data-i18n="hero.cta_gallery">Explore Gallery</span>
+          <Telescope size={20} stroke-width="2" />
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-cutout-col" id="hero-cutout-wrap" data-reveal="scale">
+      <div class="cutout-wrapper" id="hero-cutout">
+        <!-- Multi-color ambient glow orbs -->
+        <div class="glow-orbs-container" aria-hidden="true">
+          <div class="glow-orb orb-magenta"></div>
+          <div class="glow-orb orb-cyan"></div>
+          <div class="glow-orb orb-mauve"></div>
+        </div>
+
+        <!-- Portrait Image -->
+        <div class="cutout-frame">
+          <img
+            src={lightShaun.src}
+            alt="Shaun Fischmann — Portrait"
+            width="380"
+            height="460"
+            loading="eager"
+            class="cutout-img cutout-img--light"
+          />
+          <img
+            src={darkShaun.src}
+            alt="Shaun Fischmann — Portrait"
+            width="380"
+            height="460"
+            loading="eager"
+            class="cutout-img cutout-img--dark"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #hero {
+    position: relative;
+    padding-top: clamp(6.5rem, 12vw, 10rem);
+    padding-bottom: clamp(4rem, 8vw, 6rem);
+    min-height: 90dvh;
+    display: flex;
+    align-items: center;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: clamp(2rem, 5vw, 4rem);
+    align-items: center;
+  }
+
+  /* Tag Pill */
+
+  @keyframes pulse-glow {
+    0%,
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+    50% {
+      transform: scale(1.3);
+      opacity: 0.6;
+    }
+  }
+
+  /* Headings */
+  .hero-h1 {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0.5rem;
+    overflow: visible;
+  }
+
+  .word-reveal {
+    display: inline-block;
+  }
+
+  .hero-greeting {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-weight: 600;
+    color: var(--color-text-muted);
+    font-family: var(--font-body);
+  }
+
+  .hero-name {
+    font-size: clamp(2.75rem, 6.5vw, 4.75rem);
+    font-family: var(--font-heading);
+    line-height: 1.05;
+  }
+
+  /* Typing effect */
+  .hero-typing {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 1.25rem;
+    font-family: var(--font-code);
+    font-size: clamp(0.875rem, 1.6vw, 1rem);
+    color: var(--color-secondary);
+    height: 1.6em;
+  }
+
+  .typing-caret {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    background: var(--color-primary);
+    margin-left: 2px;
+    animation: typing-cursor 0.8s step-end infinite;
+    vertical-align: text-bottom;
+    border-radius: 1px;
+  }
+
+  .hero-subtitle {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 1.6vw, 1.125rem);
+    color: var(--color-text-muted);
+    line-height: 1.75;
+    margin-bottom: 2rem;
+    max-width: 560px;
+  }
+
+  .hero-subtitle strong {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  /* Actions */
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 2.5rem;
+  }
+
+  /* Portrait Column */
+  .hero-cutout-col {
+    display: flex;
+    justify-content: center;
+    position: relative;
+  }
+
+  .cutout-wrapper {
+    position: relative;
+    width: clamp(280px, 36vw, 440px);
+    height: clamp(380px, 48vw, 560px);
+    will-change: transform, opacity;
+    transition:
+      transform 0.1s linear,
+      opacity 0.1s linear;
+  }
+
+  /* Ambient Multi-Colored Glow Orbs */
+  .glow-orbs-container {
+    position: absolute;
+    inset: -35px;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .glow-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(55px);
+    opacity: 0.45;
+    will-change: transform;
+  }
+
+  .orb-magenta {
+    top: -5%;
+    left: -15%;
+    width: 260px;
+    height: 260px;
+    background: radial-gradient(circle, #e84393 0%, rgba(232, 67, 147, 0) 70%);
+    animation: orb-drift-1 28s ease-in-out infinite alternate;
+  }
+
+  .orb-cyan {
+    bottom: 0%;
+    right: -15%;
+    width: 280px;
+    height: 280px;
+    background: radial-gradient(circle, #00cec9 0%, rgba(0, 206, 201, 0) 70%);
+    animation: orb-drift-2 34s ease-in-out infinite alternate;
+  }
+
+  .orb-mauve {
+    top: 30%;
+    left: 20%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, #6c5ce7 0%, rgba(108, 92, 231, 0) 70%);
+    animation: orb-drift-3 30s ease-in-out infinite alternate;
+  }
+
+  /* Imperceptibly slow organic floating drift */
+  @keyframes orb-drift-1 {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(16px, 22px) scale(1.05);
+    }
+    100% {
+      transform: translate(-12px, 10px) scale(0.95);
+    }
+  }
+
+  @keyframes orb-drift-2 {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(-22px, -18px) scale(1.04);
+    }
+    100% {
+      transform: translate(14px, -10px) scale(0.97);
+    }
+  }
+
+  @keyframes orb-drift-3 {
+    0% {
+      transform: translate(0, 0) scale(1);
+    }
+    50% {
+      transform: translate(-15px, 20px) scale(0.94);
+    }
+    100% {
+      transform: translate(20px, -14px) scale(1.06);
+    }
+  }
+
+  /* Neumorphic frame with bottom gradient fade */
+  .cutout-frame {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+
+    -webkit-mask-image: linear-gradient(to bottom, black 65%, transparent 98%);
+    mask-image: linear-gradient(to bottom, black 65%, transparent 98%);
+  }
+
+  .cutout-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .cutout-img--light {
+    display: block;
+  }
+
+  .cutout-img--dark {
+    display: none;
+  }
+
+  :global([data-theme="dark"]) .cutout-img--light {
+    display: none;
+  }
+
+  :global([data-theme="dark"]) .cutout-img--dark {
+    display: block;
+  }
+
+  .cutout-fallback {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, var(--color-surface), var(--color-bg-subtle));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .cutout-graphic {
+    color: var(--color-primary);
+    opacity: 0.5;
+  }
+
+  .cutout-initials {
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    font-weight: 700;
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @media (max-width: 868px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      text-align: center;
+    }
+
+    .hero-typing {
+      justify-content: center;
+    }
+
+    .hero-subtitle {
+      margin: 0 auto 2rem;
+    }
+
+    .hero-actions,
+    .hero-pills {
+      justify-content: center;
+    }
+
+    .hero-cutout-col {
+      margin-top: 3rem;
+    }
+  }
+</style>
+
+<script>
+  // Parallax & Fade on Scroll for Photo Cutout
+  const cutout = document.getElementById("hero-cutout");
+
+  function handleParallaxScroll() {
+    if (!cutout) return;
+    const scrollY = window.scrollY;
+    const heroEl = document.getElementById("hero");
+    const heroHeight = heroEl?.offsetHeight || 600;
+
+    // Smoothly fade out as user scrolls toward the next section
+    const fadeProgress = Math.min(scrollY / (heroHeight * 0.7), 1);
+    const opacity = Math.max(1 - fadeProgress, 0).toFixed(3);
+    const translateY = (scrollY * 0.25).toFixed(2);
+
+    cutout.style.transform = `translate3d(0, ${translateY}px, 0)`;
+    cutout.style.opacity = opacity;
+  }
+
+  window.addEventListener("scroll", handleParallaxScroll, { passive: true });
+
+  // Typing Effect
+  const phrases: Record<string, string[]> = {
+    en: [
+      "Partnership Manager @ Apimo",
+      "Senior PHP Developer",
+      "10+ Years in Proptech",
+      "AI Enthusiast @ Shaun.AI",
+      "Building Something, One Line at a Time",
+    ],
+    fr: [
+      "Partnership Manager @ Apimo",
+      "Développeur PHP Senior",
+      "10+ ans en Proptech",
+      "Passionné d'IA @ Shaun.AI",
+      "Construire Quelque chose, Une Ligne à la Fois",
+    ],
+  };
+
+  const typingEl = document.getElementById("typing-text");
+  if (typingEl) {
+    let lang = (localStorage.getItem("lang") || "en") as keyof typeof phrases;
+    let phraseIdx = 0;
+    let charIdx = 0;
+    let deleting = false;
+    let timeout: number;
+
+    function tick() {
+      lang = (localStorage.getItem("lang") || "en") as keyof typeof phrases;
+      const list = phrases[lang] || phrases["en"];
+      const phrase = list[phraseIdx % list.length];
+
+      if (!deleting) {
+        charIdx++;
+        typingEl.textContent = phrase.slice(0, charIdx);
+        if (charIdx >= phrase.length) {
+          deleting = true;
+          timeout = window.setTimeout(tick, 2200);
+          return;
+        }
+        timeout = window.setTimeout(tick, 65);
+      } else {
+        charIdx--;
+        typingEl.textContent = phrase.slice(0, charIdx);
+        if (charIdx === 0) {
+          deleting = false;
+          phraseIdx = (phraseIdx + 1) % list.length;
+          timeout = window.setTimeout(tick, 400);
+          return;
+        }
+        timeout = window.setTimeout(tick, 30);
+      }
+    }
+
+    window.setTimeout(tick, 800);
+  }
+</script>

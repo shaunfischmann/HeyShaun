@@ -1,0 +1,199 @@
+---
+export interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const {
+  title = "Shaun Fischmann — Partnership Manager & Web Developer",
+  description = "Technical Partnership Manager and Senior Web Developer with 10+ years of experience in Proptech, enterprise real estate CRMs, web development, API integrations, SQL architecture. Based in France, building scalable web applications and exploring generative AI.",
+  image = "/og-image.jpg",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
+const ogImageURL = new URL(image, Astro.url);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Essential Meta -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Shaun Fischmann" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <!-- Favicon & Assets -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Keywords (semantic crawlers) -->
+    <meta
+      name="keywords"
+      content="Shaun Fischmann, Technical Partnership Manager, Partner Engineer, PHP Developer, Senior Web Developer, Real Estate CRM, SQL database architecture, MySQL, REST APIs, PHP, Symfony, Proptech, Astro, Full Stack Web Development, AI art, Midjourney, Stable Diffusion, France, portfolio"
+    />
+
+    <!-- Schema.org Comprehensive GEO Graph -->
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "ProfilePage",
+            "name": "Shaun Fischmann — Partnership Manager & Senior Developer",
+            "description": "Portfolio of Shaun Fischmann, Technical Partnership Manager and Senior PHP Developer specializing in technical integrations, real estate CRM and AI-driven solutions.",
+            "url": "https://heyshaun.fr",
+            "mainEntity": {
+              "@type": "Person",
+              "name": "Shaun Fischmann",
+              "givenName": "Shaun",
+              "familyName": "Fischmann",
+              "jobTitle": "Partnership Manager & Web Developer",
+              "description": "Partnership Manager and Senior web developer with 10+ years of experience specializing in PHP, enterprise real estate CRMs, REST API integrations, SQL, and generative AI.",
+              "url": "https://heyshaun.fr",
+              "sameAs": ["https://www.linkedin.com/in/sfischmann/", "https://github.com/shaunfischmann"],
+              "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "FR"
+              },
+              "knowsAbout": [
+                "Technical Partnership Management",
+                "API Integrations & Webhooks",
+                "PHP 7+",
+                "PHP 8+",
+                "Symfony 1.4 (legacy) & modern versions",
+                "Propel ORM",
+                "MySQL/MariaDB architecture",
+                "RESTful API Design",
+                "Astro Web Framework",
+                "Generative AI",
+                "JavaScript",
+                "Web Performance"
+              ],
+              "hasOccupation": [
+                {
+                  "@type": "Occupation",
+                  "name": "Partnership Manager",
+                  "skills": "Technical Integrations, Partner Relations, API Strategy, Solution Architecture",
+                  "occupationLocation": {
+                    "@type": "Country",
+                    "name": "France"
+                  }
+                },
+                {
+                  "@type": "Occupation",
+                  "name": "Senior Web Developer",
+                  "skills": "PHP, Enterprise CRM Architecture, MySQL, REST APIs, JavaScript, HTML, CSS",
+                  "occupationLocation": {
+                    "@type": "Country",
+                    "name": "France"
+                  }
+                }
+              ],
+              "seeks": {
+                "@type": "Demand",
+                "name": "Remote web development contracts",
+                "description": "Available for PHP backend, CRM, and full-stack web development projects."
+              }
+            }
+          },
+          {
+            "@type": "WebSite",
+            "url": "https://heyshaun.fr",
+            "name": "Shaun Fischmann — Portfolio",
+            "description": "Personal portfolio showcasing technical partnerships, web development projects, PHP expertise, and generative AI art.",
+            "author": { "@type": "Person", "name": "Shaun Fischmann" }
+          }
+        ]
+      }
+    </script>
+  </head>
+
+  <body>
+    <!-- Ambient Parallax Orbs -->
+    <div class="ambient-bg" aria-hidden="true" id="ambient-bg">
+      <div class="ambient-orb orb-1" data-parallax-speed="0.25"></div>
+      <div class="ambient-orb orb-2" data-parallax-speed="-0.35"></div>
+      <div class="ambient-orb orb-3" data-parallax-speed="0.15"></div>
+      <div class="ambient-orb orb-4" data-parallax-speed="-0.2"></div>
+      <div class="ambient-grid" data-parallax-speed="0.08"></div>
+    </div>
+
+    <slot />
+
+    <!-- Scroll reveal observer & Background Parallax script -->
+    <script>
+      // 1. Universal Scroll Reveal Observer
+      //    Handles all [data-reveal] variants including clip, slide, pop, scale
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.08, rootMargin: "0px 0px -40px 0px" },
+      );
+
+      // Observe all reveal elements
+      document.querySelectorAll("[data-reveal]").forEach((el) => {
+        revealObserver.observe(el);
+      });
+
+      // 2. High-Performance Background Parallax
+      const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!prefersReducedMotion) {
+        const parallaxElements = document.querySelectorAll<HTMLElement>("[data-parallax-speed]");
+        let ticking = false;
+
+        function updateBackgroundParallax() {
+          const scrollY = window.scrollY;
+          parallaxElements.forEach((el) => {
+            const speed = parseFloat(el.getAttribute("data-parallax-speed") || "0.1");
+            el.style.transform = `translate3d(0, ${(scrollY * speed).toFixed(2)}px, 0)`;
+          });
+          ticking = false;
+        }
+
+        window.addEventListener(
+          "scroll",
+          () => {
+            if (!ticking) {
+              window.requestAnimationFrame(updateBackgroundParallax);
+              ticking = true;
+            }
+          },
+          { passive: true },
+        );
+
+        updateBackgroundParallax();
+      }
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  @import "../styles/global.css";
+</style>

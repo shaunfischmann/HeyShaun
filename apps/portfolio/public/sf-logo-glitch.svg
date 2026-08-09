@@ -1,0 +1,913 @@
+<svg width="242" height="159" viewBox="0 0 242 159" fill="none" xmlns="http://www.w3.org/2000/svg">
+<style>
+@keyframes kf_F_Cyan_transform_0 {
+  0% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(0px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  4.55% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(0px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  29.05% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(0px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  29.06% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-8px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  29.87% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-8px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  29.88% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-8px) translateY(0px) translate(52.18px, 71.257px) scaleX(1.15) translate(-52.18px, -71.257px);
+  }
+  30.68% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-8px) translateY(0px) translate(52.18px, 71.257px) scaleX(1.15) translate(-52.18px, -71.257px);
+  }
+  30.69% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-8px) translateY(3px) translate(52.18px, 71.257px) scaleX(1.15) translate(-52.18px, -71.257px);
+  }
+  33.14% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-8px) translateY(3px) translate(52.18px, 71.257px) scaleX(1.15) translate(-52.18px, -71.257px);
+  }
+  33.15% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-12px) translateY(3px) translate(52.18px, 71.257px) scaleX(1.15) translate(-52.18px, -71.257px);
+  }
+  34.77% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-12px) translateY(3px) translate(52.18px, 71.257px) scaleX(1.15) translate(-52.18px, -71.257px);
+  }
+  34.78% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-12px) translateY(3px) translate(52.18px, 71.257px) scaleX(0.9) translate(-52.18px, -71.257px);
+  }
+  35.59% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-12px) translateY(3px) translate(52.18px, 71.257px) scaleX(0.9) translate(-52.18px, -71.257px);
+  }
+  35.6% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-12px) translateY(-2px) translate(52.18px, 71.257px) scaleX(0.9) translate(-52.18px, -71.257px);
+  }
+  37.22% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-12px) translateY(-2px) translate(52.18px, 71.257px) scaleX(0.9) translate(-52.18px, -71.257px);
+  }
+  37.23% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(5px) translateY(-2px) translate(52.18px, 71.257px) scaleX(0.9) translate(-52.18px, -71.257px);
+  }
+  38.85% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(5px) translateY(-2px) translate(52.18px, 71.257px) scaleX(0.9) translate(-52.18px, -71.257px);
+  }
+  38.86% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(5px) translateY(-2px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  41.3% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(5px) translateY(-2px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  41.31% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-6px) translateY(-2px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  45.39% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-6px) translateY(-2px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  45.4% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(0px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  69.9% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(0px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  69.91% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-15px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  71.53% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-15px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  71.54% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-15px) translateY(-5px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  72.35% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-15px) translateY(-5px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  72.36% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-15px) translateY(-5px) translate(52.18px, 71.257px) scaleX(1.2) translate(-52.18px, -71.257px);
+  }
+  73.17% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-15px) translateY(-5px) translate(52.18px, 71.257px) scaleX(1.2) translate(-52.18px, -71.257px);
+  }
+  73.18% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(10px) translateY(-5px) translate(52.18px, 71.257px) scaleX(1.2) translate(-52.18px, -71.257px);
+  }
+  76.43% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(10px) translateY(-5px) translate(52.18px, 71.257px) scaleX(1.2) translate(-52.18px, -71.257px);
+  }
+  76.44% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-18px) translateY(-5px) translate(52.18px, 71.257px) scaleX(1.2) translate(-52.18px, -71.257px);
+  }
+  77.25% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-18px) translateY(-5px) translate(52.18px, 71.257px) scaleX(1.2) translate(-52.18px, -71.257px);
+  }
+  77.26% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-18px) translateY(-5px) translate(52.18px, 71.257px) scaleX(0.85) translate(-52.18px, -71.257px);
+  }
+  78.07% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-18px) translateY(-5px) translate(52.18px, 71.257px) scaleX(0.85) translate(-52.18px, -71.257px);
+  }
+  78.08% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-18px) translateY(4px) translate(52.18px, 71.257px) scaleX(0.85) translate(-52.18px, -71.257px);
+  }
+  79.7% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-18px) translateY(4px) translate(52.18px, 71.257px) scaleX(0.85) translate(-52.18px, -71.257px);
+  }
+  79.71% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(7px) translateY(4px) translate(52.18px, 71.257px) scaleX(0.85) translate(-52.18px, -71.257px);
+  }
+  81.33% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(7px) translateY(4px) translate(52.18px, 71.257px) scaleX(0.85) translate(-52.18px, -71.257px);
+  }
+  81.34% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(7px) translateY(4px) translate(52.18px, 71.257px) scaleX(1.1) translate(-52.18px, -71.257px);
+  }
+  82.97% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(7px) translateY(4px) translate(52.18px, 71.257px) scaleX(1.1) translate(-52.18px, -71.257px);
+  }
+  82.98% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-4px) translateY(4px) translate(52.18px, 71.257px) scaleX(1.1) translate(-52.18px, -71.257px);
+  }
+  86.24% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(-4px) translateY(4px) translate(52.18px, 71.257px) scaleX(1.1) translate(-52.18px, -71.257px);
+  }
+  86.25% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(0px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  100% {
+    transform: translateX(137.635px) translateY(14.275px) translateX(0px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+}
+@keyframes kf_F_Cyan_opacity_0 {
+  0% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  4.55% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  31.5% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  31.51% {
+    animation-timing-function: linear;
+    opacity: 0.3;
+  }
+  33.95% {
+    animation-timing-function: linear;
+    opacity: 0.3;
+  }
+  33.96% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  73.98% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  73.99% {
+    animation-timing-function: linear;
+    opacity: 0;
+  }
+  75.62% {
+    animation-timing-function: linear;
+    opacity: 0;
+  }
+  75.63% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  80.52% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  80.53% {
+    animation-timing-function: linear;
+    opacity: 0.5;
+  }
+  82.15% {
+    animation-timing-function: linear;
+    opacity: 0.5;
+  }
+  82.16% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+#F_Cyan {
+  transform-origin: 0 0;
+  animation:
+    kf_F_Cyan_transform_0 2.8s linear infinite,
+    kf_F_Cyan_opacity_0 2.8s linear infinite;
+}
+@keyframes kf_S_Cyan_transform_0 {
+  0% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(0px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  21.42% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(0px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  21.43% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-8px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  22.13% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-8px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  22.14% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-8px) translateY(0px) translate(53.386px, 73.353px) scaleX(1.15) translate(-53.386px, -73.353px);
+  }
+  22.85% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-8px) translateY(0px) translate(53.386px, 73.353px) scaleX(1.15) translate(-53.386px, -73.353px);
+  }
+  22.86% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-8px) translateY(3px) translate(53.386px, 73.353px) scaleX(1.15) translate(-53.386px, -73.353px);
+  }
+  24.99% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-8px) translateY(3px) translate(53.386px, 73.353px) scaleX(1.15) translate(-53.386px, -73.353px);
+  }
+  25% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-12px) translateY(3px) translate(53.386px, 73.353px) scaleX(1.15) translate(-53.386px, -73.353px);
+  }
+  26.42% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-12px) translateY(3px) translate(53.386px, 73.353px) scaleX(1.15) translate(-53.386px, -73.353px);
+  }
+  26.43% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-12px) translateY(3px) translate(53.386px, 73.353px) scaleX(0.9) translate(-53.386px, -73.353px);
+  }
+  27.13% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-12px) translateY(3px) translate(53.386px, 73.353px) scaleX(0.9) translate(-53.386px, -73.353px);
+  }
+  27.14% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-12px) translateY(-2px) translate(53.386px, 73.353px) scaleX(0.9) translate(-53.386px, -73.353px);
+  }
+  28.56% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-12px) translateY(-2px) translate(53.386px, 73.353px) scaleX(0.9) translate(-53.386px, -73.353px);
+  }
+  28.57% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(5px) translateY(-2px) translate(53.386px, 73.353px) scaleX(0.9) translate(-53.386px, -73.353px);
+  }
+  29.99% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(5px) translateY(-2px) translate(53.386px, 73.353px) scaleX(0.9) translate(-53.386px, -73.353px);
+  }
+  30% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(5px) translateY(-2px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  32.13% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(5px) translateY(-2px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  32.14% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-6px) translateY(-2px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  35.7% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-6px) translateY(-2px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  35.71% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(0px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  57.13% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(0px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  57.14% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-15px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  58.56% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-15px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  58.57% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-15px) translateY(-5px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  59.28% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-15px) translateY(-5px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  59.29% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-15px) translateY(-5px) translate(53.386px, 73.353px) scaleX(1.2) translate(-53.386px, -73.353px);
+  }
+  59.99% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-15px) translateY(-5px) translate(53.386px, 73.353px) scaleX(1.2) translate(-53.386px, -73.353px);
+  }
+  60% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(10px) translateY(-5px) translate(53.386px, 73.353px) scaleX(1.2) translate(-53.386px, -73.353px);
+  }
+  62.85% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(10px) translateY(-5px) translate(53.386px, 73.353px) scaleX(1.2) translate(-53.386px, -73.353px);
+  }
+  62.86% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-18px) translateY(-5px) translate(53.386px, 73.353px) scaleX(1.2) translate(-53.386px, -73.353px);
+  }
+  63.56% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-18px) translateY(-5px) translate(53.386px, 73.353px) scaleX(1.2) translate(-53.386px, -73.353px);
+  }
+  63.57% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-18px) translateY(-5px) translate(53.386px, 73.353px) scaleX(0.85) translate(-53.386px, -73.353px);
+  }
+  64.28% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-18px) translateY(-5px) translate(53.386px, 73.353px) scaleX(0.85) translate(-53.386px, -73.353px);
+  }
+  64.29% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-18px) translateY(4px) translate(53.386px, 73.353px) scaleX(0.85) translate(-53.386px, -73.353px);
+  }
+  65.7% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-18px) translateY(4px) translate(53.386px, 73.353px) scaleX(0.85) translate(-53.386px, -73.353px);
+  }
+  65.71% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(7px) translateY(4px) translate(53.386px, 73.353px) scaleX(0.85) translate(-53.386px, -73.353px);
+  }
+  67.13% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(7px) translateY(4px) translate(53.386px, 73.353px) scaleX(0.85) translate(-53.386px, -73.353px);
+  }
+  67.14% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(7px) translateY(4px) translate(53.386px, 73.353px) scaleX(1.1) translate(-53.386px, -73.353px);
+  }
+  68.56% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(7px) translateY(4px) translate(53.386px, 73.353px) scaleX(1.1) translate(-53.386px, -73.353px);
+  }
+  68.57% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-4px) translateY(4px) translate(53.386px, 73.353px) scaleX(1.1) translate(-53.386px, -73.353px);
+  }
+  71.42% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-4px) translateY(4px) translate(53.386px, 73.353px) scaleX(1.1) translate(-53.386px, -73.353px);
+  }
+  71.43% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(0px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  89.28% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(0px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  89.29% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-10px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  89.99% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-10px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  90% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-10px) translateY(0px) translate(53.386px, 73.353px) scaleX(1.12) translate(-53.386px, -73.353px);
+  }
+  90.7% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-10px) translateY(0px) translate(53.386px, 73.353px) scaleX(1.12) translate(-53.386px, -73.353px);
+  }
+  90.71% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-10px) translateY(3px) translate(53.386px, 73.353px) scaleX(1.12) translate(-53.386px, -73.353px);
+  }
+  92.85% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-10px) translateY(3px) translate(53.386px, 73.353px) scaleX(1.12) translate(-53.386px, -73.353px);
+  }
+  92.86% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(6px) translateY(3px) translate(53.386px, 73.353px) scaleX(1.12) translate(-53.386px, -73.353px);
+  }
+  94.99% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(6px) translateY(3px) translate(53.386px, 73.353px) scaleX(1.12) translate(-53.386px, -73.353px);
+  }
+  95% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(6px) translateY(3px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  96.42% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(6px) translateY(3px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  96.43% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-8px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  99.99% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(-8px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  100% {
+    transform: translateX(12.057px) translateY(12.174px) translateX(0px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+}
+@keyframes kf_S_Cyan_opacity_0 {
+  0% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  23.56% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  23.57% {
+    animation-timing-function: linear;
+    opacity: 0.3;
+  }
+  25.7% {
+    animation-timing-function: linear;
+    opacity: 0.3;
+  }
+  25.71% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  60.7% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  60.71% {
+    animation-timing-function: linear;
+    opacity: 0;
+  }
+  62.13% {
+    animation-timing-function: linear;
+    opacity: 0;
+  }
+  62.14% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  66.42% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  66.43% {
+    animation-timing-function: linear;
+    opacity: 0.5;
+  }
+  67.85% {
+    animation-timing-function: linear;
+    opacity: 0.5;
+  }
+  67.86% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  91.42% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  91.43% {
+    animation-timing-function: linear;
+    opacity: 0.2;
+  }
+  93.56% {
+    animation-timing-function: linear;
+    opacity: 0.2;
+  }
+  93.57% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+#S_Cyan {
+  transform-origin: 0 0;
+  animation:
+    kf_S_Cyan_transform_0 2.8s linear infinite,
+    kf_S_Cyan_opacity_0 2.8s linear infinite;
+}
+@keyframes kf_F_1_transform_0 {
+  0% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(0px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  2.09% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(0px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  2.1% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(4px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  2.96% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(4px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  2.97% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(4px) translateY(-4px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  3.84% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(4px) translateY(-4px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  3.85% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(4px) translateY(-4px) translate(52.18px, 71.257px) scaleX(0.88) translate(-52.18px, -71.257px);
+  }
+  6.46% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(4px) translateY(-4px) translate(52.18px, 71.257px) scaleX(0.88) translate(-52.18px, -71.257px);
+  }
+  6.47% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(-3px) translateY(-4px) translate(52.18px, 71.257px) scaleX(0.88) translate(-52.18px, -71.257px);
+  }
+  8.21% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(-3px) translateY(-4px) translate(52.18px, 71.257px) scaleX(0.88) translate(-52.18px, -71.257px);
+  }
+  8.22% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(-3px) translateY(2px) translate(52.18px, 71.257px) scaleX(0.88) translate(-52.18px, -71.257px);
+  }
+  9.09% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(-3px) translateY(2px) translate(52.18px, 71.257px) scaleX(0.88) translate(-52.18px, -71.257px);
+  }
+  9.1% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(-3px) translateY(2px) translate(52.18px, 71.257px) scaleX(1.08) translate(-52.18px, -71.257px);
+  }
+  10.84% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(-3px) translateY(2px) translate(52.18px, 71.257px) scaleX(1.08) translate(-52.18px, -71.257px);
+  }
+  10.85% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(6px) translateY(2px) translate(52.18px, 71.257px) scaleX(1.08) translate(-52.18px, -71.257px);
+  }
+  12.59% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(6px) translateY(2px) translate(52.18px, 71.257px) scaleX(1.08) translate(-52.18px, -71.257px);
+  }
+  12.6% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(6px) translateY(2px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  15.22% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(6px) translateY(2px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  15.23% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(0px) translateY(2px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  19.59% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(0px) translateY(2px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  19.6% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(0px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  45.86% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(0px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  45.87% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(7px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  46.73% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(7px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  46.74% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(7px) translateY(6px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  49.36% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(7px) translateY(6px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  49.37% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(-5px) translateY(6px) translate(52.18px, 71.257px) scaleX(0.82) translate(-52.18px, -71.257px);
+  }
+  52.86% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(-5px) translateY(6px) translate(52.18px, 71.257px) scaleX(0.82) translate(-52.18px, -71.257px);
+  }
+  52.87% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(9px) translateY(6px) translate(52.18px, 71.257px) scaleX(0.82) translate(-52.18px, -71.257px);
+  }
+  53.73% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(9px) translateY(6px) translate(52.18px, 71.257px) scaleX(0.82) translate(-52.18px, -71.257px);
+  }
+  53.74% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(9px) translateY(-3px) translate(52.18px, 71.257px) scaleX(0.82) translate(-52.18px, -71.257px);
+  }
+  54.61% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(9px) translateY(-3px) translate(52.18px, 71.257px) scaleX(0.82) translate(-52.18px, -71.257px);
+  }
+  54.62% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(9px) translateY(-3px) translate(52.18px, 71.257px) scaleX(1.12) translate(-52.18px, -71.257px);
+  }
+  56.36% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(9px) translateY(-3px) translate(52.18px, 71.257px) scaleX(1.12) translate(-52.18px, -71.257px);
+  }
+  56.37% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(-3px) translateY(-3px) translate(52.18px, 71.257px) scaleX(1.12) translate(-52.18px, -71.257px);
+  }
+  58.99% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(-3px) translateY(-3px) translate(52.18px, 71.257px) scaleX(1.12) translate(-52.18px, -71.257px);
+  }
+  59% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(-3px) translateY(-3px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  59.86% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(-3px) translateY(-3px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  59.87% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(0px) translateY(-3px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  63.36% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(0px) translateY(-3px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  63.37% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(0px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  85.25% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(0px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  85.26% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(5px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  86.12% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(5px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  86.13% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(5px) translateY(-3px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  87% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(5px) translateY(-3px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  87.01% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(5px) translateY(-3px) translate(52.18px, 71.257px) scaleX(0.9) translate(-52.18px, -71.257px);
+  }
+  89.63% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(5px) translateY(-3px) translate(52.18px, 71.257px) scaleX(0.9) translate(-52.18px, -71.257px);
+  }
+  89.64% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(-4px) translateY(-3px) translate(52.18px, 71.257px) scaleX(0.9) translate(-52.18px, -71.257px);
+  }
+  92.25% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(-4px) translateY(-3px) translate(52.18px, 71.257px) scaleX(0.9) translate(-52.18px, -71.257px);
+  }
+  92.26% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(-4px) translateY(-3px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  93.13% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(-4px) translateY(-3px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  93.14% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(-4px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  94% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(-4px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  94.01% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(0px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+  100% {
+    transform: translateX(125.574px) translateY(2.214px) translateX(0px) translateY(0px) translate(52.18px, 71.257px) scaleX(1) translate(-52.18px, -71.257px);
+  }
+}
+@keyframes kf_F_1_opacity_0 {
+  0% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  5.59% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  5.6% {
+    animation-timing-function: linear;
+    opacity: 0.6;
+  }
+  8.21% {
+    animation-timing-function: linear;
+    opacity: 0.6;
+  }
+  8.22% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  51.11% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  51.12% {
+    animation-timing-function: linear;
+    opacity: 0.2;
+  }
+  52.86% {
+    animation-timing-function: linear;
+    opacity: 0.2;
+  }
+  52.87% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  55.49% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  55.5% {
+    animation-timing-function: linear;
+    opacity: 0.7;
+  }
+  58.11% {
+    animation-timing-function: linear;
+    opacity: 0.7;
+  }
+  58.12% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  88.75% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  88.76% {
+    animation-timing-function: linear;
+    opacity: 0.4;
+  }
+  91.38% {
+    animation-timing-function: linear;
+    opacity: 0.4;
+  }
+  91.39% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+#F_1 {
+  transform-origin: 0 0;
+  animation:
+    kf_F_1_transform_0 2.8s linear infinite,
+    kf_F_1_opacity_0 2.8s linear infinite;
+}
+@keyframes kf_S_1_transform_0 {
+  0% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(0px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  24.09% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(0px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  24.1% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(4px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  25.02% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(4px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  25.03% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(4px) translateY(-4px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  25.95% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(4px) translateY(-4px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  25.96% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(4px) translateY(-4px) translate(53.386px, 73.353px) scaleX(0.88) translate(-53.386px, -73.353px);
+  }
+  28.74% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(4px) translateY(-4px) translate(53.386px, 73.353px) scaleX(0.88) translate(-53.386px, -73.353px);
+  }
+  28.75% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(-3px) translateY(-4px) translate(53.386px, 73.353px) scaleX(0.88) translate(-53.386px, -73.353px);
+  }
+  30.6% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(-3px) translateY(-4px) translate(53.386px, 73.353px) scaleX(0.88) translate(-53.386px, -73.353px);
+  }
+  30.61% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(-3px) translateY(2px) translate(53.386px, 73.353px) scaleX(0.88) translate(-53.386px, -73.353px);
+  }
+  31.54% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(-3px) translateY(2px) translate(53.386px, 73.353px) scaleX(0.88) translate(-53.386px, -73.353px);
+  }
+  31.55% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(-3px) translateY(2px) translate(53.386px, 73.353px) scaleX(1.08) translate(-53.386px, -73.353px);
+  }
+  33.4% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(-3px) translateY(2px) translate(53.386px, 73.353px) scaleX(1.08) translate(-53.386px, -73.353px);
+  }
+  33.41% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(6px) translateY(2px) translate(53.386px, 73.353px) scaleX(1.08) translate(-53.386px, -73.353px);
+  }
+  35.26% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(6px) translateY(2px) translate(53.386px, 73.353px) scaleX(1.08) translate(-53.386px, -73.353px);
+  }
+  35.27% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(6px) translateY(2px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  38.05% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(6px) translateY(2px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  38.06% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(0px) translateY(2px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  42.71% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(0px) translateY(2px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  42.72% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(0px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  70.65% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(0px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  70.66% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(7px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  71.58% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(7px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  71.59% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(7px) translateY(6px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  74.38% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(7px) translateY(6px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  74.39% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(-5px) translateY(6px) translate(53.386px, 73.353px) scaleX(0.82) translate(-53.386px, -73.353px);
+  }
+  78.1% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(-5px) translateY(6px) translate(53.386px, 73.353px) scaleX(0.82) translate(-53.386px, -73.353px);
+  }
+  78.11% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(9px) translateY(6px) translate(53.386px, 73.353px) scaleX(0.82) translate(-53.386px, -73.353px);
+  }
+  79.03% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(9px) translateY(6px) translate(53.386px, 73.353px) scaleX(0.82) translate(-53.386px, -73.353px);
+  }
+  79.04% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(9px) translateY(-3px) translate(53.386px, 73.353px) scaleX(0.82) translate(-53.386px, -73.353px);
+  }
+  79.96% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(9px) translateY(-3px) translate(53.386px, 73.353px) scaleX(0.82) translate(-53.386px, -73.353px);
+  }
+  79.97% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(9px) translateY(-3px) translate(53.386px, 73.353px) scaleX(1.12) translate(-53.386px, -73.353px);
+  }
+  81.83% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(9px) translateY(-3px) translate(53.386px, 73.353px) scaleX(1.12) translate(-53.386px, -73.353px);
+  }
+  81.84% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(-3px) translateY(-3px) translate(53.386px, 73.353px) scaleX(1.12) translate(-53.386px, -73.353px);
+  }
+  84.62% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(-3px) translateY(-3px) translate(53.386px, 73.353px) scaleX(1.12) translate(-53.386px, -73.353px);
+  }
+  84.63% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(-3px) translateY(-3px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  85.55% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(-3px) translateY(-3px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  85.56% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(0px) translateY(-3px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  89.28% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(0px) translateY(-3px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  89.29% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(0px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+  100% {
+    transform: translateX(-0.004px) translateY(0.113px) translateX(0px) translateY(0px) translate(53.386px, 73.353px) scaleX(1) translate(-53.386px, -73.353px);
+  }
+}
+@keyframes kf_S_1_opacity_0 {
+  0% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  27.81% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  27.82% {
+    animation-timing-function: linear;
+    opacity: 0.6;
+  }
+  30.6% {
+    animation-timing-function: linear;
+    opacity: 0.6;
+  }
+  30.61% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  76.24% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  76.25% {
+    animation-timing-function: linear;
+    opacity: 0.2;
+  }
+  78.1% {
+    animation-timing-function: linear;
+    opacity: 0.2;
+  }
+  78.11% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  80.89% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  80.9% {
+    animation-timing-function: linear;
+    opacity: 0.7;
+  }
+  83.69% {
+    animation-timing-function: linear;
+    opacity: 0.7;
+  }
+  83.7% {
+    animation-timing-function: linear;
+    opacity: 1;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+#S_1 {
+  transform-origin: 0 0;
+  animation:
+    kf_S_1_transform_0 2.8s linear infinite,
+    kf_S_1_opacity_0 2.8s linear infinite;
+}
+</style>
+<g id="sflogo_1" clip-path="url(#clip0_1_110)">
+<path id="F_Cyan" transform="translate(137.635 14.2749)" d="M18.3231 142.514L0 124.211V0H86.0473L104.36 18.303V44.5363H47.8733V52.3058H76.6394L94.9425 70.6088V96.4903H48.3959V142.514H18.3231ZM3.13593 122.03H27.0273V77.7451H74.4584V55.4216H27.0273V25.791H83.8662V3.13593H3.13593V122.03ZM101.224 42.2748V19.5091L87.0021 5.31701V28.8466L101.224 42.2748ZM30.1733 30.5151H30.9473V28.937H30.1733V30.5151ZM70.2771 32.0026H72.619V29.6406H70.2771V32.0026ZM76.6394 32.0026H78.9914V29.6306H76.6394V32.0026ZM83.0118 32.0026H85.3537V29.6406H83.0118V32.0026ZM64.0756 31.8116H66.0858V29.8215H64.0756V31.8116ZM57.9042 31.6508H59.6431V29.9924H57.9042V31.6508ZM51.7027 31.5704H53.1099V30.1633H51.7027V31.5704ZM45.4208 31.3795H46.5465V30.3542H45.4208V31.3795ZM39.159 31.299H40.0133V30.4447H39.159V31.299ZM31.7513 33.661H34.1736V31.2086H31.7513V33.661ZM73.5035 35.2391H75.8454V32.867H73.5035V35.2391ZM79.8658 35.2391H82.2077V32.8771H79.8658V35.2391ZM86.2282 35.2391H88.5801V32.867H86.2282V35.2391ZM67.2216 35.0581H69.3122V32.9575H67.2216V35.0581ZM61.0201 34.8973H62.779V33.1585H61.0201V34.8973ZM54.8387 34.7264H56.2257V33.3193H54.8387V34.7264ZM48.6472 34.5455H49.6925V33.4902H48.6472V34.5455ZM42.3854 34.5455H43.2397V33.6912H42.3854V34.5455ZM30.1733 52.346H41.5913V50.0644H43.8528V52.346H45.2499V49.7227H44.2046V46.5867H41.0687V43.3603H37.9227V40.2244H34.6963V37.0784H31.5604V33.9425H30.1733V37.4402H31.2186V39.7017H30.1733V44.3252H30.6156V45.451H30.1733V52.346ZM34.8873 36.9176H37.4001V34.4651H34.8873V36.9176ZM76.6394 38.4051H78.9914V36.0431H76.6394V38.4051ZM83.0118 38.4051H85.3537V36.0331H83.0118V38.4051ZM89.354 38.4051H91.716V36.0431H89.354V38.4051ZM70.448 38.2142H72.4582V36.204H70.448V38.2142ZM64.2465 38.1338H66.0054V36.3949H64.2465V38.1338ZM58.0651 37.9629H59.4722V36.5658H58.0651V37.9629ZM51.7831 37.7719H52.9189V36.7266H51.7831V37.7719ZM45.5012 37.6815H46.3857V36.8271H45.5012V37.6815ZM38.1137 40.0435H40.546V37.6011H38.1137V40.0435ZM79.8658 41.6114H82.2077V39.2494H79.8658V41.6114ZM86.2282 41.6114H88.5801V39.2394H86.2282V41.6114ZM92.5804 41.6114H94.9425V39.2494H92.5804V41.6114ZM73.5839 41.4205H75.6745V39.3298H73.5839V41.4205ZM67.3824 41.2496H69.1413V39.5108H67.3824V41.2496ZM61.211 41.0787H62.5881V39.6816H61.211V41.0787ZM55.0095 40.8878H56.0549V39.8425H55.0095V40.8878ZM48.7276 40.8878H49.6121V40.0234H48.7276V40.8878ZM32.1634 42.8176V40.5561H34.3646V42.8176H32.1634ZM41.2295 43.1492H43.682V40.7269H41.2295V43.1492ZM35.2994 45.9535V43.7724H37.4805V45.9535H35.2994ZM44.3655 46.3957H45.2499V43.8629H44.3655V46.3957ZM38.4454 49.1799V46.8983H40.7068V49.1799H38.4454ZM32.6861 48.5668V47.5215H33.8319V48.5668H32.6861ZM35.8321 51.6927V50.6674H36.9578V51.6927H35.8321ZM91.8065 94.2388V71.835L77.5842 57.6328V80.9011L91.8065 94.2388ZM30.1834 84.037H30.9573V81.5946H30.1834V84.037ZM67.2316 83.9465H69.5735V81.5845H67.2316V83.9465ZM73.594 83.9465H75.9359V81.5745H73.594V83.9465ZM61.0301 83.7656H63.0403V81.7755H61.0301V83.7656ZM54.8487 83.5948H56.5876V81.9464H54.8487V83.5948ZM48.6572 83.5043H50.0544V82.1072H48.6572V83.5043ZM42.3954 83.3334H43.5212V82.2881H42.3954V83.3334ZM36.1135 83.2229H36.9678V82.3685H36.1135V83.2229ZM31.7513 87.1629H34.1837V84.7104H31.7513V87.1629ZM70.448 87.1629H72.7999V84.7908H70.448V87.1629ZM76.8203 87.1629H79.1623V84.8009H76.8203V87.1629ZM64.166 86.992H66.2667V84.9014H64.166V86.992ZM57.9947 86.8011H59.7335V85.0622H57.9947V86.8011ZM51.7932 86.6402H53.2003V85.2331H51.7932V86.6402ZM45.6218 86.4694H46.6671V85.4241H45.6218V86.4694ZM39.3399 86.4694H40.1943V85.5949H39.3399V86.4694ZM45.26 139.469V108.954H44.8177V106.672H45.26V103.194H44.2147V100.058H41.0787V96.832H37.9328V93.6961H34.7064V90.5501H31.5704V87.4142H30.1834V90.9019H31.2287V93.1634H30.1834V97.7969H30.6256V98.9226H30.1834V125.076L45.26 139.469ZM34.8973 90.3893H37.4101V87.9368H34.8973V90.3893ZM73.594 90.3089H75.9359V87.9469H73.594V90.3089ZM79.9563 90.3089H82.3083V87.9368H79.9563V90.3089ZM67.3925 90.1179H69.4027V88.1379H67.3925V90.1179ZM61.2211 90.0275H62.9599V88.2886H61.2211V90.0275ZM55.0196 89.8666H56.4267V88.4595H55.0196V89.8666ZM48.7377 89.6958H49.8935V88.6504H48.7377V89.6958ZM42.4758 89.5952H43.3402V88.7309H42.4758V89.5952ZM38.1237 93.5353H40.546V91.0828H38.1237V93.5353ZM76.8203 93.5353H79.1623V91.1733H76.8203V93.5353ZM83.1827 93.5353H85.5246V91.1632H83.1827V93.5353ZM70.5384 93.3544H72.6291V91.2738H70.5384V93.3544ZM64.357 93.1935H66.0959V91.4547H64.357V93.1935ZM58.1656 93.0227H59.5627V91.6256H58.1656V93.0227ZM51.9641 92.8317H53.0094V91.7864H51.9641V92.8317ZM45.7022 92.8317H46.5566V91.9673H45.7022V92.8317ZM32.1735 96.3295V94.068H34.3747V96.3295H32.1735ZM41.2396 96.6913H43.692V94.2388H41.2396V96.6913ZM35.3094 99.4755V97.2944H37.4905V99.4755H35.3094ZM44.3755 99.9177H45.26V97.3848H44.3755V99.9177ZM38.4554 102.702V100.44H40.7169V102.702H38.4554ZM32.6961 102.089V101.043H33.842V102.089H32.6961ZM41.6014 105.838V103.556H43.8629V105.838H41.6014ZM35.8421 105.235V104.189H36.9678V105.235H35.8421ZM39.0685 108.461V107.325H40.1138V108.461H39.0685ZM42.2145 111.577V110.451H43.2598V111.577H42.2145Z" fill="#00CEC9"/>
+<path id="S_Cyan" transform="translate(12.0573 12.1742)" d="M58.849 146.705C52.5034 146.705 46.8916 146.253 42.0135 145.349C37.1219 144.451 32.8201 143.305 29.1079 141.911C25.3957 140.517 22.0822 139.093 19.1674 137.639L1.21617 119.698V87.8665C6.91178 91.2503 12.7682 94.0714 18.7854 96.3295C24.8027 98.5876 31.4967 99.7167 38.8675 99.7167C42.2983 99.7167 45.4241 99.4185 48.2451 98.8221C51.0662 98.2057 53.3779 97.3748 55.1804 96.3295C52.9021 95.5187 50.5837 94.6945 48.225 93.8569C45.8798 93.0059 43.6619 92.2018 41.5712 91.4447C38.2008 90.1648 35.353 88.8883 33.0278 87.6152C30.7094 86.3354 28.6355 84.9115 26.8062 83.3435C24.9769 81.7688 23.1275 79.9697 21.258 77.9461C19.4019 75.9091 17.251 73.4633 14.8052 70.6088L7.14631 61.7136C4.75416 58.9261 2.96506 55.8203 1.77903 52.3962C0.593002 48.9655 0 45.0422 0 40.6264C0 34.6427 1.14582 29.1649 3.43747 24.1929C5.72241 19.221 8.98901 14.9359 13.2373 11.3376C17.4788 7.73262 22.5044 4.94513 28.3139 2.97512C34.1368 0.998413 40.5661 0.00670072 47.6019 0C51.5486 0.00670072 55.5958 0.314932 59.7436 0.924697C63.9047 1.52776 67.9318 2.37876 71.825 3.47768C75.7181 4.5833 79.2025 5.89663 82.2781 7.4177L100.33 25.4493V56.2257C97.1872 54.249 93.7731 52.4499 90.0878 50.8283C86.4024 49.1933 82.6533 47.8867 78.8406 46.9084C75.0279 45.9166 71.3861 45.4208 67.9151 45.4208C64.3637 45.4208 61.1172 45.8128 58.1756 46.5968C55.2407 47.3808 52.9021 48.4964 51.16 49.9438C54.9392 51.0494 58.8323 52.3627 62.8393 53.8838C66.8463 55.3915 70.6925 57.2208 74.3779 59.3717C78.0767 61.5226 81.3802 64.0756 84.2883 67.0306L96.4903 79.514C103.345 86.5364 106.773 95.2205 106.773 105.566C106.773 111.61 105.607 117.152 103.275 122.191C100.956 127.216 97.6629 131.559 93.3946 135.217C89.1195 138.869 84.0437 141.693 78.1672 143.69C72.3041 145.7 65.8647 146.705 58.849 146.705ZM43.2196 126.231C49.8533 126.231 55.9141 125.317 61.402 123.487C66.8966 121.658 71.634 119.048 75.6142 115.658C79.5944 112.254 82.6734 108.227 84.8512 103.576C87.0289 98.926 88.0909 93.81 88.0373 88.2283C87.977 83.2296 87.0892 78.9277 85.3738 75.3228C83.6584 71.7245 81.35 68.6756 78.4486 66.1763C75.5405 63.6769 72.2873 61.5829 68.689 59.8944C65.084 58.2058 61.3752 56.7517 57.5625 55.5322C53.7632 54.3059 50.0577 53.1702 46.446 52.1249C42.8477 51.0796 39.6113 49.9773 36.7367 48.8181C33.8554 47.6588 31.5704 46.2684 29.8818 44.6469C28.2067 43.0119 27.3691 41.0017 27.3691 38.6162C27.3691 36.0632 28.3541 33.8286 30.3241 31.9122C32.3075 29.9891 35.038 28.4914 38.5157 27.4193C42.0001 26.3405 46.0138 25.8011 50.5569 25.8011C55.1469 25.8011 60.0384 26.5415 65.2315 28.0224C70.4379 29.5033 75.3093 31.4632 79.8457 33.9023V9.67919C76.9443 8.33904 73.671 7.19322 70.0258 6.24172C66.394 5.28352 62.6584 4.52969 58.8189 3.98023C54.9928 3.42407 51.2538 3.14599 47.6019 3.14599C41.0218 3.14599 35.0179 4.04724 29.5903 5.84973C24.1561 7.64552 19.4589 10.2186 15.4988 13.5689C11.5453 16.9126 8.4965 20.8794 6.35227 25.4694C4.20134 30.046 3.12588 35.0983 3.12588 40.6264C3.12588 45.5716 3.95677 49.8165 5.61855 53.3612C7.28032 56.9058 9.53511 59.9145 12.3829 62.387C15.224 64.8462 18.4002 66.9334 21.9113 68.6488C25.4225 70.3642 29.071 71.8484 32.8569 73.1015C36.6361 74.3478 40.2813 75.507 43.7925 76.5791C47.3104 77.658 50.4932 78.8105 53.341 80.0367C56.1821 81.2495 58.4369 82.6868 60.1054 84.3486C61.7605 85.997 62.588 88.0441 62.588 90.4898C62.588 92.9892 61.5829 95.1736 59.5727 97.0431C57.5625 98.8992 54.7716 100.337 51.2002 101.355C47.6287 102.36 43.5178 102.863 38.8675 102.863C31.8451 102.863 25.4996 101.891 19.8308 99.9479C14.162 97.998 8.9421 95.6326 4.17119 92.8518V117.939C8.24522 119.862 12.2992 121.424 16.333 122.623C20.3668 123.816 24.5782 124.704 28.9672 125.287C33.3629 125.856 38.1137 126.171 43.2196 126.231ZM97.1838 50.8283V26.6856L82.9917 12.4633V37.3196L97.1838 50.8283ZM51.0695 29.912H51.954V29.0275H51.0695V29.912ZM44.7072 30.0829H46.3555V29.118L44.7072 29.3089V30.0829ZM47.4913 48.8181V46.5566H49.6724V43.7724H46.8782V45.9535H44.3654V43.4206H46.6269V40.6365H43.7423V42.898H41.2295V40.3651H43.491V37.4905H40.7068V39.752H38.174V37.2191H40.4355V34.435H37.5609V36.7166H35.028V34.1837H37.2895V31.299H36.9578L34.4249 32.6157V33.5806H33.2087C31.4062 35.0883 30.505 36.7702 30.505 38.6263C30.5586 40.3149 31.3258 41.7589 32.8067 42.9583C34.2876 44.1443 36.3078 45.193 38.8675 46.1043C41.4205 46.9955 44.2951 47.9001 47.4913 48.8181ZM41.4808 33.3093H43.4106V31.3996H41.4808V33.3093ZM47.8431 33.1384H49.5015V31.5704H47.8431V33.1384ZM54.125 33.058H54.9894V32.1735H54.125V33.058ZM44.6167 36.3648H46.446V34.5254H44.6167V36.3648ZM50.9891 36.2844H52.5571V34.626H50.9891V36.2844ZM57.271 36.204H58.1254V35.3195H57.271V36.204ZM47.7627 39.5208H49.5819V37.6714H47.7627V39.5208ZM54.0446 39.4404H55.703V37.7619H54.0446V39.4404ZM32.6861 39.0886V38.0433H33.7314V39.0886H32.6861ZM60.4069 39.2494H61.2713V38.3951H60.4069V39.2494ZM50.8182 42.6668H52.7279V40.737H50.8182V42.6668ZM57.1906 42.4758H58.839V40.9079H57.1906V42.4758ZM35.8321 42.1442V41.1792H36.7668V42.1442H35.8321ZM63.4524 42.3954H64.3369V41.5109H63.4524V42.3954ZM53.9441 44.7675L55.703 44.1343V43.883H53.9441V44.7675ZM38.8675 45.27V44.2448H39.9229V45.27H38.8675ZM21.5294 73.2623H22.826V72.5788C22.7121 72.5118 22.5781 72.4481 22.4239 72.3878C22.2832 72.3342 22.1593 72.2773 22.052 72.217L21.5294 71.9456V73.2623ZM24.5849 76.4083H25.9619V74.9207H24.5849V76.4083ZM30.7563 76.4083H32.2438V76.3178L30.7563 75.7952V76.4083ZM88.1178 135.338L89.9571 134.021H88.1178V131.066H91.0024V133.157L93.6257 130.704H91.4447V128.191H93.9574V130.372L96.4099 127.488H94.671V125.226H96.9325V126.875L98.6714 124.171H97.9779V122.251H99.7167C100.353 121.038 100.903 119.795 101.365 118.522C101.841 117.236 102.246 115.922 102.581 114.582H101.365V113.286H102.692V114.23C102.967 112.85 103.188 111.433 103.355 109.979C103.536 108.511 103.627 107.054 103.627 105.607C103.627 100.661 102.859 96.2625 101.325 92.4096C99.7904 88.5433 97.425 85.012 94.2288 81.8157L89.5149 77.1018C90.0308 78.7368 90.4362 80.4689 90.731 82.2982C91.0259 84.1275 91.1733 86.1176 91.1733 88.2685C91.1733 90.473 91.0125 92.6206 90.6908 94.7113C90.3692 96.8086 89.8934 98.8389 89.2636 100.802H90.2084V102.129H88.9118V101.767C87.5113 105.781 85.471 109.446 82.7907 112.763H84.4692V115.024H82.268V113.366L79.8457 115.989H81.4941V118.502H78.9612V116.844L76.8706 118.693H78.6295V121.558H75.7348V119.547L72.6994 121.638H75.6544V124.704H78.8004V127.84H81.9363V130.895H84.9919V134.021H88.1178V135.338ZM33.8219 79.5543H35.3898V77.9762H33.8219V79.5543ZM27.6203 79.5543H29.1883V78.0667H27.6203V79.5543ZM39.9932 79.6447H41.6516V79.2829L39.9932 78.7602V79.6447ZM36.8774 82.7907H38.6162V81.0318H36.8774V82.7907ZM43.0487 82.7907H44.8981V81.0318H43.0487V82.7907ZM30.7563 82.6801H32.3343V81.1323H30.6759V82.5997L30.7563 82.6801ZM49.1598 82.8711H51.0695V82.5093L49.1598 81.8258V82.8711ZM52.1952 86.007H54.2959V83.9968H52.1952V86.007ZM39.9028 85.9065H41.7521V84.0772H39.9028V85.9065ZM46.1043 85.9065H48.014V84.0873H46.1043V85.9065ZM35.4702 85.5748V84.1677H33.7314V84.6099L35.4702 85.5748ZM55.3412 89.153H57.4318V87.0624H55.3412V89.153ZM44.0136 89.0525H44.8881V87.1428H42.9683V88.7108L44.0136 89.0525ZM49.1598 89.1631H51.1499V87.1529H49.1598V89.1631ZM48.1145 90.5401V90.0978H46.8782L48.1145 90.5401ZM58.3967 92.2789H59.0903C59.3248 91.8233 59.442 91.2436 59.442 90.5401V90.1079H58.3967V92.2789ZM53.1601 92.2789H54.2959V90.1782H52.1952V91.9372L53.1601 92.2789ZM92.299 92.5503V91.7562H93.093V92.5503H92.299ZM57.4419 93.8569V93.2438H55.7835L57.4419 93.8569ZM95.445 95.6963V94.9022H96.239V95.6963H95.445ZM92.1382 98.9227V97.8774H93.1835V98.9227H92.1382ZM98.5106 98.8423V98.0482H99.2845V98.8423H98.5106ZM95.2842 102.069V101.023H96.3295V102.069H95.2842ZM101.646 101.878V101.104H102.43V101.878H101.646ZM92.0477 105.295V103.968H93.3544V105.295H92.0477ZM98.41 105.104V104.059H99.4554V105.104H98.41ZM88.8213 108.511V106.943H90.3893V108.511H88.8213ZM95.0831 108.431V107.034H96.4903V108.431H95.0831ZM101.445 108.24V107.195H102.491V108.24H101.445ZM85.5145 111.738V109.898H87.4142V111.738H85.5145ZM91.8668 111.657V109.979H93.5353V111.657H91.8668ZM98.2392 111.466V110.17H99.5559V111.466H98.2392ZM88.6505 114.884V112.954H90.5702V114.884H88.6505ZM95.0228 114.693V113.125H96.5908V114.693H95.0228ZM85.3436 118.191V115.929H87.6051V118.191H85.3436ZM91.7965 118V116.1H93.6358V118H91.7965ZM98.0784 117.839V116.261H99.7368V117.839H98.0784ZM82.1173 121.417V118.884H84.6602V121.417H82.1173ZM88.4796 121.246V119.045H90.7411V121.246H88.4796ZM94.8419 121.055V119.236H96.7717V121.055H94.8419ZM69.5635 124.553H72.4381V121.859L69.5635 123.427V124.553ZM78.8004 124.714V121.849H81.665V124.714H78.8004ZM85.1728 124.553V121.93H87.7861V124.553H85.1728ZM91.6256 124.362V122.1H93.8067V124.362H91.6256ZM72.7999 127.689H75.5841V124.885H72.7999V127.689ZM81.9464 127.769V124.885H84.8109V127.769H81.9464ZM66.7693 127.417H69.1313V125.076H66.7693V127.417ZM88.3188 127.689V125.066H90.9321V127.689H88.3188ZM60.7688 127.247H62.779V126.372L60.7688 126.975V127.247ZM75.8454 130.724H78.6496V128.021H75.8454V130.724ZM85.012 130.915V128.021H87.967V130.915H85.012ZM69.8248 130.553H72.2773V128.211H69.8248V130.553ZM63.8143 130.383H65.8245V128.372H63.8143V130.383ZM57.8138 130.202H59.4621V128.543H57.8138V130.202ZM51.7831 129.95H53.0093V128.734L51.7831 128.905V129.95ZM45.7726 129.779H46.647V129.337H45.7726V129.779ZM78.9813 133.87H81.7856V131.086H78.9813V133.87ZM72.9708 133.699H75.3127V131.247H72.9708V133.699ZM66.9602 133.539H68.9705V131.438H66.9602V133.539ZM60.9497 133.267H62.4976V131.699H60.9497V133.267ZM54.9191 133.096H56.1553V131.86H54.9191V133.096ZM48.9085 132.915H49.6824V132.051H48.9085V132.915ZM82.1173 137.016H84.821V134.232H82.1173V137.016ZM76.1067 136.765H78.4587V134.403H76.1067V136.765ZM69.9957 136.574H72.0863V134.564H69.9957V136.574ZM63.9851 136.413H65.6436V134.755H63.9851V136.413ZM58.065 136.242H59.2712V134.926H58.065V136.242ZM52.0545 135.971H52.8284V135.197H52.0545V135.971ZM79.1723 139.881H79.6949L81.5946 139.026V137.539H79.1723V139.881ZM73.1416 139.71H75.1519V137.7H73.1416V139.71ZM67.1311 139.549H68.7795V137.891H67.1311V139.549ZM61.1206 139.278H62.3367V138.062H61.1206V139.278ZM55.11 139.117H55.9644V138.313H55.11V139.117ZM76.1972 141.127L77.5943 140.695H76.1972V141.127ZM70.267 142.595L71.835 142.253V141.037H70.267V142.595ZM64.2565 142.434H65.4727V141.218H64.2565V142.434ZM58.2259 142.182H59.0199V141.388H58.2259V142.182Z" fill="#00CEC9"/>
+<path id="F_1" transform="translate(125.574 2.21356)" d="M18.3231 142.514L0 124.211V0H86.0473L104.36 18.303V44.5363H47.8733V52.3058H76.6394L94.9425 70.6088V96.4903H48.3959V142.514H18.3231ZM3.13593 122.03H27.0273V77.745H74.4584V55.4216H27.0273V25.791H83.8662V3.13593H3.13593V122.03ZM101.224 42.2748V19.5091L87.0021 5.31701V28.8466L101.224 42.2748ZM30.1733 30.5151H30.9473V28.937H30.1733V30.5151ZM70.2771 32.0026H72.619V29.6406H70.2771V32.0026ZM76.6394 32.0026H78.9914V29.6306H76.6394V32.0026ZM83.0118 32.0026H85.3537V29.6406H83.0118V32.0026ZM64.0756 31.8116H66.0858V29.8215H64.0756V31.8116ZM57.9042 31.6508H59.6431V29.9924H57.9042V31.6508ZM51.7027 31.5704H53.1099V30.1633H51.7027V31.5704ZM45.4208 31.3795H46.5465V30.3542H45.4208V31.3795ZM39.159 31.299H40.0133V30.4447H39.159V31.299ZM31.7513 33.661H34.1736V31.2086H31.7513V33.661ZM73.5035 35.2391H75.8454V32.867H73.5035V35.2391ZM79.8658 35.2391H82.2077V32.8771H79.8658V35.2391ZM86.2282 35.2391H88.5801V32.867H86.2282V35.2391ZM67.2216 35.0581H69.3122V32.9575H67.2216V35.0581ZM61.0201 34.8973H62.779V33.1585H61.0201V34.8973ZM54.8387 34.7264H56.2257V33.3193H54.8387V34.7264ZM48.6472 34.5455H49.6925V33.4902H48.6472V34.5455ZM42.3854 34.5455H43.2397V33.6912H42.3854V34.5455ZM30.1733 52.346H41.5913V50.0644H43.8528V52.346H45.2499V49.7227H44.2046V46.5867H41.0687V43.3603H37.9227V40.2244H34.6963V37.0784H31.5604V33.9425H30.1733V37.4402H31.2186V39.7017H30.1733V44.3252H30.6156V45.451H30.1733V52.346ZM34.8873 36.9176H37.4001V34.4651H34.8873V36.9176ZM76.6394 38.4051H78.9914V36.0431H76.6394V38.4051ZM83.0118 38.4051H85.3537V36.0331H83.0118V38.4051ZM89.354 38.4051H91.716V36.0431H89.354V38.4051ZM70.448 38.2142H72.4582V36.204H70.448V38.2142ZM64.2465 38.1338H66.0054V36.3949H64.2465V38.1338ZM58.0651 37.9629H59.4722V36.5658H58.0651V37.9629ZM51.7831 37.7719H52.9189V36.7266H51.7831V37.7719ZM45.5012 37.6815H46.3857V36.8271H45.5012V37.6815ZM38.1137 40.0435H40.546V37.6011H38.1137V40.0435ZM79.8658 41.6114H82.2077V39.2494H79.8658V41.6114ZM86.2282 41.6114H88.5801V39.2394H86.2282V41.6114ZM92.5804 41.6114H94.9425V39.2494H92.5804V41.6114ZM73.5839 41.4205H75.6745V39.3298H73.5839V41.4205ZM67.3824 41.2496H69.1413V39.5108H67.3824V41.2496ZM61.211 41.0787H62.5881V39.6816H61.211V41.0787ZM55.0095 40.8878H56.0549V39.8425H55.0095V40.8878ZM48.7276 40.8878H49.6121V40.0234H48.7276V40.8878ZM32.1634 42.8176V40.5561H34.3646V42.8176H32.1634ZM41.2295 43.1492H43.682V40.7269H41.2295V43.1492ZM35.2994 45.9535V43.7724H37.4805V45.9535H35.2994ZM44.3655 46.3957H45.2499V43.8629H44.3655V46.3957ZM38.4454 49.1799V46.8983H40.7068V49.1799H38.4454ZM32.6861 48.5668V47.5215H33.8319V48.5668H32.6861ZM35.8321 51.6927V50.6674H36.9578V51.6927H35.8321ZM91.8065 94.2388V71.835L77.5842 57.6328V80.9011L91.8065 94.2388ZM30.1834 84.037H30.9573V81.5946H30.1834V84.037ZM67.2316 83.9465H69.5735V81.5846H67.2316V83.9465ZM73.594 83.9465H75.9359V81.5745H73.594V83.9465ZM61.0301 83.7656H63.0403V81.7755H61.0301V83.7656ZM54.8487 83.5948H56.5876V81.9464H54.8487V83.5948ZM48.6572 83.5043H50.0544V82.1072H48.6572V83.5043ZM42.3954 83.3334H43.5212V82.2881H42.3954V83.3334ZM36.1135 83.2229H36.9678V82.3685H36.1135V83.2229ZM31.7513 87.1629H34.1837V84.7104H31.7513V87.1629ZM70.448 87.1629H72.7999V84.7908H70.448V87.1629ZM76.8203 87.1629H79.1623V84.8009H76.8203V87.1629ZM64.166 86.992H66.2667V84.9014H64.166V86.992ZM57.9947 86.8011H59.7335V85.0622H57.9947V86.8011ZM51.7932 86.6402H53.2003V85.2331H51.7932V86.6402ZM45.6218 86.4694H46.6671V85.4241H45.6218V86.4694ZM39.3399 86.4694H40.1943V85.5949H39.3399V86.4694ZM45.26 139.469V108.954H44.8177V106.672H45.26V103.194H44.2147V100.058H41.0787V96.832H37.9328V93.6961H34.7064V90.5501H31.5704V87.4142H30.1834V90.9019H31.2287V93.1634H30.1834V97.7969H30.6256V98.9226H30.1834V125.076L45.26 139.469ZM34.8973 90.3893H37.4101V87.9368H34.8973V90.3893ZM73.594 90.3089H75.9359V87.9469H73.594V90.3089ZM79.9563 90.3089H82.3083V87.9368H79.9563V90.3089ZM67.3925 90.1179H69.4027V88.1379H67.3925V90.1179ZM61.2211 90.0275H62.9599V88.2886H61.2211V90.0275ZM55.0196 89.8666H56.4267V88.4595H55.0196V89.8666ZM48.7377 89.6958H49.8935V88.6504H48.7377V89.6958ZM42.4758 89.5952H43.3402V88.7309H42.4758V89.5952ZM38.1237 93.5353H40.546V91.0828H38.1237V93.5353ZM76.8203 93.5353H79.1623V91.1733H76.8203V93.5353ZM83.1827 93.5353H85.5246V91.1632H83.1827V93.5353ZM70.5384 93.3544H72.6291V91.2738H70.5384V93.3544ZM64.357 93.1935H66.0959V91.4547H64.357V93.1935ZM58.1656 93.0227H59.5627V91.6256H58.1656V93.0227ZM51.9641 92.8317H53.0094V91.7864H51.9641V92.8317ZM45.7022 92.8317H46.5566V91.9673H45.7022V92.8317ZM32.1735 96.3295V94.068H34.3747V96.3295H32.1735ZM41.2396 96.6913H43.692V94.2388H41.2396V96.6913ZM35.3094 99.4755V97.2944H37.4905V99.4755H35.3094ZM44.3755 99.9177H45.26V97.3848H44.3755V99.9177ZM38.4554 102.702V100.44H40.7169V102.702H38.4554ZM32.6961 102.089V101.043H33.842V102.089H32.6961ZM41.6014 105.838V103.556H43.8629V105.838H41.6014ZM35.8421 105.235V104.189H36.9678V105.235H35.8421ZM39.0685 108.461V107.325H40.1138V108.461H39.0685ZM42.2145 111.577V110.451H43.2598V111.577H42.2145Z" fill="#6C5CE7"/>
+<path id="S_1" transform="translate(-0.00403281 0.112878)" d="M58.849 146.705C52.5034 146.705 46.8916 146.253 42.0135 145.349C37.1219 144.451 32.8201 143.305 29.1079 141.911C25.3957 140.517 22.0822 139.093 19.1674 137.639L1.21617 119.698V87.8665C6.91178 91.2503 12.7682 94.0714 18.7854 96.3295C24.8027 98.5876 31.4967 99.7167 38.8675 99.7167C42.2983 99.7167 45.4241 99.4185 48.2451 98.8221C51.0662 98.2057 53.3779 97.3748 55.1804 96.3295C52.9021 95.5187 50.5837 94.6945 48.225 93.8569C45.8798 93.0059 43.6619 92.2018 41.5712 91.4447C38.2008 90.1648 35.353 88.8883 33.0278 87.6152C30.7094 86.3354 28.6355 84.9115 26.8062 83.3435C24.9769 81.7688 23.1275 79.9697 21.258 77.9461C19.4019 75.9091 17.251 73.4633 14.8052 70.6088L7.14631 61.7136C4.75416 58.9261 2.96506 55.8203 1.77903 52.3962C0.593002 48.9655 0 45.0422 0 40.6264C0 34.6427 1.14582 29.1649 3.43747 24.1929C5.72241 19.221 8.98901 14.9359 13.2373 11.3376C17.4788 7.73262 22.5044 4.94513 28.3139 2.97512C34.1368 0.998413 40.5661 0.00670072 47.6019 0C51.5486 0.00670072 55.5958 0.314932 59.7436 0.924697C63.9047 1.52776 67.9318 2.37876 71.825 3.47768C75.7181 4.5833 79.2025 5.89663 82.2781 7.4177L100.33 25.4493V56.2257C97.1872 54.249 93.7731 52.4499 90.0878 50.8283C86.4024 49.1933 82.6533 47.8867 78.8406 46.9084C75.0279 45.9166 71.3861 45.4208 67.9151 45.4208C64.3637 45.4208 61.1172 45.8128 58.1756 46.5968C55.2407 47.3808 52.9021 48.4964 51.16 49.9438C54.9392 51.0494 58.8323 52.3627 62.8393 53.8838C66.8463 55.3915 70.6925 57.2208 74.3779 59.3717C78.0767 61.5226 81.3802 64.0756 84.2883 67.0306L96.4903 79.514C103.345 86.5364 106.773 95.2205 106.773 105.566C106.773 111.61 105.607 117.152 103.275 122.191C100.956 127.216 97.6629 131.559 93.3946 135.217C89.1195 138.869 84.0437 141.693 78.1672 143.69C72.3041 145.7 65.8647 146.705 58.849 146.705ZM43.2196 126.231C49.8533 126.231 55.9141 125.317 61.402 123.487C66.8966 121.658 71.634 119.048 75.6142 115.658C79.5944 112.254 82.6734 108.227 84.8512 103.576C87.0289 98.926 88.0909 93.81 88.0373 88.2283C87.977 83.2296 87.0892 78.9277 85.3738 75.3227C83.6584 71.7245 81.35 68.6756 78.4486 66.1763C75.5405 63.6769 72.2873 61.5829 68.689 59.8944C65.084 58.2058 61.3752 56.7517 57.5625 55.5322C53.7632 54.3059 50.0577 53.1702 46.446 52.1249C42.8477 51.0796 39.6113 49.9773 36.7367 48.8181C33.8554 47.6588 31.5704 46.2684 29.8818 44.6469C28.2067 43.0119 27.3691 41.0017 27.3691 38.6162C27.3691 36.0632 28.3541 33.8286 30.3241 31.9122C32.3075 29.9891 35.038 28.4914 38.5157 27.4193C42.0001 26.3405 46.0138 25.8011 50.5569 25.8011C55.1469 25.8011 60.0384 26.5415 65.2315 28.0224C70.4379 29.5033 75.3093 31.4632 79.8457 33.9023V9.67919C76.9443 8.33904 73.671 7.19322 70.0258 6.24172C66.394 5.28352 62.6584 4.52969 58.8189 3.98023C54.9928 3.42407 51.2538 3.14599 47.6019 3.14599C41.0218 3.14599 35.0179 4.04724 29.5903 5.84973C24.1561 7.64552 19.4589 10.2186 15.4988 13.5689C11.5453 16.9126 8.4965 20.8794 6.35227 25.4694C4.20134 30.046 3.12588 35.0983 3.12588 40.6264C3.12588 45.5716 3.95677 49.8165 5.61855 53.3612C7.28032 56.9058 9.53511 59.9145 12.3829 62.387C15.224 64.8462 18.4002 66.9334 21.9113 68.6488C25.4225 70.3642 29.071 71.8484 32.8569 73.1015C36.6361 74.3478 40.2813 75.507 43.7925 76.5791C47.3104 77.6579 50.4932 78.8105 53.341 80.0367C56.1821 81.2495 58.4369 82.6868 60.1054 84.3486C61.7605 85.997 62.588 88.0441 62.588 90.4898C62.588 92.9892 61.5829 95.1736 59.5727 97.0431C57.5625 98.8992 54.7716 100.337 51.2002 101.355C47.6287 102.36 43.5178 102.863 38.8675 102.863C31.8451 102.863 25.4996 101.891 19.8308 99.9479C14.162 97.998 8.9421 95.6326 4.17119 92.8518V117.939C8.24522 119.862 12.2992 121.424 16.333 122.623C20.3668 123.816 24.5782 124.704 28.9672 125.287C33.3629 125.856 38.1137 126.171 43.2196 126.231ZM97.1838 50.8283V26.6856L82.9917 12.4633V37.3196L97.1838 50.8283ZM51.0695 29.912H51.954V29.0275H51.0695V29.912ZM44.7072 30.0829H46.3555V29.118L44.7072 29.3089V30.0829ZM47.4913 48.8181V46.5566H49.6724V43.7724H46.8782V45.9535H44.3654V43.4206H46.6269V40.6365H43.7423V42.898H41.2295V40.3651H43.491V37.4905H40.7068V39.752H38.174V37.2191H40.4355V34.435H37.5609V36.7166H35.028V34.1837H37.2895V31.299H36.9578L34.4249 32.6157V33.5806H33.2087C31.4062 35.0883 30.505 36.7702 30.505 38.6263C30.5586 40.3149 31.3258 41.7589 32.8067 42.9583C34.2876 44.1443 36.3078 45.193 38.8675 46.1043C41.4205 46.9955 44.2951 47.9001 47.4913 48.8181ZM41.4808 33.3093H43.4106V31.3996H41.4808V33.3093ZM47.8431 33.1384H49.5015V31.5704H47.8431V33.1384ZM54.125 33.058H54.9894V32.1735H54.125V33.058ZM44.6167 36.3648H46.446V34.5254H44.6167V36.3648ZM50.9891 36.2844H52.5571V34.626H50.9891V36.2844ZM57.271 36.204H58.1254V35.3195H57.271V36.204ZM47.7627 39.5208H49.5819V37.6714H47.7627V39.5208ZM54.0446 39.4404H55.703V37.7619H54.0446V39.4404ZM32.6861 39.0886V38.0433H33.7314V39.0886H32.6861ZM60.4069 39.2494H61.2713V38.3951H60.4069V39.2494ZM50.8182 42.6668H52.7279V40.737H50.8182V42.6668ZM57.1906 42.4758H58.839V40.9079H57.1906V42.4758ZM35.8321 42.1442V41.1792H36.7668V42.1442H35.8321ZM63.4524 42.3954H64.3369V41.5109H63.4524V42.3954ZM53.9441 44.7675L55.703 44.1343V43.883H53.9441V44.7675ZM38.8675 45.27V44.2448H39.9229V45.27H38.8675ZM21.5294 73.2623H22.826V72.5788C22.7121 72.5118 22.5781 72.4481 22.4239 72.3878C22.2832 72.3342 22.1593 72.2773 22.052 72.217L21.5294 71.9456V73.2623ZM24.5849 76.4083H25.9619V74.9207H24.5849V76.4083ZM30.7563 76.4083H32.2438V76.3178L30.7563 75.7951V76.4083ZM88.1178 135.338L89.9571 134.021H88.1178V131.066H91.0024V133.157L93.6257 130.704H91.4447V128.191H93.9574V130.372L96.4099 127.488H94.671V125.226H96.9325V126.875L98.6714 124.171H97.9779V122.251H99.7167C100.353 121.038 100.903 119.795 101.365 118.522C101.841 117.236 102.246 115.922 102.581 114.582H101.365V113.286H102.692V114.23C102.967 112.85 103.188 111.433 103.355 109.979C103.536 108.511 103.627 107.054 103.627 105.607C103.627 100.661 102.859 96.2625 101.325 92.4096C99.7904 88.5433 97.425 85.012 94.2288 81.8157L89.5149 77.1018C90.0308 78.7368 90.4362 80.4689 90.731 82.2982C91.0259 84.1275 91.1733 86.1176 91.1733 88.2685C91.1733 90.473 91.0125 92.6206 90.6908 94.7113C90.3692 96.8086 89.8934 98.8389 89.2636 100.802H90.2084V102.129H88.9118V101.767C87.5113 105.781 85.471 109.446 82.7907 112.763H84.4692V115.024H82.268V113.366L79.8457 115.989H81.4941V118.502H78.9612V116.844L76.8706 118.693H78.6295V121.558H75.7348V119.547L72.6994 121.638H75.6544V124.704H78.8004V127.84H81.9363V130.895H84.9919V134.021H88.1178V135.338ZM33.8219 79.5543H35.3898V77.9762H33.8219V79.5543ZM27.6203 79.5543H29.1883V78.0667H27.6203V79.5543ZM39.9932 79.6447H41.6516V79.2829L39.9932 78.7602V79.6447ZM36.8774 82.7907H38.6162V81.0318H36.8774V82.7907ZM43.0487 82.7907H44.8981V81.0318H43.0487V82.7907ZM30.7563 82.6801H32.3343V81.1323H30.6759V82.5997L30.7563 82.6801ZM49.1598 82.8711H51.0695V82.5093L49.1598 81.8258V82.8711ZM52.1952 86.007H54.2959V83.9968H52.1952V86.007ZM39.9028 85.9065H41.7521V84.0772H39.9028V85.9065ZM46.1043 85.9065H48.014V84.0873H46.1043V85.9065ZM35.4702 85.5748V84.1677H33.7314V84.6099L35.4702 85.5748ZM55.3412 89.153H57.4318V87.0624H55.3412V89.153ZM44.0136 89.0525H44.8881V87.1428H42.9683V88.7108L44.0136 89.0525ZM49.1598 89.1631H51.1499V87.1529H49.1598V89.1631ZM48.1145 90.5401V90.0978H46.8782L48.1145 90.5401ZM58.3967 92.2789H59.0903C59.3248 91.8233 59.442 91.2436 59.442 90.5401V90.1079H58.3967V92.2789ZM53.1601 92.2789H54.2959V90.1782H52.1952V91.9372L53.1601 92.2789ZM92.299 92.5503V91.7562H93.093V92.5503H92.299ZM57.4419 93.8569V93.2438H55.7835L57.4419 93.8569ZM95.445 95.6963V94.9022H96.239V95.6963H95.445ZM92.1382 98.9227V97.8774H93.1835V98.9227H92.1382ZM98.5106 98.8423V98.0482H99.2845V98.8423H98.5106ZM95.2842 102.069V101.023H96.3295V102.069H95.2842ZM101.646 101.878V101.104H102.43V101.878H101.646ZM92.0477 105.295V103.968H93.3544V105.295H92.0477ZM98.41 105.104V104.059H99.4554V105.104H98.41ZM88.8213 108.511V106.943H90.3893V108.511H88.8213ZM95.0831 108.431V107.034H96.4903V108.431H95.0831ZM101.445 108.24V107.195H102.491V108.24H101.445ZM85.5145 111.738V109.898H87.4142V111.738H85.5145ZM91.8668 111.657V109.979H93.5353V111.657H91.8668ZM98.2392 111.466V110.17H99.5559V111.466H98.2392ZM88.6505 114.884V112.954H90.5702V114.884H88.6505ZM95.0228 114.693V113.125H96.5908V114.693H95.0228ZM85.3436 118.191V115.929H87.6051V118.191H85.3436ZM91.7965 118V116.1H93.6358V118H91.7965ZM98.0784 117.839V116.261H99.7368V117.839H98.0784ZM82.1173 121.417V118.884H84.6602V121.417H82.1173ZM88.4796 121.246V119.045H90.7411V121.246H88.4796ZM94.8419 121.055V119.236H96.7717V121.055H94.8419ZM69.5635 124.553H72.4381V121.859L69.5635 123.427V124.553ZM78.8004 124.714V121.849H81.665V124.714H78.8004ZM85.1728 124.553V121.93H87.7861V124.553H85.1728ZM91.6256 124.362V122.1H93.8067V124.362H91.6256ZM72.7999 127.689H75.5841V124.885H72.7999V127.689ZM81.9464 127.769V124.885H84.8109V127.769H81.9464ZM66.7693 127.417H69.1313V125.076H66.7693V127.417ZM88.3188 127.689V125.066H90.9321V127.689H88.3188ZM60.7688 127.247H62.779V126.372L60.7688 126.975V127.247ZM75.8454 130.724H78.6496V128.021H75.8454V130.724ZM85.012 130.915V128.021H87.967V130.915H85.012ZM69.8248 130.553H72.2773V128.211H69.8248V130.553ZM63.8143 130.383H65.8245V128.372H63.8143V130.383ZM57.8138 130.202H59.4621V128.543H57.8138V130.202ZM51.7831 129.95H53.0093V128.734L51.7831 128.905V129.95ZM45.7726 129.779H46.647V129.337H45.7726V129.779ZM78.9813 133.87H81.7856V131.086H78.9813V133.87ZM72.9708 133.699H75.3127V131.247H72.9708V133.699ZM66.9602 133.539H68.9705V131.438H66.9602V133.539ZM60.9497 133.267H62.4976V131.699H60.9497V133.267ZM54.9191 133.096H56.1553V131.86H54.9191V133.096ZM48.9085 132.915H49.6824V132.051H48.9085V132.915ZM82.1173 137.016H84.821V134.232H82.1173V137.016ZM76.1067 136.765H78.4587V134.403H76.1067V136.765ZM69.9957 136.574H72.0863V134.564H69.9957V136.574ZM63.9851 136.413H65.6436V134.755H63.9851V136.413ZM58.065 136.242H59.2712V134.926H58.065V136.242ZM52.0545 135.971H52.8284V135.197H52.0545V135.971ZM79.1723 139.881H79.6949L81.5946 139.026V137.539H79.1723V139.881ZM73.1416 139.71H75.1519V137.7H73.1416V139.71ZM67.1311 139.549H68.7795V137.891H67.1311V139.549ZM61.1206 139.278H62.3367V138.062H61.1206V139.278ZM55.11 139.117H55.9644V138.313H55.11V139.117ZM76.1972 141.127L77.5943 140.695H76.1972V141.127ZM70.267 142.595L71.835 142.253V141.037H70.267V142.595ZM64.2565 142.434H65.4727V141.218H64.2565V142.434ZM58.2259 142.182H59.0199V141.388H58.2259V142.182Z" fill="#6C5CE7"/>
+<path id="F_Base" transform="translate(131.605 8.24421)" d="M18.3231 142.514L0 124.211V0H86.0473L104.36 18.303V44.5363H47.8733V52.3058H76.6394L94.9425 70.6088V96.4903H48.3959V142.514H18.3231ZM3.13593 122.03H27.0273V77.7451H74.4584V55.4216H27.0273V25.791H83.8662V3.13593H3.13593V122.03ZM101.224 42.2748V19.5091L87.0021 5.31701V28.8466L101.224 42.2748ZM30.1733 30.5151H30.9473V28.937H30.1733V30.5151ZM70.2771 32.0026H72.619V29.6406H70.2771V32.0026ZM76.6394 32.0026H78.9914V29.6306H76.6394V32.0026ZM83.0118 32.0026H85.3537V29.6406H83.0118V32.0026ZM64.0756 31.8116H66.0858V29.8215H64.0756V31.8116ZM57.9042 31.6508H59.6431V29.9924H57.9042V31.6508ZM51.7027 31.5704H53.1099V30.1633H51.7027V31.5704ZM45.4208 31.3795H46.5465V30.3542H45.4208V31.3795ZM39.159 31.299H40.0133V30.4447H39.159V31.299ZM31.7513 33.661H34.1736V31.2086H31.7513V33.661ZM73.5035 35.2391H75.8454V32.867H73.5035V35.2391ZM79.8658 35.2391H82.2077V32.8771H79.8658V35.2391ZM86.2282 35.2391H88.5801V32.867H86.2282V35.2391ZM67.2216 35.0581H69.3122V32.9575H67.2216V35.0581ZM61.0201 34.8973H62.779V33.1585H61.0201V34.8973ZM54.8387 34.7264H56.2257V33.3193H54.8387V34.7264ZM48.6472 34.5455H49.6925V33.4902H48.6472V34.5455ZM42.3854 34.5455H43.2397V33.6912H42.3854V34.5455ZM30.1733 52.346H41.5913V50.0644H43.8528V52.346H45.2499V49.7227H44.2046V46.5867H41.0687V43.3603H37.9227V40.2244H34.6963V37.0784H31.5604V33.9425H30.1733V37.4402H31.2186V39.7017H30.1733V44.3252H30.6156V45.451H30.1733V52.346ZM34.8873 36.9176H37.4001V34.4651H34.8873V36.9176ZM76.6394 38.4051H78.9914V36.0431H76.6394V38.4051ZM83.0118 38.4051H85.3537V36.0331H83.0118V38.4051ZM89.354 38.4051H91.716V36.0431H89.354V38.4051ZM70.448 38.2142H72.4582V36.204H70.448V38.2142ZM64.2465 38.1338H66.0054V36.3949H64.2465V38.1338ZM58.0651 37.9629H59.4722V36.5658H58.0651V37.9629ZM51.7831 37.7719H52.9189V36.7266H51.7831V37.7719ZM45.5012 37.6815H46.3857V36.8271H45.5012V37.6815ZM38.1137 40.0435H40.546V37.6011H38.1137V40.0435ZM79.8658 41.6114H82.2077V39.2494H79.8658V41.6114ZM86.2282 41.6114H88.5801V39.2394H86.2282V41.6114ZM92.5804 41.6114H94.9425V39.2494H92.5804V41.6114ZM73.5839 41.4205H75.6745V39.3298H73.5839V41.4205ZM67.3824 41.2496H69.1413V39.5108H67.3824V41.2496ZM61.211 41.0787H62.5881V39.6816H61.211V41.0787ZM55.0095 40.8878H56.0549V39.8425H55.0095V40.8878ZM48.7276 40.8878H49.6121V40.0234H48.7276V40.8878ZM32.1634 42.8176V40.5561H34.3646V42.8176H32.1634ZM41.2295 43.1492H43.682V40.7269H41.2295V43.1492ZM35.2994 45.9535V43.7724H37.4805V45.9535H35.2994ZM44.3655 46.3957H45.2499V43.8629H44.3655V46.3957ZM38.4454 49.1799V46.8983H40.7068V49.1799H38.4454ZM32.6861 48.5668V47.5215H33.8319V48.5668H32.6861ZM35.8321 51.6927V50.6674H36.9578V51.6927H35.8321ZM91.8065 94.2388V71.835L77.5842 57.6328V80.9011L91.8065 94.2388ZM30.1834 84.037H30.9573V81.5946H30.1834V84.037ZM67.2316 83.9465H69.5735V81.5845H67.2316V83.9465ZM73.594 83.9465H75.9359V81.5745H73.594V83.9465ZM61.0301 83.7656H63.0403V81.7755H61.0301V83.7656ZM54.8487 83.5948H56.5876V81.9464H54.8487V83.5948ZM48.6572 83.5043H50.0544V82.1072H48.6572V83.5043ZM42.3954 83.3334H43.5212V82.2881H42.3954V83.3334ZM36.1135 83.2229H36.9678V82.3685H36.1135V83.2229ZM31.7513 87.1629H34.1837V84.7104H31.7513V87.1629ZM70.448 87.1629H72.7999V84.7908H70.448V87.1629ZM76.8203 87.1629H79.1623V84.8009H76.8203V87.1629ZM64.166 86.992H66.2667V84.9014H64.166V86.992ZM57.9947 86.8011H59.7335V85.0622H57.9947V86.8011ZM51.7932 86.6402H53.2003V85.2331H51.7932V86.6402ZM45.6218 86.4694H46.6671V85.4241H45.6218V86.4694ZM39.3399 86.4694H40.1943V85.5949H39.3399V86.4694ZM45.26 139.469V108.954H44.8177V106.672H45.26V103.194H44.2147V100.058H41.0787V96.832H37.9328V93.6961H34.7064V90.5501H31.5704V87.4142H30.1834V90.9019H31.2287V93.1634H30.1834V97.7969H30.6256V98.9226H30.1834V125.076L45.26 139.469ZM34.8973 90.3893H37.4101V87.9368H34.8973V90.3893ZM73.594 90.3089H75.9359V87.9469H73.594V90.3089ZM79.9563 90.3089H82.3083V87.9368H79.9563V90.3089ZM67.3925 90.1179H69.4027V88.1379H67.3925V90.1179ZM61.2211 90.0275H62.9599V88.2886H61.2211V90.0275ZM55.0196 89.8666H56.4267V88.4595H55.0196V89.8666ZM48.7377 89.6958H49.8935V88.6504H48.7377V89.6958ZM42.4758 89.5952H43.3402V88.7309H42.4758V89.5952ZM38.1237 93.5353H40.546V91.0828H38.1237V93.5353ZM76.8203 93.5353H79.1623V91.1733H76.8203V93.5353ZM83.1827 93.5353H85.5246V91.1632H83.1827V93.5353ZM70.5384 93.3544H72.6291V91.2738H70.5384V93.3544ZM64.357 93.1935H66.0959V91.4547H64.357V93.1935ZM58.1656 93.0227H59.5627V91.6256H58.1656V93.0227ZM51.9641 92.8317H53.0094V91.7864H51.9641V92.8317ZM45.7022 92.8317H46.5566V91.9673H45.7022V92.8317ZM32.1735 96.3295V94.068H34.3747V96.3295H32.1735ZM41.2396 96.6913H43.692V94.2388H41.2396V96.6913ZM35.3094 99.4755V97.2944H37.4905V99.4755H35.3094ZM44.3755 99.9177H45.26V97.3848H44.3755V99.9177ZM38.4554 102.702V100.44H40.7169V102.702H38.4554ZM32.6961 102.089V101.043H33.842V102.089H32.6961ZM41.6014 105.838V103.556H43.8629V105.838H41.6014ZM35.8421 105.235V104.189H36.9678V105.235H35.8421ZM39.0685 108.461V107.325H40.1138V108.461H39.0685ZM42.2145 111.577V110.451H43.2598V111.577H42.2145Z" fill="#12131A"/>
+<path id="S_Base" transform="translate(6.02661 6.14352)" d="M58.849 146.705C52.5034 146.705 46.8916 146.253 42.0135 145.349C37.1219 144.451 32.8201 143.305 29.1079 141.911C25.3957 140.517 22.0822 139.093 19.1674 137.639L1.21617 119.698V87.8665C6.91178 91.2503 12.7682 94.0714 18.7854 96.3295C24.8027 98.5876 31.4967 99.7167 38.8675 99.7167C42.2983 99.7167 45.4241 99.4185 48.2451 98.8221C51.0662 98.2057 53.3779 97.3748 55.1804 96.3295C52.9021 95.5187 50.5837 94.6945 48.225 93.8569C45.8798 93.0059 43.6619 92.2018 41.5712 91.4447C38.2008 90.1648 35.353 88.8883 33.0278 87.6152C30.7094 86.3354 28.6355 84.9115 26.8062 83.3435C24.9769 81.7688 23.1275 79.9697 21.258 77.9461C19.4019 75.9091 17.251 73.4633 14.8052 70.6088L7.14631 61.7136C4.75416 58.9261 2.96506 55.8203 1.77903 52.3962C0.593002 48.9655 0 45.0422 0 40.6264C0 34.6427 1.14582 29.1649 3.43747 24.1929C5.72241 19.221 8.98901 14.9359 13.2373 11.3376C17.4788 7.73262 22.5044 4.94513 28.3139 2.97512C34.1368 0.998413 40.5661 0.00670072 47.6019 0C51.5486 0.00670072 55.5958 0.314932 59.7436 0.924697C63.9047 1.52776 67.9318 2.37876 71.825 3.47768C75.7181 4.5833 79.2025 5.89663 82.2781 7.4177L100.33 25.4493V56.2257C97.1872 54.249 93.7731 52.4499 90.0878 50.8283C86.4024 49.1933 82.6533 47.8867 78.8406 46.9084C75.0279 45.9166 71.3861 45.4208 67.9151 45.4208C64.3637 45.4208 61.1172 45.8128 58.1756 46.5968C55.2407 47.3808 52.9021 48.4964 51.16 49.9438C54.9392 51.0494 58.8323 52.3627 62.8393 53.8838C66.8463 55.3915 70.6925 57.2208 74.3779 59.3717C78.0767 61.5226 81.3802 64.0756 84.2883 67.0306L96.4903 79.514C103.345 86.5364 106.773 95.2205 106.773 105.566C106.773 111.61 105.607 117.152 103.275 122.191C100.956 127.216 97.6629 131.559 93.3946 135.217C89.1195 138.869 84.0437 141.693 78.1672 143.69C72.3041 145.7 65.8647 146.705 58.849 146.705ZM43.2196 126.231C49.8533 126.231 55.9141 125.317 61.402 123.487C66.8966 121.658 71.634 119.048 75.6142 115.658C79.5944 112.254 82.6734 108.227 84.8512 103.576C87.0289 98.926 88.0909 93.81 88.0373 88.2283C87.977 83.2296 87.0892 78.9277 85.3738 75.3227C83.6584 71.7245 81.35 68.6756 78.4486 66.1763C75.5405 63.6769 72.2873 61.5829 68.689 59.8944C65.084 58.2058 61.3752 56.7517 57.5625 55.5322C53.7632 54.3059 50.0577 53.1702 46.446 52.1249C42.8477 51.0796 39.6113 49.9773 36.7367 48.8181C33.8554 47.6588 31.5704 46.2684 29.8818 44.6469C28.2067 43.0119 27.3691 41.0017 27.3691 38.6162C27.3691 36.0632 28.3541 33.8286 30.3241 31.9122C32.3075 29.9891 35.038 28.4914 38.5157 27.4193C42.0001 26.3405 46.0138 25.8011 50.5569 25.8011C55.1469 25.8011 60.0384 26.5415 65.2315 28.0224C70.4379 29.5033 75.3093 31.4632 79.8457 33.9023V9.67919C76.9443 8.33904 73.671 7.19322 70.0258 6.24172C66.394 5.28352 62.6584 4.52969 58.8189 3.98023C54.9928 3.42407 51.2538 3.14599 47.6019 3.14599C41.0218 3.14599 35.0179 4.04724 29.5903 5.84973C24.1561 7.64552 19.4589 10.2186 15.4988 13.5689C11.5453 16.9126 8.4965 20.8794 6.35227 25.4694C4.20134 30.046 3.12588 35.0983 3.12588 40.6264C3.12588 45.5716 3.95677 49.8165 5.61855 53.3612C7.28032 56.9058 9.53511 59.9145 12.3829 62.387C15.224 64.8462 18.4002 66.9334 21.9113 68.6488C25.4225 70.3642 29.071 71.8484 32.8569 73.1015C36.6361 74.3478 40.2813 75.507 43.7925 76.5791C47.3104 77.6579 50.4932 78.8105 53.341 80.0367C56.1821 81.2495 58.4369 82.6868 60.1054 84.3486C61.7605 85.997 62.588 88.0441 62.588 90.4898C62.588 92.9892 61.5829 95.1736 59.5727 97.0431C57.5625 98.8992 54.7716 100.337 51.2002 101.355C47.6287 102.36 43.5178 102.863 38.8675 102.863C31.8451 102.863 25.4996 101.891 19.8308 99.9479C14.162 97.998 8.9421 95.6326 4.17119 92.8518V117.939C8.24522 119.862 12.2992 121.424 16.333 122.623C20.3668 123.816 24.5782 124.704 28.9672 125.287C33.3629 125.856 38.1137 126.171 43.2196 126.231ZM97.1838 50.8283V26.6856L82.9917 12.4633V37.3196L97.1838 50.8283ZM51.0695 29.912H51.954V29.0275H51.0695V29.912ZM44.7072 30.0829H46.3555V29.118L44.7072 29.3089V30.0829ZM47.4913 48.8181V46.5566H49.6724V43.7724H46.8782V45.9535H44.3654V43.4206H46.6269V40.6365H43.7423V42.898H41.2295V40.3651H43.491V37.4905H40.7068V39.752H38.174V37.2191H40.4355V34.435H37.5609V36.7166H35.028V34.1837H37.2895V31.299H36.9578L34.4249 32.6157V33.5806H33.2087C31.4062 35.0883 30.505 36.7702 30.505 38.6263C30.5586 40.3149 31.3258 41.7589 32.8067 42.9583C34.2876 44.1443 36.3078 45.193 38.8675 46.1043C41.4205 46.9955 44.2951 47.9001 47.4913 48.8181ZM41.4808 33.3093H43.4106V31.3996H41.4808V33.3093ZM47.8431 33.1384H49.5015V31.5704H47.8431V33.1384ZM54.125 33.058H54.9894V32.1735H54.125V33.058ZM44.6167 36.3648H46.446V34.5254H44.6167V36.3648ZM50.9891 36.2844H52.5571V34.626H50.9891V36.2844ZM57.271 36.204H58.1254V35.3195H57.271V36.204ZM47.7627 39.5208H49.5819V37.6714H47.7627V39.5208ZM54.0446 39.4404H55.703V37.7619H54.0446V39.4404ZM32.6861 39.0886V38.0433H33.7314V39.0886H32.6861ZM60.4069 39.2494H61.2713V38.3951H60.4069V39.2494ZM50.8182 42.6668H52.7279V40.737H50.8182V42.6668ZM57.1906 42.4758H58.839V40.9079H57.1906V42.4758ZM35.8321 42.1442V41.1792H36.7668V42.1442H35.8321ZM63.4524 42.3954H64.3369V41.5109H63.4524V42.3954ZM53.9441 44.7675L55.703 44.1343V43.883H53.9441V44.7675ZM38.8675 45.27V44.2448H39.9229V45.27H38.8675ZM21.5294 73.2623H22.826V72.5788C22.7121 72.5118 22.5781 72.4481 22.4239 72.3878C22.2832 72.3342 22.1593 72.2773 22.052 72.217L21.5294 71.9456V73.2623ZM24.5849 76.4083H25.9619V74.9207H24.5849V76.4083ZM30.7563 76.4083H32.2438V76.3178L30.7563 75.7951V76.4083ZM88.1178 135.338L89.9571 134.021H88.1178V131.066H91.0024V133.157L93.6257 130.704H91.4447V128.191H93.9574V130.372L96.4099 127.488H94.671V125.226H96.9325V126.875L98.6714 124.171H97.9779V122.251H99.7167C100.353 121.038 100.903 119.795 101.365 118.522C101.841 117.236 102.246 115.922 102.581 114.582H101.365V113.286H102.692V114.23C102.967 112.85 103.188 111.433 103.355 109.979C103.536 108.511 103.627 107.054 103.627 105.607C103.627 100.661 102.859 96.2625 101.325 92.4096C99.7904 88.5433 97.425 85.012 94.2288 81.8157L89.5149 77.1018C90.0308 78.7368 90.4362 80.4689 90.731 82.2982C91.0259 84.1275 91.1733 86.1176 91.1733 88.2685C91.1733 90.473 91.0125 92.6206 90.6908 94.7113C90.3692 96.8086 89.8934 98.8389 89.2636 100.802H90.2084V102.129H88.9118V101.767C87.5113 105.781 85.471 109.446 82.7907 112.763H84.4692V115.024H82.268V113.366L79.8457 115.989H81.4941V118.502H78.9612V116.844L76.8706 118.693H78.6295V121.558H75.7348V119.547L72.6994 121.638H75.6544V124.704H78.8004V127.84H81.9363V130.895H84.9919V134.021H88.1178V135.338ZM33.8219 79.5543H35.3898V77.9762H33.8219V79.5543ZM27.6203 79.5543H29.1883V78.0667H27.6203V79.5543ZM39.9932 79.6447H41.6516V79.2829L39.9932 78.7602V79.6447ZM36.8774 82.7907H38.6162V81.0318H36.8774V82.7907ZM43.0487 82.7907H44.8981V81.0318H43.0487V82.7907ZM30.7563 82.6801H32.3343V81.1323H30.6759V82.5997L30.7563 82.6801ZM49.1598 82.8711H51.0695V82.5093L49.1598 81.8258V82.8711ZM52.1952 86.007H54.2959V83.9968H52.1952V86.007ZM39.9028 85.9065H41.7521V84.0772H39.9028V85.9065ZM46.1043 85.9065H48.014V84.0873H46.1043V85.9065ZM35.4702 85.5748V84.1677H33.7314V84.6099L35.4702 85.5748ZM55.3412 89.153H57.4318V87.0624H55.3412V89.153ZM44.0136 89.0525H44.8881V87.1428H42.9683V88.7108L44.0136 89.0525ZM49.1598 89.1631H51.1499V87.1529H49.1598V89.1631ZM48.1145 90.5401V90.0978H46.8782L48.1145 90.5401ZM58.3967 92.2789H59.0903C59.3248 91.8233 59.442 91.2436 59.442 90.5401V90.1079H58.3967V92.2789ZM53.1601 92.2789H54.2959V90.1782H52.1952V91.9372L53.1601 92.2789ZM92.299 92.5503V91.7562H93.093V92.5503H92.299ZM57.4419 93.8569V93.2438H55.7835L57.4419 93.8569ZM95.445 95.6963V94.9022H96.239V95.6963H95.445ZM92.1382 98.9227V97.8774H93.1835V98.9227H92.1382ZM98.5106 98.8423V98.0482H99.2845V98.8423H98.5106ZM95.2842 102.069V101.023H96.3295V102.069H95.2842ZM101.646 101.878V101.104H102.43V101.878H101.646ZM92.0477 105.295V103.968H93.3544V105.295H92.0477ZM98.41 105.104V104.059H99.4554V105.104H98.41ZM88.8213 108.511V106.943H90.3893V108.511H88.8213ZM95.0831 108.431V107.034H96.4903V108.431H95.0831ZM101.445 108.24V107.195H102.491V108.24H101.445ZM85.5145 111.738V109.898H87.4142V111.738H85.5145ZM91.8668 111.657V109.979H93.5353V111.657H91.8668ZM98.2392 111.466V110.17H99.5559V111.466H98.2392ZM88.6505 114.884V112.954H90.5702V114.884H88.6505ZM95.0228 114.693V113.125H96.5908V114.693H95.0228ZM85.3436 118.191V115.929H87.6051V118.191H85.3436ZM91.7965 118V116.1H93.6358V118H91.7965ZM98.0784 117.839V116.261H99.7368V117.839H98.0784ZM82.1173 121.417V118.884H84.6602V121.417H82.1173ZM88.4796 121.246V119.045H90.7411V121.246H88.4796ZM94.8419 121.055V119.236H96.7717V121.055H94.8419ZM69.5635 124.553H72.4381V121.859L69.5635 123.427V124.553ZM78.8004 124.714V121.849H81.665V124.714H78.8004ZM85.1728 124.553V121.93H87.7861V124.553H85.1728ZM91.6256 124.362V122.1H93.8067V124.362H91.6256ZM72.7999 127.689H75.5841V124.885H72.7999V127.689ZM81.9464 127.769V124.885H84.8109V127.769H81.9464ZM66.7693 127.417H69.1313V125.076H66.7693V127.417ZM88.3188 127.689V125.066H90.9321V127.689H88.3188ZM60.7688 127.247H62.779V126.372L60.7688 126.975V127.247ZM75.8454 130.724H78.6496V128.021H75.8454V130.724ZM85.012 130.915V128.021H87.967V130.915H85.012ZM69.8248 130.553H72.2773V128.211H69.8248V130.553ZM63.8143 130.383H65.8245V128.372H63.8143V130.383ZM57.8138 130.202H59.4621V128.543H57.8138V130.202ZM51.7831 129.95H53.0093V128.734L51.7831 128.905V129.95ZM45.7726 129.779H46.647V129.337H45.7726V129.779ZM78.9813 133.87H81.7856V131.086H78.9813V133.87ZM72.9708 133.699H75.3127V131.247H72.9708V133.699ZM66.9602 133.539H68.9705V131.438H66.9602V133.539ZM60.9497 133.267H62.4976V131.699H60.9497V133.267ZM54.9191 133.096H56.1553V131.86H54.9191V133.096ZM48.9085 132.915H49.6824V132.051H48.9085V132.915ZM82.1173 137.016H84.821V134.232H82.1173V137.016ZM76.1067 136.765H78.4587V134.403H76.1067V136.765ZM69.9957 136.574H72.0863V134.564H69.9957V136.574ZM63.9851 136.413H65.6436V134.755H63.9851V136.413ZM58.065 136.242H59.2712V134.926H58.065V136.242ZM52.0545 135.971H52.8284V135.197H52.0545V135.971ZM79.1723 139.881H79.6949L81.5946 139.026V137.539H79.1723V139.881ZM73.1416 139.71H75.1519V137.7H73.1416V139.71ZM67.1311 139.549H68.7795V137.891H67.1311V139.549ZM61.1206 139.278H62.3367V138.062H61.1206V139.278ZM55.11 139.117H55.9644V138.313H55.11V139.117ZM76.1972 141.127L77.5943 140.695H76.1972V141.127ZM70.267 142.595L71.835 142.253V141.037H70.267V142.595ZM64.2565 142.434H65.4727V141.218H64.2565V142.434ZM58.2259 142.182H59.0199V141.388H58.2259V142.182Z" fill="#12131A"/>
+</g>
+<defs>
+<clipPath id="clip0_1_110">
+<rect width="242" height="159" fill="white"/>
+</clipPath>
+</defs>
+</svg>

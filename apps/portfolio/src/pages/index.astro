@@ -1,0 +1,20 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Nav from "../components/Nav.astro";
+import Hero from "../components/sections/Hero.astro";
+import About from "../components/sections/About.astro";
+import AiArt from "../components/sections/AiArt.astro";
+// import Timeline from "../components/sections/Timeline.astro";
+import Contact from "../components/sections/Contact.astro";
+---
+
+<BaseLayout>
+  <Nav />
+  <main id="main-content">
+    <Hero />
+    <About />
+    <!-- <Timeline /> -->
+    <AiArt isHomepage={true} />
+    <Contact />
+  </main>
+</BaseLayout>

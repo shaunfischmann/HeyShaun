@@ -1,0 +1,1115 @@
+---
+import {
+  CloudSync,
+  Languages,
+  Palette,
+  Camera,
+  ChessKnight,
+  Plane,
+  TrendingUp,
+  Gamepad2,
+  Building2,
+} from "@lucide/astro";
+
+type Category = "Tech" | "Creative" | "Hobby";
+
+interface SkillItem {
+  id: string;
+  name: string;
+  nameKey: string;
+  desc: string;
+  descKey: string;
+  category: Category;
+  highlight?: boolean;
+  svgIcon?: string;
+  lucideIcon?: any;
+  color?: string;
+}
+
+const categories: Category[] = ["Tech", "Creative", "Hobby"];
+const skills: SkillItem[] = [
+  // ── Tech ──────────────────────────────────────────────────
+  {
+    id: "php",
+    name: "PHP",
+    nameKey: "",
+    desc: "12+ yrs experience",
+    descKey: "skill.php_desc",
+    category: "Tech",
+    highlight: true,
+    svgIcon: "/icons/php.svg",
+  },
+  {
+    id: "mysql",
+    name: "MySQL",
+    nameKey: "",
+    desc: "Schema & query optimization",
+    descKey: "skill.mysql_desc",
+    category: "Tech",
+    highlight: true,
+    svgIcon: "/icons/mysql.svg",
+  },
+  {
+    id: "symfony",
+    name: "Symfony",
+    nameKey: "",
+    desc: "Legacy & Modern framework",
+    descKey: "skill.symfony_desc",
+    category: "Tech",
+    highlight: true,
+    svgIcon: "/icons/symfony.svg",
+  },
+  {
+    id: "git",
+    name: "Git",
+    nameKey: "",
+    desc: "",
+    descKey: "",
+    category: "Tech",
+    highlight: true,
+    svgIcon: "/icons/git.svg",
+  },
+  {
+    id: "github",
+    name: "GitHub",
+    nameKey: "",
+    desc: "",
+    descKey: "",
+    category: "Tech",
+    highlight: true,
+    svgIcon: "/icons/github.svg",
+  },
+  {
+    id: "api",
+    name: "REST APIs",
+    nameKey: "skill.api",
+    desc: "Over 50+ integrations (real estate specialization)",
+    descKey: "skill.api_desc",
+    category: "Tech",
+    highlight: true,
+    lucideIcon: CloudSync,
+  },
+  {
+    id: "crm",
+    name: "PropTech CRM",
+    nameKey: "skill.crm",
+    desc: "Real estate platform architecture",
+    descKey: "skill.crm_desc",
+    category: "Tech",
+    highlight: true,
+    lucideIcon: Building2,
+  },
+  {
+    id: "server",
+    name: "Apache",
+    nameKey: "",
+    desc: "Server setup and configuration",
+    descKey: "skill.server_desc",
+    category: "Tech",
+    highlight: true,
+    svgIcon: "/icons/apache.svg",
+  },
+  {
+    id: "server",
+    name: "Nginx",
+    nameKey: "",
+    desc: "Server setup and configuration",
+    descKey: "skill.nginx_desc",
+    category: "Tech",
+    highlight: true,
+    svgIcon: "/icons/nginx.svg",
+  },
+  {
+    id: "postman",
+    name: "Postman",
+    nameKey: "",
+    desc: "",
+    descKey: "",
+    category: "Tech",
+    highlight: true,
+    svgIcon: "/icons/postman.svg",
+  },
+  {
+    id: "jquery",
+    name: "jQuery",
+    nameKey: "",
+    desc: "Legacy DOM manipulation",
+    descKey: "skill.jquery_desc",
+    category: "Tech",
+    highlight: true,
+    svgIcon: "/icons/jquery.svg",
+  },
+  {
+    id: "asana",
+    name: "Asana",
+    nameKey: "",
+    desc: "Project management",
+    descKey: "skill.asana_desc",
+    category: "Tech",
+    highlight: true,
+    svgIcon: "/icons/asana.svg",
+  },
+  {
+    id: "openai",
+    name: "OpenAI",
+    nameKey: "",
+    desc: "API integrations, prompt engineering",
+    descKey: "skill.openai_desc",
+    category: "Tech",
+    highlight: true,
+    svgIcon: "/icons/openai.svg",
+  },
+
+  // ── Creative ──────────────────────────────────────────────
+  {
+    id: "ai",
+    name: "AI Art",
+    nameKey: "skill.ai",
+    desc: "Generative prompting & diffusion",
+    descKey: "skill.ai_desc",
+    category: "Creative",
+    highlight: true,
+    lucideIcon: Palette,
+  },
+  {
+    id: "davinci",
+    name: "DaVinci Resolve",
+    nameKey: "skill.davinci",
+    desc: "Video editing (social and short films)",
+    descKey: "skill.davinci_desc",
+    category: "Creative",
+    highlight: true,
+    svgIcon: "/icons/davinci.svg",
+  },
+  {
+    id: "adobe",
+    name: "Adobe Suite",
+    nameKey: "skill.adobe",
+    desc: "Photoshop, Illustrator & Premiere",
+    descKey: "skill.adobe_desc",
+    category: "Creative",
+    highlight: true,
+    svgIcon: "/icons/adobe.svg",
+  },
+  {
+    id: "photo",
+    name: "Photography",
+    nameKey: "skill.photo",
+    desc: "Currently learning",
+    descKey: "skill.photo_desc",
+    category: "Creative",
+    highlight: true,
+    lucideIcon: Camera,
+  },
+  {
+    id: "languages",
+    name: "Languages",
+    nameKey: "skill.languages",
+    desc: "English, French, Spanish, Mandarin",
+    descKey: "skill.languages_desc",
+    category: "Creative",
+    highlight: true,
+    lucideIcon: Languages,
+  },
+  {
+    id: "html",
+    name: "HTML",
+    nameKey: "",
+    desc: "Who doesn't know HTML?",
+    descKey: "skill.html_desc",
+    category: "Creative",
+    highlight: true,
+    svgIcon: "/icons/html.svg",
+  },
+  {
+    id: "css",
+    name: "CSS",
+    nameKey: "",
+    desc: "Love seeing new css tricks",
+    descKey: "skill.css_desc",
+    category: "Creative",
+    highlight: true,
+    svgIcon: "/icons/css.svg",
+  },
+  {
+    id: "javascript",
+    name: "JavaScript",
+    nameKey: "",
+    desc: "I know enough js to get by, but not enough to be dangerous",
+    descKey: "skill.javascript_desc",
+    category: "Creative",
+    highlight: true,
+    svgIcon: "/icons/javascript.svg",
+  },
+  {
+    id: "gemini",
+    name: "Gemini",
+    nameKey: "",
+    desc: "One of the main guys I used for this website",
+    descKey: "skill.gemini_desc",
+    category: "Creative",
+    highlight: true,
+    svgIcon: "/icons/gemini.svg",
+  },
+  {
+    id: "mistral",
+    name: "Mistral AI",
+    nameKey: "",
+    desc: "",
+    descKey: "",
+    category: "Creative",
+    highlight: true,
+    svgIcon: "/icons/mistral.svg",
+  },
+  {
+    id: "claude",
+    name: "Claude",
+    nameKey: "",
+    desc: "",
+    descKey: "",
+    category: "Creative",
+    highlight: true,
+    svgIcon: "/icons/claude.svg",
+  },
+
+  // ── Hobby ─────────────────────────────────────────────────
+  {
+    id: "astro",
+    name: "Astro",
+    nameKey: "",
+    desc: "This website is built on Astro ❤️",
+    descKey: "skill.astro_desc",
+    category: "Hobby",
+    highlight: true,
+    svgIcon: "/icons/astro.svg",
+  },
+  {
+    id: "chess",
+    name: "Chess",
+    nameKey: "skill.chess",
+    desc: "Mainly a bullet player (with terrible rating)",
+    descKey: "skill.chess_desc",
+    category: "Hobby",
+    highlight: true,
+    lucideIcon: ChessKnight,
+  },
+  {
+    id: "travel",
+    name: "Travel",
+    nameKey: "skill.travel",
+    desc: "Culture, nature, but mainly for the food and coffee",
+    descKey: "skill.travel_desc",
+    category: "Hobby",
+    highlight: true,
+    lucideIcon: Plane,
+  },
+  {
+    id: "finance",
+    name: "Investing",
+    nameKey: "skill.investment",
+    desc: "Stocks, ETFs & crypto",
+    descKey: "skill.investment_desc",
+    category: "Hobby",
+    highlight: true,
+    lucideIcon: TrendingUp,
+  },
+  {
+    id: "gaming",
+    name: "Gaming",
+    nameKey: "skill.gaming",
+    desc: "Built my own PC",
+    descKey: "skill.gaming_desc",
+    category: "Hobby",
+    highlight: true,
+    lucideIcon: Gamepad2,
+  },
+];
+---
+
+<section id="about" class="section" aria-labelledby="about-heading">
+  <div class="container">
+    <p class="section-tag" data-reveal data-i18n="about.tag">About me</p>
+    <h2 id="about-heading" data-reveal data-delay="1">
+      <span class="gradient-text" data-i18n="about.heading"> Skills, tools &amp; passions </span>
+    </h2>
+
+    <div class="about-layout">
+      <!-- Bio Card -->
+      <aside class="bio-card glass-card" data-reveal="slide-left" data-delay="2" aria-label="About Shaun">
+        <h3 class="bio-heading" data-i18n="about.bio_heading">Partnership Manager @</h3>
+        <a href="https://www.apimo.net" target="_blank" rel="noopener noreferrer" class="apimo-link">
+          <img src="/apimo-logo.svg" alt="Apimo" class="apimo-logo apimo-logo--color" width="60" height="20" />
+          <img src="/apimo-logo-white.svg" alt="Apimo" class="apimo-logo apimo-logo--white" width="60" height="20" />
+        </a>
+        <p class="bio-text" data-i18n="about.bio_text">
+          Based in France, I am a Partnership Manager and Developer at Apimo, a leading PropTech CRM platform. Having
+          built my foundation here as a web developer, contributing tens of thousands of commits and millions of lines
+          of code, I bridge the gap between technical engineering and strategic business growth.
+          <br /><br />
+          I oversee the entire integration lifecycle for our partner ecosystem, collaborating with real estate portals, service
+          providers, and AI companies. My work spans technical specification, API design, and full-stack development, ensuring
+          seamless interoperability across our platform.
+          <br /><br />
+          I'm inherently curious and always eager to try new things, a mindset rooted in my multicultural background, which
+          also made speaking multiple languages second nature. Off-screen, that love for discovery shows up in my passion
+          for travel, local food scenes, financial markets, and chess, as well as my work with generative AI art.
+        </p>
+      </aside>
+
+      <!-- 3D Constellation Cloud -->
+      <div class="constellation-wrapper" data-reveal data-delay="2">
+        <!-- Toggle Filter Bar -->
+        <div class="constellation-filters" role="group" aria-label="Filter skill constellation">
+          {
+            categories.map((cat) => (
+              <button class="filter-btn" data-category={cat}>
+                {cat}
+              </button>
+            ))
+          }
+        </div>
+
+        <!-- Transparent 3D Stage -->
+        <div class="constellation-stage" id="constellation-stage">
+          <div class="sphere-cloud" id="sphere-cloud">
+            {
+              skills.map((skill) => {
+                const LucideIcon = skill.lucideIcon;
+                return (
+                  <div
+                    class={`constellation-node cat-${skill.category.toLowerCase()}`}
+                    data-id={skill.id}
+                    data-category={skill.category}
+                    data-highlight={skill.highlight ? "true" : "false"}
+                  >
+                    <div class="node-bubble" aria-label={skill.name}>
+                      {skill.svgIcon ? (
+                        <span
+                          class="skill-icon"
+                          data-color={skill.color}
+                          style={{ "--svg-url": `url(${skill.svgIcon})` }}
+                          role="img"
+                          aria-label={skill.name}
+                        />
+                      ) : LucideIcon ? (
+                        <LucideIcon class="skill-lucide-icon" size={24} />
+                      ) : null}
+                    </div>
+
+                    <div class="node-tooltip">
+                      <span class="tooltip-title" data-i18n={skill.nameKey}>
+                        {skill.name}
+                      </span>
+                      <span class="tooltip-desc" data-i18n={skill.descKey}>
+                        {skill.desc}
+                      </span>
+                    </div>
+                  </div>
+                );
+              })
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* ── About me / Bio ── */
+  .about-layout {
+    display: grid;
+    grid-template-columns: 0.65fr 1fr;
+    gap: 2.5rem;
+    margin-top: 2rem;
+    align-items: start;
+  }
+
+  .bio-card {
+    padding: 2rem 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: sticky;
+    top: 2rem;
+  }
+
+  .bio-heading {
+    font-family: var(--font-heading);
+    font-size: clamp(1.1rem, 2vw, 1.35rem);
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.3;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .apimo-link {
+    display: inline-flex;
+    align-items: center;
+    /* text-decoration: none; */
+  }
+
+  .apimo-logo {
+    display: block;
+    object-fit: contain;
+    height: 40px;
+    width: auto;
+    vertical-align: middle;
+  }
+
+  /* Dark / light logo switching */
+  .apimo-logo--color {
+    display: block;
+  }
+  .apimo-logo--white {
+    display: none;
+  }
+  :global([data-theme="dark"]) .apimo-logo--color {
+    display: none;
+  }
+  :global([data-theme="dark"]) .apimo-logo--white {
+    display: block;
+  }
+
+  .bio-text {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.75;
+  }
+
+  /* ── Filters ── */
+  .constellation-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .constellation-filters {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    place-content: center;
+    z-index: 5;
+  }
+
+  .filter-btn {
+    padding: 0.45rem 1.1rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    color: var(--color-text-muted);
+    transition: all var(--transition-base);
+    box-shadow: var(--neu-shadow-outset);
+  }
+
+  .filter-btn:hover,
+  .filter-btn.active {
+    color: #fff;
+    background: var(--color-primary);
+    border-color: transparent;
+    box-shadow:
+      0 4px 16px rgba(108, 92, 231, 0.4),
+      var(--neu-shadow-outset);
+  }
+
+  /* ── Fully Transparent 3D Stage ── */
+  .constellation-stage {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    overflow: visible;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+  }
+
+  .sphere-cloud {
+    position: relative;
+    width: 0;
+    height: 0;
+  }
+
+  /* ── Nodes in 3D Space ── */
+  .constellation-node {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition:
+      opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+      filter 0.4s ease;
+    will-change: transform, opacity, filter;
+  }
+
+  .constellation-node.hidden {
+    display: none !important;
+    opacity: 0;
+  }
+
+  /* ── Transition state when switching filters ── */
+  .constellation-node.animating-out {
+    opacity: 0 !important;
+    transform: translate3d(0, 0, 0) scale(0.2) !important;
+  }
+
+  /* ── Node Icon Bubble ── */
+  .node-bubble {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-left: -1.75rem;
+    margin-top: -1.75rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+    cursor: pointer;
+    position: relative;
+    box-shadow: var(--neu-shadow-outset);
+    background: var(--color-surface);
+
+    transition:
+      transform var(--transition-spring),
+      box-shadow var(--transition-fast),
+      background-color var(--transition-fast);
+  }
+
+  /* Rotating Gradient Ring Container via Pseudo-Element */
+  .node-bubble::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    padding: 1px; /* Border thickness */
+    border: 1px solid transparent;
+
+    /* Base border gradient */
+    background-image:
+      linear-gradient(var(--color-surface), var(--color-surface)),
+      conic-gradient(from 0deg, var(--color-border), var(--color-border-hover), var(--color-border));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+
+    pointer-events: none;
+    z-index: 0;
+
+    transition: opacity var(--transition-fast);
+  }
+
+  /* Ensure child icon stays above the pseudo-element ring */
+  .node-bubble > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .node-bubble:hover {
+    transform: scale(1.22);
+  }
+
+  .constellation-node.focused .node-bubble {
+    transform: scale(1.35);
+    background: var(--color-surface-hover);
+  }
+
+  /* ── Shared Multicolor Hover & Focused State for ALL Categories ── */
+  .constellation-node:hover .node-bubble::before,
+  .constellation-node.focused .node-bubble::before {
+    background-image:
+      linear-gradient(var(--color-surface-hover), var(--color-surface-hover)),
+      conic-gradient(
+        from 0deg,
+        var(--color-primary),
+        /* #6C5CE7 (Violet) */ var(--color-secondary),
+        /* #00CEC9 (Cyan) */ #e17055,
+        /* Orange accent */ var(--pastel-lavender),
+        /* #c8c0ff */ var(--color-primary) /* Loop back to Violet */
+      );
+
+    /* Rotate ONLY the pseudo-element ring */
+    animation: rotate-slow 4s linear infinite;
+  }
+
+  .constellation-node:hover .node-bubble,
+  .constellation-node.focused .node-bubble {
+    box-shadow:
+      0 0 28px var(--glow-primary),
+      0 0 14px var(--glow-secondary),
+      var(--neu-hover-outset);
+  }
+
+  /* Ensure focused node remains on top of tooltips/nodes */
+  .constellation-node.focused {
+    z-index: 1000 !important;
+  }
+
+  /* ── SVG Icon ── */
+  .skill-icon {
+    width: 24px;
+    height: 24px;
+    background-color: var(--color-text); /* Controls the color of the SVG icon */
+    -webkit-mask: var(--svg-url) no-repeat center / contain;
+    mask: var(--svg-url) no-repeat center / contain;
+    transition: background-color var(--transition-fast);
+  }
+
+  /* ── Custom icon styles ── */
+
+  /* PHP */
+  .constellation-node[data-id="php"] .skill-icon {
+    width: 32px;
+    height: 32px;
+  }
+  .constellation-node[data-id="php"]:hover .skill-icon,
+  .constellation-node[data-id="php"].focused .skill-icon {
+    background-color: #777bb4;
+  }
+  /* Mysql */
+  .constellation-node[data-id="mysql"] .skill-icon {
+    width: 32px;
+    height: 32px;
+  }
+  .constellation-node[data-id="mysql"]:hover .skill-icon,
+  .constellation-node[data-id="mysql"].focused .skill-icon {
+    background-color: #4479a1;
+  }
+  /* Symfony */
+  :root:not([data-theme="dark"]) .constellation-node[data-id="symfony"]:hover .skill-icon,
+  :root:not([data-theme="dark"]) .constellation-node[data-id="symfony"].focused .skill-icon {
+    background-color: #000000;
+  }
+  :root[data-theme="dark"] .constellation-node[data-id="symfony"]:hover .skill-icon,
+  :root[data-theme="dark"] .constellation-node[data-id="symfony"].focused .skill-icon {
+    background-color: #ffffff;
+  }
+  /* Git */
+  .constellation-node[data-id="git"]:hover .skill-icon,
+  .constellation-node[data-id="git"].focused .skill-icon {
+    background-color: #f03c2e;
+  }
+  /* GitHub */
+  .constellation-node[data-id="github"] .skill-icon {
+    width: 30px;
+    height: 30px;
+  }
+  .constellation-node[data-id="github"]:hover .skill-icon,
+  .constellation-node[data-id="github"].focused .skill-icon {
+    background-color: #181717;
+  }
+  /* Apache */
+  .constellation-node[data-id="apache"]:hover .skill-icon,
+  .constellation-node[data-id="apache"].focused .skill-icon {
+    background-color: #d22128;
+  }
+  /* Nginx */
+  .constellation-node[data-id="nginx"]:hover .skill-icon,
+  .constellation-node[data-id="nginx"].focused .skill-icon {
+    background-color: #009639;
+  }
+  /* Postman */
+  .constellation-node[data-id="postman"] .skill-icon {
+    width: 30px;
+    height: 30px;
+  }
+  .constellation-node[data-id="postman"]:hover .skill-icon,
+  .constellation-node[data-id="postman"].focused .skill-icon {
+    background-color: #ff6c37;
+  }
+  /* Jquery */
+  .constellation-node[data-id="jquery"]:hover .skill-icon,
+  .constellation-node[data-id="jquery"].focused .skill-icon {
+    background-color: #0769ad;
+  }
+  /* Asana */
+  .constellation-node[data-id="asana"]:hover .skill-icon,
+  .constellation-node[data-id="asana"].focused .skill-icon {
+    background-color: #f06a6a;
+  }
+  /* Openai */
+  :root:not([data-theme="dark"]) .constellation-node[data-id="openai"]:hover .skill-icon,
+  :root:not([data-theme="dark"]) .constellation-node[data-id="openai"].focused .skill-icon {
+    background-color: #000000;
+  }
+  :root[data-theme="dark"] .constellation-node[data-id="openai"]:hover .skill-icon,
+  :root[data-theme="dark"] .constellation-node[data-id="openai"].focused .skill-icon {
+    background-color: #ffffff;
+  }
+  /* DaVinci Resolve */
+  .constellation-node[data-id="davinci"]:hover .skill-icon,
+  .constellation-node[data-id="davinci"].focused .skill-icon {
+    background-color: #233a51;
+  }
+  /* Adobe Creative Suite */
+  .constellation-node[data-id="adobe"]:hover .skill-icon,
+  .constellation-node[data-id="adobe"].focused .skill-icon {
+    background-color: #fa0f00;
+  }
+  /* HTML */
+  .constellation-node[data-id="html"]:hover .skill-icon,
+  .constellation-node[data-id="html"].focused .skill-icon {
+    background-color: #e34f26;
+  }
+  /* CSS */
+  .constellation-node[data-id="css"]:hover .skill-icon,
+  .constellation-node[data-id="css"].focused .skill-icon {
+    background-color: #663399;
+  }
+  /* Javascript */
+  :root[data-theme="light"] .constellation-node[data-id="javascript"]:hover .skill-icon,
+  :root[data-theme="light"] .constellation-node[data-id="javascript"].focused .skill-icon {
+    color: #000000;
+  }
+  :root[data-theme="dark"] .constellation-node[data-id="javascript"]:hover .skill-icon,
+  :root[data-theme="dark"] .constellation-node[data-id="javascript"].focused .skill-icon {
+    background-color: #f7df1e;
+  }
+  /* Gemini */
+  .constellation-node[data-id="gemini"]:hover .skill-icon,
+  .constellation-node[data-id="gemini"].focused .skill-icon {
+    background-color: #8e75b2;
+  }
+  /* Mistral */
+  .constellation-node[data-id="mistral"]:hover .skill-icon,
+  .constellation-node[data-id="mistral"].focused .skill-icon {
+    background-color: #fa520f;
+  }
+  /* Claude */
+  .constellation-node[data-id="claude"]:hover .skill-icon,
+  .constellation-node[data-id="claude"].focused .skill-icon {
+    background-color: #d97757;
+  }
+  /* Astro */
+  .constellation-node[data-id="astro"]:hover .skill-icon,
+  .constellation-node[data-id="astro"].focused .skill-icon {
+    background-color: #bc52ee;
+  }
+
+  /* ── Tooltip ── */
+  .node-tooltip {
+    position: absolute;
+    bottom: calc(100% + 40px);
+    transform: translateX(-50%) translateY(8px) scale(0.9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+    padding: 0.5rem 0.9rem;
+    border-radius: var(--radius-sm);
+    background: var(--glass-bg-strong);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      opacity var(--transition-fast),
+      transform var(--transition-spring);
+    z-index: 100;
+  }
+
+  .node-tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 5px;
+    border-style: solid;
+    border-color: var(--glass-bg-strong) transparent transparent transparent;
+  }
+
+  .tooltip-title {
+    font-family: var(--font-body);
+    font-size: 0.825rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .tooltip-desc {
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    margin-top: 2px;
+  }
+
+  .constellation-node:hover .node-tooltip,
+  .constellation-node.focused .node-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(-12px) scale(1);
+  }
+
+  @media (max-width: 900px) {
+    .about-layout {
+      grid-template-columns: 1fr;
+    }
+    .bio-card {
+      position: static;
+    }
+    .constellation-stage {
+      height: 380px;
+    }
+  }
+</style>
+
+<script>
+  const stage = document.getElementById("constellation-stage");
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+
+  let activeCategory: string | null = null; // null means default state (all)
+  let activeFocusedNode: HTMLElement | null = null;
+
+  // Angles for 3D sphere rotation
+  let angleX = 0;
+  let angleY = 0;
+
+  const baseSpeedX = 0.0008;
+  const baseSpeedY = 0.0018;
+
+  // Current speeds (dynamic interpolated)
+  let currentSpeedX = baseSpeedX;
+  let currentSpeedY = baseSpeedY;
+
+  // Hover state and target speed multiplier (0.2 = 20% speed on hover)
+  let isHovered = false;
+  const hoverSpeedFactor = 0.5;
+
+  // Delta time tracking for frame-rate independence
+  let lastTime = performance.now();
+
+  // Depth filter settings
+  const brightnessFloor = 0.4;
+  const maxBlur = 3;
+
+  // Linear interpolation helper
+  function lerp(start: number, end: number, factor: number): number {
+    return start + (end - start) * factor;
+  }
+
+  // Position visible nodes in wider 3D space
+  function layout3DSphere() {
+    const visibleNodes = Array.from(document.querySelectorAll<HTMLElement>(".constellation-node:not(.hidden)"));
+    const total = visibleNodes.length;
+    if (total === 0) return;
+
+    const stageWidth = stage?.clientWidth || 500;
+    const radiusX = Math.min(stageWidth * 0.42, 220);
+    const radiusY = 160;
+    const radiusZ = 180;
+
+    const phi = Math.PI * (3 - Math.sqrt(5)); // Golden angle
+
+    visibleNodes.forEach((node, i) => {
+      const y = 1 - (i / (total - 1 || 1)) * 2;
+      const radiusAtY = Math.sqrt(1 - y * y);
+      const theta = phi * i;
+
+      const x = Math.cos(theta) * radiusAtY;
+      const z = Math.sin(theta) * radiusAtY;
+
+      node.dataset.x = String(x * radiusX);
+      node.dataset.y = String(y * radiusY);
+      node.dataset.z = String(z * radiusZ);
+    });
+  }
+
+  // Main 3D Rendering & Focusing Loop
+  function animate(now = performance.now()) {
+    // 1. Calculate time delta normalized to 60fps (~16.67ms)
+    const delta = Math.min((now - lastTime) / 16.67, 2.5);
+    lastTime = now;
+
+    const isDark = document.documentElement.getAttribute("data-theme") !== "light";
+
+    // 2. Interpolate speed smoothly based on hover state
+    const targetFactor = isHovered ? hoverSpeedFactor : 1.0;
+    const lerpRate = 0.05; // Adjust between 0.01 (slower transition) and 0.1 (faster transition)
+
+    currentSpeedX = lerp(currentSpeedX, baseSpeedX * targetFactor, lerpRate);
+    currentSpeedY = lerp(currentSpeedY, baseSpeedY * targetFactor, lerpRate);
+
+    // 3. Apply normalized rotation
+    angleX += currentSpeedX * delta;
+    angleY += currentSpeedY * delta;
+
+    const cosX = Math.cos(angleX);
+    const sinX = Math.sin(angleX);
+    const cosY = Math.cos(angleY);
+    const sinY = Math.sin(angleY);
+
+    const visibleNodes = document.querySelectorAll<HTMLElement>(".constellation-node:not(.hidden)");
+
+    visibleNodes.forEach((node, nodeIndex) => {
+      // ── FOCUSED MODE ────────────────────────────────────────────────
+      if (activeFocusedNode && node === activeFocusedNode) {
+        node.style.transform = `translate3d(0px, 0px, 0px) scale(1.35)`;
+        node.style.opacity = "1";
+        node.style.filter = "none";
+        node.style.zIndex = "1000";
+        return;
+      }
+
+      // ── NORMAL MODE ─────────────────────────────────────────────────
+      const baseX = parseFloat(node.dataset.x || "0");
+      const baseY = parseFloat(node.dataset.y || "0");
+      const baseZ = parseFloat(node.dataset.z || "0");
+
+      // Rotate point around Y axis
+      const x1 = baseX * cosY + baseZ * sinY;
+      const z1 = -baseX * sinY + baseZ * cosY;
+
+      // Rotate point around X axis
+      const y2 = baseY * cosX - z1 * sinX;
+      const z2 = baseY * sinX + z1 * cosX;
+
+      // Normalize Z value to a 0.0 (back) -> 1.0 (front) range
+      const normalizedDepth = Math.max(0, Math.min(1, (z2 + 180) / 360));
+
+      // Perspective Scale projection
+      const cameraDistance = 600;
+      const scale = cameraDistance / (cameraDistance - z2);
+      const screenX = x1 * scale;
+      const screenY = y2 * scale;
+
+      // Dynamic z-index prevents back nodes from overlapping front ones
+      const zIndexValue = Math.round(normalizedDepth * 100);
+      node.style.zIndex = String(zIndexValue);
+
+      // Translation & Scale
+      node.style.transform = `translate3d(${screenX.toFixed(2)}px, ${screenY.toFixed(2)}px, 0px) scale(${scale.toFixed(3)})`;
+
+      if (activeFocusedNode) {
+        // ── OTHER NODES WHEN ONE IS SELECTED ──────────────────────────
+        if (isDark) {
+          node.style.opacity = "0.25";
+          node.style.filter = "blur(2.5px) brightness(0.5)";
+        } else {
+          node.style.opacity = "0.65";
+          node.style.filter = "blur(2.5px) brightness(1.2)";
+        }
+      } else {
+        // ── NORMAL FLOATING MODE ──
+
+        // Calculate Opacity
+        const minOpacity = isDark ? 0.25 : 0.45;
+        const opacityRange = isDark ? 0.65 : 0.55;
+        const depthOpacity = minOpacity + normalizedDepth * opacityRange;
+        node.style.opacity = String(depthOpacity.toFixed(2));
+
+        // Calculate Filter
+        const blur = (1 - normalizedDepth) * (1 - normalizedDepth) * maxBlur;
+
+        if (isDark) {
+          const brightness = brightnessFloor + (1 - brightnessFloor) * normalizedDepth * normalizedDepth;
+          node.style.filter = `brightness(${brightness.toFixed(3)}) blur(${blur.toFixed(2)}px)`;
+        } else {
+          // Light mode: boost brightness slightly so back items fade gracefully into white
+          const lightness = 1.0 + (1 - normalizedDepth) * 0.25;
+          node.style.filter = `brightness(${lightness.toFixed(3)}) blur(${blur.toFixed(2)}px)`;
+        }
+      }
+    });
+
+    requestAnimationFrame(animate);
+  }
+
+  // Stage Mouse Listeners for Smooth Hover Slowdown
+  if (stage) {
+    stage.addEventListener("mouseenter", () => {
+      isHovered = true;
+    });
+    stage.addEventListener("mouseleave", () => {
+      isHovered = false;
+    });
+  }
+
+  // Click handler for focusing individual nodes
+  const allNodes = document.querySelectorAll<HTMLElement>(".constellation-node");
+  allNodes.forEach((node) => {
+    node.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (activeFocusedNode === node) {
+        clearFocus();
+      } else {
+        clearFocus();
+        activeFocusedNode = node;
+        node.classList.add("focused");
+      }
+    });
+  });
+
+  function clearFocus() {
+    if (activeFocusedNode) {
+      activeFocusedNode.classList.remove("focused");
+      activeFocusedNode = null;
+    }
+  }
+
+  // Toggle Filter Logic and Animation (Explode/Re-cluster)
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const selectedCategory = btn.getAttribute("data-category");
+
+      // Toggle behavior: if clicking already active filter, turn it off (return to null)
+      if (activeCategory === selectedCategory) {
+        activeCategory = null;
+        btn.classList.remove("active");
+      } else {
+        activeCategory = selectedCategory;
+        filterBtns.forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+      }
+
+      clearFocus();
+
+      // Trigger burst out animation
+      const currentNodes = document.querySelectorAll<HTMLElement>(".constellation-node:not(.hidden)");
+      currentNodes.forEach((n) => n.classList.add("animating-out"));
+
+      setTimeout(() => {
+        allNodes.forEach((node) => {
+          node.classList.remove("animating-out");
+          const nodeCat = node.getAttribute("data-category");
+          const isHighlight = node.getAttribute("data-highlight") === "true";
+
+          if (activeCategory === null) {
+            node.classList.toggle("hidden", !isHighlight);
+          } else {
+            node.classList.toggle("hidden", nodeCat !== activeCategory);
+          }
+        });
+
+        // Recalculate positions for newly active category
+        layout3DSphere();
+      }, 300);
+    });
+  });
+
+  // Initial setup: no filter active by default
+  allNodes.forEach((node) => {
+    const isHighlight = node.getAttribute("data-highlight") === "true";
+    node.classList.toggle("hidden", !isHighlight);
+  });
+
+  // Unfocus when clicking anywhere else on the page
+  document.addEventListener("click", (e) => {
+    const target = e.target as HTMLElement;
+    if (!target.closest(".constellation-node") && !target.closest(".filter-btn")) {
+      clearFocus();
+    }
+  });
+
+  layout3DSphere();
+  animate();
+</script>

@@ -1,0 +1,23 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sync-i18n": "mkdir -p public/i18n && cp ../../packages/utils/translations/*.json public/i18n/",
+    "dev": "pnpm sync-i18n && astro dev",
+    "build": "pnpm sync-i18n && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@heyshaun/design-tokens": "workspace:*",
+    "@heyshaun/ui": "workspace:*",
+    "@heyshaun/utils": "workspace:*",
+    "@lucide/astro": "^1.28.0",
+    "astro": "^7.1.6"
+  },
+  "devDependencies": {
+    "image-size": "^2.0.2"
+  }
+}

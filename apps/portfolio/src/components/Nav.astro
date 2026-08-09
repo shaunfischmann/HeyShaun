@@ -1,0 +1,633 @@
+---
+import { Sun, Moon, Menu, X } from "@lucide/astro";
+import { Home, User, Clock, Palette, Mail } from "@lucide/astro";
+
+// Define your navigation links with icon names
+const navLinks = [
+  { href: "/#hero", label: "Home", id: "hero", i18n: "nav.home", icon: Home },
+  { href: "/#about", label: "About me", id: "about", i18n: "nav.about", icon: User },
+  { href: "/#timeline", label: "Timeline", id: "timeline", i18n: "nav.timeline", icon: Clock },
+  { href: "/#art", label: "AI Gallery", id: "art", i18n: "nav.art", icon: Palette },
+  { href: "/#contact", label: "Contact", id: "contact", i18n: "nav.contact", icon: Mail },
+];
+---
+
+<nav id="site-nav" role="navigation" aria-label="Main Navigation">
+  <!-- Fixed Top-Left Logo -->
+  <a href="/#hero" class="corner-logo" id="brand-logo-link" aria-label="Shaun Fischmann — Home">
+    <span class="brand-logo-wrap">
+      <img src="/sf-logo.svg" alt="SF" class="brand-logo brand-logo--normal" width="88" height="58" />
+      <img
+        src="/sf-logo-glitch.svg"
+        alt=""
+        class="brand-logo brand-logo--glitch"
+        width="88#"
+        height="58"
+        aria-hidden="true"
+      />
+    </span>
+  </a>
+
+  <!-- Desktop Top Right Controls (Language Switcher + Light/Dark Theme Toggle) -->
+  <div class="top-controls-bar">
+    <!-- Language Toggle Pill -->
+    <div class="lang-pill" role="group" aria-label="Language selector">
+      <button class="lang-pill__btn" id="lang-en active" data-lang="en" aria-label="Switch to English">EN</button>
+      <button class="lang-pill__btn" id="lang-fr" data-lang="fr" aria-label="Passer en français">FR</button>
+    </div>
+
+    <!-- Theme Toggle Button -->
+    <button id="theme-toggle" class="theme-btn" aria-label="Toggle theme" title="Toggle dark/light mode">
+      <Sun class="sun-icon" size="20" color="currentColor" stroke-width="2" />
+      <Moon class="moon-icon" size="20" color="currentColor" stroke-width="2" />
+    </button>
+  </div>
+
+  <!-- Minimalist Left Side Navigation -->
+  <aside class="side-menu glass-menu">
+    <ul class="nav-list" role="list">
+      {
+        navLinks.map((link, index) => {
+          const Icon = link.icon;
+          return (
+            <li>
+              <a href={link.href} class={`nav-item ${index === 0 ? "active" : ""}`} data-section={link.id}>
+                <span class="nav-text">
+                  <Icon class="nav-icon" size={16} />
+                  <span data-i18n={link.i18n}>{link.label}</span>
+                </span>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </aside>
+
+  <!-- Mobile / Tablet Top Bar (Active under 1180px screen width) -->
+  <div class="mobile-bar">
+    <a href="/#hero" class="mobile-brand-title" aria-label="Shaun Fischmann — Home">
+      <img src="/sf-logo.svg" alt="SF" class="mobile-logo" width="60" height="40" />
+    </a>
+    <div class="mobile-right">
+      <!-- Mobile Language Toggle -->
+      <div class="lang-pill" role="group" aria-label="Language selector">
+        <button class="lang-pill__btn active" data-lang="en" aria-label="EN">EN</button>
+        <button class="lang-pill__btn" data-lang="fr" aria-label="FR">FR</button>
+      </div>
+
+      <button id="mobile-theme-toggle" class="theme-btn" aria-label="Toggle theme">
+        <Sun class="sun-icon" size="20" color="currentColor" stroke-width="2" />
+        <Moon class="moon-icon" size="20" color="currentColor" stroke-width="2" />
+      </button>
+
+      <button id="nav-toggle" class="mobile-toggle-btn" aria-expanded="false" aria-label="Toggle navigation">
+        <Menu class="icon-open" size="20" color="currentColor" stroke-width="2" />
+        <X class="icon-close" size="20" color="currentColor" stroke-width="2" />
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-menu" class="mobile-menu" hidden>
+    <ul class="nav-list" role="list">
+      {
+        navLinks.map((link, index) => {
+          const Icon = link.icon;
+          return (
+            <li>
+              <a href={link.href} class={`nav-item ${index === 0 ? "active" : ""}`} data-section={link.id}>
+                <span class="nav-text">
+                  <Icon class="nav-icon" size={16} />
+                  <span data-i18n={link.i18n}>{link.label}</span>
+                </span>
+              </a>
+            </li>
+          );
+        })
+      }
+    </ul>
+  </div>
+</nav>
+
+<style>
+  /* ── Top-Right Controls Bar (Lang Pill + Theme Toggle) ── */
+  .top-controls-bar {
+    position: fixed;
+    top: 1.25rem;
+    right: 1.5rem;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    border-radius: var(--radius-full);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--neu-shadow-outset);
+  }
+
+  /* ── Language Toggle Pill ───────────────────────────────────── */
+  .lang-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem;
+    background: var(--color-bg);
+    border-radius: var(--radius-full);
+    box-shadow: inset 0 0 0 1px var(--color-border);
+  }
+
+  .lang-pill__btn {
+    padding: 0.375rem 0.75rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .lang-pill__btn.active {
+    background: var(--color-primary);
+    color: #fff;
+    box-shadow:
+      0 2px 8px rgba(108, 92, 231, 0.45),
+      inset 0 0 0 1px var(--color-border);
+    transform: scale(1.05);
+  }
+
+  .lang-pill__btn:hover:not(.active) {
+    color: var(--color-text);
+    background: var(--color-surface-hover);
+    box-shadow:
+      0 0 8px var(--glow-primary),
+      inset 0 0 0 1px var(--color-primary);
+  }
+
+  /* ── Theme Toggle ─────────────────────────────────────────── */
+  .theme-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 32px;
+    /* border-radius: var(--radius-full); */
+    /* background: transparent; */
+    border: none;
+    background: var(--color-bg);
+    border-radius: var(--radius-full);
+    box-shadow: inset 0 0 0 1px var(--color-border);
+    color: var(--color-text-muted);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+  }
+
+  .theme-btn:hover {
+    color: var(--color-text);
+    /* border-color: var(--color-primary); */
+    background: var(--color-surface-hover);
+    box-shadow:
+      0 0 8px var(--glow-primary),
+      inset 0 0 0 1px var(--color-primary);
+  }
+
+  /* Theme Icons (unchanged) */
+  :global([data-theme="dark"]) .moon-icon {
+    display: none;
+  }
+  :global([data-theme="dark"]) .sun-icon {
+    display: block;
+  }
+  :global([data-theme="light"]) .sun-icon {
+    display: none;
+  }
+  :global([data-theme="light"]) .moon-icon {
+    display: block;
+  }
+
+  /* ── Fixed Top-Left Logo ── */
+  .corner-logo {
+    position: fixed;
+    top: 1.25rem;
+    left: clamp(1rem, 2.5vw, 2.25rem);
+    z-index: 101;
+    text-decoration: none;
+    display: block;
+  }
+
+  /* ── Brand Logo (corner + glitch) ── */
+  .brand-logo-wrap {
+    position: relative;
+    display: block;
+    width: 88px;
+    height: 58px;
+  }
+
+  .brand-logo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: opacity 0.05s step-start;
+  }
+
+  .brand-logo--normal {
+    opacity: 1;
+  }
+
+  .brand-logo--glitch {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Hover: swap to glitch */
+  .corner-logo:hover .brand-logo--normal,
+  .brand-logo-wrap.is-glitching .brand-logo--normal {
+    opacity: 0;
+  }
+
+  .corner-logo:hover .brand-logo--glitch,
+  .brand-logo-wrap.is-glitching .brand-logo--glitch {
+    opacity: 1;
+  }
+
+  /* ── Left Side Navigation Bar ── */
+  .side-menu {
+    position: fixed;
+    top: 50%;
+    left: clamp(1rem, 2.5vw, 2.25rem);
+    transform: translateY(-50%);
+    z-index: 99;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.25rem 1rem 1.25rem 0;
+    transition:
+      transform var(--transition-base),
+      opacity var(--transition-base),
+      -webkit-mask-position var(--transition-base),
+      mask-position var(--transition-base);
+  }
+
+  /* ── Side menu fades from bottom when at #contact ── */
+  /* .side-menu.at-contact {
+    -webkit-mask-image: linear-gradient(to top, transparent 0%, black 55%);
+    mask-image: linear-gradient(to top, transparent 0%, black 55%);
+    pointer-events: none;
+  } */
+
+  .nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .nav-item {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.4rem 0.625rem;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    color: var(--color-text-muted);
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-left: 2px solid transparent;
+    transition:
+      color var(--transition-fast),
+      border-color var(--transition-fast),
+      background-color var(--transition-fast),
+      transform var(--transition-fast);
+  }
+
+  .nav-text {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+
+  .nav-icon {
+    opacity: 0.6;
+    transition:
+      opacity var(--transition-fast),
+      stroke var(--transition-fast);
+    flex-shrink: 0;
+  }
+
+  .nav-item:hover {
+    color: var(--color-text);
+    background: var(--color-surface-hover);
+    transform: translateX(2px);
+  }
+
+  .nav-item:hover .nav-icon {
+    opacity: 1;
+    stroke: var(--color-primary);
+  }
+
+  .nav-item.active {
+    color: var(--color-text);
+    border-left-color: var(--color-primary);
+    background: var(--color-surface-hover);
+    font-weight: 600;
+  }
+
+  .nav-item.active .nav-icon {
+    opacity: 1;
+    stroke: var(--color-primary);
+  }
+
+  /* Mobile / Tablet Bar */
+  .mobile-bar {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding: 0.75rem 1.25rem;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-bottom: 1px solid var(--color-border);
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mobile-brand-title {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .mobile-logo {
+    display: block;
+    object-fit: contain;
+  }
+
+  .mobile-right {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+  }
+
+  .mobile-toggle-btn {
+    background: none;
+    border: none;
+    color: var(--color-text);
+    cursor: pointer;
+  }
+
+  .icon-close {
+    display: none;
+  }
+
+  .mobile-menu {
+    position: fixed;
+    top: 3.25rem;
+    left: 0;
+    right: 0;
+    z-index: 99;
+    padding: 1rem 1.25rem;
+    background: var(--glass-bg-strong);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .mobile-menu[hidden] {
+    display: none;
+  }
+
+  .mobile-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .mobile-item {
+    display: block;
+    padding: 0.5rem 0;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+    font-family: var(--font-body);
+  }
+
+  /* ── Overlap Prevention Breakpoint (<= 1180px) ── */
+  @media (max-width: 1180px) {
+    .side-menu {
+      display: none;
+    }
+    .top-controls-bar {
+      display: none;
+    }
+    .corner-logo {
+      display: none;
+    }
+    .mobile-bar {
+      display: flex;
+    }
+  }
+</style>
+
+<script>
+  // ── Random logo glitch ────────────────────────────────────────
+  (function () {
+    const wrap = document.querySelector<HTMLElement>(".brand-logo-wrap");
+    if (!wrap) return;
+
+    function scheduleGlitch() {
+      // Fire every 8–20 seconds
+      const delay = 8000 + Math.random() * 12000;
+      setTimeout(() => {
+        // Glitch for 120–420ms
+        const duration = 120 + Math.random() * 300;
+        wrap.classList.add("is-glitching");
+        setTimeout(() => {
+          wrap.classList.remove("is-glitching");
+          scheduleGlitch();
+        }, duration);
+      }, delay);
+    }
+
+    scheduleGlitch();
+  })();
+
+  // ── Theme Toggle ─────────────────────────────────────────────
+  function getPreferredTheme() {
+    const saved = localStorage.getItem("theme");
+    if (saved) return saved;
+    return window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+  }
+
+  function setTheme(theme: string) {
+    document.documentElement.setAttribute("data-theme", theme);
+    localStorage.setItem("theme", theme);
+  }
+
+  setTheme(getPreferredTheme());
+
+  document.querySelectorAll("#theme-toggle, #mobile-theme-toggle").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const current = document.documentElement.getAttribute("data-theme");
+      setTheme(current === "light" ? "dark" : "light");
+    });
+  });
+
+  // ── Active section tracking ──────────────────────────────────
+  const navItems = document.querySelectorAll<HTMLElement>(".nav-item");
+  const sideMenu = document.querySelector<HTMLElement>(".side-menu");
+  const sections = document.querySelectorAll<HTMLElement>("section[id], footer[id]");
+
+  const sectionObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute("id");
+          navItems.forEach((item) => {
+            item.classList.toggle("active", item.getAttribute("data-section") === id);
+          });
+          // Fade the side menu when contact section is active
+          // sideMenu?.classList.toggle("at-contact", id === "contact");
+        }
+      });
+    },
+    { rootMargin: "-20% 0px -50% 0px" },
+  );
+
+  sections.forEach((sec) => sectionObserver.observe(sec));
+
+  // ── Mobile menu toggle ───────────────────────────────────────
+  const toggle = document.getElementById("nav-toggle");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const iconOpen = toggle?.querySelector(".icon-open") as HTMLElement | null;
+  const iconClose = toggle?.querySelector(".icon-close") as HTMLElement | null;
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = toggle.getAttribute("aria-expanded") === "true";
+    toggle.setAttribute("aria-expanded", String(!isOpen));
+    mobileMenu?.toggleAttribute("hidden");
+    if (iconOpen && iconClose) {
+      iconOpen.style.display = isOpen ? "block" : "none";
+      iconClose.style.display = isOpen ? "none" : "block";
+    }
+  });
+
+  document.querySelectorAll(".mobile-item").forEach((link) => {
+    link.addEventListener("click", () => {
+      toggle?.setAttribute("aria-expanded", "false");
+      mobileMenu?.setAttribute("hidden", "");
+      if (iconOpen && iconClose) {
+        iconOpen.style.display = "block";
+        iconClose.style.display = "none";
+      }
+    });
+  });
+
+  // ── Multilingual i18n System ─────────────────────────────────
+  const TRANSLATIONS: Record<string, Record<string, string>> = {};
+
+  async function loadTranslations(lang: string) {
+    if (TRANSLATIONS[lang]) return TRANSLATIONS[lang];
+    try {
+      const res = await fetch(`/i18n/${lang}.json`);
+      if (!res.ok) return {};
+      const data = await res.json();
+      TRANSLATIONS[lang] = flattenObject(data);
+      return TRANSLATIONS[lang];
+    } catch {
+      return {};
+    }
+  }
+
+  function flattenObject(obj: Record<string, unknown>, prefix = ""): Record<string, string> {
+    return Object.entries(obj).reduce(
+      (acc, [key, val]) => {
+        const path = prefix ? `${prefix}.${key}` : key;
+        if (typeof val === "object" && val !== null) {
+          Object.assign(acc, flattenObject(val as Record<string, unknown>, path));
+        } else {
+          acc[path] = String(val);
+        }
+        return acc;
+      },
+      {} as Record<string, string>,
+    );
+  }
+
+  async function applyLanguage(lang: string, animate = false) {
+    const t = await loadTranslations(lang);
+    if (!Object.keys(t).length) return;
+
+    const elements = document.querySelectorAll<HTMLElement>("[data-i18n], [data-i18n-placeholder], [data-i18n-label]");
+
+    if (animate) {
+      // Step 1: Fade / blur out current text
+      elements.forEach((el) => el.classList.add("i18n-swap-out"));
+      await new Promise((resolve) => setTimeout(resolve, 140));
+    }
+
+    // Step 2: Swap content
+    elements.forEach((el) => {
+      if (el.hasAttribute("data-i18n")) {
+        const key = el.getAttribute("data-i18n") || "";
+        if (t[key] !== undefined) el.innerHTML = t[key];
+      }
+      if (el.hasAttribute("data-i18n-placeholder")) {
+        const key = el.getAttribute("data-i18n-placeholder") || "";
+        if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) {
+          if (t[key] !== undefined) el.placeholder = t[key];
+        }
+      }
+      if (el.hasAttribute("data-i18n-label")) {
+        const key = el.getAttribute("data-i18n-label") || "";
+        if (t[key] !== undefined) el.setAttribute("aria-label", t[key]);
+      }
+    });
+
+    if (animate) {
+      // Step 3: Unblur & spring back in
+      requestAnimationFrame(() => {
+        elements.forEach((el) => el.classList.remove("i18n-swap-out"));
+      });
+    }
+
+    // Update html lang attribute
+    document.documentElement.lang = lang;
+    localStorage.setItem("lang", lang);
+
+    // Update toggle button states
+    document.querySelectorAll<HTMLButtonElement>("[data-lang]").forEach((btn) => {
+      btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
+    });
+  }
+
+  // Attach lang toggle buttons
+  document.querySelectorAll<HTMLButtonElement>("[data-lang]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const lang = btn.getAttribute("data-lang") || "en";
+      applyLanguage(lang, true);
+    });
+  });
+
+  // Apply saved or default language on load without animation
+  const savedLang = localStorage.getItem("lang") || "en";
+  applyLanguage(savedLang, false);
+</script>
