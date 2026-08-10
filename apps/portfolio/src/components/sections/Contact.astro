@@ -18,12 +18,12 @@ const socials = [
     <div class="footer-grid" data-reveal>
       <!-- Left Column: Heading, Subtitle, Socials -->
       <div class="footer-left">
-        <div class="contact-header">
+        <div class="contact-header section-header">
           <p class="section-tag" data-i18n="contact.tag">Let's Connect</p>
-          <h2 id="contact-heading">
+          <h2 id="contact-heading" class="section-title">
             <span class="gradient-text" data-i18n="contact.heading"> Say hello! </span>
           </h2>
-          <p class="contact-sub" data-i18n="contact.sub">
+          <p class="contact-sub section-sub" data-i18n="contact.sub">
             Whether you want to talk web development, PHP, Proptech, AI, or just connect — feel free to drop a message!
           </p>
         </div>
@@ -179,13 +179,9 @@ const socials = [
 <style>
   /* ── Footer ── */
   .site-footer {
-    /* z-index: 100; */
-    /* background-color: var(--color-bg-subtle); */
-    padding: clamp(4rem, 8vw, 6rem) 0 2.5rem;
-    /* border-top: 1px solid var(--color-border); */
+    padding-top: clamp(4rem, 8vw, 6rem);
     margin-top: 4rem;
     position: relative;
-    /* overflow: hidden; */
   }
 
   .footer-grid {
@@ -208,7 +204,7 @@ const socials = [
     gap: 0.5rem;
   }
 
-  h2 {
+  .site-footer h2 {
     font-size: clamp(2rem, 4vw, 3rem);
     margin-bottom: 0.25rem;
   }
@@ -249,7 +245,7 @@ const socials = [
 
   .social-pill:hover {
     color: var(--color-text);
-    border-color: rgba(108, 92, 231, 0.4);
+    border-color: var(--color-primary);
     transform: translateY(-3px);
     box-shadow: 0 8px 24px var(--glow-primary);
   }
@@ -328,7 +324,7 @@ const socials = [
   }
 
   .glass-input:hover {
-    border-color: rgba(108, 92, 231, 0.25);
+    border-color: var(--color-primary);
   }
 
   .glass-input:focus {
@@ -383,7 +379,7 @@ const socials = [
     font-size: 0.9375rem;
     border: none;
     cursor: pointer;
-    box-shadow: 0 8px 24px -4px rgba(108, 92, 231, 0.45);
+    box-shadow: 0 8px 24px -4px var(--glow-primary);
     transition:
       transform var(--transition-spring),
       box-shadow var(--transition-base),
@@ -396,7 +392,7 @@ const socials = [
 
   .submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 12px 32px -4px rgba(108, 92, 231, 0.6);
+    box-shadow: 0 12px 32px -4px var(--glow-primary);
   }
 
   .submit-btn:active {
@@ -471,8 +467,15 @@ const socials = [
     width: 100%;
     line-height: 0;
     z-index: -10;
-    overflow: visible;
+    overflow: hidden;
     pointer-events: none;
+  }
+
+  @media (min-width: 1180px) {
+    .waves-container {
+      left: calc(-1 * clamp(100px, 10vw, 150px));
+      width: calc(100% + clamp(100px, 10vw, 150px));
+    }
   }
 
   .waves-container .waves {
@@ -481,7 +484,6 @@ const socials = [
     height: 100vh;
     margin-bottom: -7px; /*Fix for safari gap*/
     min-height: 100px;
-    /* max-height: 150px; */
     opacity: 0.5;
     display: block;
   }

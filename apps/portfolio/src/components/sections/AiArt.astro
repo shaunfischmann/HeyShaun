@@ -109,10 +109,10 @@ if (isHomepage) {
 
 <section id="art" class="section" aria-labelledby="art-heading">
   <div class="container container--wide">
-    <div class="art-header">
+    <div class="art-header section-header">
       <div>
         <p class="section-tag" data-reveal data-i18n="art.tag">AI gallery</p>
-        <h2 id="art-heading" data-reveal data-delay="1">
+        <h2 id="art-heading" class="section-title" data-reveal data-delay="1">
           <span class="gradient-text" data-i18n="art.heading">Shaun.ai</span>
         </h2>
         <p class="section-sub" data-reveal data-delay="2" data-i18n="art.sub">
@@ -250,14 +250,9 @@ if (isHomepage) {
 </div>
 
 <style>
-  .container--wide {
-    max-width: 1400px; /* Expands section layout to fill large desktop screens */
-  }
-
   .art-header {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
     margin-bottom: 2rem;
   }
 
@@ -275,7 +270,7 @@ if (isHomepage) {
     border-radius: var(--radius-full);
     background: linear-gradient(135deg, rgba(225, 48, 108, 0.15), rgba(131, 58, 180, 0.15));
     border: 1px solid rgba(225, 48, 108, 0.35);
-    color: #e1306c;
+    color: var(--brand-instagram);
     font-weight: 600;
     font-size: 0.85rem;
     text-decoration: none;
@@ -286,12 +281,12 @@ if (isHomepage) {
   :global(.insta-link:hover) {
     background: linear-gradient(135deg, rgba(225, 48, 108, 0.25), rgba(253, 29, 29, 0.25));
     border-color: rgba(225, 48, 108, 0.6);
-    color: #fd1d1d;
+    color: var(--brand-instagram-hover);
     transform: translateY(-1px);
     box-shadow: 0 4px 12px rgba(225, 48, 108, 0.25);
   }
 
-  h2 {
+  .art-header h2 {
     margin-bottom: 0.5rem;
   }
 
@@ -381,11 +376,11 @@ if (isHomepage) {
   }
 
   .holo-card:hover {
-    border-color: rgba(108, 92, 231, 0.7);
+    border-color: var(--color-primary);
     box-shadow:
       0 30px 70px -15px rgba(0, 0, 0, 0.65),
-      0 0 0 1px rgba(108, 92, 231, 0.3),
-      0 0 50px 0px rgba(108, 92, 231, 0.45);
+      0 0 0 1px var(--glow-primary),
+      0 0 50px 0px var(--glow-primary);
   }
 
   .holo-card__content {
@@ -678,7 +673,7 @@ if (isHomepage) {
   .lb-holo-card {
     position: relative;
     border-radius: var(--radius-lg);
-    border: 1px solid rgba(108, 92, 231, 0.3);
+    border: 1px solid var(--glow-primary);
     overflow: hidden;
     transform-style: preserve-3d;
     cursor: crosshair;
@@ -705,10 +700,10 @@ if (isHomepage) {
   }
 
   .lb-holo-card:hover {
-    border-color: rgba(108, 92, 231, 0.7);
+    border-color: var(--color-primary);
     box-shadow:
       0 35px 90px -20px rgba(0, 0, 0, 0.8),
-      0 0 40px rgba(108, 92, 231, 0.3);
+      0 0 40px var(--glow-primary);
   }
 
   .lb-flip-inner {

@@ -22,7 +22,7 @@ import { Send, Telescope } from "@lucide/astro";
         <span class="typing-text" id="typing-text"></span><span class="typing-caret" aria-hidden="true"></span>
       </div>
 
-      <p class="hero-subtitle" data-reveal data-delay="3" data-i18n="hero.subtitle">
+      <p class="hero-subtitle section-sub" data-reveal data-delay="3" data-i18n="hero.subtitle">
         10+ years building real estate platforms and web applications specializing in <strong>PHP</strong>, <strong
           >API integrations</strong
         > &amp;
@@ -308,32 +308,6 @@ import { Send, Telescope } from "@lucide/astro";
     display: block;
   }
 
-  .cutout-fallback {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(135deg, var(--color-surface), var(--color-bg-subtle));
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-  }
-
-  .cutout-graphic {
-    color: var(--color-primary);
-    opacity: 0.5;
-  }
-
-  .cutout-initials {
-    font-family: var(--font-heading);
-    font-size: 4rem;
-    font-weight: 700;
-    background: var(--gradient-text);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
   @media (max-width: 868px) {
     .hero-grid {
       grid-template-columns: 1fr;
@@ -348,13 +322,9 @@ import { Send, Telescope } from "@lucide/astro";
       margin: 0 auto 2rem;
     }
 
-    .hero-actions,
-    .hero-pills {
+    .hero-actions {
       justify-content: center;
-    }
-
-    .hero-cutout-col {
-      margin-top: 3rem;
+      margin-bottom: 0;
     }
   }
 </style>

@@ -158,7 +158,7 @@ const navLinks = [
     background: var(--color-primary);
     color: #fff;
     box-shadow:
-      0 2px 8px rgba(108, 92, 231, 0.45),
+      0 2px 8px var(--glow-primary),
       inset 0 0 0 1px var(--color-border);
     transform: scale(1.05);
   }
@@ -178,8 +178,6 @@ const navLinks = [
     justify-content: center;
     width: 42px;
     height: 32px;
-    /* border-radius: var(--radius-full); */
-    /* background: transparent; */
     border: none;
     background: var(--color-bg);
     border-radius: var(--radius-full);
@@ -191,7 +189,6 @@ const navLinks = [
 
   .theme-btn:hover {
     color: var(--color-text);
-    /* border-color: var(--color-primary); */
     background: var(--color-surface-hover);
     box-shadow:
       0 0 8px var(--glow-primary),
@@ -226,8 +223,8 @@ const navLinks = [
   .brand-logo-wrap {
     position: relative;
     display: block;
-    width: 88px;
-    height: 58px;
+    width: clamp(70px, 6vw, 88px);
+    height: clamp(46px, 4vw, 58px);
   }
 
   .brand-logo {
@@ -278,13 +275,6 @@ const navLinks = [
       mask-position var(--transition-base);
   }
 
-  /* ── Side menu fades from bottom when at #contact ── */
-  /* .side-menu.at-contact {
-    -webkit-mask-image: linear-gradient(to top, transparent 0%, black 55%);
-    mask-image: linear-gradient(to top, transparent 0%, black 55%);
-    pointer-events: none;
-  } */
-
   .nav-list {
     list-style: none;
     padding: 0;
@@ -302,7 +292,7 @@ const navLinks = [
     border-radius: var(--radius-sm);
     text-decoration: none;
     color: var(--color-text-muted);
-    font-size: 1.1rem;
+    font-size: clamp(0.9rem, 1.1vw, 1.05rem);
     font-weight: 500;
     border-left: 2px solid transparent;
     transition:
@@ -504,8 +494,7 @@ const navLinks = [
           navItems.forEach((item) => {
             item.classList.toggle("active", item.getAttribute("data-section") === id);
           });
-          // Fade the side menu when contact section is active
-          // sideMenu?.classList.toggle("at-contact", id === "contact");
+        // Fade the side menu when contact section is active (currently unused)
         }
       });
     },

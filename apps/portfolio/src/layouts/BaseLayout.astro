@@ -1,4 +1,7 @@
 ---
+import "../styles/global.css";
+import "@heyshaun/design-tokens/colors.css";
+
 export interface Props {
   title?: string;
   description?: string;
@@ -46,6 +49,10 @@ const ogImageURL = new URL(image, Astro.url);
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500&family=Fira+Code:wght@400&display=swap"
+    />
 
     <!-- Keywords (semantic crawlers) -->
     <meta
@@ -194,6 +201,4 @@ const ogImageURL = new URL(image, Astro.url);
   </body>
 </html>
 
-<style is:global>
-  @import "../styles/global.css";
-</style>
+<!-- Global styles imported in frontmatter via Astro's native import -->

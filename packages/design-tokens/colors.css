@@ -1,54 +1,49 @@
 /* ============================================================
    DESIGN TOKENS — HeyShaun
-   Shared CSS custom properties for the design system.
-   Import this file anywhere tokens are needed.
+   Package-level shared CSS custom properties.
+
+   Scope: Brand identity & third-party brand colors used
+   across component styles. This file is intentionally
+   additive — it does NOT redefine tokens already managed
+   in apps/portfolio/src/styles/global.css (spacing, radius,
+   transitions, shadows, glass, gradients, etc).
+
+   Import this file anywhere shared tokens are needed.
    ============================================================ */
 
 :root {
   /* ── Brand Colors ── */
-  --color-primary:    #6C5CE7;   /* Accent / CTAs */
-  --color-secondary:  #00CEC9;   /* Liquid glass tint */
+  --color-primary:   #6C5CE7;   /* Violet — Accent / CTAs */
+  --color-secondary: #00CEC9;   /* Cyan — Liquid glass tint */
 
-  /* ── Semantic Backgrounds ── */
-  --color-bg-base:    #F8F9FA;
-  --color-surface:    #FFFFFF;
+  /* ── Third-Party Brand Colors ── */
+  /* Tech skills */
+  --brand-php:              #777bb4;
+  --brand-mysql:            #4479a1;
+  --brand-symfony-dark:     #ffffff;  /* on dark bg */
+  --brand-symfony-light:    #000000;  /* on light bg */
+  --brand-git:              #f03c2e;
+  --brand-github:           #181717;
+  --brand-apache:           #d22128;
+  --brand-nginx:            #009639;
+  --brand-postman:          #ff6c37;
+  --brand-jquery:           #0769ad;
+  --brand-asana:            #f06a6a;
+  --brand-openai-dark:      #ffffff;  /* on dark bg */
+  --brand-openai-light:     #000000;  /* on light bg */
 
-  /* ── Text ── */
-  --color-text-primary:   #2D3436;
-  --color-text-secondary: #636E72;
+  /* Creative skills */
+  --brand-davinci:          #233a51;
+  --brand-adobe:            #fa0f00;
+  --brand-html:             #e34f26;
+  --brand-css:              #663399;
+  --brand-js-dark:          #f7df1e;  /* on dark bg */
+  --brand-gemini:           #8e75b2;
+  --brand-mistral:          #fa520f;
+  --brand-claude:           #d97757;
+  --brand-astro:            #bc52ee;
 
-  /* ── Neumorphic Shadows ── */
-  --shadow-light: rgba(0, 0, 0, 0.05);
-  --shadow-dark:  rgba(0, 0, 0, 0.15);
-
-  /* Neumorphic outset (raised element on light bg) */
-  --neu-shadow-outset:
-    6px 6px 16px var(--shadow-dark),
-    -6px -6px 16px rgba(255, 255, 255, 0.85);
-
-  /* Neumorphic inset (pressed element) */
-  --neu-shadow-inset:
-    inset 4px 4px 10px var(--shadow-dark),
-    inset -4px -4px 10px rgba(255, 255, 255, 0.75);
-
-  /* ── Liquid Glass ── */
-  --glass-tint:        rgba(255, 255, 255, 0.55);
-  --glass-tint-strong: rgba(255, 255, 255, 0.72);
-  --glass-border-rgb:  255, 255, 255;
-  --glass-border-alpha: 0.35;
-
-  /* ── Spacing Scale ── */
-  --space-1:  4px;
-  --space-2:  8px;
-  --space-3:  16px;
-  --space-4:  24px;
-  --space-5:  32px;
-  --space-6:  48px;
-
-  /* ── Max Width ── */
-  --max-content-width: 1200px;
-
-  /* ── Padding ── */
-  --padding-mobile:  24px;
-  --padding-desktop: 48px;
+  /* Social */
+  --brand-instagram:        #e1306c;
+  --brand-instagram-hover:  #fd1d1d;
 }

@@ -329,7 +329,7 @@ const skills: SkillItem[] = [
 <section id="about" class="section" aria-labelledby="about-heading">
   <div class="container">
     <p class="section-tag" data-reveal data-i18n="about.tag">About me</p>
-    <h2 id="about-heading" data-reveal data-delay="1">
+    <h2 id="about-heading" class="section-title" data-reveal data-delay="1">
       <span class="gradient-text" data-i18n="about.heading"> Skills, tools &amp; passions </span>
     </h2>
 
@@ -359,7 +359,7 @@ const skills: SkillItem[] = [
       <!-- 3D Constellation Cloud -->
       <div class="constellation-wrapper" data-reveal data-delay="2">
         <!-- Toggle Filter Bar -->
-        <div class="constellation-filters" role="group" aria-label="Filter skill constellation">
+        <div class="constellation-filters filter-group" role="group" aria-label="Filter skill constellation">
           {
             categories.map((cat) => (
               <button class="filter-btn" data-category={cat}>
@@ -416,17 +416,21 @@ const skills: SkillItem[] = [
 </section>
 
 <style>
+  #about {
+    overflow-x: clip;
+  }
+
   /* ── About me / Bio ── */
   .about-layout {
     display: grid;
     grid-template-columns: 0.65fr 1fr;
-    gap: 2.5rem;
-    margin-top: 2rem;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    margin-top: clamp(1.5rem, 3vw, 2rem);
     align-items: start;
   }
 
   .bio-card {
-    padding: 2rem 1.75rem;
+    padding: clamp(1.5rem, 3vw, 2rem) clamp(1.25rem, 2.5vw, 1.75rem);
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -449,13 +453,12 @@ const skills: SkillItem[] = [
   .apimo-link {
     display: inline-flex;
     align-items: center;
-    /* text-decoration: none; */
   }
 
   .apimo-logo {
     display: block;
     object-fit: contain;
-    height: 40px;
+    height: clamp(32px, 5vw, 40px);
     width: auto;
     vertical-align: middle;
   }
@@ -476,50 +479,23 @@ const skills: SkillItem[] = [
 
   .bio-text {
     font-family: var(--font-body);
-    font-size: 0.9rem;
+    font-size: clamp(0.85rem, 1.2vw, 0.9rem);
     color: var(--color-text-muted);
     line-height: 1.75;
   }
 
-  /* ── Filters ── */
+  /* ── Filters & Stage ── */
   .constellation-wrapper {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    overflow-x: clip;
+    max-width: 100%;
   }
 
   .constellation-filters {
-    display: flex;
-    gap: 0.5rem;
-    flex-wrap: wrap;
     place-content: center;
     z-index: 5;
-  }
-
-  .filter-btn {
-    padding: 0.45rem 1.1rem;
-    border-radius: var(--radius-full);
-    font-family: var(--font-body);
-    font-size: 0.8125rem;
-    font-weight: 600;
-    cursor: pointer;
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    color: var(--color-text-muted);
-    transition: all var(--transition-base);
-    box-shadow: var(--neu-shadow-outset);
-  }
-
-  .filter-btn:hover,
-  .filter-btn.active {
-    color: #fff;
-    background: var(--color-primary);
-    border-color: transparent;
-    box-shadow:
-      0 4px 16px rgba(108, 92, 231, 0.4),
-      var(--neu-shadow-outset);
   }
 
   /* ── Fully Transparent 3D Stage ── */
@@ -672,7 +648,7 @@ const skills: SkillItem[] = [
   }
   .constellation-node[data-id="php"]:hover .skill-icon,
   .constellation-node[data-id="php"].focused .skill-icon {
-    background-color: #777bb4;
+    background-color: var(--brand-php);
   }
   /* Mysql */
   .constellation-node[data-id="mysql"] .skill-icon {
@@ -681,21 +657,21 @@ const skills: SkillItem[] = [
   }
   .constellation-node[data-id="mysql"]:hover .skill-icon,
   .constellation-node[data-id="mysql"].focused .skill-icon {
-    background-color: #4479a1;
+    background-color: var(--brand-mysql);
   }
   /* Symfony */
   :root:not([data-theme="dark"]) .constellation-node[data-id="symfony"]:hover .skill-icon,
   :root:not([data-theme="dark"]) .constellation-node[data-id="symfony"].focused .skill-icon {
-    background-color: #000000;
+    background-color: var(--brand-symfony-light);
   }
   :root[data-theme="dark"] .constellation-node[data-id="symfony"]:hover .skill-icon,
   :root[data-theme="dark"] .constellation-node[data-id="symfony"].focused .skill-icon {
-    background-color: #ffffff;
+    background-color: var(--brand-symfony-dark);
   }
   /* Git */
   .constellation-node[data-id="git"]:hover .skill-icon,
   .constellation-node[data-id="git"].focused .skill-icon {
-    background-color: #f03c2e;
+    background-color: var(--brand-git);
   }
   /* GitHub */
   .constellation-node[data-id="github"] .skill-icon {
@@ -704,17 +680,17 @@ const skills: SkillItem[] = [
   }
   .constellation-node[data-id="github"]:hover .skill-icon,
   .constellation-node[data-id="github"].focused .skill-icon {
-    background-color: #181717;
+    background-color: var(--brand-github);
   }
   /* Apache */
   .constellation-node[data-id="apache"]:hover .skill-icon,
   .constellation-node[data-id="apache"].focused .skill-icon {
-    background-color: #d22128;
+    background-color: var(--brand-apache);
   }
   /* Nginx */
   .constellation-node[data-id="nginx"]:hover .skill-icon,
   .constellation-node[data-id="nginx"].focused .skill-icon {
-    background-color: #009639;
+    background-color: var(--brand-nginx);
   }
   /* Postman */
   .constellation-node[data-id="postman"] .skill-icon {
@@ -723,46 +699,46 @@ const skills: SkillItem[] = [
   }
   .constellation-node[data-id="postman"]:hover .skill-icon,
   .constellation-node[data-id="postman"].focused .skill-icon {
-    background-color: #ff6c37;
+    background-color: var(--brand-postman);
   }
   /* Jquery */
   .constellation-node[data-id="jquery"]:hover .skill-icon,
   .constellation-node[data-id="jquery"].focused .skill-icon {
-    background-color: #0769ad;
+    background-color: var(--brand-jquery);
   }
   /* Asana */
   .constellation-node[data-id="asana"]:hover .skill-icon,
   .constellation-node[data-id="asana"].focused .skill-icon {
-    background-color: #f06a6a;
+    background-color: var(--brand-asana);
   }
   /* Openai */
   :root:not([data-theme="dark"]) .constellation-node[data-id="openai"]:hover .skill-icon,
   :root:not([data-theme="dark"]) .constellation-node[data-id="openai"].focused .skill-icon {
-    background-color: #000000;
+    background-color: var(--brand-openai-light);
   }
   :root[data-theme="dark"] .constellation-node[data-id="openai"]:hover .skill-icon,
   :root[data-theme="dark"] .constellation-node[data-id="openai"].focused .skill-icon {
-    background-color: #ffffff;
+    background-color: var(--brand-openai-dark);
   }
   /* DaVinci Resolve */
   .constellation-node[data-id="davinci"]:hover .skill-icon,
   .constellation-node[data-id="davinci"].focused .skill-icon {
-    background-color: #233a51;
+    background-color: var(--brand-davinci);
   }
   /* Adobe Creative Suite */
   .constellation-node[data-id="adobe"]:hover .skill-icon,
   .constellation-node[data-id="adobe"].focused .skill-icon {
-    background-color: #fa0f00;
+    background-color: var(--brand-adobe);
   }
   /* HTML */
   .constellation-node[data-id="html"]:hover .skill-icon,
   .constellation-node[data-id="html"].focused .skill-icon {
-    background-color: #e34f26;
+    background-color: var(--brand-html);
   }
   /* CSS */
   .constellation-node[data-id="css"]:hover .skill-icon,
   .constellation-node[data-id="css"].focused .skill-icon {
-    background-color: #663399;
+    background-color: var(--brand-css);
   }
   /* Javascript */
   :root[data-theme="light"] .constellation-node[data-id="javascript"]:hover .skill-icon,
@@ -771,27 +747,27 @@ const skills: SkillItem[] = [
   }
   :root[data-theme="dark"] .constellation-node[data-id="javascript"]:hover .skill-icon,
   :root[data-theme="dark"] .constellation-node[data-id="javascript"].focused .skill-icon {
-    background-color: #f7df1e;
+    background-color: var(--brand-js-dark);
   }
   /* Gemini */
   .constellation-node[data-id="gemini"]:hover .skill-icon,
   .constellation-node[data-id="gemini"].focused .skill-icon {
-    background-color: #8e75b2;
+    background-color: var(--brand-gemini);
   }
   /* Mistral */
   .constellation-node[data-id="mistral"]:hover .skill-icon,
   .constellation-node[data-id="mistral"].focused .skill-icon {
-    background-color: #fa520f;
+    background-color: var(--brand-mistral);
   }
   /* Claude */
   .constellation-node[data-id="claude"]:hover .skill-icon,
   .constellation-node[data-id="claude"].focused .skill-icon {
-    background-color: #d97757;
+    background-color: var(--brand-claude);
   }
   /* Astro */
   .constellation-node[data-id="astro"]:hover .skill-icon,
   .constellation-node[data-id="astro"].focused .skill-icon {
-    background-color: #bc52ee;
+    background-color: var(--brand-astro);
   }
 
   /* ── Tooltip ── */
@@ -903,10 +879,13 @@ const skills: SkillItem[] = [
     const total = visibleNodes.length;
     if (total === 0) return;
 
-    const stageWidth = stage?.clientWidth || 500;
-    const radiusX = Math.min(stageWidth * 0.42, 220);
-    const radiusY = 160;
-    const radiusZ = 180;
+    const stageWidth = stage?.clientWidth || 360;
+    const isMobile = window.innerWidth < 640;
+
+    // Tighter radius on mobile to ensure nodes never exceed viewport boundaries
+    const radiusX = isMobile ? Math.min((stageWidth - 100) * 0.45, 120) : Math.min(stageWidth * 0.4, 220);
+    const radiusY = isMobile ? 110 : 160;
+    const radiusZ = isMobile ? 120 : 180;
 
     const phi = Math.PI * (3 - Math.sqrt(5)); // Golden angle
 
@@ -923,6 +902,9 @@ const skills: SkillItem[] = [
       node.dataset.z = String(z * radiusZ);
     });
   }
+
+  // Recalculate 3D sphere radius on window resize
+  window.addEventListener("resize", layout3DSphere);
 
   // Main 3D Rendering & Focusing Loop
   function animate(now = performance.now()) {
