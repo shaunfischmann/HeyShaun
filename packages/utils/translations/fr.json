@@ -146,5 +146,14 @@
     "intellectual_desc": "L'ensemble des contenus originaux, textes, code, graphismes et œuvres visuelles sur ce site sont © Shaun Fischmann sauf mention contraire.<br /><br />Les bibliothèques et logiciels open-source utilisés restent la propriété de leurs auteurs respectifs et sont crédités sur la page <a href=\"/fr/credits\" class=\"legal-link\">Crédits</a>.",
     "privacy_title": "4. Protection des Données & Confidentialité",
     "privacy_desc": "<strong>Formulaire de contact :</strong> Les informations transmises via le formulaire (nom, email, sujet et message) sont traitées uniquement pour répondre à vos messages. Aucune donnée personnelle n'est vendue, louée ou transmise à des tiers.<br /><br /><strong>Cloudflare Web Analytics :</strong> Ce site utilise Cloudflare Web Analytics pour la mesure d'audience. Ce service est respectueux de la vie privée, fonctionne côté serveur sans aucun cookie de suivi et ne collecte aucune donnée personnelle permettant de tracer les visiteurs."
+  },
+  "not_found": {
+    "title": "404 Page Introuvable — Shaun Fischmann",
+    "description": "La page que vous cherchez n'existe pas ou a été déplacée.",
+    "code": "404",
+    "heading": "Perdu dans le Cyberespace",
+    "sub": "La page que vous recherchez n'existe pas, a été supprimée ou est temporairement indisponible.",
+    "cta_home": "Retour à l'accueil",
+    "cta_gallery": "Explorer la Galerie IA"
   }
 }

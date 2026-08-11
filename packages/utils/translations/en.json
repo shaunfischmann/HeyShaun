@@ -146,5 +146,14 @@
     "intellectual_desc": "All original content, text, code, graphics, and visual artworks on this website are © Shaun Fischmann unless otherwise specified.<br /><br />All open-source libraries, packages, and frameworks used to build this site remain the property of their respective creators and are credited on the <a href=\"/credits\" class=\"legal-link\">Credits page</a>.",
     "privacy_title": "4. Data Protection & Privacy",
     "privacy_desc": "<strong>Contact Form:</strong> Information provided via the contact form (name, email address, subject, and message) is processed strictly to respond to your inquiries. Personal data is never sold, rented, or shared with third parties.<br /><br /><strong>Cloudflare Web Analytics:</strong> This site uses Cloudflare Web Analytics to monitor site traffic. This measurement is privacy-focused, server-side/cookie-less, does not use cookies, and does not collect or track personal visitor data across websites."
+  },
+  "not_found": {
+    "title": "404 Page Not Found — Shaun Fischmann",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "code": "404",
+    "heading": "Lost in Cyberspace",
+    "sub": "The page you are looking for doesn't exist, was removed, or is temporarily unavailable.",
+    "cta_home": "Return to Homepage",
+    "cta_gallery": "Explore AI Gallery"
   }
 }
