@@ -1,27 +1,58 @@
 ---
 import { Sun, Moon, Menu, X } from "@lucide/astro";
 import { Home, User, Clock, Palette, Mail } from "@lucide/astro";
+import type { Lang } from "../i18n/utils";
+import { getTranslations } from "../i18n/utils";
 
-// Define your navigation links with icon names
+export interface Props {
+  lang?: Lang;
+  isHomepage?: boolean;
+  currentPath?: string;
+}
+
+const { lang = "en", isHomepage = true, currentPath = "" } = Astro.props;
+const t = getTranslations(lang);
+
+// Define navigation links: use direct `#id` on the home page for native smooth scrolling
 const navLinks = [
-  { href: "/#hero", label: "Home", id: "hero", i18n: "nav.home", icon: Home },
-  { href: "/#about", label: "About me", id: "about", i18n: "nav.about", icon: User },
-  { href: "/#timeline", label: "Timeline", id: "timeline", i18n: "nav.timeline", icon: Clock },
-  { href: "/#art", label: "AI Gallery", id: "art", i18n: "nav.art", icon: Palette },
-  { href: "/#contact", label: "Contact", id: "contact", i18n: "nav.contact", icon: Mail },
+  { href: isHomepage ? "#hero" : `/${lang}/#hero`, label: t.nav.home, id: "hero", i18n: "nav.home", icon: Home },
+  { href: isHomepage ? "#about" : `/${lang}/#about`, label: t.nav.about, id: "about", i18n: "nav.about", icon: User },
+  {
+    href: isHomepage ? "#timeline" : `/${lang}/#timeline`,
+    label: t.nav.timeline,
+    id: "timeline",
+    i18n: "nav.timeline",
+    icon: Clock,
+  },
+  { href: isHomepage ? "#art" : `/${lang}/#art`, label: t.nav.art, id: "art", i18n: "nav.art", icon: Palette },
+  {
+    href: isHomepage ? "#contact" : `/${lang}/#contact`,
+    label: t.nav.contact,
+    id: "contact",
+    i18n: "nav.contact",
+    icon: Mail,
+  },
 ];
+
+const enTarget = `/en${currentPath === "/" ? "/" : currentPath}`;
+const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
 ---
 
 <nav id="site-nav" role="navigation" aria-label="Main Navigation">
   <!-- Fixed Top-Left Logo -->
-  <a href="/#hero" class="corner-logo" id="brand-logo-link" aria-label="Shaun Fischmann — Home">
+  <a
+    href={isHomepage ? "#hero" : `/${lang}/`}
+    class="corner-logo"
+    id="brand-logo-link"
+    aria-label="Shaun Fischmann — Home"
+  >
     <span class="brand-logo-wrap">
-      <img src="/sf-logo.svg" alt="SF" class="brand-logo brand-logo--normal" width="88" height="58" />
+      <img src="/sf-logo.svg" alt="Shaun Fischmann logo" class="brand-logo brand-logo--normal" width="88" height="58" />
       <img
         src="/sf-logo-glitch.svg"
         alt=""
         class="brand-logo brand-logo--glitch"
-        width="88#"
+        width="88"
         height="58"
         aria-hidden="true"
       />
@@ -32,8 +63,22 @@ const navLinks = [
   <div class="top-controls-bar">
     <!-- Language Toggle Pill -->
     <div class="lang-pill" role="group" aria-label="Language selector">
-      <button class="lang-pill__btn" id="lang-en active" data-lang="en" aria-label="Switch to English">EN</button>
-      <button class="lang-pill__btn" id="lang-fr" data-lang="fr" aria-label="Passer en français">FR</button>
+      <a
+        href={enTarget}
+        class={`lang-pill__btn ${lang === "en" ? "active" : ""}`}
+        data-lang="en"
+        aria-label="Switch to English"
+      >
+        EN
+      </a>
+      <a
+        href={frTarget}
+        class={`lang-pill__btn ${lang === "fr" ? "active" : ""}`}
+        data-lang="fr"
+        aria-label="Passer en français"
+      >
+        FR
+      </a>
     </div>
 
     <!-- Theme Toggle Button -->
@@ -66,14 +111,18 @@ const navLinks = [
 
   <!-- Mobile / Tablet Top Bar (Active under 1180px screen width) -->
   <div class="mobile-bar">
-    <a href="/#hero" class="mobile-brand-title" aria-label="Shaun Fischmann — Home">
+    <a href={isHomepage ? "#hero" : `/${lang}/#hero`} class="mobile-brand-title" aria-label="Shaun Fischmann — Home">
       <img src="/sf-logo.svg" alt="SF" class="mobile-logo" width="60" height="40" />
     </a>
     <div class="mobile-right">
       <!-- Mobile Language Toggle -->
       <div class="lang-pill" role="group" aria-label="Language selector">
-        <button class="lang-pill__btn active" data-lang="en" aria-label="EN">EN</button>
-        <button class="lang-pill__btn" data-lang="fr" aria-label="FR">FR</button>
+        <a href={enTarget} class={`lang-pill__btn ${lang === "en" ? "active" : ""}`} data-lang="en" aria-label="EN">
+          EN
+        </a>
+        <a href={frTarget} class={`lang-pill__btn ${lang === "fr" ? "active" : ""}`} data-lang="fr" aria-label="FR">
+          FR
+        </a>
       </div>
 
       <button id="mobile-theme-toggle" class="theme-btn" aria-label="Toggle theme">
@@ -96,7 +145,7 @@ const navLinks = [
           const Icon = link.icon;
           return (
             <li>
-              <a href={link.href} class={`nav-item ${index === 0 ? "active" : ""}`} data-section={link.id}>
+              <a href={link.href} class={`nav-item mobile-item ${index === 0 ? "active" : ""}`} data-section={link.id}>
                 <span class="nav-text">
                   <Icon class="nav-icon" size={16} />
                   <span data-i18n={link.i18n}>{link.label}</span>
@@ -141,6 +190,9 @@ const navLinks = [
   }
 
   .lang-pill__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 0.375rem 0.75rem;
     border-radius: var(--radius-full);
     font-family: var(--font-body);
@@ -150,6 +202,7 @@ const navLinks = [
     border: 1px solid transparent;
     background: transparent;
     color: var(--color-text-muted);
+    text-decoration: none;
     cursor: pointer;
     transition: all var(--transition-fast);
   }
@@ -481,20 +534,20 @@ const navLinks = [
     });
   });
 
-  // ── Active section tracking ──────────────────────────────────
+  // ── Active section tracking & Anchor hash preservation ────────
   const navItems = document.querySelectorAll<HTMLElement>(".nav-item");
   const sideMenu = document.querySelector<HTMLElement>(".side-menu");
   const sections = document.querySelectorAll<HTMLElement>("section[id], footer[id]");
+  let activeSectionId = "";
 
   const sectionObserver = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const id = entry.target.getAttribute("id");
+          activeSectionId = entry.target.getAttribute("id") || "";
           navItems.forEach((item) => {
-            item.classList.toggle("active", item.getAttribute("data-section") === id);
+            item.classList.toggle("active", item.getAttribute("data-section") === activeSectionId);
           });
-        // Fade the side menu when contact section is active (currently unused)
         }
       });
     },
@@ -502,6 +555,18 @@ const navLinks = [
   );
 
   sections.forEach((sec) => sectionObserver.observe(sec));
+
+  // Language switcher: preserve current section anchor hash on navigation
+  document.querySelectorAll<HTMLAnchorElement>(".lang-pill__btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const hash = window.location.hash || (activeSectionId && activeSectionId !== "hero" ? `#${activeSectionId}` : "");
+      if (hash) {
+        const rawHref = btn.getAttribute("href") || "";
+        const cleanPath = rawHref.split("#")[0].replace(/\/$/, "");
+        btn.href = `${cleanPath}/${hash}`;
+      }
+    });
+  });
 
   // ── Mobile menu toggle ───────────────────────────────────────
   const toggle = document.getElementById("nav-toggle");
@@ -603,20 +668,8 @@ const navLinks = [
     localStorage.setItem("lang", lang);
 
     // Update toggle button states
-    document.querySelectorAll<HTMLButtonElement>("[data-lang]").forEach((btn) => {
+    document.querySelectorAll<HTMLElement>("[data-lang]").forEach((btn) => {
       btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
     });
   }
-
-  // Attach lang toggle buttons
-  document.querySelectorAll<HTMLButtonElement>("[data-lang]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const lang = btn.getAttribute("data-lang") || "en";
-      applyLanguage(lang, true);
-    });
-  });
-
-  // Apply saved or default language on load without animation
-  const savedLang = localStorage.getItem("lang") || "en";
-  applyLanguage(savedLang, false);
 </script>

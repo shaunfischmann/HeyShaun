@@ -1,0 +1,27 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Hero from "../../components/sections/Hero.astro";
+import About from "../../components/sections/About.astro";
+import AiArt from "../../components/sections/AiArt.astro";
+import Contact from "../../components/sections/Contact.astro";
+import { LANGS, getTranslations } from "../../i18n/utils";
+import type { Lang } from "../../i18n/utils";
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = getTranslations(lang);
+---
+
+<BaseLayout lang={lang} title={t.seo.title} description={t.seo.description} currentPath="/">
+  <Nav lang={lang} isHomepage={true} currentPath="/" />
+  <main id="main-content">
+    <Hero lang={lang} t={t} />
+    <About lang={lang} t={t} />
+    <AiArt isHomepage={true} lang={lang} t={t} />
+    <Contact lang={lang} t={t} />
+  </main>
+</BaseLayout>

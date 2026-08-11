@@ -1,4 +1,15 @@
 ---
+import type { Lang, Translations } from "../../i18n/utils";
+import { getTranslations } from "../../i18n/utils";
+
+export interface Props {
+  lang?: Lang;
+  t?: Translations;
+}
+
+const { lang = "en" } = Astro.props;
+const t = Astro.props.t || getTranslations(lang);
+
 const socials = [
   {
     label: "GitHub",
@@ -19,12 +30,12 @@ const socials = [
       <!-- Left Column: Heading, Subtitle, Socials -->
       <div class="footer-left">
         <div class="contact-header section-header">
-          <p class="section-tag" data-i18n="contact.tag">Let's Connect</p>
+          <p class="section-tag" data-i18n="contact.tag">{t.contact.tag}</p>
           <h2 id="contact-heading" class="section-title">
-            <span class="gradient-text" data-i18n="contact.heading"> Say hello! </span>
+            <span class="gradient-text" data-i18n="contact.heading"> {t.contact.heading} </span>
           </h2>
           <p class="contact-sub section-sub" data-i18n="contact.sub">
-            Whether you want to talk web development, PHP, Proptech, AI, or just connect — feel free to drop a message!
+            {t.contact.sub}
           </p>
         </div>
 
@@ -53,14 +64,14 @@ const socials = [
         <form class="sleek-contact-form" id="contact-form" novalidate>
           <div class="form-row">
             <div class="field-group">
-              <label for="form-name" data-i18n="contact.label_name">Name</label>
+              <label for="form-name" data-i18n="contact.label_name">{t.contact.label_name}</label>
               <div class="input-wrapper">
                 <input
                   type="text"
                   id="form-name"
                   name="name"
                   required
-                  placeholder="Your Name"
+                  placeholder={t.contact.placeholder_name}
                   data-i18n-placeholder="contact.placeholder_name"
                   class="glass-input"
                 />
@@ -68,14 +79,14 @@ const socials = [
               </div>
             </div>
             <div class="field-group">
-              <label for="form-email" data-i18n="contact.label_email">Email</label>
+              <label for="form-email" data-i18n="contact.label_email">{t.contact.label_email}</label>
               <div class="input-wrapper">
                 <input
                   type="email"
                   id="form-email"
                   name="email"
                   required
-                  placeholder="your.email@example.com"
+                  placeholder={t.contact.placeholder_email}
                   data-i18n-placeholder="contact.placeholder_email"
                   class="glass-input"
                 />
@@ -85,13 +96,13 @@ const socials = [
           </div>
 
           <div class="field-group">
-            <label for="form-subject" data-i18n="contact.label_subject">Subject</label>
+            <label for="form-subject" data-i18n="contact.label_subject">{t.contact.label_subject}</label>
             <div class="input-wrapper">
               <input
                 type="text"
                 id="form-subject"
                 name="subject"
-                placeholder="Project Inquiry / Hello"
+                placeholder={t.contact.placeholder_subject}
                 data-i18n-placeholder="contact.placeholder_subject"
                 class="glass-input"
               />
@@ -100,14 +111,14 @@ const socials = [
           </div>
 
           <div class="field-group">
-            <label for="form-message" data-i18n="contact.label_message">Message</label>
+            <label for="form-message" data-i18n="contact.label_message">{t.contact.label_message}</label>
             <div class="input-wrapper">
               <textarea
                 id="form-message"
                 name="message"
                 rows="4"
                 required
-                placeholder="Tell me about your project or message..."
+                placeholder={t.contact.placeholder_message}
                 data-i18n-placeholder="contact.placeholder_message"
                 class="glass-input glass-textarea"></textarea>
               <span class="input-focus-line"></span>
@@ -125,7 +136,7 @@ const socials = [
           />
 
           <button type="submit" class="submit-btn" id="contact-submit" aria-label="Send message">
-            <span class="submit-text" data-i18n="contact.submit">Send Message</span>
+            <span class="submit-text" data-i18n="contact.submit">{t.contact.submit}</span>
             <span class="submit-icon send-icon" aria-hidden="true">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <line x1="22" y1="2" x2="11" y2="13"></line>
@@ -139,7 +150,7 @@ const socials = [
             </span>
           </button>
 
-          <div class="form-feedback" id="form-feedback" hidden aria-live="polite"></div>
+          <div class="form-feedback" id="form-feedback" hidden aria-live="polite" data-i18n="contact.success">{t.contact.success}</div>
         </form>
       </div>
     </div>
@@ -148,7 +159,7 @@ const socials = [
     <div class="footer-bottom">
       <p class="footer-copy">
         © {new Date().getFullYear()} Shaun Fischmann.
-        <span data-i18n="contact.footer">Built by Shaun, with the help of...</span>
+        <span data-i18n="contact.footer">{t.contact.footer}</span>
       </p>
     </div>
   </div>
@@ -554,9 +565,6 @@ const socials = [
       if (feedback) {
         feedback.removeAttribute("hidden");
         feedback.className = "form-feedback success";
-        const lang = localStorage.getItem("lang") || "en";
-        feedback.textContent =
-          lang === "fr" ? "✨ Merci ! Votre message a bien été reçu." : "✨ Thank you! Your message has been received.";
       }
 
       form.reset();

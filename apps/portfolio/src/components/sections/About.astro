@@ -43,7 +43,7 @@ const skills: SkillItem[] = [
     id: "mysql",
     name: "MySQL",
     nameKey: "",
-    desc: "Schema & query optimization",
+    desc: "Schema modeling & optimization",
     descKey: "skill.mysql_desc",
     category: "Tech",
     highlight: true,
@@ -83,7 +83,7 @@ const skills: SkillItem[] = [
     id: "api",
     name: "REST APIs",
     nameKey: "skill.api",
-    desc: "Over 50+ integrations (real estate specialization)",
+    desc: "Over 60+ integrations (real estate specialization)",
     descKey: "skill.api_desc",
     category: "Tech",
     highlight: true,
@@ -100,17 +100,17 @@ const skills: SkillItem[] = [
     lucideIcon: Building2,
   },
   {
-    id: "server",
+    id: "apache",
     name: "Apache",
     nameKey: "",
     desc: "Server setup and configuration",
-    descKey: "skill.server_desc",
+    descKey: "skill.apache_desc",
     category: "Tech",
     highlight: true,
     svgIcon: "/icons/apache.svg",
   },
   {
-    id: "server",
+    id: "nginx",
     name: "Nginx",
     nameKey: "",
     desc: "Server setup and configuration",
@@ -143,7 +143,7 @@ const skills: SkillItem[] = [
     id: "asana",
     name: "Asana",
     nameKey: "",
-    desc: "Project management",
+    desc: "Project & task management",
     descKey: "skill.asana_desc",
     category: "Tech",
     highlight: true,
@@ -153,7 +153,7 @@ const skills: SkillItem[] = [
     id: "openai",
     name: "OpenAI",
     nameKey: "",
-    desc: "API integrations, prompt engineering",
+    desc: "API integration & prompt engineering",
     descKey: "skill.openai_desc",
     category: "Tech",
     highlight: true,
@@ -324,36 +324,54 @@ const skills: SkillItem[] = [
     lucideIcon: Gamepad2,
   },
 ];
+import type { Lang, Translations } from "../../i18n/utils";
+import { getTranslations } from "../../i18n/utils";
+
+export interface Props {
+  lang?: Lang;
+  t?: Translations;
+}
+
+const { lang = "en" } = Astro.props;
+const t = Astro.props.t || getTranslations(lang);
+
+const categoryLabels: Record<Category, string> = {
+  Tech: t.about.filter_tech || "Tech",
+  Creative: t.about.filter_creative || "Creative",
+  Hobby: t.about.filter_hobby || "Hobby",
+};
+
+const getSkillText = (key: string, fallback: string) => {
+  if (!key) return fallback;
+  const val = (t.about as Record<string, string>)[key];
+  return val !== undefined ? val : fallback;
+};
 ---
 
 <section id="about" class="section" aria-labelledby="about-heading">
   <div class="container">
-    <p class="section-tag" data-reveal data-i18n="about.tag">About me</p>
+    <p class="section-tag" data-reveal data-i18n="about.tag">{t.about.tag}</p>
     <h2 id="about-heading" class="section-title" data-reveal data-delay="1">
-      <span class="gradient-text" data-i18n="about.heading"> Skills, tools &amp; passions </span>
+      <span class="gradient-text" data-i18n="about.heading">{t.about.heading}</span>
     </h2>
+    <p class="section-sub" data-reveal data-delay="1" data-i18n="about.sub">{t.about.sub}</p>
 
     <div class="about-layout">
       <!-- Bio Card -->
       <aside class="bio-card glass-card" data-reveal="slide-left" data-delay="2" aria-label="About Shaun">
-        <h3 class="bio-heading" data-i18n="about.bio_heading">Partnership Manager @</h3>
+        <h3 class="bio-heading" data-i18n="about.bio_heading">{t.about.bio_heading}</h3>
         <a href="https://www.apimo.net" target="_blank" rel="noopener noreferrer" class="apimo-link">
           <img src="/apimo-logo.svg" alt="Apimo" class="apimo-logo apimo-logo--color" width="60" height="20" />
-          <img src="/apimo-logo-white.svg" alt="Apimo" class="apimo-logo apimo-logo--white" width="60" height="20" />
+          <img
+            src="/apimo-logo-white.svg"
+            alt=""
+            aria-hidden="true"
+            class="apimo-logo apimo-logo--white"
+            width="60"
+            height="20"
+          />
         </a>
-        <p class="bio-text" data-i18n="about.bio_text">
-          Based in France, I am a Partnership Manager and Developer at Apimo, a leading PropTech CRM platform. Having
-          built my foundation here as a web developer, contributing tens of thousands of commits and millions of lines
-          of code, I bridge the gap between technical engineering and strategic business growth.
-          <br /><br />
-          I oversee the entire integration lifecycle for our partner ecosystem, collaborating with real estate portals, service
-          providers, and AI companies. My work spans technical specification, API design, and full-stack development, ensuring
-          seamless interoperability across our platform.
-          <br /><br />
-          I'm inherently curious and always eager to try new things, a mindset rooted in my multicultural background, which
-          also made speaking multiple languages second nature. Off-screen, that love for discovery shows up in my passion
-          for travel, local food scenes, financial markets, and chess, as well as my work with generative AI art.
-        </p>
+        <p class="bio-text" data-i18n="about.bio_text" set:html={t.about.bio_text} />
       </aside>
 
       <!-- 3D Constellation Cloud -->
@@ -363,7 +381,7 @@ const skills: SkillItem[] = [
           {
             categories.map((cat) => (
               <button class="filter-btn" data-category={cat}>
-                {cat}
+                {categoryLabels[cat]}
               </button>
             ))
           }
@@ -375,6 +393,8 @@ const skills: SkillItem[] = [
             {
               skills.map((skill) => {
                 const LucideIcon = skill.lucideIcon;
+                const skillName = getSkillText(skill.nameKey, skill.name);
+                const skillDesc = getSkillText(skill.descKey, skill.desc);
                 return (
                   <div
                     class={`constellation-node cat-${skill.category.toLowerCase()}`}
@@ -382,14 +402,14 @@ const skills: SkillItem[] = [
                     data-category={skill.category}
                     data-highlight={skill.highlight ? "true" : "false"}
                   >
-                    <div class="node-bubble" aria-label={skill.name}>
+                    <div class="node-bubble" aria-label={skillName}>
                       {skill.svgIcon ? (
                         <span
                           class="skill-icon"
                           data-color={skill.color}
                           style={{ "--svg-url": `url(${skill.svgIcon})` }}
                           role="img"
-                          aria-label={skill.name}
+                          aria-label={skillName}
                         />
                       ) : LucideIcon ? (
                         <LucideIcon class="skill-lucide-icon" size={24} />
@@ -398,10 +418,10 @@ const skills: SkillItem[] = [
 
                     <div class="node-tooltip">
                       <span class="tooltip-title" data-i18n={skill.nameKey}>
-                        {skill.name}
+                        {skillName}
                       </span>
                       <span class="tooltip-desc" data-i18n={skill.descKey}>
-                        {skill.desc}
+                        {skillDesc}
                       </span>
                     </div>
                   </div>

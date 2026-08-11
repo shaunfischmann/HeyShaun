@@ -1,20 +1,31 @@
 ---
 import darkShaun from "../../assets/avatar/dark-shaun-transparent.png";
 import lightShaun from "../../assets/avatar/light-shaun-transparent.png";
-
 import { Send, Telescope } from "@lucide/astro";
+import type { Lang, Translations } from "../../i18n/utils";
+import { getTranslations } from "../../i18n/utils";
+
+export interface Props {
+  lang?: Lang;
+  t?: Translations;
+}
+
+const { lang = "en" } = Astro.props;
+const t = Astro.props.t || getTranslations(lang);
 ---
 
-<section id="hero" aria-label="Introduction">
+<section id="hero" aria-label="Introduction" data-lang={lang}>
   <div class="container hero-grid">
     <div class="hero-text-col">
-      <h1 class="hero-h1" aria-label="Hey, I'm Shaun Fischmann">
+      <h1 class="hero-h1" aria-label={`${t.hero.greeting} ${t.hero.name1} ${t.hero.name2}`}>
         <span class="hero-greeting word-reveal" data-reveal data-delay="1">
-          <span data-i18n="hero.greeting">Hey, I'm</span>
+          <span data-i18n="hero.greeting">{t.hero.greeting}</span>
         </span>
-        <span class="gradient-text hero-name word-reveal" data-reveal data-delay="2" data-i18n="hero.name1">Shaun</span>
+        <span class="gradient-text hero-name word-reveal" data-reveal data-delay="2" data-i18n="hero.name1"
+          >{t.hero.name1}</span
+        >
         <span class="gradient-text hero-name word-reveal" data-reveal data-delay="3" data-i18n="hero.name2"
-          >Fischmann</span
+          >{t.hero.name2}</span
         >
       </h1>
 
@@ -22,21 +33,21 @@ import { Send, Telescope } from "@lucide/astro";
         <span class="typing-text" id="typing-text"></span><span class="typing-caret" aria-hidden="true"></span>
       </div>
 
-      <p class="hero-subtitle section-sub" data-reveal data-delay="3" data-i18n="hero.subtitle">
-        10+ years building real estate platforms and web applications specializing in <strong>PHP</strong>, <strong
-          >API integrations</strong
-        > &amp;
-        <strong>enterprise CRM architecture</strong>. Passionate about <strong>generative AI</strong> and creative digital
-        experiences.
-      </p>
+      <p
+        class="hero-subtitle section-sub"
+        data-reveal
+        data-delay="3"
+        data-i18n="hero.subtitle"
+        set:html={t.hero.subtitle}
+      />
 
       <div class="hero-actions" data-reveal data-delay="4">
-        <a href="#contact" class="btn-neu btn-neu--primary" id="hero-contact-btn">
-          <span data-i18n="hero.cta_contact">Connect With Me</span>
+        <a href={`/${lang}/#contact`} class="btn-neu btn-neu--primary" id="hero-contact-btn">
+          <span data-i18n="hero.cta_contact">{t.hero.cta_contact}</span>
           <Send size={20} stroke-width="2" />
         </a>
-        <a href="/shaun-ai-gallery" class="btn-neu" id="hero-art-btn">
-          <span data-i18n="hero.cta_gallery">Explore Gallery</span>
+        <a href={`/${lang}/shaun-ai-gallery`} class="btn-neu" id="hero-art-btn">
+          <span data-i18n="hero.cta_gallery">{t.hero.cta_gallery}</span>
           <Telescope size={20} stroke-width="2" />
         </a>
       </div>
@@ -55,7 +66,7 @@ import { Send, Telescope } from "@lucide/astro";
         <div class="cutout-frame">
           <img
             src={lightShaun.src}
-            alt="Shaun Fischmann — Portrait"
+            alt={t.hero.aria_portrait}
             width="380"
             height="460"
             loading="eager"
@@ -63,7 +74,7 @@ import { Send, Telescope } from "@lucide/astro";
           />
           <img
             src={darkShaun.src}
-            alt="Shaun Fischmann — Portrait"
+            alt={t.hero.aria_portrait}
             width="380"
             height="460"
             loading="eager"
@@ -355,29 +366,30 @@ import { Send, Telescope } from "@lucide/astro";
     en: [
       "Partnership Manager @ Apimo",
       "Senior PHP Developer",
-      "10+ Years in Proptech",
+      "12+ Years in Proptech",
       "AI Enthusiast @ Shaun.AI",
-      "Building Something, One Line at a Time",
+      "Enjoying an ice cold coffee ☕️",
     ],
     fr: [
       "Partnership Manager @ Apimo",
       "Développeur PHP Senior",
-      "10+ ans en Proptech",
+      "12+ ans en Proptech",
       "Passionné d'IA @ Shaun.AI",
-      "Construire Quelque chose, Une Ligne à la Fois",
+      "Savourant un café glacé ☕️",
     ],
   };
 
   const typingEl = document.getElementById("typing-text");
   if (typingEl) {
-    let lang = (localStorage.getItem("lang") || "en") as keyof typeof phrases;
+    const heroSec = document.getElementById("hero");
+    let lang = (heroSec?.getAttribute("data-lang") || document.documentElement.lang || "en") as keyof typeof phrases;
     let phraseIdx = 0;
     let charIdx = 0;
     let deleting = false;
     let timeout: number;
 
     function tick() {
-      lang = (localStorage.getItem("lang") || "en") as keyof typeof phrases;
+      lang = (heroSec?.getAttribute("data-lang") || document.documentElement.lang || "en") as keyof typeof phrases;
       const list = phrases[lang] || phrases["en"];
       const phrase = list[phraseIdx % list.length];
 

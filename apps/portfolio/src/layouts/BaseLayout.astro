@@ -1,25 +1,115 @@
 ---
 import "../styles/global.css";
 import "@heyshaun/design-tokens/colors.css";
+import type { Lang } from "../i18n/utils";
 
 export interface Props {
+  lang?: Lang;
   title?: string;
   description?: string;
   image?: string;
+  currentPath?: string;
+  isGallery?: boolean;
 }
 
 const {
+  lang = "en",
   title = "Shaun Fischmann — Partnership Manager & Web Developer",
-  description = "Technical Partnership Manager and Senior Web Developer with 10+ years of experience in Proptech, enterprise real estate CRMs, web development, API integrations, SQL architecture. Based in France, building scalable web applications and exploring generative AI.",
+  description = "Technical Partnership Manager and Senior Web Developer with 12+ years of experience in Proptech, enterprise real estate CRMs, API integrations, and SQL architecture.",
   image = "/og-image.jpg",
+  currentPath = "/",
+  isGallery = false,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site || Astro.url.origin);
-const ogImageURL = new URL(image, Astro.url);
+const SITE = "https://heyshaun.fr";
+const ogLocale = lang === "fr" ? "fr_FR" : "en_US";
+const ogLocaleAlt = lang === "fr" ? "en_US" : "fr_FR";
+
+// Canonical: always points to the current lang page
+const canonicalURL = `${SITE}/${lang}${currentPath === "/" ? "" : currentPath}`;
+
+// hreflang alternates
+const hreflangEn = `${SITE}/en${currentPath === "/" ? "" : currentPath}`;
+const hreflangFr = `${SITE}/fr${currentPath === "/" ? "" : currentPath}`;
+const ogImageURL = `${SITE}${image}`;
+
+// --- Dynamic Schema.org graph ---
+const personEntity = {
+  "@type": "Person",
+  name: "Shaun Fischmann",
+  givenName: "Shaun",
+  familyName: "Fischmann",
+  jobTitle: "Partnership Manager & Web Developer",
+  description:
+    "Partnership Manager and Senior web developer with 12+ years of experience specializing in PHP, enterprise real estate CRMs, REST API integrations, SQL, Proptech and generative AI.",
+  url: SITE,
+  image: ogImageURL,
+  sameAs: ["https://www.linkedin.com/in/sfischmann/", "https://github.com/shaunfischmann"],
+  address: { "@type": "PostalAddress", addressCountry: "FR" },
+  worksFor: { "@type": "Organization", name: "Apimo", url: "https://www.apimo.pro" },
+  knowsAbout: [
+    "Technical Partnership Management",
+    "API Integrations & Webhooks",
+    "PHP 7+",
+    "PHP 8+",
+    "Symfony",
+    "Propel ORM",
+    "MySQL/MariaDB",
+    "RESTful API Design",
+    "Astro Web Framework",
+    "Generative AI",
+    "JavaScript",
+    "Web Performance",
+  ],
+  hasOccupation: [
+    {
+      "@type": "Occupation",
+      name: "Partnership Manager",
+      skills: "Technical Integrations, Partner Relations, API Strategy, Solution Architecture",
+      occupationLocation: { "@type": "Country", name: "France" },
+    },
+    {
+      "@type": "Occupation",
+      name: "Senior Web Developer",
+      skills: "PHP, Enterprise CRM Architecture, MySQL, REST APIs, JavaScript, HTML, CSS",
+      occupationLocation: { "@type": "Country", name: "France" },
+    },
+  ],
+};
+
+const schemaGraph: object[] = [
+  {
+    "@type": "ProfilePage",
+    name: "Shaun Fischmann — Partnership Manager & Senior Developer",
+    description: description,
+    url: canonicalURL,
+    mainEntity: personEntity,
+  },
+  {
+    "@type": "WebSite",
+    url: SITE,
+    name: "Shaun Fischmann — Portfolio",
+    description:
+      "Personal portfolio showcasing technical partnerships, web development projects, PHP expertise, and generative AI art.",
+    author: { "@type": "Person", name: "Shaun Fischmann" },
+  },
+];
+
+if (isGallery) {
+  schemaGraph.push({
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: lang === "fr" ? "Accueil" : "Home", item: `${SITE}/${lang}/` },
+      { "@type": "ListItem", position: 2, name: lang === "fr" ? "Galerie IA" : "AI Gallery", item: canonicalURL },
+    ],
+  });
+}
+
+const schemaData = { "@context": "https://schema.org", "@graph": schemaGraph };
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <!-- Essential Meta -->
     <meta charset="UTF-8" />
@@ -30,13 +120,22 @@ const ogImageURL = new URL(image, Astro.url);
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalURL} />
 
+    <!-- hreflang alternates for multilingual SEO -->
+    <link rel="alternate" hreflang="en" href={hreflangEn} />
+    <link rel="alternate" hreflang="fr" href={hreflangFr} />
+    <link rel="alternate" hreflang="x-default" href={hreflangEn} />
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImageURL} />
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={ogLocale} />
+    <meta property="og:locale:alternate" content={ogLocaleAlt} />
+    <meta property="og:site_name" content="Shaun Fischmann" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -60,80 +159,8 @@ const ogImageURL = new URL(image, Astro.url);
       content="Shaun Fischmann, Technical Partnership Manager, Partner Engineer, PHP Developer, Senior Web Developer, Real Estate CRM, SQL database architecture, MySQL, REST APIs, PHP, Symfony, Proptech, Astro, Full Stack Web Development, AI art, Midjourney, Stable Diffusion, France, portfolio"
     />
 
-    <!-- Schema.org Comprehensive GEO Graph -->
-    <script type="application/ld+json" is:inline>
-      {
-        "@context": "https://schema.org",
-        "@graph": [
-          {
-            "@type": "ProfilePage",
-            "name": "Shaun Fischmann — Partnership Manager & Senior Developer",
-            "description": "Portfolio of Shaun Fischmann, Technical Partnership Manager and Senior PHP Developer specializing in technical integrations, real estate CRM and AI-driven solutions.",
-            "url": "https://heyshaun.fr",
-            "mainEntity": {
-              "@type": "Person",
-              "name": "Shaun Fischmann",
-              "givenName": "Shaun",
-              "familyName": "Fischmann",
-              "jobTitle": "Partnership Manager & Web Developer",
-              "description": "Partnership Manager and Senior web developer with 10+ years of experience specializing in PHP, enterprise real estate CRMs, REST API integrations, SQL, and generative AI.",
-              "url": "https://heyshaun.fr",
-              "sameAs": ["https://www.linkedin.com/in/sfischmann/", "https://github.com/shaunfischmann"],
-              "address": {
-                "@type": "PostalAddress",
-                "addressCountry": "FR"
-              },
-              "knowsAbout": [
-                "Technical Partnership Management",
-                "API Integrations & Webhooks",
-                "PHP 7+",
-                "PHP 8+",
-                "Symfony 1.4 (legacy) & modern versions",
-                "Propel ORM",
-                "MySQL/MariaDB architecture",
-                "RESTful API Design",
-                "Astro Web Framework",
-                "Generative AI",
-                "JavaScript",
-                "Web Performance"
-              ],
-              "hasOccupation": [
-                {
-                  "@type": "Occupation",
-                  "name": "Partnership Manager",
-                  "skills": "Technical Integrations, Partner Relations, API Strategy, Solution Architecture",
-                  "occupationLocation": {
-                    "@type": "Country",
-                    "name": "France"
-                  }
-                },
-                {
-                  "@type": "Occupation",
-                  "name": "Senior Web Developer",
-                  "skills": "PHP, Enterprise CRM Architecture, MySQL, REST APIs, JavaScript, HTML, CSS",
-                  "occupationLocation": {
-                    "@type": "Country",
-                    "name": "France"
-                  }
-                }
-              ],
-              "seeks": {
-                "@type": "Demand",
-                "name": "Remote web development contracts",
-                "description": "Available for PHP backend, CRM, and full-stack web development projects."
-              }
-            }
-          },
-          {
-            "@type": "WebSite",
-            "url": "https://heyshaun.fr",
-            "name": "Shaun Fischmann — Portfolio",
-            "description": "Personal portfolio showcasing technical partnerships, web development projects, PHP expertise, and generative AI art.",
-            "author": { "@type": "Person", "name": "Shaun Fischmann" }
-          }
-        ]
-      }
-    </script>
+    <!-- Schema.org Comprehensive Graph -->
+    <script type="application/ld+json" set:text={JSON.stringify(schemaData)} />
   </head>
 
   <body>
