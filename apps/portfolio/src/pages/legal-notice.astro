@@ -1,0 +1,27 @@
+---
+// Root redirect for /legal-notice — detects browser language and sends to /en/legal-notice or /fr/legal-notice
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Legal Notice — Shaun Fischmann</title>
+    <!-- No-JS fallback: redirect to /en/legal-notice -->
+    <meta http-equiv="refresh" content="0;url=/en/legal-notice" />
+    <link rel="canonical" href="https://heyshaun.fr/en/legal-notice" />
+    <!-- hreflang for crawlers -->
+    <link rel="alternate" hreflang="en" href="https://heyshaun.fr/en/legal-notice" />
+    <link rel="alternate" hreflang="fr" href="https://heyshaun.fr/fr/legal-notice" />
+    <link rel="alternate" hreflang="x-default" href="https://heyshaun.fr/en/legal-notice" />
+  </head>
+  <body>
+    <script is:inline>
+      const prefersFrench = (navigator.languages || [navigator.language]).some(
+        (l) => l && l.toString().startsWith("fr"),
+      );
+      window.location.replace(prefersFrench ? "/fr/legal-notice" : "/en/legal-notice");
+    </script>
+  </body>
+</html>

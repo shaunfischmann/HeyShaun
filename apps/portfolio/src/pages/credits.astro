@@ -1,0 +1,27 @@
+---
+// Root redirect for /credits — detects browser language and sends to /en/credits or /fr/credits
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Credits — Shaun Fischmann</title>
+    <!-- No-JS fallback: redirect to /en/credits -->
+    <meta http-equiv="refresh" content="0;url=/en/credits" />
+    <link rel="canonical" href="https://heyshaun.fr/en/credits" />
+    <!-- hreflang for crawlers -->
+    <link rel="alternate" hreflang="en" href="https://heyshaun.fr/en/credits" />
+    <link rel="alternate" hreflang="fr" href="https://heyshaun.fr/fr/credits" />
+    <link rel="alternate" hreflang="x-default" href="https://heyshaun.fr/en/credits" />
+  </head>
+  <body>
+    <script is:inline>
+      const prefersFrench = (navigator.languages || [navigator.language]).some(
+        (l) => l && l.toString().startsWith("fr"),
+      );
+      window.location.replace(prefersFrench ? "/fr/credits" : "/en/credits");
+    </script>
+  </body>
+</html>

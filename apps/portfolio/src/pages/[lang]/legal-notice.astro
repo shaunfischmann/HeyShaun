@@ -1,0 +1,232 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Nav from "../../components/Nav.astro";
+import Contact from "../../components/sections/Contact.astro";
+import { LANGS, getTranslations } from "../../i18n/utils";
+import type { Lang } from "../../i18n/utils";
+import { ArrowLeft, User, Server, Globe, Scale, ShieldCheck } from "@lucide/astro";
+
+export function getStaticPaths() {
+  return LANGS.map((lang) => ({ params: { lang } }));
+}
+
+const { lang } = Astro.params as { lang: Lang };
+const t = getTranslations(lang);
+---
+
+<BaseLayout
+  lang={lang}
+  title={t.legal_page?.title || "Legal Notice — Shaun Fischmann"}
+  description={t.legal_page?.description ||
+    "Legal Notice (Mentions Légales), publisher information, hosting disclosures, and privacy policy."}
+  currentPath="/legal-notice"
+>
+  <Nav lang={lang} isHomepage={false} currentPath="/legal-notice" />
+
+  <main id="main-content" class="legal-page-container">
+    <div class="container">
+      <!-- Top Navigation / Header -->
+      <div class="legal-header">
+        <a href={`/${lang}/`} class="back-link glass-card">
+          <ArrowLeft size={16} stroke-width={2} />
+          <span>{t.legal_page?.back_home || (lang === "fr" ? "Retour à l'accueil" : "Back to Home")}</span>
+        </a>
+        <h1 class="page-title gradient-text">{t.legal_page?.heading || "Legal Notice & Privacy"}</h1>
+        <p class="page-sub">
+          {
+            t.legal_page?.sub ||
+              "Mandatory legal disclosures for a non-commercial portfolio under French LCEN law and GDPR."
+          }
+        </p>
+      </div>
+
+      <!-- Content Grid -->
+      <div class="legal-grid">
+        <!-- 1. Publisher -->
+        <div class="legal-card glass-card">
+          <div class="card-icon-header">
+            <div class="card-icon-badge">
+              <User size={22} color="currentColor" stroke-width={2} />
+            </div>
+            <h2>{t.legal_page?.publisher_title || "1. Website Publisher"}</h2>
+          </div>
+          <div class="card-content" set:html={t.legal_page?.publisher_desc} />
+        </div>
+
+        <!-- 2. Host -->
+        <div class="legal-card glass-card">
+          <div class="card-icon-header">
+            <div class="card-icon-badge">
+              <Server size={22} color="currentColor" stroke-width={2} />
+            </div>
+            <h2>{t.legal_page?.hosting_title || "2. Website Host"}</h2>
+          </div>
+          <div class="card-content" set:html={t.legal_page?.hosting_desc} />
+        </div>
+
+        <!-- 3. Intellectual Property -->
+        <div class="legal-card glass-card">
+          <div class="card-icon-header">
+            <div class="card-icon-badge">
+              <Scale size={22} color="currentColor" stroke-width={2} />
+            </div>
+            <h2>{t.legal_page?.intellectual_title || "3. Intellectual Property"}</h2>
+          </div>
+          <div class="card-content" set:html={t.legal_page?.intellectual_desc} />
+        </div>
+
+        <!-- 4. Privacy & Data Protection -->
+        <div class="legal-card glass-card full-width-card">
+          <div class="card-icon-header">
+            <div class="card-icon-badge">
+              <ShieldCheck size={22} color="currentColor" stroke-width={2} />
+            </div>
+            <h2>{t.legal_page?.privacy_title || "4. Data Protection & Privacy"}</h2>
+          </div>
+          <div class="card-content" set:html={t.legal_page?.privacy_desc} />
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <Contact lang={lang} t={t} />
+</BaseLayout>
+
+<style>
+  .legal-page-container {
+    padding-top: clamp(6rem, 12vw, 9rem);
+    padding-bottom: 4rem;
+    position: relative;
+    min-height: 80vh;
+  }
+
+  .legal-header {
+    margin-bottom: 3.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-text);
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+    transition:
+      transform var(--transition-fast),
+      border-color var(--transition-fast);
+  }
+
+  .back-link:hover {
+    transform: translateX(-4px);
+    border-color: var(--color-secondary);
+  }
+
+  .page-title {
+    font-family: var(--font-heading);
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 0.75rem;
+  }
+
+  .page-sub {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: var(--color-text-muted);
+    max-width: 650px;
+    line-height: 1.6;
+  }
+
+  /* Grid Layout */
+  .legal-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.75rem;
+  }
+
+  .full-width-card {
+    grid-column: 1 / -1;
+  }
+
+  .legal-card {
+    padding: clamp(1.5rem, 3vw, 2rem) clamp(1.25rem, 2.5vw, 1.75rem);
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    transition:
+      transform var(--transition-base),
+      border-color var(--transition-base);
+  }
+
+  .card-icon-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .card-icon-badge {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    background: linear-gradient(135deg, rgba(108, 92, 231, 0.15), rgba(0, 206, 201, 0.15));
+    border: 1px solid var(--color-border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-secondary);
+    flex-shrink: 0;
+  }
+
+  .card-icon-header h2 {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-text);
+  }
+
+  .card-content {
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+
+  .card-content :global(a.legal-link),
+  .card-content :global(a) {
+    color: var(--color-secondary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color var(--transition-fast);
+  }
+
+  .card-content :global(a:hover) {
+    color: var(--color-primary);
+  }
+
+  .card-content :global(strong) {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .card-content :global(em) {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+  }
+
+  @media (max-width: 640px) {
+    .legal-grid {
+      grid-template-columns: 1fr;
+    }
+    .legal-card {
+      padding: 1.5rem;
+    }
+  }
+</style>

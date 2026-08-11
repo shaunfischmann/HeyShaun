@@ -112,7 +112,39 @@
     "label_message": "Message",
     "placeholder_message": "Parlez-moi de votre projet ou envoyez-moi un message...",
     "submit": "Envoyer le Message",
-    "success": "✨ Merci ! Votre message a bien été reçu. Je vous répondrai rapidement.",
-    "footer": "Développé par Shaun, avec l'aide de..."
+    "success": "✨ Merci ! Votre message a bien été reçu. Je vous répondrai rapidement."
+  },
+  "footer": {
+    "built": "Fait avec ❤️",
+    "credits": " et un peu d'aide",
+    "legal_notice": "Mentions Légales"
+  },
+  "credits_page": {
+    "title": "Crédits — Shaun Fischmann",
+    "description": "Crédits, bibliothèques open-source et remerciements design pour le portfolio de Shaun Fischmann.",
+    "heading": "Crédits & Remerciements",
+    "sub": "Les bibliothèques open-source, inspirations design et outils derrière ce portfolio.",
+    "back_home": "Retour à l'accueil",
+    "section_oss_title": "Bibliothèques Open Source & Frameworks",
+    "section_oss_desc": "Conçu avec de formidables projets open-source :<br />• <a href=\"https://astro.build\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"legal-link\">Astro</a> — Générateur de site statique & framework web<br />• <a href=\"https://lucide.dev\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"legal-link\">Lucide Icons</a> — Ensemble d'icônes SVG modernes et élégantes<br />• <a href=\"https://simpleicons.org\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"legal-link\">Simple Icons</a> — Icônes SVG pour marques populaires",
+    "section_tools_title": "Outils & IA",
+    "section_tools_desc": "Antigravity pour l'ingénierie logicielle, l'architecture et la gestion du multilingue.",
+    "section_design_title": "Design & Inspiration",
+    "section_design_desc": "..."
+  },
+  "legal_page": {
+    "title": "Mentions Légales — Shaun Fischmann",
+    "description": "Mentions Légales, éditeur du site, informations d'hébergement et politique de confidentialité.",
+    "heading": "Mentions Légales & Confidentialité",
+    "sub": "Informations légales obligatoires pour un site personnel non commercial selon la loi LCEN et le RGPD.",
+    "back_home": "Retour à l’accueil",
+    "publisher_title": "1. Éditeur du site",
+    "publisher_desc": "Le présent site est un portfolio personnel non commercial édité à titre individuel par :<br /><strong>Shaun Fischmann</strong><br />Contact : <a href=\"mailto:contact@heyshaun.fr\" class=\"legal-link\">contact@heyshaun.fr</a> (ou via le <a href=\"/fr/#contact\" class=\"legal-link\">Formulaire de Contact</a>)<br /><br /><em>Note : Conformément à l'Article 6-III-2 de la loi LCEN (Loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique), les coordonnées personnelles (adresse physique) de l'éditeur sont préservées au titre de la confidentialité et ont été transmises à l'hébergeur.</em>",
+    "hosting_title": "2. Hébergeur du site",
+    "hosting_desc": "Le site est hébergé par :<br /><strong>Cloudflare, Inc.</strong><br />101 Townsend St, San Francisco, CA 94107, États-Unis<br />Site web : <a href=\"https://www.cloudflare.com\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"legal-link\">https://www.cloudflare.com</a>",
+    "intellectual_title": "3. Propriété Intellectuelle",
+    "intellectual_desc": "L'ensemble des contenus originaux, textes, code, graphismes et œuvres visuelles sur ce site sont © Shaun Fischmann sauf mention contraire.<br /><br />Les bibliothèques et logiciels open-source utilisés restent la propriété de leurs auteurs respectifs et sont crédités sur la page <a href=\"/fr/credits\" class=\"legal-link\">Crédits</a>.",
+    "privacy_title": "4. Protection des Données & Confidentialité",
+    "privacy_desc": "<strong>Formulaire de contact :</strong> Les informations transmises via le formulaire (nom, email, sujet et message) sont traitées uniquement pour répondre à vos messages. Aucune donnée personnelle n'est vendue, louée ou transmise à des tiers.<br /><br /><strong>Cloudflare Web Analytics :</strong> Ce site utilise Cloudflare Web Analytics pour la mesure d'audience. Ce service est respectueux de la vie privée, fonctionne côté serveur sans aucun cookie de suivi et ne collecte aucune donnée personnelle permettant de tracer les visiteurs."
   }
 }

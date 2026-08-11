@@ -150,18 +150,27 @@ const socials = [
             </span>
           </button>
 
-          <div class="form-feedback" id="form-feedback" hidden aria-live="polite" data-i18n="contact.success">{t.contact.success}</div>
+          <div class="form-feedback" id="form-feedback" hidden aria-live="polite" data-i18n="contact.success">
+            {t.contact.success}
+          </div>
         </form>
       </div>
     </div>
+  </div>
 
-    <!-- Copyright Banner -->
-    <div class="footer-bottom">
-      <p class="footer-copy">
-        © {new Date().getFullYear()} Shaun Fischmann.
-        <span data-i18n="contact.footer">{t.contact.footer}</span>
-      </p>
-    </div>
+  <!-- Copyright Banner -->
+  <div class="footer-bottom">
+    <p class="footer-copy">
+      © {new Date().getFullYear()} Shaun Fischmann.
+      <span data-i18n="footer.built">{t.footer?.built || "Built with ❤️"}</span>
+      <a href={`/${lang}/credits`} class="footer-link" data-i18n="footer.credits"
+        >{t.footer?.credits || " and some help"}</a
+      >
+      <span class="footer-sep" aria-hidden="true">•</span>
+      <a href={`/${lang}/legal-notice`} class="footer-link" data-i18n="footer.legal_notice"
+        >{t.footer?.legal_notice || "Legal Notice"}</a
+      >
+    </p>
   </div>
 
   <div class="waves-container">
@@ -461,6 +470,7 @@ const socials = [
   .footer-bottom {
     margin-top: 3.5rem;
     padding-top: 1.75rem;
+    padding-bottom: 1.75rem;
     text-align: center;
   }
 
@@ -468,6 +478,25 @@ const socials = [
     font-family: var(--font-body);
     font-size: 0.85rem;
     color: var(--color-text-muted);
+    line-height: 1.6;
+  }
+
+  .footer-link {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition:
+      color var(--transition-fast),
+      text-decoration var(--transition-fast);
+  }
+
+  .footer-link:hover {
+    color: var(--color-secondary);
+    text-decoration: underline;
+  }
+
+  .footer-sep {
+    opacity: 0.6;
+    margin: 0 0.35rem;
   }
 
   /* ── Waves Animation ── */

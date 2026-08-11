@@ -408,9 +408,9 @@
   }
 
   .glass-card:hover {
-    border-color: rgba(108, 92, 231, 0.3);
+    border-color: var(--glow-primary);
     box-shadow: 0 20px 40px -15px var(--glow-primary);
-    transform: translateY(-4px);
+    transform: translateY(-2px);
   }
 
   /* Neumorphic Badge / Card */

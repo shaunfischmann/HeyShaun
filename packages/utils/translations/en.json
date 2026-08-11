@@ -112,7 +112,39 @@
     "label_message": "Message",
     "placeholder_message": "Tell me about your project or message...",
     "submit": "Send Message",
-    "success": "✨ Thank you! Your message has been received. I'll respond shortly.",
-    "footer": "Built with ❤️ and some help"
+    "success": "✨ Thank you! Your message has been received. I'll respond shortly."
+  },
+  "footer": {
+    "built": "Built with ❤️",
+    "credits": " and some help",
+    "legal_notice": "Legal Notice"
+  },
+  "credits_page": {
+    "title": "Credits — Shaun Fischmann",
+    "description": "Credits, open-source libraries, and design acknowledgments for Shaun Fischmann's portfolio.",
+    "heading": "Credits & Acknowledgments",
+    "sub": "Open-source libraries, design inspiration, and tools behind this portfolio.",
+    "back_home": "Back to Home",
+    "section_oss_title": "Open Source Libraries & Frameworks",
+    "section_oss_desc": "Built using incredible open-source projects:<br />• <a href=\"https://astro.build\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"legal-link\">Astro</a> - Static site builder & web framework<br />• <a href=\"https://lucide.dev\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"legal-link\">Lucide Icons</a> - Clean, consistent SVG icon set<br />• <a href=\"https://simpleicons.org\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"legal-link\">Simple Icons</a> - icons for popular brands",
+    "section_tools_title": "Tools & AI",
+    "section_tools_desc": "Antigravity agentic tools for design iteration, architecture, and translation management.",
+    "section_design_title": "Design & Inspiration",
+    "section_design_desc": "..."
+  },
+  "legal_page": {
+    "title": "Legal Notice — Shaun Fischmann",
+    "description": "Legal Notice (Mentions Légales), publisher information, hosting disclosures, and privacy policy.",
+    "heading": "Legal Notice & Privacy",
+    "sub": "Mandatory legal disclosures for a non-commercial portfolio under French LCEN law and GDPR.",
+    "back_home": "Back to Home",
+    "publisher_title": "1. Website Publisher",
+    "publisher_desc": "This website is a non-commercial personal portfolio published by:<br /><strong>Shaun Fischmann</strong><br />Contact: <a href=\"mailto:contact@heyshaun.fr\" class=\"legal-link\">contact@heyshaun.fr</a> (or via the <a href=\"/#contact\" class=\"legal-link\">Contact Form</a>)<br /><br /><em>Note: In accordance with Article 6-III-2 of the French LCEN law (Loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique), personal contact details (physical address) are kept confidential and have been communicated to the website host.</em>",
+    "hosting_title": "2. Website Host",
+    "hosting_desc": "This website is hosted by:<br /><strong>Cloudflare, Inc.</strong><br />101 Townsend St, San Francisco, CA 94107, USA<br />Website: <a href=\"https://www.cloudflare.com\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"legal-link\">https://www.cloudflare.com</a>",
+    "intellectual_title": "3. Intellectual Property",
+    "intellectual_desc": "All original content, text, code, graphics, and visual artworks on this website are © Shaun Fischmann unless otherwise specified.<br /><br />All open-source libraries, packages, and frameworks used to build this site remain the property of their respective creators and are credited on the <a href=\"/credits\" class=\"legal-link\">Credits page</a>.",
+    "privacy_title": "4. Data Protection & Privacy",
+    "privacy_desc": "<strong>Contact Form:</strong> Information provided via the contact form (name, email address, subject, and message) is processed strictly to respond to your inquiries. Personal data is never sold, rented, or shared with third parties.<br /><br /><strong>Cloudflare Web Analytics:</strong> This site uses Cloudflare Web Analytics to monitor site traffic. This measurement is privacy-focused, server-side/cookie-less, does not use cookies, and does not collect or track personal visitor data across websites."
   }
 }
