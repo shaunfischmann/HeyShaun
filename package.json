@@ -1,8 +1,8 @@
 {
-  "name": "portfolio",
+  "name": "@heyshaun/root",
   "version": "1.0.0",
   "private": true,
-  "packageManager": "pnpm@9.15.9",
+  "packageManager": "pnpm@11.21.0",
   "engines": {
     "node": ">=20.0.0"
   },
@@ -10,9 +10,12 @@
     "dev": "turbo dev",
     "build": "turbo build",
     "preview": "turbo preview",
-    "dev:portfolio": "turbo dev --filter=portfolio"
+    "dev:portfolio": "turbo dev --filter=@heyshaun/portfolio"
   },
   "devDependencies": {
+    "@csstools/postcss-global-data": "^4.0.0",
+    "autoprefixer": "^10.5.4",
+    "postcss-custom-media": "^12.0.1",
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
     "sharp": "^0.35.3",

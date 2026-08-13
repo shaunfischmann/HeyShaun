@@ -1,5 +1,5 @@
 {
-  "name": "portfolio",
+  "name": "@heyshaun/portfolio",
   "version": "1.0.0",
   "private": true,
   "type": "module",
@@ -12,7 +12,6 @@
   },
   "dependencies": {
     "@heyshaun/design-tokens": "workspace:*",
-    "@heyshaun/ui": "workspace:*",
     "@heyshaun/utils": "workspace:*",
     "@lucide/astro": "^1.28.0",
     "astro": "^7.1.6"

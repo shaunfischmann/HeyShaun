@@ -6,11 +6,8 @@
       "outputs": ["dist/**", ".astro/**"]
     },
     "portfolio#build": {
-      "dependsOn": ["^build", "ui#build", "design-tokens#build"],
+      "dependsOn": ["^build", "design-tokens#build"],
       "outputs": ["dist/**", ".astro/**"]
-    },
-    "ui#build": {
-      "outputs": ["dist/**"]
     },
     "design-tokens#build": {
       "outputs": ["dist/**"]

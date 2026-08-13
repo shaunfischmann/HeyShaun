@@ -473,19 +473,34 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
     font-family: var(--font-body);
   }
 
-  /* ── Overlap Prevention Breakpoint (<= 1180px) ── */
-  @media (max-width: 1180px) {
+  /* ── Nav Visibility ────────────────────────────
+     Default: show mobile bar; hide desktop nav elements.
+     At --lg (1024px+): reveal desktop nav, hide mobile bar.   */
+  .side-menu {
+    display: none;
+  }
+  .top-controls-bar {
+    display: none;
+  }
+  .corner-logo {
+    display: none;
+  }
+  .mobile-bar {
+    display: flex;
+  }
+
+  @media (--lg) {
     .side-menu {
-      display: none;
+      display: flex;
     }
     .top-controls-bar {
-      display: none;
+      display: flex;
     }
     .corner-logo {
-      display: none;
+      display: block;
     }
     .mobile-bar {
-      display: flex;
+      display: none;
     }
   }
 </style>

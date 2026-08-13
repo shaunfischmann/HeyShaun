@@ -1,0 +1,32 @@
+/* ============================================================
+   MIN-WIDTH TOKENS (Mobile-First - Recommended)
+   ============================================================ */
+/*  576px / 16  */
+@custom-media --sm (min-width: 36em);
+
+/*  768px / 16  */
+@custom-media --md (min-width: 48em);
+
+/* 1024px / 16  */
+@custom-media --lg (min-width: 64em);
+
+/* 1280px / 16  */
+@custom-media --xl (min-width: 80em);
+
+/* 1536px / 16  */
+@custom-media --2xl (min-width: 96em);
+
+/* ============================================================
+   MAX-WIDTH TOKENS (Desktop-First / Fallbacks)
+   ============================================================ */
+@custom-media --max-sm (max-width: 35.98em);
+@custom-media --max-md (max-width: 47.98em);
+@custom-media --max-lg (max-width: 63.98em);
+@custom-media --max-xl (max-width: 79.98em);
+@custom-media --max-2xl (max-width: 95.98em);
+
+/* ============================================================
+   EXPLICIT RANGE TOKENS
+   ============================================================ */
+@custom-media --mobile-only (max-width: 47.98em);
+@custom-media --tablet-only (min-width: 48em) and (max-width: 63.98em);

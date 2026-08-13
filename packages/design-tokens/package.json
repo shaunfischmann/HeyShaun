@@ -4,5 +4,12 @@
   "private": true,
   "description": "Shared design tokens for HeyShaun",
   "main": "colors.css",
-  "files": ["colors.css"]
+  "files": [
+    "colors.css",
+    "breakpoints.css"
+  ],
+  "exports": {
+    "./colors.css": "./colors.css",
+    "./breakpoints.css": "./breakpoints.css"
+  }
 }

@@ -7,6 +7,8 @@
 @layer base, tokens, utilities, components;
 
 /* ── Design Tokens ──────────────────────────────────────────── */
+@import '@heyshaun/design-tokens/colors.css';
+
 @layer tokens {
   :root {
     /* Fonts */
@@ -481,8 +483,8 @@
     position: relative;
   }
 
-  /* Main Content Offset (prevents side menu overlap on desktop for sections & footer) */
-  @media (min-width: 1180px) {
+  /* Main Content Offset (prevents side menu overlap on desktop — aligns with --lg nav breakpoint) */
+  @media (--lg) {
     #main-content > section,
     #main-content > footer,
     #main-content > .site-footer {
@@ -515,7 +517,7 @@
     font-size: clamp(0.875rem, 1.4vw, 1.0625rem);
     color: var(--color-text-muted);
     line-height: 1.75;
-    max-width: 640px;
+    max-width: 700px;
   }
 
   .section-tag {

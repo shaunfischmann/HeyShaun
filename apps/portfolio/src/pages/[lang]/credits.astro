@@ -134,12 +134,16 @@ const t = getTranslations(lang);
   /* Grid Layout */
   .legal-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: 1fr;
     gap: 1.75rem;
+
+    @media (--sm) {
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    }
   }
 
   .legal-card {
-    padding: 2rem;
+    padding: 1.5rem;
     border-radius: var(--radius-lg);
     display: flex;
     flex-direction: column;
@@ -147,6 +151,10 @@ const t = getTranslations(lang);
     transition:
       transform var(--transition-base),
       border-color var(--transition-base);
+
+    @media (--sm) {
+      padding: 2rem;
+    }
   }
 
   .legal-card:hover {
@@ -202,14 +210,5 @@ const t = getTranslations(lang);
   .card-content :global(strong) {
     color: var(--color-text);
     font-weight: 600;
-  }
-
-  @media (max-width: 640px) {
-    .legal-grid {
-      grid-template-columns: 1fr;
-    }
-    .legal-card {
-      padding: 1.5rem;
-    }
   }
 </style>

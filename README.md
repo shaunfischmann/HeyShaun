@@ -1,6 +1,6 @@
 # Portfolio Monorepo
 
-A modern monorepo for personal projects (portfolio, wedding site, etc.) using **Astro**, **Turborepo**, and **pnpm**.
+A modern monorepo for personal projects (portfolio, other plans, etc.) using **Astro**, **Turborepo**, and **pnpm**.
 
 ---
 
@@ -41,13 +41,14 @@ A modern monorepo for personal projects (portfolio, wedding site, etc.) using **
 ## 📂 Project Structure
 
 ```
-my-portfolio-monorepo/
+HeyShaun/
 ├── apps/
-│   ├── portfolio/     → Main portfolio app
-│   └── wedding/       → Wedding site (future)
+│   ├── portfolio/        → Main portfolio app
+│   └── future-project/   → Future projects
 ├── packages/
-│   ├── ui/            → Shared UI components
-│   └── design-tokens/ → Design tokens (colors, typography)
+│   ├── design-tokens/    → Design tokens (colors, typography)
+│   └── utils/            → Shared utilities like translations
+
 ```
 
 ---

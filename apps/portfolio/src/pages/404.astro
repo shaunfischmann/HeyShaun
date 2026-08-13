@@ -27,7 +27,10 @@ const t = getTranslations(lang);
 
         <h2 class="error-heading" id="404-heading">{t.not_found?.heading || "Lost in Cyberspace"}</h2>
         <p class="error-sub" id="404-sub">
-          {t.not_found?.sub || "The page you are looking for doesn't exist, was removed, or is temporarily unavailable."}
+          {
+            t.not_found?.sub ||
+              "The page you are looking for doesn't exist, was removed, or is temporarily unavailable."
+          }
         </p>
 
         <div class="cta-group">
@@ -52,7 +55,9 @@ const t = getTranslations(lang);
   const path = window.location.pathname || "";
   const isFrenchPath = path.startsWith("/fr/") || path === "/fr";
   const isEnglishPath = path.startsWith("/en/") || path === "/en";
-  const prefersFrench = isFrenchPath || (!isEnglishPath && (navigator.languages || [navigator.language]).some((l) => l && l.toString().startsWith("fr")));
+  const prefersFrench =
+    isFrenchPath ||
+    (!isEnglishPath && (navigator.languages || [navigator.language]).some((l) => l && l.toString().startsWith("fr")));
 
   if (prefersFrench) {
     const heading = document.getElementById("404-heading");
@@ -63,7 +68,8 @@ const t = getTranslations(lang);
     const galleryText = document.getElementById("404-gallery-text");
 
     if (heading) heading.textContent = "Perdu dans le Cyberespace";
-    if (sub) sub.textContent = "La page que vous recherchez n'existe pas, a été supprimée ou est temporairement indisponible.";
+    if (sub)
+      sub.textContent = "La page que vous recherchez n'existe pas, a été supprimée ou est temporairement indisponible.";
     if (homeBtn) homeBtn.setAttribute("href", "/fr/");
     if (homeText) homeText.textContent = "Retour à l'accueil";
     if (galleryBtn) galleryBtn.setAttribute("href", "/fr/shaun-ai-gallery");
@@ -141,25 +147,57 @@ const t = getTranslations(lang);
   }
 
   @keyframes glitch-anim-1 {
-    0% { clip-path: inset(15% 0 65% 0); }
-    15% { clip-path: inset(55% 0 10% 0); }
-    30% { clip-path: inset(35% 0 45% 0); }
-    45% { clip-path: inset(80% 0 5% 0); }
-    60% { clip-path: inset(10% 0 70% 0); }
-    75% { clip-path: inset(40% 0 30% 0); }
-    90% { clip-path: inset(65% 0 15% 0); }
-    100% { clip-path: inset(25% 0 50% 0); }
+    0% {
+      clip-path: inset(15% 0 65% 0);
+    }
+    15% {
+      clip-path: inset(55% 0 10% 0);
+    }
+    30% {
+      clip-path: inset(35% 0 45% 0);
+    }
+    45% {
+      clip-path: inset(80% 0 5% 0);
+    }
+    60% {
+      clip-path: inset(10% 0 70% 0);
+    }
+    75% {
+      clip-path: inset(40% 0 30% 0);
+    }
+    90% {
+      clip-path: inset(65% 0 15% 0);
+    }
+    100% {
+      clip-path: inset(25% 0 50% 0);
+    }
   }
 
   @keyframes glitch-anim-2 {
-    0% { clip-path: inset(70% 0 10% 0); }
-    15% { clip-path: inset(20% 0 60% 0); }
-    30% { clip-path: inset(45% 0 35% 0); }
-    45% { clip-path: inset(10% 0 75% 0); }
-    60% { clip-path: inset(60% 0 20% 0); }
-    75% { clip-path: inset(30% 0 50% 0); }
-    90% { clip-path: inset(5% 0 85% 0); }
-    100% { clip-path: inset(50% 0 25% 0); }
+    0% {
+      clip-path: inset(70% 0 10% 0);
+    }
+    15% {
+      clip-path: inset(20% 0 60% 0);
+    }
+    30% {
+      clip-path: inset(45% 0 35% 0);
+    }
+    45% {
+      clip-path: inset(10% 0 75% 0);
+    }
+    60% {
+      clip-path: inset(60% 0 20% 0);
+    }
+    75% {
+      clip-path: inset(30% 0 50% 0);
+    }
+    90% {
+      clip-path: inset(5% 0 85% 0);
+    }
+    100% {
+      clip-path: inset(50% 0 25% 0);
+    }
   }
 
   .error-heading {
@@ -179,17 +217,24 @@ const t = getTranslations(lang);
 
   .cta-group {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 1rem;
     margin-top: 1rem;
     width: 100%;
+
+    @media (--sm) {
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
   }
 
   .cta-btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    width: 100%;
     gap: 0.6rem;
     padding: 0.85rem 1.75rem;
     border-radius: var(--radius-full);
@@ -197,7 +242,14 @@ const t = getTranslations(lang);
     font-size: 0.95rem;
     font-weight: 600;
     text-decoration: none;
-    transition: transform var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+    transition:
+      transform var(--transition-fast),
+      border-color var(--transition-fast),
+      box-shadow var(--transition-fast);
+
+    @media (--sm) {
+      width: auto;
+    }
   }
 
   .primary-btn {
@@ -220,15 +272,5 @@ const t = getTranslations(lang);
     transform: translateY(-3px);
     border-color: var(--color-secondary);
     color: var(--color-secondary);
-  }
-
-  @media (max-width: 480px) {
-    .cta-group {
-      flex-direction: column;
-    }
-    .cta-btn {
-      width: 100%;
-      justify-content: center;
-    }
   }
 </style>
