@@ -219,7 +219,6 @@ const t = Astro.props.t || getTranslations(lang);
     position: relative;
     width: clamp(280px, 36vw, 440px);
     height: clamp(380px, 48vw, 560px);
-    will-change: transform, opacity;
     transition:
       transform 0.1s linear,
       opacity 0.1s linear;
@@ -236,35 +235,40 @@ const t = Astro.props.t || getTranslations(lang);
   .glow-orb {
     position: absolute;
     border-radius: 50%;
-    filter: blur(55px);
+    filter: blur(40px);
     opacity: 0.45;
-    will-change: transform;
   }
 
   .orb-magenta {
     top: -5%;
     left: -15%;
-    width: 260px;
-    height: 260px;
+    width: 182px;
+    height: 182px;
     background: radial-gradient(circle, #e84393 0%, rgba(232, 67, 147, 0) 70%);
+    transform: scale(1.43);
+    transform-origin: top left;
     animation: orb-drift-1 28s ease-in-out infinite alternate;
   }
 
   .orb-cyan {
     bottom: 0%;
     right: -15%;
-    width: 280px;
-    height: 280px;
+    width: 196px;
+    height: 196px;
     background: radial-gradient(circle, #00cec9 0%, rgba(0, 206, 201, 0) 70%);
+    transform: scale(1.43);
+    transform-origin: bottom right;
     animation: orb-drift-2 34s ease-in-out infinite alternate;
   }
 
   .orb-mauve {
     top: 30%;
     left: 20%;
-    width: 300px;
-    height: 300px;
+    width: 210px;
+    height: 210px;
     background: radial-gradient(circle, #6c5ce7 0%, rgba(108, 92, 231, 0) 70%);
+    transform: scale(1.43);
+    transform-origin: top left;
     animation: orb-drift-3 30s ease-in-out infinite alternate;
   }
 
@@ -305,6 +309,24 @@ const t = Astro.props.t || getTranslations(lang);
     }
   }
 
+  /* ── Performance guards ── */
+
+  /* Mobile: 3 blurred orbs is a battery / GPU drain on mobile hardware */
+  @media (--mobile-only) {
+    .glow-orbs-container {
+      display: none;
+    }
+  }
+
+  /* Respect user motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .orb-magenta,
+    .orb-cyan,
+    .orb-mauve {
+      animation: none !important;
+    }
+  }
+
   /* Neumorphic frame with bottom gradient fade */
   .cutout-frame {
     position: relative;
@@ -342,8 +364,9 @@ const t = Astro.props.t || getTranslations(lang);
 </style>
 
 <script>
-  // Parallax & Fade on Scroll for Photo Cutout
+  // Parallax & Fade on Scroll for Photo Cutout — RAF-gated so it fires at most once/frame
   const cutout = document.getElementById("hero-cutout");
+  let scrollTicking = false;
 
   function handleParallaxScroll() {
     if (!cutout) return;
@@ -358,9 +381,19 @@ const t = Astro.props.t || getTranslations(lang);
 
     cutout.style.transform = `translate3d(0, ${translateY}px, 0)`;
     cutout.style.opacity = opacity;
+    scrollTicking = false;
   }
 
-  window.addEventListener("scroll", handleParallaxScroll, { passive: true });
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!scrollTicking) {
+        window.requestAnimationFrame(handleParallaxScroll);
+        scrollTicking = true;
+      }
+    },
+    { passive: true },
+  );
 
   // Typing Effect
   const phrases: Record<string, string[]> = {

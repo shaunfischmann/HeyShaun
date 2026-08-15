@@ -2,6 +2,8 @@
 import "../styles/global.css";
 import type { Lang } from "../i18n/utils";
 
+import BackgroundCanvas from "../components/BackgroundCanvas.astro";
+
 export interface Props {
   lang?: Lang;
   title?: string;
@@ -163,6 +165,9 @@ const schemaData = { "@context": "https://schema.org", "@graph": schemaGraph };
   </head>
 
   <body>
+    <!-- Fullscreen Background Canvas -->
+    <BackgroundCanvas />
+
     <!-- Ambient Parallax Orbs -->
     <div class="ambient-bg" aria-hidden="true" id="ambient-bg">
       <div class="ambient-orb orb-1" data-parallax-speed="0.25"></div>

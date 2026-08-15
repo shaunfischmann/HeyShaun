@@ -389,6 +389,13 @@ const getSkillText = (key: string, fallback: string) => {
 
         <!-- Transparent 3D Stage -->
         <div class="constellation-stage" id="constellation-stage">
+          <!-- Organic Cosmic Nebula Cloud -->
+          <div class="constellation-nebula" aria-hidden="true">
+            <div class="gas-layer gas-1"></div>
+            <div class="gas-layer gas-2"></div>
+            <div class="gas-layer gas-core"></div>
+          </div>
+
           <div class="sphere-cloud" id="sphere-cloud">
             {
               skills.map((skill) => {
@@ -460,6 +467,7 @@ const getSkillText = (key: string, fallback: string) => {
     flex-direction: column;
     gap: 1rem;
     position: static;
+    z-index: 1;
 
     @media (--md) {
       position: sticky;
@@ -536,9 +544,136 @@ const getSkillText = (key: string, fallback: string) => {
     align-items: center;
     justify-content: center;
     user-select: none;
+    /* Ensures children with z-index are stacked relative to the stage */
+    isolation: isolate;
 
     @media (--md) {
       height: 500px;
+    }
+  }
+
+  /* ── Cosmic Nebula Wrapper ── */
+  .constellation-nebula {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(340px, 55vw, 680px);
+    height: clamp(260px, 42vw, 500px);
+    pointer-events: none;
+    z-index: -1;
+    filter: blur(35px);
+    opacity: 0.65;
+  }
+
+  :root[data-theme="dark"] .constellation-nebula {
+    opacity: 0.5; /* Slightly softer in dark mode to keep canvas stars visible */
+  }
+
+  /* ── Shared Gas Layer Base ── */
+  .gas-layer {
+    position: absolute;
+    inset: 0;
+    border-radius: 40% 60% 70% 30% / 50% 30% 70% 50%; /* Organic asymmetrical cloud shape */
+    mix-blend-mode: screen; /* Blends nicely over the background canvas */
+  }
+
+  :root[data-theme="light"] .gas-layer {
+    mix-blend-mode: multiply; /* Better color blending on light mode */
+  }
+
+  /* ── Primary Gas Swirl (Violet/Primary Tint) ── */
+  .gas-1 {
+    background: radial-gradient(
+      ellipse at 40% 40%,
+      var(--color-primary, #6366f1) 0%,
+      rgba(99, 102, 241, 0.4) 40%,
+      transparent 75%
+    );
+    animation: nebulaDrift1 22s ease-in-out infinite alternate;
+  }
+
+  /* ── Secondary Gas Swirl (Cyan/Teal/Secondary Tint) ── */
+  .gas-2 {
+    inset: -10%;
+    border-radius: 60% 40% 30% 70% / 40% 60% 40% 60%;
+    background: radial-gradient(
+      ellipse at 65% 60%,
+      var(--color-secondary, #06b6d4) 0%,
+      rgba(14, 165, 233, 0.3) 45%,
+      transparent 80%
+    );
+    animation: nebulaDrift2 28s ease-in-out infinite alternate;
+  }
+
+  /* ── Dense Gas Core (Warm Glow Center) ── */
+  .gas-core {
+    inset: 15%;
+    border-radius: 50%;
+    filter: blur(22px);
+    background: radial-gradient(
+      circle at 50% 50%,
+      rgba(244, 114, 182, 0.45) 0%,
+      rgba(168, 85, 247, 0.25) 50%,
+      transparent 80%
+    );
+    animation: corePulse 12s ease-in-out infinite alternate;
+  }
+
+  /* ── Slow Cosmic Morphing Animations ── */
+  @keyframes nebulaDrift1 {
+    0% {
+      transform: rotate(0deg) scale(0.95) translate(0, 0);
+      border-radius: 40% 60% 70% 30% / 50% 30% 70% 50%;
+    }
+    50% {
+      transform: rotate(180deg) scale(1.08) translate(15px, -10px);
+      border-radius: 60% 40% 40% 60% / 30% 60% 40% 70%;
+    }
+    100% {
+      transform: rotate(360deg) scale(0.98) translate(-10px, 12px);
+      border-radius: 40% 60% 70% 30% / 50% 30% 70% 50%;
+    }
+  }
+
+  @keyframes nebulaDrift2 {
+    0% {
+      transform: rotate(360deg) scale(1.05) translate(0, 0);
+    }
+    50% {
+      transform: rotate(180deg) scale(0.92) translate(-20px, 15px);
+    }
+    100% {
+      transform: rotate(0deg) scale(1.05) translate(10px, -15px);
+    }
+  }
+
+  @keyframes corePulse {
+    0% {
+      opacity: 0.4;
+      transform: scale(0.88);
+    }
+    100% {
+      opacity: 0.7;
+      transform: scale(1.12);
+    }
+  }
+
+  /* ── Performance guards for nebula ── */
+
+  /* Mobile: disable the 3 concurrent keyframe animations + mix-blend-mode. */
+  @media (--mobile-only) {
+    .constellation-nebula {
+      display: none;
+    }
+  }
+
+  /* Stop all nebula animation for users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .gas-1,
+    .gas-2,
+    .gas-core {
+      animation: none !important;
     }
   }
 
@@ -546,6 +681,7 @@ const getSkillText = (key: string, fallback: string) => {
     position: relative;
     width: 0;
     height: 0;
+    z-index: 1;
   }
 
   /* ── Nodes in 3D Space ── */
@@ -557,7 +693,6 @@ const getSkillText = (key: string, fallback: string) => {
       opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
       transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
       filter 0.4s ease;
-    will-change: transform, opacity, filter;
   }
 
   .constellation-node.hidden {
@@ -924,7 +1059,7 @@ const getSkillText = (key: string, fallback: string) => {
   }
 
   // Recalculate 3D sphere radius on window resize
-  window.addEventListener("resize", layout3DSphere);
+  window.addEventListener("resize", layout3DSphere, { passive: true });
 
   // Main 3D Rendering & Focusing Loop
   function animate(now = performance.now()) {
@@ -993,32 +1128,24 @@ const getSkillText = (key: string, fallback: string) => {
 
       if (activeFocusedNode) {
         // ── OTHER NODES WHEN ONE IS SELECTED ──────────────────────────
-        if (isDark) {
-          node.style.opacity = "0.25";
-          node.style.filter = "blur(2.5px) brightness(0.5)";
-        } else {
-          node.style.opacity = "0.65";
-          node.style.filter = "blur(2.5px) brightness(1.2)";
-        }
+        node.style.opacity = isDark ? "0.25" : "0.65";
+        node.style.filter = isDark ? "blur(2px) brightness(0.5)" : "blur(2px) brightness(1.2)";
       } else {
         // ── NORMAL FLOATING MODE ──
 
         // Calculate Opacity
-        const minOpacity = isDark ? 0.25 : 0.45;
-        const opacityRange = isDark ? 0.65 : 0.55;
-        const depthOpacity = minOpacity + normalizedDepth * opacityRange;
-        node.style.opacity = String(depthOpacity.toFixed(2));
+        const minOpacity = isDark ? 0.15 : 0.35;
+        const opacityRange = isDark ? 0.85 : 0.65;
+        node.style.opacity = String((minOpacity + normalizedDepth * opacityRange).toFixed(2));
 
         // Calculate Filter
-        const blur = (1 - normalizedDepth) * (1 - normalizedDepth) * maxBlur;
-
         if (isDark) {
           const brightness = brightnessFloor + (1 - brightnessFloor) * normalizedDepth * normalizedDepth;
-          node.style.filter = `brightness(${brightness.toFixed(3)}) blur(${blur.toFixed(2)}px)`;
+          node.style.filter = `brightness(${brightness.toFixed(3)})`;
         } else {
           // Light mode: boost brightness slightly so back items fade gracefully into white
           const lightness = 1.0 + (1 - normalizedDepth) * 0.25;
-          node.style.filter = `brightness(${lightness.toFixed(3)}) blur(${blur.toFixed(2)}px)`;
+          node.style.filter = `brightness(${lightness.toFixed(3)})`;
         }
       }
     });

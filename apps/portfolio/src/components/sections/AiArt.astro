@@ -493,8 +493,18 @@ if (isHomepage) {
 
     opacity: calc(var(--intensity, 0) * 0.52);
     mix-blend-mode: color-dodge;
-    filter: blur(14px) contrast(130%);
+    filter: blur(8px) contrast(130%); /* reduced from 14px — ~67% less area */
     transition: opacity 0.3s ease;
+  }
+
+  /* Mobile: holographic effects are hover-only; no use on touch screens. */
+  @media (--mobile-only) {
+    .holo-sheen,
+    .holo-shimmer,
+    .holo-rainbow,
+    .holo-glare {
+      display: none;
+    }
   }
 
   /* Layer 4: Specular Glare Highlight */
@@ -723,7 +733,6 @@ if (isHomepage) {
       transform 0.12s ease,
       border-color var(--transition-base),
       box-shadow var(--transition-base);
-    will-change: transform;
   }
 
   .lb-holo-card.is-resting {
@@ -1136,5 +1145,18 @@ if (isHomepage) {
       if (e.key === "ArrowLeft") navigateLightbox((currentIndex - 1 + artworks.length) % artworks.length);
       if (e.key === "ArrowRight") navigateLightbox((currentIndex + 1) % artworks.length);
     }
+  });
+
+  // ── View-transition cleanup ──────────────────────────────────────
+  document.addEventListener("astro:before-swap", () => {
+    // Cancel all per-card rAF handles
+    document.querySelectorAll<HTMLElement>(".holo-card").forEach((card) => {
+      if (lbRafId !== null) {
+        cancelAnimationFrame(lbRafId);
+        lbRafId = null;
+      }
+    });
+    // Close lightbox cleanly before swap
+    closeLightbox();
   });
 </script>
