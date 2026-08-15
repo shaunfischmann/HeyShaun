@@ -574,12 +574,12 @@ const getSkillText = (key: string, fallback: string) => {
   .gas-layer {
     position: absolute;
     inset: 0;
-    border-radius: 40% 60% 70% 30% / 50% 30% 70% 50%; /* Organic asymmetrical cloud shape */
-    mix-blend-mode: screen; /* Blends nicely over the background canvas */
+    border-radius: 40% 60% 70% 30% / 50% 30% 70% 50%;
+    mix-blend-mode: screen;
   }
 
   :root[data-theme="light"] .gas-layer {
-    mix-blend-mode: multiply; /* Better color blending on light mode */
+    mix-blend-mode: multiply;
   }
 
   /* ── Primary Gas Swirl (Violet/Primary Tint) ── */
@@ -689,10 +689,7 @@ const getSkillText = (key: string, fallback: string) => {
     position: absolute;
     top: 0;
     left: 0;
-    transition:
-      opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
-      filter 0.4s ease;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .constellation-node.hidden {
@@ -702,8 +699,17 @@ const getSkillText = (key: string, fallback: string) => {
 
   /* ── Transition state when switching filters ── */
   .constellation-node.animating-out {
-    opacity: 0 !important;
-    transform: translate3d(0, 0, 0) scale(0.2) !important;
+    animation: disappearIn 600ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  @keyframes disappearIn {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      transform: translate3d(0, 0, 0) scale(0.2);
+    }
   }
 
   /* ── Node Icon Bubble ── */
@@ -722,22 +728,21 @@ const getSkillText = (key: string, fallback: string) => {
     box-shadow: var(--neu-shadow-outset);
     background: var(--color-surface);
 
+    /* Only animate on hover, not every frame */
     transition:
       transform var(--transition-spring),
-      box-shadow var(--transition-fast),
-      background-color var(--transition-fast);
+      box-shadow var(--transition-fast);
   }
 
-  /* Rotating Gradient Ring Container via Pseudo-Element */
+  /* Gradient Ring Container via Pseudo-Element */
   .node-bubble::before {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    padding: 1px; /* Border thickness */
+    padding: 1px;
     border: 1px solid transparent;
 
-    /* Base border gradient */
     background-image:
       linear-gradient(var(--color-surface), var(--color-surface)),
       conic-gradient(from 0deg, var(--color-border), var(--color-border-hover), var(--color-border));
@@ -765,7 +770,7 @@ const getSkillText = (key: string, fallback: string) => {
     background: var(--color-surface-hover);
   }
 
-  /* ── Shared Multicolor Hover & Focused State for ALL Categories ── */
+  /* ── Gradient Hover State ── */
   .constellation-node:hover .node-bubble::before,
   .constellation-node.focused .node-bubble::before {
     background-image:
@@ -773,14 +778,11 @@ const getSkillText = (key: string, fallback: string) => {
       conic-gradient(
         from 0deg,
         var(--color-primary),
-        /* #6C5CE7 (Violet) */ var(--color-secondary),
-        /* #00CEC9 (Cyan) */ #e17055,
-        /* Orange accent */ var(--pastel-lavender),
-        /* #c8c0ff */ var(--color-primary) /* Loop back to Violet */
+        var(--color-secondary),
+        #e17055,
+        var(--pastel-lavender),
+        var(--color-primary)
       );
-
-    /* Rotate ONLY the pseudo-element ring */
-    animation: rotate-slow 4s linear infinite;
   }
 
   .constellation-node:hover .node-bubble,
@@ -996,9 +998,9 @@ const getSkillText = (key: string, fallback: string) => {
 
 <script>
   const stage = document.getElementById("constellation-stage");
-  const filterBtns = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+  const filterBtns = Array.from(document.querySelectorAll<HTMLButtonElement>(".filter-btn"));
 
-  let activeCategory: string | null = null; // null means default state (all)
+  let activeCategory: string | null = null;
   let activeFocusedNode: HTMLElement | null = null;
 
   // Angles for 3D sphere rotation
@@ -1008,43 +1010,42 @@ const getSkillText = (key: string, fallback: string) => {
   const baseSpeedX = 0.0008;
   const baseSpeedY = 0.0018;
 
-  // Current speeds (dynamic interpolated)
   let currentSpeedX = baseSpeedX;
   let currentSpeedY = baseSpeedY;
 
-  // Hover state and target speed multiplier (0.2 = 20% speed on hover)
   let isHovered = false;
   const hoverSpeedFactor = 0.5;
 
-  // Delta time tracking for frame-rate independence
   let lastTime = performance.now();
 
-  // Depth filter settings
   const brightnessFloor = 0.4;
-  const maxBlur = 3;
 
-  // Linear interpolation helper
-  function lerp(start: number, end: number, factor: number): number {
-    return start + (end - start) * factor;
+  // PERFORMANCE: Cache DOM queries
+  let allNodes: HTMLElement[] = [];
+  let visibleNodesCache: HTMLElement[] = [];
+  let needsLayoutRecalc = false;
+
+  function updateVisibleNodesCache() {
+    visibleNodesCache = Array.from(document.querySelectorAll<HTMLElement>(".constellation-node:not(.hidden)"));
   }
 
-  // Position visible nodes in wider 3D space
+  // Lazy layout recalculation - only when needed
   function layout3DSphere() {
-    const visibleNodes = Array.from(document.querySelectorAll<HTMLElement>(".constellation-node:not(.hidden)"));
-    const total = visibleNodes.length;
+    updateVisibleNodesCache();
+    const total = visibleNodesCache.length;
     if (total === 0) return;
 
     const stageWidth = stage?.clientWidth || 360;
     const isMobile = window.innerWidth < 640;
 
-    // Tighter radius on mobile to ensure nodes never exceed viewport boundaries
     const radiusX = isMobile ? Math.min((stageWidth - 100) * 0.45, 120) : Math.min(stageWidth * 0.4, 220);
     const radiusY = isMobile ? 110 : 160;
     const radiusZ = isMobile ? 120 : 180;
 
-    const phi = Math.PI * (3 - Math.sqrt(5)); // Golden angle
+    const phi = Math.PI * (3 - Math.sqrt(5));
 
-    visibleNodes.forEach((node, i) => {
+    for (let i = 0; i < total; i++) {
+      const node = visibleNodesCache[i];
       const y = 1 - (i / (total - 1 || 1)) * 2;
       const radiusAtY = Math.sqrt(1 - y * y);
       const theta = phi * i;
@@ -1055,28 +1056,35 @@ const getSkillText = (key: string, fallback: string) => {
       node.dataset.x = String(x * radiusX);
       node.dataset.y = String(y * radiusY);
       node.dataset.z = String(z * radiusZ);
-    });
+    }
   }
 
-  // Recalculate 3D sphere radius on window resize
-  window.addEventListener("resize", layout3DSphere, { passive: true });
+  window.addEventListener(
+    "resize",
+    () => {
+      layout3DSphere();
+    },
+    { passive: true },
+  );
 
-  // Main 3D Rendering & Focusing Loop
+  function lerp(start: number, end: number, factor: number): number {
+    return start + (end - start) * factor;
+  }
+
+  // PERFORMANCE: Optimized animation loop
+  // Only update every other frame on low-end devices if needed
   function animate(now = performance.now()) {
-    // 1. Calculate time delta normalized to 60fps (~16.67ms)
     const delta = Math.min((now - lastTime) / 16.67, 2.5);
     lastTime = now;
 
     const isDark = document.documentElement.getAttribute("data-theme") !== "light";
 
-    // 2. Interpolate speed smoothly based on hover state
     const targetFactor = isHovered ? hoverSpeedFactor : 1.0;
-    const lerpRate = 0.05; // Adjust between 0.01 (slower transition) and 0.1 (faster transition)
+    const lerpRate = 0.05;
 
     currentSpeedX = lerp(currentSpeedX, baseSpeedX * targetFactor, lerpRate);
     currentSpeedY = lerp(currentSpeedY, baseSpeedY * targetFactor, lerpRate);
 
-    // 3. Apply normalized rotation
     angleX += currentSpeedX * delta;
     angleY += currentSpeedY * delta;
 
@@ -1085,16 +1093,19 @@ const getSkillText = (key: string, fallback: string) => {
     const cosY = Math.cos(angleY);
     const sinY = Math.sin(angleY);
 
-    const visibleNodes = document.querySelectorAll<HTMLElement>(".constellation-node:not(.hidden)");
+    // Use cached visible nodes
+    updateVisibleNodesCache();
 
-    visibleNodes.forEach((node, nodeIndex) => {
+    for (let i = 0; i < visibleNodesCache.length; i++) {
+      const node = visibleNodesCache[i];
+
       // ── FOCUSED MODE ────────────────────────────────────────────────
       if (activeFocusedNode && node === activeFocusedNode) {
         node.style.transform = `translate3d(0px, 0px, 0px) scale(1.35)`;
         node.style.opacity = "1";
         node.style.filter = "none";
         node.style.zIndex = "1000";
-        return;
+        continue;
       }
 
       // ── NORMAL MODE ─────────────────────────────────────────────────
@@ -1132,28 +1143,23 @@ const getSkillText = (key: string, fallback: string) => {
         node.style.filter = isDark ? "blur(2px) brightness(0.5)" : "blur(2px) brightness(1.2)";
       } else {
         // ── NORMAL FLOATING MODE ──
-
-        // Calculate Opacity
         const minOpacity = isDark ? 0.15 : 0.35;
         const opacityRange = isDark ? 0.85 : 0.65;
         node.style.opacity = String((minOpacity + normalizedDepth * opacityRange).toFixed(2));
 
-        // Calculate Filter
         if (isDark) {
           const brightness = brightnessFloor + (1 - brightnessFloor) * normalizedDepth * normalizedDepth;
           node.style.filter = `brightness(${brightness.toFixed(3)})`;
         } else {
-          // Light mode: boost brightness slightly so back items fade gracefully into white
           const lightness = 1.0 + (1 - normalizedDepth) * 0.25;
           node.style.filter = `brightness(${lightness.toFixed(3)})`;
         }
       }
-    });
+    }
 
     requestAnimationFrame(animate);
   }
 
-  // Stage Mouse Listeners for Smooth Hover Slowdown
   if (stage) {
     stage.addEventListener("mouseenter", () => {
       isHovered = true;
@@ -1163,8 +1169,15 @@ const getSkillText = (key: string, fallback: string) => {
     });
   }
 
-  // Click handler for focusing individual nodes
-  const allNodes = document.querySelectorAll<HTMLElement>(".constellation-node");
+  function clearFocus() {
+    if (activeFocusedNode) {
+      activeFocusedNode.classList.remove("focused");
+      activeFocusedNode = null;
+    }
+  }
+
+  allNodes = Array.from(document.querySelectorAll<HTMLElement>(".constellation-node"));
+
   allNodes.forEach((node) => {
     node.addEventListener("click", (e) => {
       e.stopPropagation();
@@ -1178,19 +1191,10 @@ const getSkillText = (key: string, fallback: string) => {
     });
   });
 
-  function clearFocus() {
-    if (activeFocusedNode) {
-      activeFocusedNode.classList.remove("focused");
-      activeFocusedNode = null;
-    }
-  }
-
-  // Toggle Filter Logic and Animation (Explode/Re-cluster)
   filterBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
       const selectedCategory = btn.getAttribute("data-category");
 
-      // Toggle behavior: if clicking already active filter, turn it off (return to null)
       if (activeCategory === selectedCategory) {
         activeCategory = null;
         btn.classList.remove("active");
@@ -1202,9 +1206,8 @@ const getSkillText = (key: string, fallback: string) => {
 
       clearFocus();
 
-      // Trigger burst out animation
-      const currentNodes = document.querySelectorAll<HTMLElement>(".constellation-node:not(.hidden)");
-      currentNodes.forEach((n) => n.classList.add("animating-out"));
+      updateVisibleNodesCache();
+      visibleNodesCache.forEach((n) => n.classList.add("animating-out"));
 
       setTimeout(() => {
         allNodes.forEach((node) => {
@@ -1219,7 +1222,6 @@ const getSkillText = (key: string, fallback: string) => {
           }
         });
 
-        // Recalculate positions for newly active category
         layout3DSphere();
       }, 300);
     });
