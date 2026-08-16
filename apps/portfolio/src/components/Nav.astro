@@ -1,6 +1,5 @@
 ---
 import { Sun, Moon, Menu, X } from "@lucide/astro";
-import { Home, User, Clock, Palette, Mail } from "@lucide/astro";
 import type { Lang } from "../i18n/utils";
 import { getTranslations } from "../i18n/utils";
 
@@ -15,23 +14,15 @@ const t = getTranslations(lang);
 
 // Define navigation links: use direct `#id` on the home page for native smooth scrolling
 const navLinks = [
-  { href: isHomepage ? "#hero" : `/${lang}/#hero`, label: t.nav.home, id: "hero", i18n: "nav.home", icon: Home },
-  { href: isHomepage ? "#about" : `/${lang}/#about`, label: t.nav.about, id: "about", i18n: "nav.about", icon: User },
+  { href: isHomepage ? "#about" : `/${lang}/#about`, label: t.nav.about, id: "about", i18n: "nav.about" },
   {
     href: isHomepage ? "#timeline" : `/${lang}/#timeline`,
     label: t.nav.timeline,
     id: "timeline",
     i18n: "nav.timeline",
-    icon: Clock,
   },
-  { href: isHomepage ? "#art" : `/${lang}/#art`, label: t.nav.art, id: "art", i18n: "nav.art", icon: Palette },
-  {
-    href: isHomepage ? "#contact" : `/${lang}/#contact`,
-    label: t.nav.contact,
-    id: "contact",
-    i18n: "nav.contact",
-    icon: Mail,
-  },
+  { href: isHomepage ? "#art" : `/${lang}/#art`, label: t.nav.art, id: "art", i18n: "nav.art" },
+  { href: isHomepage ? "#contact" : `/${lang}/#contact`, label: t.nav.contact, id: "contact", i18n: "nav.contact" },
 ];
 
 const enTarget = `/en${currentPath === "/" ? "/" : currentPath}`;
@@ -93,12 +84,10 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
     <ul class="nav-list" role="list">
       {
         navLinks.map((link, index) => {
-          const Icon = link.icon;
           return (
             <li>
               <a href={link.href} class={`nav-item ${index === 0 ? "active" : ""}`} data-section={link.id}>
                 <span class="nav-text">
-                  <Icon class="nav-icon" size={16} />
                   <span data-i18n={link.i18n}>{link.label}</span>
                 </span>
               </a>
@@ -142,12 +131,10 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
     <ul class="nav-list" role="list">
       {
         navLinks.map((link, index) => {
-          const Icon = link.icon;
           return (
             <li>
               <a href={link.href} class={`nav-item mobile-item ${index === 0 ? "active" : ""}`} data-section={link.id}>
                 <span class="nav-text">
-                  <Icon class="nav-icon" size={16} />
                   <span data-i18n={link.i18n}>{link.label}</span>
                 </span>
               </a>
@@ -174,7 +161,6 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
     box-shadow: var(--neu-shadow-outset);
   }
 
@@ -184,7 +170,7 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
     align-items: center;
     gap: 0.25rem;
     padding: 0.25rem;
-    background: var(--color-bg);
+    background: var(--glass-bg);
     border-radius: var(--radius-full);
     box-shadow: inset 0 0 0 1px var(--color-border);
   }
@@ -232,7 +218,7 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
     width: 42px;
     height: 32px;
     border: none;
-    background: var(--color-bg);
+    background: var(--glass-bg);
     border-radius: var(--radius-full);
     box-shadow: inset 0 0 0 1px var(--color-border);
     color: var(--color-text-muted);
@@ -324,7 +310,6 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
     transition:
       transform var(--transition-base),
       opacity var(--transition-base),
-      -webkit-mask-position var(--transition-base),
       mask-position var(--transition-base);
   }
 
@@ -403,7 +388,6 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
     padding: 0.75rem 1.25rem;
     background: var(--glass-bg);
     backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
     border-bottom: 1px solid var(--color-border);
     align-items: center;
     justify-content: space-between;
@@ -446,7 +430,6 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
     padding: 1rem 1.25rem;
     background: var(--glass-bg-strong);
     backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
     border-bottom: 1px solid var(--color-border);
   }
 

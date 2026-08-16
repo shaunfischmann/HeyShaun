@@ -346,6 +346,19 @@ const getSkillText = (key: string, fallback: string) => {
   const val = (t.about as Record<string, string>)[key];
   return val !== undefined ? val : fallback;
 };
+
+// Import all SVGs as raw strings at build time to avoid browser mask refetch loops in animation
+const svgRawFiles = import.meta.glob<string>("../../../public/icons/*.svg", {
+  query: "?raw",
+  import: "default",
+  eager: true,
+});
+
+function getSvgContent(iconPath?: string): string {
+  if (!iconPath) return "";
+  const fileName = iconPath.split("/").pop();
+  return svgRawFiles[`../../../public/icons/${fileName}`] || "";
+}
 ---
 
 <section id="about" class="section" aria-labelledby="about-heading">
@@ -402,6 +415,7 @@ const getSkillText = (key: string, fallback: string) => {
                 const LucideIcon = skill.lucideIcon;
                 const skillName = getSkillText(skill.nameKey, skill.name);
                 const skillDesc = getSkillText(skill.descKey, skill.desc);
+                const svgContent = getSvgContent(skill.svgIcon);
                 return (
                   <div
                     class={`constellation-node cat-${skill.category.toLowerCase()}`}
@@ -410,13 +424,13 @@ const getSkillText = (key: string, fallback: string) => {
                     data-highlight={skill.highlight ? "true" : "false"}
                   >
                     <div class="node-bubble" aria-label={skillName}>
-                      {skill.svgIcon ? (
+                      {svgContent ? (
                         <span
                           class="skill-icon"
                           data-color={skill.color}
-                          style={{ "--svg-url": `url(${skill.svgIcon})` }}
                           role="img"
                           aria-label={skillName}
+                          set:html={svgContent}
                         />
                       ) : LucideIcon ? (
                         <LucideIcon class="skill-lucide-icon" size={24} />
@@ -802,10 +816,18 @@ const getSkillText = (key: string, fallback: string) => {
   .skill-icon {
     width: 24px;
     height: 24px;
-    background-color: var(--color-text); /* Controls the color of the SVG icon */
-    -webkit-mask: var(--svg-url) no-repeat center / contain;
-    mask: var(--svg-url) no-repeat center / contain;
-    transition: background-color var(--transition-fast);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text);
+    transition: color var(--transition-fast);
+  }
+
+  .skill-icon :global(svg) {
+    width: 100%;
+    height: 100%;
+    fill: currentColor;
+    display: block;
   }
 
   /* ── Custom icon styles ── */
@@ -817,7 +839,7 @@ const getSkillText = (key: string, fallback: string) => {
   }
   .constellation-node[data-id="php"]:hover .skill-icon,
   .constellation-node[data-id="php"].focused .skill-icon {
-    background-color: var(--brand-php);
+    color: var(--brand-php);
   }
   /* Mysql */
   .constellation-node[data-id="mysql"] .skill-icon {
@@ -826,21 +848,21 @@ const getSkillText = (key: string, fallback: string) => {
   }
   .constellation-node[data-id="mysql"]:hover .skill-icon,
   .constellation-node[data-id="mysql"].focused .skill-icon {
-    background-color: var(--brand-mysql);
+    color: var(--brand-mysql);
   }
   /* Symfony */
   :root:not([data-theme="dark"]) .constellation-node[data-id="symfony"]:hover .skill-icon,
   :root:not([data-theme="dark"]) .constellation-node[data-id="symfony"].focused .skill-icon {
-    background-color: var(--brand-symfony-light);
+    color: var(--brand-symfony-light);
   }
   :root[data-theme="dark"] .constellation-node[data-id="symfony"]:hover .skill-icon,
   :root[data-theme="dark"] .constellation-node[data-id="symfony"].focused .skill-icon {
-    background-color: var(--brand-symfony-dark);
+    color: var(--brand-symfony-dark);
   }
   /* Git */
   .constellation-node[data-id="git"]:hover .skill-icon,
   .constellation-node[data-id="git"].focused .skill-icon {
-    background-color: var(--brand-git);
+    color: var(--brand-git);
   }
   /* GitHub */
   .constellation-node[data-id="github"] .skill-icon {
@@ -849,17 +871,17 @@ const getSkillText = (key: string, fallback: string) => {
   }
   .constellation-node[data-id="github"]:hover .skill-icon,
   .constellation-node[data-id="github"].focused .skill-icon {
-    background-color: var(--brand-github);
+    color: var(--brand-github);
   }
   /* Apache */
   .constellation-node[data-id="apache"]:hover .skill-icon,
   .constellation-node[data-id="apache"].focused .skill-icon {
-    background-color: var(--brand-apache);
+    color: var(--brand-apache);
   }
   /* Nginx */
   .constellation-node[data-id="nginx"]:hover .skill-icon,
   .constellation-node[data-id="nginx"].focused .skill-icon {
-    background-color: var(--brand-nginx);
+    color: var(--brand-nginx);
   }
   /* Postman */
   .constellation-node[data-id="postman"] .skill-icon {
@@ -868,46 +890,46 @@ const getSkillText = (key: string, fallback: string) => {
   }
   .constellation-node[data-id="postman"]:hover .skill-icon,
   .constellation-node[data-id="postman"].focused .skill-icon {
-    background-color: var(--brand-postman);
+    color: var(--brand-postman);
   }
   /* Jquery */
   .constellation-node[data-id="jquery"]:hover .skill-icon,
   .constellation-node[data-id="jquery"].focused .skill-icon {
-    background-color: var(--brand-jquery);
+    color: var(--brand-jquery);
   }
   /* Asana */
   .constellation-node[data-id="asana"]:hover .skill-icon,
   .constellation-node[data-id="asana"].focused .skill-icon {
-    background-color: var(--brand-asana);
+    color: var(--brand-asana);
   }
   /* Openai */
   :root:not([data-theme="dark"]) .constellation-node[data-id="openai"]:hover .skill-icon,
   :root:not([data-theme="dark"]) .constellation-node[data-id="openai"].focused .skill-icon {
-    background-color: var(--brand-openai-light);
+    color: var(--brand-openai-light);
   }
   :root[data-theme="dark"] .constellation-node[data-id="openai"]:hover .skill-icon,
   :root[data-theme="dark"] .constellation-node[data-id="openai"].focused .skill-icon {
-    background-color: var(--brand-openai-dark);
+    color: var(--brand-openai-dark);
   }
   /* DaVinci Resolve */
   .constellation-node[data-id="davinci"]:hover .skill-icon,
   .constellation-node[data-id="davinci"].focused .skill-icon {
-    background-color: var(--brand-davinci);
+    color: var(--brand-davinci);
   }
   /* Adobe Creative Suite */
   .constellation-node[data-id="adobe"]:hover .skill-icon,
   .constellation-node[data-id="adobe"].focused .skill-icon {
-    background-color: var(--brand-adobe);
+    color: var(--brand-adobe);
   }
   /* HTML */
   .constellation-node[data-id="html"]:hover .skill-icon,
   .constellation-node[data-id="html"].focused .skill-icon {
-    background-color: var(--brand-html);
+    color: var(--brand-html);
   }
   /* CSS */
   .constellation-node[data-id="css"]:hover .skill-icon,
   .constellation-node[data-id="css"].focused .skill-icon {
-    background-color: var(--brand-css);
+    color: var(--brand-css);
   }
   /* Javascript */
   :root[data-theme="light"] .constellation-node[data-id="javascript"]:hover .skill-icon,
@@ -916,27 +938,27 @@ const getSkillText = (key: string, fallback: string) => {
   }
   :root[data-theme="dark"] .constellation-node[data-id="javascript"]:hover .skill-icon,
   :root[data-theme="dark"] .constellation-node[data-id="javascript"].focused .skill-icon {
-    background-color: var(--brand-js-dark);
+    color: var(--brand-js-dark);
   }
   /* Gemini */
   .constellation-node[data-id="gemini"]:hover .skill-icon,
   .constellation-node[data-id="gemini"].focused .skill-icon {
-    background-color: var(--brand-gemini);
+    color: var(--brand-gemini);
   }
   /* Mistral */
   .constellation-node[data-id="mistral"]:hover .skill-icon,
   .constellation-node[data-id="mistral"].focused .skill-icon {
-    background-color: var(--brand-mistral);
+    color: var(--brand-mistral);
   }
   /* Claude */
   .constellation-node[data-id="claude"]:hover .skill-icon,
   .constellation-node[data-id="claude"].focused .skill-icon {
-    background-color: var(--brand-claude);
+    color: var(--brand-claude);
   }
   /* Astro */
   .constellation-node[data-id="astro"]:hover .skill-icon,
   .constellation-node[data-id="astro"].focused .skill-icon {
-    background-color: var(--brand-astro);
+    color: var(--brand-astro);
   }
 
   /* ── Tooltip ── */
@@ -954,7 +976,6 @@ const getSkillText = (key: string, fallback: string) => {
     background: var(--glass-bg-strong);
     border: 1px solid var(--glass-border);
     backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
     opacity: 0;
     pointer-events: none;

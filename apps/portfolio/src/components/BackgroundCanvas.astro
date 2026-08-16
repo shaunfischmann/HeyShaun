@@ -43,26 +43,32 @@
 
       // Light Mode Grid Visibility
       lightColor: "30, 41, 59", // Slate color (RGB)
-      lightOpacityBase: 0.18, // Base opacity (Increased for better visibility!)
+      lightOpacityBase: 0.18, // Base opacity
       lightOpacityMultiplier: 1.2, // Overall boost for light mode grid
+      parallaxSpeed: 0.04, // Grid parallax scroll speed
     },
 
     // 2. STARDUST / STARS SETTINGS (Dark Mode Only)
     stars: {
-      densityDivider: 2200, // INCREASED for better perf. Lower = MORE stars (e.g., 1000 = dense, 3000 = sparse)
+      densityDivider: 2200, // Lower = MORE stars (e.g., 1000 = dense, 3000 = sparse)
       color: "245, 235, 224", // Warm white / lavender (RGB)
-      sizeMin: 1.0, // Minimum star pixel size
+      sizeMin: 0.9, // Minimum star pixel size
       sizeMax: 2.2, // Maximum star pixel size
 
       // Star Opacity Boost
       opacityMin: 0.25, // Minimum opacity
-      opacityMax: 0.65, // Maximum opacity
+      opacityMax: 0.75, // Maximum opacity
+
+      // Star Parallax Settings
+      parallaxSpeedMin: 0.02, // Slowest (distant background) star scroll speed
+      parallaxSpeedMax: 0.14, // Fastest (foreground) star scroll speed
+      mouseParallaxFactor: 0.035, // Subtle mouse tilt depth factor
     },
 
     // 3. SHOOTING STARS SETTINGS (Dark Mode Only)
     shootingStars: {
       enabled: true,
-      spawnProbability: 0.0075, // Chance per frame (0.015 = roughly every 3-5 seconds)
+      spawnProbability: 0.0075, // Chance per frame (roughly every 3-5 seconds)
       color: "255, 255, 255", // Color (RGB)
       speedMin: 8, // Minimum flight speed (px per frame)
       speedMax: 15, // Maximum flight speed
@@ -86,6 +92,9 @@
     baseY: number;
     size: number;
     opacity: number;
+    speed: number;
+    twinkleSpeed: number;
+    twinklePhase: number;
   }
 
   interface ShootingStar {
@@ -118,6 +127,11 @@
     private animationFrameId: number | null = null;
     private observer: MutationObserver | null = null;
 
+    // Footer waves occlusion tracking
+    private wavesEl: HTMLElement | null = null;
+    private wavesTop = 99999;
+    private currentWavesTop = 99999;
+
     // Cached viewport dimensions — updated only on resize, never read inside animate()
     private vw = 0;
     private vh = 0;
@@ -131,6 +145,7 @@
       this.ctx = this.canvas.getContext("2d", { alpha: true })!;
 
       this.checkTheme();
+      this.findWavesElement();
       this.resize();
       this.bindEvents();
       this.animate();
@@ -142,6 +157,33 @@
         this.isDarkMode = themeAttr === "dark";
       } else {
         this.isDarkMode = !window.matchMedia("(prefers-color-scheme: light)").matches;
+      }
+    }
+
+    private findWavesElement() {
+      this.wavesEl =
+        document.querySelector(".waves-parallax") ||
+        document.querySelector(".waves-container") ||
+        document.querySelector(".site-footer") ||
+        document.querySelector("footer");
+      this.updateWavesPosition();
+    }
+
+    private updateWavesPosition() {
+      if (this.wavesEl) {
+        const rect = this.wavesEl.getBoundingClientRect();
+        this.wavesTop = rect.top;
+      } else {
+        this.wavesEl =
+          document.querySelector(".waves-parallax") ||
+          document.querySelector(".waves-container") ||
+          document.querySelector(".site-footer") ||
+          document.querySelector("footer");
+        if (this.wavesEl) {
+          this.wavesTop = this.wavesEl.getBoundingClientRect().top;
+        } else {
+          this.wavesTop = 99999;
+        }
       }
     }
 
@@ -160,6 +202,7 @@
       this.ctx.scale(this.dpr, this.dpr);
 
       this.initParticles();
+      this.updateWavesPosition();
     };
 
     private initParticles() {
@@ -196,12 +239,22 @@
         for (let i = 0; i < totalStars; i++) {
           const x = Math.random() * width;
           const y = Math.random() * height;
+          const depth = Math.random(); // 0 (far) to 1 (close)
+
+          // Closer stars are slightly larger, brighter, and move faster
+          const size = CONFIG.stars.sizeMin + depth * (CONFIG.stars.sizeMax - CONFIG.stars.sizeMin);
+          const opacity = CONFIG.stars.opacityMin + depth * (CONFIG.stars.opacityMax - CONFIG.stars.opacityMin);
+          const speed =
+            CONFIG.stars.parallaxSpeedMin + depth * (CONFIG.stars.parallaxSpeedMax - CONFIG.stars.parallaxSpeedMin);
 
           this.stars.push({
             baseX: x,
             baseY: y,
-            size: Math.random() < 0.75 ? CONFIG.stars.sizeMin : CONFIG.stars.sizeMax,
-            opacity: Math.random() * (CONFIG.stars.opacityMax - CONFIG.stars.opacityMin) + CONFIG.stars.opacityMin,
+            size,
+            opacity,
+            speed,
+            twinkleSpeed: 0.012 + Math.random() * 0.025,
+            twinklePhase: Math.random() * Math.PI * 2,
           });
         }
       }
@@ -235,7 +288,10 @@
     }
 
     private bindEvents() {
-      window.addEventListener("resize", this.resize);
+      window.addEventListener("resize", () => {
+        this.resize();
+        this.updateWavesPosition();
+      });
 
       window.addEventListener("mousemove", (e) => {
         this.mouse.targetX = e.clientX;
@@ -247,6 +303,7 @@
         "scroll",
         () => {
           this.targetScrollY = window.scrollY;
+          this.updateWavesPosition();
         },
         { passive: true },
       );
@@ -268,10 +325,11 @@
     private animate = () => {
       this.time += 1;
 
-      // Smooth lerp for mouse & scroll
+      // Smooth lerp for mouse, scroll, and footer wave threshold
       this.mouse.x += (this.mouse.targetX - this.mouse.x) * 0.08;
       this.mouse.y += (this.mouse.targetY - this.mouse.y) * 0.08;
       this.scrollY += (this.targetScrollY - this.scrollY) * 0.08;
+      this.currentWavesTop += (this.wavesTop - this.currentWavesTop) * 0.1;
 
       // Use cached dimensions — no layout reads inside the hot path
       const width = this.vw;
@@ -293,14 +351,25 @@
 
       for (let i = 0; i < this.gridDots.length; i++) {
         const dot = this.gridDots[i];
-        const parallaxY = this.scrollY * 0.04;
+        const parallaxY = this.scrollY * CONFIG.grid.parallaxSpeed;
         let x = dot.baseX;
         let y = dot.baseY + parallaxY;
+
+        // Wave fade: fade out elements disappearing behind footer waves
+        let waveFade = 1;
+        if (this.currentWavesTop < height + 150) {
+          const fadeStart = this.currentWavesTop - 60;
+          const fadeEnd = this.currentWavesTop + 30;
+          if (y > fadeStart) {
+            waveFade = Math.max(0, 1 - (y - fadeStart) / (fadeEnd - fadeStart));
+          }
+        }
+        if (waveFade <= 0.005) continue;
 
         // Center fade / vignette (always calculate this - it's cheap)
         const distFromCenter = Math.sqrt((dot.baseX - centerX) ** 2 + (dot.baseY - centerY) ** 2);
         const centerFade = Math.pow(distFromCenter / maxDist, 1.2);
-        let opacity = dot.baseOpacity * centerFade * opacityMultiplier;
+        let opacity = dot.baseOpacity * centerFade * opacityMultiplier * waveFade;
 
         // Mouse displacement - ONLY for dots near cursor (huge optimization!)
         const dx = this.mouse.x - x;
@@ -323,29 +392,51 @@
       }
 
       // ==========================================
-      // LAYER 2: STARDUST with MOUSE INTERACTION (Dark Mode Only)
+      // LAYER 2: STARDUST with PARALLAX & TWINKLE (Dark Mode Only)
       // ==========================================
       if (this.isDarkMode && this.stars.length > 0) {
-        const mouseInfluenceRadius = 200;
+        const mouseCenterX = this.mouse.x - width / 2;
+        const mouseCenterY = this.mouse.y - height / 2;
 
         for (let i = 0; i < this.stars.length; i++) {
           const star = this.stars[i];
-          let x = star.baseX;
-          let y = star.baseY;
 
-          // Mouse interaction - only calculate for stars near cursor
+          // 1. Scroll Parallax with infinite wrapping
+          const scrollOffset = this.scrollY * star.speed;
+          let y = (((star.baseY - scrollOffset) % height) + height) % height;
+
+          // 2. Subtle 3D Mouse Parallax tilt based on star depth
+          let x = star.baseX + mouseCenterX * star.speed * CONFIG.stars.mouseParallaxFactor;
+          x = ((x % width) + width) % width;
+
+          // 3. Wave Fade: Gracefully disappear behind footer waves
+          let waveFade = 1;
+          if (this.currentWavesTop < height + 150) {
+            const fadeStart = this.currentWavesTop - 60;
+            const fadeEnd = this.currentWavesTop + 30;
+            if (y > fadeStart) {
+              waveFade = Math.max(0, 1 - (y - fadeStart) / (fadeEnd - fadeStart));
+            }
+          }
+
+          if (waveFade <= 0.005) continue; // Hidden behind footer waves
+
+          // 4. Mouse proximity repulsion
           const dx = this.mouse.x - x;
           const dy = this.mouse.y - y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           const influence = Math.max(0, 1 - dist / mouseInfluenceRadius);
 
-          // Displace towards cursor
           if (dist > 0 && influence > 0) {
             x += (dx / dist) * influence * -6;
             y += (dy / dist) * influence * -6;
           }
 
-          this.ctx.globalAlpha = star.opacity + influence * 0.08;
+          // 5. Subtle organic twinkle
+          const twinkle = Math.sin(this.time * star.twinkleSpeed + star.twinklePhase) * 0.12;
+          const finalOpacity = Math.max(0, Math.min(1, (star.opacity + twinkle + influence * 0.08) * waveFade));
+
+          this.ctx.globalAlpha = finalOpacity;
           this.ctx.fillStyle = `rgba(${CONFIG.stars.color}, 1)`;
           this.ctx.fillRect(x, y, star.size, star.size);
         }
@@ -372,12 +463,30 @@
           ss.y += ss.dy;
           ss.opacity -= 0.012; // Fade out slowly
 
+          // Wave Fade: Disappear if entering footer waves zone
+          let ssWaveFade = 1;
+          if (this.currentWavesTop < height + 150) {
+            const fadeStart = this.currentWavesTop - 40;
+            const fadeEnd = this.currentWavesTop + 30;
+            if (ss.y > fadeStart) {
+              ssWaveFade = Math.max(0, 1 - (ss.y - fadeStart) / (fadeEnd - fadeStart));
+            }
+          }
+
+          const effectiveOpacity = Math.max(0, ss.opacity * ssWaveFade);
+
+          // Remove when offscreen or faded out
+          if (effectiveOpacity <= 0.01 || ss.x > width + 100 || ss.y > height + 100) {
+            this.activeShootingStars.splice(i, 1);
+            continue;
+          }
+
           // Draw line trail
           const tailX = ss.x - Math.cos(ss.angle) * ss.length;
           const tailY = ss.y - Math.sin(ss.angle) * ss.length;
 
           const gradient = this.ctx.createLinearGradient(ss.x, ss.y, tailX, tailY);
-          gradient.addColorStop(0, `rgba(${CONFIG.shootingStars.color}, ${Math.max(0, ss.opacity)})`);
+          gradient.addColorStop(0, `rgba(${CONFIG.shootingStars.color}, ${effectiveOpacity})`);
           gradient.addColorStop(1, `rgba(${CONFIG.shootingStars.color}, 0)`);
 
           this.ctx.beginPath();
@@ -386,11 +495,6 @@
           this.ctx.strokeStyle = gradient;
           this.ctx.lineWidth = 1.2;
           this.ctx.stroke();
-
-          // Remove when offscreen or faded out
-          if (ss.opacity <= 0 || ss.x > width + 100 || ss.y > height + 100) {
-            this.activeShootingStars.splice(i, 1);
-          }
         }
       }
 

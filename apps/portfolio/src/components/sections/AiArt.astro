@@ -18,72 +18,49 @@ const imageImports = import.meta.glob<{ default: ImageMetadata }>("/src/assets/a
   eager: true,
 });
 
-// 2. Process and optimize them automatically
-const allArtworks = await Promise.all(
-  Object.entries(imageImports).map(async ([path, module], index) => {
-    const rawImage = module.default;
-    const fileName = path.split("/").pop()?.split(".")[0].replace(/[-_]/g, " ") || "";
-    const title = fileName.charAt(0).toUpperCase() + fileName.slice(1);
+// 2. Extract metadata without triggering heavy image transforms yet
+const rawArtworks = Object.entries(imageImports).map(([path, module], index) => {
+  const rawImage = module.default;
+  const fileName = path.split("/").pop()?.split(".")[0].replace(/[-_]/g, " ") || "";
+  const title = fileName.charAt(0).toUpperCase() + fileName.slice(1);
 
-    const ratio = rawImage.width / rawImage.height;
-    const orientation = ratio > 1.15 ? "landscape" : ratio < 0.85 ? "portrait" : "square";
+  const ratio = rawImage.width / rawImage.height;
+  const orientation = ratio > 1.15 ? "landscape" : ratio < 0.85 ? "portrait" : "square";
 
-    const optimizedGridImage = await getImage({
-      src: rawImage,
-      width: 900,
-      format: "webp",
-    });
+  return {
+    rawImage,
+    id: `art-${index + 1}`,
+    title,
+    orientation,
+    aspectRatio: ratio.toFixed(3),
+    gradientIdx: index % 6,
+  };
+});
 
-    const optimizedLightboxImage = await getImage({
-      src: rawImage,
-      width: 1800,
-      format: "webp",
-    });
-
-    return {
-      id: `art-${index + 1}`,
-      title,
-      src: optimizedGridImage.src,
-      lightboxSrc: optimizedLightboxImage.src,
-      orientation,
-      aspectRatio: ratio.toFixed(3),
-      gradientIdx: index % 6,
-    };
-  }),
-);
-
-// 3. Homepage sampling algorithm: Guarantees flush rows with no peaking portraits
-let artworks = [...allArtworks];
+// 3. Homepage sampling algorithm: select only the artworks needed for the current page
+let selectedArtworks = [...rawArtworks];
 
 if (isHomepage) {
   const TARGET_ROWS = 3; // Desired number of grid rows
   const COLS = 3;
 
-  // Matrix tracking filled cells [row][col]
   const gridMatrix: boolean[][] = Array.from({ length: TARGET_ROWS + 2 }, () => Array(COLS).fill(false));
-  const homepageList: typeof allArtworks = [];
-
-  // Shuffle candidate pool
-  const pool = [...allArtworks].sort(() => Math.random() - 0.5);
+  const homepageList: typeof rawArtworks = [];
+  const pool = [...rawArtworks].sort(() => Math.random() - 0.5);
 
   for (let r = 0; r < TARGET_ROWS; r++) {
     for (let c = 0; c < COLS; c++) {
-      // If cell is already filled by a portrait spanning down from the row above, skip
       if (gridMatrix[r][c]) continue;
 
       const remainingColsInRow = COLS - c;
       const isLastRow = r === TARGET_ROWS - 1;
 
-      // Find the best fitting artwork from the pool
       const matchIdx = pool.findIndex((art) => {
         if (art.orientation === "landscape") {
-          // Landscape needs 2 horizontal columns
           return remainingColsInRow >= 2;
         } else if (art.orientation === "portrait") {
-          // Portrait needs 2 vertical rows -> CANNOT be placed on the last row!
           return !isLastRow && !gridMatrix[r + 1][c];
         } else {
-          // Square needs 1 column
           return remainingColsInRow >= 1;
         }
       });
@@ -92,13 +69,12 @@ if (isHomepage) {
         const [selected] = pool.splice(matchIdx, 1);
         homepageList.push(selected);
 
-        // Mark matrix cells as occupied
         if (selected.orientation === "landscape") {
           gridMatrix[r][c] = true;
           gridMatrix[r][c + 1] = true;
         } else if (selected.orientation === "portrait") {
           gridMatrix[r][c] = true;
-          gridMatrix[r + 1][c] = true; // Mark space in row below
+          gridMatrix[r + 1][c] = true;
         } else {
           gridMatrix[r][c] = true;
         }
@@ -106,10 +82,51 @@ if (isHomepage) {
     }
   }
 
-  artworks = homepageList;
+  selectedArtworks = homepageList;
 } else {
-  artworks = artworks.sort(() => Math.random() - 0.5);
+  selectedArtworks = selectedArtworks.sort(() => Math.random() - 0.5);
 }
+
+// 4. Transform ONLY the artworks actually rendered on this page
+const artworks = await Promise.all(
+  selectedArtworks.map(async (art) => {
+    const gridOptions: any = {
+      src: art.rawImage,
+      format: "webp",
+    };
+    if (art.orientation === "landscape") {
+      gridOptions.width = 900;
+    } else if (art.orientation === "portrait") {
+      gridOptions.height = 900;
+    } else {
+      gridOptions.width = 400;
+    }
+
+    const optimizedGridImage = await getImage(gridOptions);
+
+    // High-resolution lightbox version (up to 1800px)
+    const lbOptions: any = {
+      src: art.rawImage,
+      format: "webp",
+    };
+    if (art.orientation === "portrait") {
+      lbOptions.height = 1800;
+    } else {
+      lbOptions.width = 1800;
+    }
+    const optimizedLightboxImage = await getImage(lbOptions);
+
+    return {
+      id: art.id,
+      title: art.title,
+      src: optimizedGridImage.src,
+      lightboxSrc: optimizedLightboxImage.src,
+      orientation: art.orientation,
+      aspectRatio: art.aspectRatio,
+      gradientIdx: art.gradientIdx,
+    };
+  }),
+);
 ---
 
 <section id="art" class="section" aria-labelledby="art-heading">
@@ -125,7 +142,12 @@ if (isHomepage) {
     </div>
 
     <!-- Responsive Max-Width Grid -->
-    <div class="art-grid" id="art-grid" role="list" data-artworks={JSON.stringify(artworks)}>
+    <div
+      class={`art-grid ${isHomepage ? "art-grid--homepage" : ""}`}
+      id="art-grid"
+      role="list"
+      data-artworks={JSON.stringify(artworks)}
+    >
       {
         artworks.map((art, i) => (
           <article
@@ -295,6 +317,11 @@ if (isHomepage) {
     grid-row: span 1;
   }
 
+  /* Display only 3 images on mobile for homepage section */
+  .art-grid--homepage .art-item:nth-child(n + 4) {
+    display: none;
+  }
+
   .art-header {
     display: flex;
     flex-direction: column;
@@ -311,6 +338,10 @@ if (isHomepage) {
     .art-grid {
       grid-template-columns: repeat(2, 1fr);
       grid-auto-rows: 280px;
+    }
+
+    .art-grid--homepage .art-item:nth-child(n + 4) {
+      display: block;
     }
 
     .art-item--landscape {
@@ -635,7 +666,6 @@ if (isHomepage) {
     inset: 0;
     background: rgba(8, 9, 13, 0.92);
     backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
   }
 
   .lightbox-inner {
@@ -697,20 +727,21 @@ if (isHomepage) {
 
   .lb-holo-card.is-landscape {
     width: 100%;
-    max-height: 68vh;
+    max-width: 960px;
+    max-height: 75vh;
     aspect-ratio: 16 / 10;
   }
 
   .lb-holo-card.is-portrait {
-    height: 72vh;
-    max-width: 600px;
+    height: 78vh;
+    max-width: 620px;
     aspect-ratio: 3 / 4;
   }
 
   .lb-holo-card.is-square {
     width: 100%;
-    max-height: 68vh;
-    max-width: 680px;
+    max-height: 75vh;
+    max-width: 740px;
     aspect-ratio: 1 / 1;
   }
 
@@ -720,7 +751,7 @@ if (isHomepage) {
     border: 1px solid var(--glow-primary);
     overflow: hidden;
     transform-style: preserve-3d;
-    cursor: crosshair;
+    cursor: zoom-in;
 
     --rx: 0deg;
     --ry: 0deg;
@@ -733,6 +764,10 @@ if (isHomepage) {
       transform 0.12s ease,
       border-color var(--transition-base),
       box-shadow var(--transition-base);
+  }
+
+  .lb-holo-card.is-zoomed {
+    cursor: zoom-out;
   }
 
   .lb-holo-card.is-resting {
@@ -803,6 +838,22 @@ if (isHomepage) {
     overflow: hidden;
   }
 
+  .lightbox-placeholder :global(.lb-img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    cursor: zoom-in;
+    transform-origin: center center;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    user-select: none;
+  }
+
+  .lb-holo-card.is-zoomed .lightbox-placeholder :global(.lb-img) {
+    cursor: zoom-out;
+    transform: scale(2.25);
+  }
+
   .lightbox-info {
     display: flex;
     flex-direction: column;
@@ -813,6 +864,7 @@ if (isHomepage) {
     font-size: 1.35rem;
     font-family: var(--font-heading);
     font-weight: 700;
+    color: #fff;
   }
 
   .lightbox-cat {
@@ -944,6 +996,7 @@ if (isHomepage) {
   // Lightbox Modal Logic
   let currentIndex = 0;
   let isFlipping = false;
+  let isZoomed = false;
 
   const lightbox = document.getElementById("art-lightbox");
   const lbTitle = document.getElementById("lightbox-title");
@@ -960,6 +1013,29 @@ if (isHomepage) {
     "linear-gradient(135deg, #0d1f2d, #134e4a, #1e3a5f)",
     "linear-gradient(135deg, #2d0b3b, #5b21b6, #1e1b4b)",
   ];
+
+  function resetZoom() {
+    isZoomed = false;
+    lbHoloCard?.classList.remove("is-zoomed");
+    const img = lbPlaceholder?.querySelector<HTMLImageElement>(".lb-img");
+    if (img) {
+      img.style.transformOrigin = "center center";
+    }
+  }
+
+  function toggleZoom(e?: MouseEvent) {
+    isZoomed = !isZoomed;
+    lbHoloCard?.classList.toggle("is-zoomed", isZoomed);
+    const img = lbPlaceholder?.querySelector<HTMLImageElement>(".lb-img");
+    if (isZoomed && e && lbHoloCard && img) {
+      const rect = lbHoloCard.getBoundingClientRect();
+      const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      const y = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+      img.style.transformOrigin = `${(x * 100).toFixed(1)}% ${(y * 100).toFixed(1)}%`;
+    } else if (!isZoomed && img) {
+      img.style.transformOrigin = "center center";
+    }
+  }
 
   function setLbContent(idx: number) {
     const art = artworks[idx];
@@ -978,11 +1054,12 @@ if (isHomepage) {
     const imageToDisplay = art.lightboxSrc || art.src;
     if (imageToDisplay) {
       lbPlaceholder.style.background = "";
-      lbPlaceholder.innerHTML = `<img src="${imageToDisplay}" alt="${art.title}" style="width:100%;height:100%;object-fit:cover;display:block;" />`;
+      lbPlaceholder.innerHTML = `<img src="${imageToDisplay}" alt="${art.title}" class="lb-img" loading="eager" />`;
     } else {
       lbPlaceholder.innerHTML = "";
       lbPlaceholder.style.background = gradients[art.gradientIdx] ?? gradients[0];
     }
+    resetZoom();
   }
 
   function openLightbox(idx: number) {
@@ -990,6 +1067,7 @@ if (isHomepage) {
     setLbContent(idx);
     lightbox?.removeAttribute("hidden");
     document.body.style.overflow = "hidden";
+    resetZoom();
 
     if (lbFlipInner && !prefersReducedMotion) {
       lbFlipInner.classList.remove("is-flipping", "is-entering");
@@ -1008,6 +1086,8 @@ if (isHomepage) {
 
   function navigateLightbox(idx: number) {
     if (isFlipping) return;
+    resetZoom();
+
     if (!lbFlipInner || prefersReducedMotion) {
       currentIndex = idx;
       setLbContent(idx);
@@ -1037,6 +1117,7 @@ if (isHomepage) {
   function closeLightbox() {
     lightbox?.setAttribute("hidden", "");
     document.body.style.overflow = "";
+    resetZoom();
     if (lbHoloCard) {
       lbHoloCard.style.setProperty("--intensity", "0");
       lbHoloCard.style.transform = "rotateX(0deg) rotateY(0deg)";
@@ -1096,13 +1177,30 @@ if (isHomepage) {
   }
 
   function attachLbHolo() {
-    if (lbHoloAttached || prefersReducedMotion || !lbHoloCard) return;
+    if (lbHoloAttached || !lbHoloCard) return;
     lbHoloAttached = true;
+
+    // Click to zoom in / out
+    lbHoloCard.addEventListener("click", (e: MouseEvent) => {
+      toggleZoom(e);
+    });
 
     lbHoloCard.addEventListener("mousemove", (e: MouseEvent) => {
       const rect = lbHoloCard!.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = (e.clientY - rect.top) / rect.height;
+      const x = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      const y = Math.max(0, Math.min(1, (e.clientY - rect.top) / rect.height));
+
+      // If zoomed in: pan the image with cursor and skip 3D tilt
+      if (isZoomed) {
+        const img = lbPlaceholder?.querySelector<HTMLImageElement>(".lb-img");
+        if (img) {
+          img.style.transformOrigin = `${(x * 100).toFixed(1)}% ${(y * 100).toFixed(1)}%`;
+        }
+        return;
+      }
+
+      if (prefersReducedMotion) return;
+
       lbTargetRy = (x - 0.5) * LB_MAX_TILT * 2;
       lbTargetRx = -(y - 0.5) * LB_MAX_TILT * 2;
       lbTargetMx = x * 100;
@@ -1115,13 +1213,15 @@ if (isHomepage) {
     });
 
     lbHoloCard.addEventListener("mouseleave", () => {
-      lbIsHovered = false;
-      lbTargetRx = 0;
-      lbTargetRy = 0;
-      lbTargetMx = 50;
-      lbTargetMy = 50;
-      lbHoloCard!.classList.add("is-resting");
-      lbStartAnim();
+      if (!isZoomed && !prefersReducedMotion) {
+        lbIsHovered = false;
+        lbTargetRx = 0;
+        lbTargetRy = 0;
+        lbTargetMx = 50;
+        lbTargetMy = 50;
+        lbHoloCard!.classList.add("is-resting");
+        lbStartAnim();
+      }
     });
   }
 
