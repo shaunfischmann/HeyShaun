@@ -13,8 +13,8 @@
   "dependencies": {
     "@heyshaun/design-tokens": "workspace:*",
     "@heyshaun/utils": "workspace:*",
-    "@lucide/astro": "^1.28.0",
-    "astro": "^7.1.6"
+    "@lucide/astro": "^1.33.0",
+    "astro": "^7.2.4"
   },
   "devDependencies": {
     "image-size": "^2.0.2"
