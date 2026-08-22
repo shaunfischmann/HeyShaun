@@ -29,7 +29,7 @@ const enTarget = `/en${currentPath === "/" ? "/" : currentPath}`;
 const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
 ---
 
-<nav id="site-nav" role="navigation" aria-label="Main Navigation">
+<nav id="site-nav" class={isHomepage ? "is-homepage" : ""} role="navigation" aria-label="Main Navigation">
   <!-- Fixed Top-Left Logo -->
   <a
     href={isHomepage ? "#hero" : `/${lang}/`}
@@ -486,9 +486,79 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
       display: none;
     }
   }
+
+  /* ── Hero Scroll Visibility for Homepage ─────────────────────────
+     Logo, side menu, and mobile bar are hidden while inside the Hero
+     section and smoothly glide in when scrolled past it.           */
+  .is-homepage .corner-logo {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-14px);
+    transition:
+      opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .is-homepage .side-menu {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-50%) translateX(-20px);
+    transition:
+      opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .is-homepage .mobile-bar {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-100%);
+    transition:
+      opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+      transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  /* ── Scrolled Past Hero State ── */
+  .is-homepage.scrolled-past-hero .corner-logo {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .is-homepage.scrolled-past-hero .side-menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(-50%) translateX(0);
+  }
+
+  .is-homepage.scrolled-past-hero .mobile-bar {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
 </style>
 
 <script>
+  // ── Hero Scroll Detection for Logo & Menu Visibility ────────
+  (function () {
+    const siteNav = document.getElementById("site-nav");
+    if (!siteNav || !siteNav.classList.contains("is-homepage")) return;
+
+    const hero = document.getElementById("hero");
+    if (!hero) {
+      siteNav.classList.add("scrolled-past-hero");
+      return;
+    }
+
+    const checkHeroVisibility = () => {
+      const rect = hero.getBoundingClientRect();
+      // When hero bottom passes 40% of viewport height (scrolled out of hero)
+      const isPastHero = rect.bottom <= window.innerHeight * 0.4;
+      siteNav.classList.toggle("scrolled-past-hero", isPastHero);
+    };
+
+    window.addEventListener("scroll", checkHeroVisibility, { passive: true });
+    checkHeroVisibility();
+  })();
   // ── Random logo glitch ────────────────────────────────────────
   (function () {
     const wrap = document.querySelector<HTMLElement>(".brand-logo-wrap");
