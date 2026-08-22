@@ -1,4 +1,4 @@
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,4 +12,44 @@ export default defineConfig({
       cssCodeSplit: true,
     },
   },
+  fonts: [
+    {
+      provider: fontProviders.google(),
+      name: 'Space Grotesk',
+      cssVariable: '--font-heading',
+      weights: ['600 700'],
+      styles: ['normal'],
+      fallbacks: ['system-ui', 'sans-serif']
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Inter',
+      cssVariable: '--font-body',
+      weights: ['400 700'],
+      styles: ['normal'],
+      fallbacks: ['system-ui', 'sans-serif']
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Notable',
+      cssVariable: '--font-hero',
+      styles: ['normal'],
+      fallbacks: ['sans-serif']
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Oleo Script',
+      cssVariable: '--font-script',
+      styles: ['normal'],
+      fallbacks: ['cursive', 'sans-serif']
+    },
+    {
+      provider: fontProviders.google(),
+      name: 'Press Start 2P',
+      cssVariable: '--font-code',
+      weights: ['400'],
+      styles: ['normal'],
+      fallbacks: ['system-ui', 'monospace']
+    }
+  ],
 });

@@ -130,7 +130,7 @@ const artworks = await Promise.all(
 ---
 
 <section id="art" class="section" aria-labelledby="art-heading">
-  <div class="container container--wide">
+  <div class="container">
     <div class="art-header section-header">
       <div>
         <p class="section-tag" data-reveal data-i18n="art.tag">{t.art.tag}</p>
@@ -217,7 +217,7 @@ const artworks = await Promise.all(
     {
       isHomepage && (
         <div class="art-footer-cta" data-reveal data-delay="2">
-          <a href={`/${lang}/shaun-ai-gallery`} class="btn-neu btn-neu--primary">
+          <a href={`/${lang}/shaun-ai-gallery`} class="btn btn--primary">
             <span>{t.art.cta_more}</span>
           </a>
         </div>

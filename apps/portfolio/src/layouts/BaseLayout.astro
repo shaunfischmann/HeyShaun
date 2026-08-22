@@ -1,5 +1,6 @@
 ---
 import "../styles/global.css";
+import { Font } from "astro:assets";
 import type { Lang } from "../i18n/utils";
 
 import BackgroundCanvas from "../components/BackgroundCanvas.astro";
@@ -147,12 +148,11 @@ const schemaData = { "@context": "https://schema.org", "@graph": schemaGraph };
 
     <!-- Favicon & Assets -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Inter:wght@400;500&family=Fira+Code:wght@400&display=swap"
-    />
+    <Font cssVariable="--font-heading" />
+    <Font cssVariable="--font-body" />
+    <Font cssVariable="--font-hero" />
+    <Font cssVariable="--font-code" />
+    <Font cssVariable="--font-script" />
 
     <!-- Keywords (semantic crawlers) -->
     <meta

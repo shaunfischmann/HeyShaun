@@ -1,7 +1,7 @@
 ---
 import darkShaun from "../../assets/avatar/dark-shaun-transparent.png";
 import lightShaun from "../../assets/avatar/light-shaun-transparent.png";
-import { Send, Telescope } from "@lucide/astro";
+import { Send, ArrowUpRight } from "@lucide/astro";
 import type { Lang, Translations } from "../../i18n/utils";
 import { getTranslations } from "../../i18n/utils";
 
@@ -14,232 +14,266 @@ const { lang = "en" } = Astro.props;
 const t = Astro.props.t || getTranslations(lang);
 ---
 
-<section id="hero" aria-label="Introduction" data-lang={lang}>
-  <div class="container hero-grid">
-    <div class="hero-text-col">
-      <h1 class="hero-h1" aria-label={`${t.hero.greeting} ${t.hero.name1} ${t.hero.name2}`}>
-        <span class="hero-greeting word-reveal" data-reveal data-delay="1">
-          <span data-i18n="hero.greeting">{t.hero.greeting}</span>
-        </span>
-        <span class="gradient-text hero-name word-reveal" data-reveal data-delay="2" data-i18n="hero.name1"
-          >{t.hero.name1}</span
-        >
-        <span class="gradient-text hero-name word-reveal" data-reveal data-delay="3" data-i18n="hero.name2"
-          >{t.hero.name2}</span
-        >
-      </h1>
-
-      <div class="hero-typing" data-reveal data-delay="2" aria-hidden="true">
-        <span class="typing-text" id="typing-text"></span><span class="typing-caret" aria-hidden="true"></span>
+<section id="hero" class="hero" aria-label="Introduction" data-lang={lang}>
+  <!-- Monumental Stage: backdrop name + portrait -->
+  <div class="hero-stage">
+    <!-- Giant Background Typography -->
+    <div class="hero-backdrop" id="hero-backdrop" aria-hidden="true">
+      <span class="hero-backdrop-greeting" data-i18n="hero.greeting">{t.hero.greeting}</span>
+      <div class="hero-backdrop-row hero-backdrop-row--shaun">
+        <span>S</span><span>H</span><span>A</span><span>U</span><span>N</span>
       </div>
-
-      <p
-        class="hero-subtitle section-sub"
-        data-reveal
-        data-delay="3"
-        data-i18n="hero.subtitle"
-        set:html={t.hero.subtitle}
-      />
-
-      <div class="hero-actions" data-reveal data-delay="4">
-        <a href={`/${lang}/#contact`} class="btn-neu btn-neu--primary" id="hero-contact-btn">
-          <span data-i18n="hero.cta_contact">{t.hero.cta_contact}</span>
-          <Send size={20} stroke-width="2" />
-        </a>
-        <a href={`/${lang}/shaun-ai-gallery`} class="btn-neu" id="hero-art-btn">
-          <span data-i18n="hero.cta_gallery">{t.hero.cta_gallery}</span>
-          <Telescope size={20} stroke-width="2" />
-        </a>
+      <div class="hero-backdrop-row hero-backdrop-row--fischmann">
+        <span>F</span><span>I</span><span>S</span><span>C</span><span>H</span><span>M</span><span>A</span><span>N</span
+        ><span>N</span>
       </div>
     </div>
 
-    <div class="hero-cutout-col" id="hero-cutout-wrap" data-reveal="scale">
-      <div class="cutout-wrapper" id="hero-cutout">
-        <!-- Multi-color ambient glow orbs -->
-        <div class="glow-orbs-container" aria-hidden="true">
-          <div class="glow-orb orb-magenta"></div>
-          <div class="glow-orb orb-cyan"></div>
-          <div class="glow-orb orb-mauve"></div>
-        </div>
+    <!-- Full-Size Portrait -->
+    <div class="portrait" id="hero-portrait">
+      <!-- Ambient glow orbs -->
+      <div class="portrait-orbs" aria-hidden="true">
+        <div class="portrait-orb portrait-orb--magenta"></div>
+        <div class="portrait-orb portrait-orb--cyan"></div>
+        <div class="portrait-orb portrait-orb--mauve"></div>
+      </div>
+      <div class="portrait-mask">
+        <img
+          src={lightShaun.src}
+          alt={t.hero.aria_portrait}
+          width="760"
+          height="920"
+          loading="eager"
+          fetchpriority="high"
+          class="portrait-img portrait-img--light"
+        />
+        <img
+          src={darkShaun.src}
+          alt={t.hero.aria_portrait}
+          width="760"
+          height="920"
+          loading="eager"
+          fetchpriority="high"
+          class="portrait-img portrait-img--dark"
+        />
+      </div>
+    </div>
+  </div>
 
-        <!-- Portrait Image -->
-        <div class="cutout-frame">
-          <img
-            src={lightShaun.src}
-            alt={t.hero.aria_portrait}
-            width="380"
-            height="460"
-            loading="eager"
-            class="cutout-img cutout-img--light"
-          />
-          <img
-            src={darkShaun.src}
-            alt={t.hero.aria_portrait}
-            width="380"
-            height="460"
-            loading="eager"
-            class="cutout-img cutout-img--dark"
-          />
+  <!-- Editorial Footer -->
+  <div class="container">
+    <div class="hero-footer" data-reveal>
+      <div class="hero-bio">
+        <div class="hero-typing" aria-hidden="true">
+          <span class="hero-typing-prefix">&gt;</span>
+          <span class="hero-typing-text" id="typing-text"></span>
+          <span class="hero-typing-cursor"></span>
         </div>
+        <p class="hero-bio-text" data-i18n="hero.subtitle" set:html={t.hero.subtitle} />
+      </div>
+
+      <div class="hero-actions">
+        <a href={`/${lang}/#contact`} class="btn btn--primary" id="hero-contact-btn">
+          <span data-i18n="hero.cta_contact">{t.hero.cta_contact}</span>
+          <Send size={18} stroke-width={2.2} />
+        </a>
+        <a href={`/${lang}/shaun-ai-gallery`} class="btn btn--ghost" id="hero-art-btn">
+          <span data-i18n="hero.cta_gallery">{t.hero.cta_gallery}</span>
+          <ArrowUpRight size={18} stroke-width={2.2} />
+        </a>
       </div>
     </div>
   </div>
 </section>
 
 <style>
-  #hero {
+  /* ── Hero Section ───────────────────────────────────────────── */
+  .hero {
     position: relative;
-    padding-top: clamp(6.5rem, 12vw, 10rem);
-    padding-bottom: clamp(4rem, 8vw, 6rem);
-    min-height: 90dvh;
-    display: flex;
-    align-items: center;
-  }
-
-  .hero-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: clamp(2rem, 5vw, 4rem);
-    align-items: center;
-    text-align: center;
-
-    @media (--md) {
-      grid-template-columns: 1.1fr 0.9fr;
-      text-align: left;
-    }
-  }
-
-  /* Tag Pill */
-
-  @keyframes pulse-glow {
-    0%,
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
-    50% {
-      transform: scale(1.3);
-      opacity: 0.6;
-    }
-  }
-
-  /* Headings */
-  .hero-h1 {
+    min-height: 100dvh;
+    height: 100dvh;
+    max-height: 100dvh;
     display: flex;
     flex-direction: column;
-    margin-bottom: 0.5rem;
-    overflow: visible;
+    justify-content: space-between;
+    padding-top: clamp(2.5rem, 5vh, 3.75rem);
+    padding-bottom: clamp(0.75rem, 1.8vh, 1.25rem);
+    overflow: hidden;
+    background: transparent;
   }
 
-  .word-reveal {
-    display: inline-block;
-  }
-
-  .hero-greeting {
-    font-size: clamp(1.4rem, 3vw, 2rem);
-    font-weight: 600;
-    color: var(--color-text-muted);
-    font-family: var(--font-body);
-  }
-
-  .hero-name {
-    font-size: clamp(2.75rem, 6.5vw, 4.75rem);
-    font-family: var(--font-heading);
-    line-height: 1.05;
-  }
-
-  /* Typing effect */
+  /* ── Typing ────────────────────────────────────────────────── */
   .hero-typing {
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 0;
-    margin-bottom: 1.25rem;
-    font-family: var(--font-code);
-    font-size: clamp(0.875rem, 1.6vw, 1rem);
-    color: var(--color-secondary);
-    height: 1.6em;
-
-    @media (--md) {
-      justify-content: flex-start;
-    }
-  }
-
-  .typing-caret {
-    display: inline-block;
-    width: 2px;
-    height: 1.1em;
-    background: var(--color-primary);
-    margin-left: 2px;
-    animation: typing-cursor 0.8s step-end infinite;
-    vertical-align: text-bottom;
-    border-radius: 1px;
-  }
-
-  .hero-subtitle {
-    font-family: var(--font-body);
-    font-size: clamp(1rem, 1.6vw, 1.125rem);
-    color: var(--color-text-muted);
-    line-height: 1.75;
-    margin: 0 auto 2rem;
-    max-width: 560px;
-
-    @media (--md) {
-      margin: 0 0 2rem;
-    }
-  }
-
-  .hero-subtitle strong {
+    gap: 0.4rem;
     color: var(--color-text);
-    font-weight: 600;
+    font-family: var(--font-code);
+    font-size: clamp(0.8rem, 0.9vw, 1rem);
   }
 
-  /* Actions */
-  .hero-actions {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-bottom: 2.5rem;
+  .hero-typing-prefix {
+    color: var(--color-primary);
+  }
 
-    @media (--md) {
-      justify-content: flex-start;
-      margin-bottom: 2.5rem;
+  .hero-typing-text {
+    color: var(--color-text);
+  }
+
+  .hero-typing-cursor {
+    display: inline-block;
+    width: 6px;
+    height: 1.1em;
+    background: var(--color-secondary);
+    animation: cursor-blink 0.9s step-end infinite;
+  }
+
+  @keyframes cursor-blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
     }
   }
 
-  /* Portrait Column */
-  .hero-cutout-col {
+  /* ── Stage ──────────────────────────────────────────────────── */
+  .hero-stage {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    min-height: 0;
+    margin: 0;
+  }
+
+  /* ── Backdrop Name ──────────────────────────────────────────── */
+  .hero-backdrop {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    pointer-events: none;
+    user-select: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 0.88;
+    text-align: center;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .hero-backdrop-greeting {
+    font-family: var(--font-script);
+    font-size: clamp(0.875rem, min(2.5vw, 3.5vh), 2rem);
+    font-weight: 700;
+    color: var(--color-secondary);
+    align-self: flex-start;
+    letter-spacing: 0.02em;
+    transform: rotate(-6deg) translateY(18%) translateX(-12%);
+    text-shadow: 0 0 20px rgba(0, 206, 201, 0.35);
+    z-index: 2;
+    display: inline-block;
+  }
+
+  [data-theme="light"] .hero-backdrop-greeting {
+    color: var(--color-primary);
+    text-shadow: 0 0 16px rgba(108, 92, 231, 0.25);
+  }
+
+  .hero-backdrop-row {
+    font-family: var(--font-hero);
+    letter-spacing: clamp(0.03em, 0.06em, 0.09em);
+    text-transform: uppercase;
+    white-space: nowrap;
     display: flex;
     justify-content: center;
-    position: relative;
+    max-width: 100%;
   }
 
-  .cutout-wrapper {
-    position: relative;
-    width: clamp(280px, 36vw, 440px);
-    height: clamp(380px, 48vw, 560px);
-    transition:
-      transform 0.1s linear,
-      opacity 0.1s linear;
+  .hero-backdrop-row--shaun {
+    font-size: clamp(3.5rem, min(17vw, 19vh), 15rem);
+    transform: translateY(3%);
   }
 
-  /* Ambient Multi-Colored Glow Orbs */
-  .glow-orbs-container {
+  .hero-backdrop-row--fischmann {
+    font-size: clamp(1.85rem, min(9.5vw, 10.8vh), 8.4rem);
+    transform: translateY(-3%);
+  }
+
+  .hero-backdrop-row span {
+    display: inline-block;
+    transition: transform 0.3s ease;
+  }
+
+  /* ── Portrait ───────────────────────────────────────────────── */
+  .portrait {
+    position: relative;
+    z-index: 2;
+    width: clamp(380px, 68vw, 980px);
+    height: 100%;
+    max-height: clamp(380px, 63vh, 760px);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .portrait-mask {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 98%);
+    mask-image: linear-gradient(to bottom, black 0%, black 80%, transparent 98%);
+  }
+
+  .portrait-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+    transition: transform 0.4s ease;
+  }
+
+  .portrait-img--light {
+    display: block;
+  }
+  .portrait-img--dark {
+    display: none;
+  }
+
+  :global([data-theme="dark"]) .portrait-img--light {
+    display: none;
+  }
+  :global([data-theme="dark"]) .portrait-img--dark {
+    display: block;
+  }
+
+  /* ── Orbs ───────────────────────────────────────────────────── */
+  .portrait-orbs {
     position: absolute;
     inset: -35px;
     z-index: 1;
     pointer-events: none;
   }
 
-  .glow-orb {
+  .portrait-orb {
     position: absolute;
     border-radius: 50%;
     filter: blur(40px);
     opacity: 0.45;
   }
 
-  .orb-magenta {
+  .portrait-orb--magenta {
     top: -5%;
     left: -15%;
     width: 182px;
@@ -250,7 +284,7 @@ const t = Astro.props.t || getTranslations(lang);
     animation: orb-drift-1 28s ease-in-out infinite alternate;
   }
 
-  .orb-cyan {
+  .portrait-orb--cyan {
     bottom: 0%;
     right: -15%;
     width: 196px;
@@ -261,7 +295,7 @@ const t = Astro.props.t || getTranslations(lang);
     animation: orb-drift-2 34s ease-in-out infinite alternate;
   }
 
-  .orb-mauve {
+  .portrait-orb--mauve {
     top: 30%;
     left: 20%;
     width: 210px;
@@ -272,7 +306,6 @@ const t = Astro.props.t || getTranslations(lang);
     animation: orb-drift-3 30s ease-in-out infinite alternate;
   }
 
-  /* Imperceptibly slow organic floating drift */
   @keyframes orb-drift-1 {
     0% {
       transform: translate(0, 0) scale(1);
@@ -309,103 +342,208 @@ const t = Astro.props.t || getTranslations(lang);
     }
   }
 
-  /* ── Performance guards ── */
-
-  /* Mobile: 3 blurred orbs is a battery / GPU drain on mobile hardware */
-  @media (--mobile-only) {
-    .glow-orbs-container {
+  /* Mobile: orbs are a battery drain */
+  @media (max-width: 768px) {
+    .portrait-orbs {
       display: none;
     }
   }
 
-  /* Respect user motion preference */
+  /* Reduced motion */
   @media (prefers-reduced-motion: reduce) {
-    .orb-magenta,
-    .orb-cyan,
-    .orb-mauve {
+    .portrait-orb--magenta,
+    .portrait-orb--cyan,
+    .portrait-orb--mauve {
       animation: none !important;
     }
   }
 
-  /* Neumorphic frame with bottom gradient fade */
-  .cutout-frame {
+  /* ── Footer ─────────────────────────────────────────────────── */
+  .hero-footer {
     position: relative;
-    z-index: 2;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    align-items: end;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+
+    @media (min-width: 900px) {
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 3rem;
+    }
+  }
+
+  .hero-bio {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    text-align: left;
+  }
+
+  .hero-bio-eyebrow {
+    font-family: var(--font-code);
+    font-size: clamp(0.8rem, 1.1vw, 1rem);
+    font-weight: 600;
+    color: var(--color-secondary);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .hero-bio-name {
+    color: var(--color-text);
+    font-weight: 700;
+  }
+
+  .hero-bio-text {
+    font-family: var(--font-body);
+    font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+    line-height: 1.55;
+    color: var(--color-text-muted);
+    max-width: 640px;
+    margin: 0;
+  }
+
+  .hero-bio-text :global(strong) {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
     width: 100%;
-    height: 100%;
-    border-radius: var(--radius-xl);
-    overflow: hidden;
-    mask-image: linear-gradient(to bottom, black 65%, transparent 98%);
+
+    @media (min-width: 900px) {
+      justify-content: flex-end;
+    }
   }
 
-  .cutout-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  /* ── Mobile ─────────────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .hero-stage {
+      min-height: clamp(280px, 45vh, 420px);
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-backdrop-greeting {
+      font-size: clamp(0.8rem, min(4vw, 3vh), 1.25rem);
+      padding-left: clamp(0.75rem, 5vw, 2.5rem);
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-backdrop-row--shaun {
+      font-size: clamp(2.5rem, min(16vw, 13vh), 5rem);
+    }
+
+    .hero-backdrop-row--fischmann {
+      font-size: clamp(1.4rem, min(9.2vw, 7.5vh), 2.9rem);
+    }
+
+    .portrait {
+      width: clamp(280px, 86vw, 460px);
+      height: clamp(300px, 46vh, 440px);
+    }
+
+    .hero-actions {
+      flex-direction: column;
+    }
   }
 
-  .cutout-img--light {
-    display: block;
-  }
-
-  .cutout-img--dark {
-    display: none;
-  }
-
-  :global([data-theme="dark"]) .cutout-img--light {
-    display: none;
-  }
-
-  :global([data-theme="dark"]) .cutout-img--dark {
-    display: block;
+  /* ── Reduced Motion ─────────────────────────────────────────── */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-backdrop,
+    .portrait {
+      transform: none !important;
+    }
   }
 </style>
 
 <script>
-  // Parallax & Fade on Scroll for Photo Cutout — RAF-gated so it fires at most once/frame
-  const cutout = document.getElementById("hero-cutout");
-  let scrollTicking = false;
+  const heroSection = document.getElementById("hero");
+  const heroBackdrop = document.getElementById("hero-backdrop");
+  const portrait = document.getElementById("hero-portrait");
+  const isReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  function handleParallaxScroll() {
-    if (!cutout) return;
-    const scrollY = window.scrollY;
-    const heroEl = document.getElementById("hero");
-    const heroHeight = heroEl?.offsetHeight || 600;
+  // ── Cinematic Mouse Parallax ──────────────────────────────────
+  let targetX = 0,
+    targetY = 0;
+  let currentBgX = 0,
+    currentBgY = 0;
+  let currentPortX = 0,
+    currentPortY = 0;
+  let isHovering = false;
 
-    // Smoothly fade out as user scrolls toward the next section
-    const fadeProgress = Math.min(scrollY / (heroHeight * 0.7), 1);
-    const opacity = Math.max(1 - fadeProgress, 0).toFixed(3);
-    const translateY = (scrollY * 0.25).toFixed(2);
+  if (heroSection && !isReduced && window.innerWidth > 768) {
+    heroSection.addEventListener("mousemove", (e) => {
+      const { left, top, width, height } = heroSection.getBoundingClientRect();
+      targetX = (e.clientX - left) / width - 0.5;
+      targetY = (e.clientY - top) / height - 0.5;
+      isHovering = true;
+    });
 
-    cutout.style.transform = `translate3d(0, ${translateY}px, 0)`;
-    cutout.style.opacity = opacity;
-    scrollTicking = false;
+    heroSection.addEventListener("mouseleave", () => {
+      targetX = 0;
+      targetY = 0;
+      isHovering = false;
+    });
+
+    function renderLoop() {
+      if (!isHovering && Math.abs(currentBgX) < 0.05 && Math.abs(currentBgY) < 0.05) {
+        requestAnimationFrame(renderLoop);
+        return;
+      }
+      const destBgX = targetX * -30,
+        destBgY = targetY * -20;
+      const destPortX = targetX * 22,
+        destPortY = targetY * 12;
+
+      currentBgX += (destBgX - currentBgX) * 0.07;
+      currentBgY += (destBgY - currentBgY) * 0.07;
+      currentPortX += (destPortX - currentPortX) * 0.07;
+      currentPortY += (destPortY - currentPortY) * 0.07;
+
+      if (heroBackdrop)
+        heroBackdrop.style.transform = `translate(calc(-50% + ${currentBgX.toFixed(2)}px), calc(-50% + ${currentBgY.toFixed(2)}px))`;
+
+      requestAnimationFrame(renderLoop);
+    }
+    requestAnimationFrame(renderLoop);
   }
 
+  // ── Scroll Parallax ───────────────────────────────────────────
   window.addEventListener(
     "scroll",
     () => {
-      if (!scrollTicking) {
-        window.requestAnimationFrame(handleParallaxScroll);
-        scrollTicking = true;
+      if (!heroSection || isReduced) return;
+      const scrollY = window.scrollY;
+      const heroHeight = heroSection.offsetHeight || 700;
+      const progress = Math.min(scrollY / (heroHeight * 0.75), 1);
+
+      if (portrait) {
+        portrait.style.opacity = Math.max(1 - progress * 1.3, 0).toFixed(3);
+        portrait.style.transform = `translate3d(0, ${(scrollY * 0.18).toFixed(2)}px, 0)`;
       }
     },
     { passive: true },
   );
 
-  // Typing Effect
+  // ── Typing Effect ─────────────────────────────────────────────
   const phrases: Record<string, string[]> = {
     en: [
       "Partnership Manager @ Apimo",
       "Senior PHP Developer",
-      "12+ Years in Proptech",
+      "12+ Years in PropTech & CRM",
       "AI Enthusiast @ Shaun.AI",
       "Enjoying an ice cold coffee ☕️",
     ],
     fr: [
       "Partnership Manager @ Apimo",
       "Développeur PHP Senior",
-      "12+ ans en Proptech",
+      "12+ ans en PropTech & CRM",
       "Passionné d'IA @ Shaun.AI",
       "Savourant un café glacé ☕️",
     ],
@@ -415,10 +553,9 @@ const t = Astro.props.t || getTranslations(lang);
   if (typingEl) {
     const heroSec = document.getElementById("hero");
     let lang = (heroSec?.getAttribute("data-lang") || document.documentElement.lang || "en") as keyof typeof phrases;
-    let phraseIdx = 0;
-    let charIdx = 0;
-    let deleting = false;
-    let timeout: number;
+    let phraseIdx = 0,
+      charIdx = 0,
+      deleting = false;
 
     function tick() {
       lang = (heroSec?.getAttribute("data-lang") || document.documentElement.lang || "en") as keyof typeof phrases;
@@ -430,23 +567,22 @@ const t = Astro.props.t || getTranslations(lang);
         typingEl.textContent = phrase.slice(0, charIdx);
         if (charIdx >= phrase.length) {
           deleting = true;
-          timeout = window.setTimeout(tick, 2200);
+          window.setTimeout(tick, 2200);
           return;
         }
-        timeout = window.setTimeout(tick, 65);
+        window.setTimeout(tick, 55);
       } else {
         charIdx--;
         typingEl.textContent = phrase.slice(0, charIdx);
         if (charIdx === 0) {
           deleting = false;
           phraseIdx = (phraseIdx + 1) % list.length;
-          timeout = window.setTimeout(tick, 400);
+          window.setTimeout(tick, 350);
           return;
         }
-        timeout = window.setTimeout(tick, 30);
+        window.setTimeout(tick, 25);
       }
     }
-
-    window.setTimeout(tick, 800);
+    window.setTimeout(tick, 600);
   }
 </script>

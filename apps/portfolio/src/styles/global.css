@@ -12,9 +12,7 @@
 @layer tokens {
   :root {
     /* Fonts */
-    --font-heading: 'Poppins', system-ui, sans-serif;
-    --font-body:    'Inter', system-ui, sans-serif;
-    --font-code:    'Fira Code', 'Cascadia Code', monospace;
+    /* Defined in astro.config.mjs */
 
     /* Spacing */
     --space-1:  4px;
@@ -487,6 +485,73 @@
       inset 0px 0px 0px 1px var(--color-border);
   }
 
+  /* ── Primary / Ghost Action Buttons ───────────────────────── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: clamp(0.75rem, 1.4vw, 0.9rem) clamp(1.4rem, 2.2vw, 1.9rem);
+    border-radius: var(--radius-full);
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: clamp(0.875rem, 1.2vw, 0.9375rem);
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    cursor: pointer;
+    transition:
+      transform var(--transition-spring),
+      box-shadow var(--transition-base),
+      border-color var(--transition-base),
+      background-color var(--transition-base);
+  }
+
+  /* Dark default: white pill */
+  .btn--primary {
+    background: #ffffff;
+    color: #090a0b;
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow:
+      0 4px 20px rgba(255, 255, 255, 0.15),
+      0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+
+  /* Light theme: inverted dark pill */
+  [data-theme="light"] .btn--primary {
+    background: #090a0b;
+    color: #ffffff;
+    border: 1px solid #090a0b;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .btn--primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow:
+      0 8px 25px rgba(255, 255, 255, 0.3),
+      0 15px 35px rgba(108, 92, 231, 0.3);
+  }
+
+  .btn--ghost {
+    background: var(--color-surface);
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--neu-shadow-outset);
+  }
+
+  .btn--ghost:hover {
+    transform: translateY(-3px);
+    border-color: var(--color-secondary);
+    color: var(--color-secondary);
+    box-shadow: 0 8px 25px rgba(0, 206, 201, 0.2);
+  }
+
+  /* Mobile: full-width stacking */
+  @media (max-width: 768px) {
+    .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
   /* Layout */
   .section {
     padding: var(--section-padding) 0 0;
@@ -498,14 +563,16 @@
     #main-content > section,
     #main-content > footer,
     #main-content > .site-footer {
-      padding-left: clamp(100px, 10vw, 150px);
+      padding-left: clamp(100px, 9vw, 140px);
+      padding-right: clamp(100px, 9vw, 140px);
     }
   }
 
   .container {
+    width: 100%;
     max-width: var(--max-content-width);
-    margin: 0 auto;
-    padding: 0 clamp(1.25rem, 4vw, 3rem);
+    margin-inline: auto;
+    padding-inline: clamp(1.25rem, 4vw, 3rem);
   }
 
   /* Standardized Section Elements */
