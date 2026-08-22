@@ -703,7 +703,6 @@ function getSvgContent(iconPath?: string): string {
     position: absolute;
     top: 0;
     left: 0;
-    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .constellation-node.hidden {
@@ -713,7 +712,7 @@ function getSvgContent(iconPath?: string): string {
 
   /* ── Transition state when switching filters ── */
   .constellation-node.animating-out {
-    animation: disappearIn 600ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    animation: disappearIn 300ms ease-out forwards;
   }
 
   @keyframes disappearIn {
@@ -722,7 +721,25 @@ function getSvgContent(iconPath?: string): string {
     }
     100% {
       opacity: 0;
-      transform: translate3d(0, 0, 0) scale(0.2);
+    }
+  }
+
+  /* ── Re-entry animation on .node-bubble (inner element, no rAF conflict) ── */
+  .constellation-node.appearing-in .node-bubble {
+    animation: bubbleAppear 450ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  @keyframes bubbleAppear {
+    0% {
+      opacity: 0;
+      transform: scale(0.15);
+    }
+    60% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
     }
   }
 
@@ -1046,6 +1063,21 @@ function getSvgContent(iconPath?: string): string {
   let visibleNodesCache: HTMLElement[] = [];
   let needsLayoutRecalc = false;
 
+  // Per-node lerp state — tracks current displayed position for smooth JS transitions
+  interface NodeState {
+    cx: number;
+    cy: number;
+    cs: number;
+  }
+  const nodeState = new Map<HTMLElement, NodeState>();
+
+  function getNodeState(node: HTMLElement): NodeState {
+    if (!nodeState.has(node)) {
+      nodeState.set(node, { cx: 0, cy: 0, cs: 1 });
+    }
+    return nodeState.get(node)!;
+  }
+
   function updateVisibleNodesCache() {
     visibleNodesCache = Array.from(document.querySelectorAll<HTMLElement>(".constellation-node:not(.hidden)"));
   }
@@ -1119,17 +1151,9 @@ function getSvgContent(iconPath?: string): string {
 
     for (let i = 0; i < visibleNodesCache.length; i++) {
       const node = visibleNodesCache[i];
+      const state = getNodeState(node);
 
-      // ── FOCUSED MODE ────────────────────────────────────────────────
-      if (activeFocusedNode && node === activeFocusedNode) {
-        node.style.transform = `translate3d(0px, 0px, 0px) scale(1.35)`;
-        node.style.opacity = "1";
-        node.style.filter = "none";
-        node.style.zIndex = "1000";
-        continue;
-      }
-
-      // ── NORMAL MODE ─────────────────────────────────────────────────
+      // ── Compute 3D target position ───────────────────────────────────
       const baseX = parseFloat(node.dataset.x || "0");
       const baseY = parseFloat(node.dataset.y || "0");
       const baseZ = parseFloat(node.dataset.z || "0");
@@ -1147,16 +1171,35 @@ function getSvgContent(iconPath?: string): string {
 
       // Perspective Scale projection
       const cameraDistance = 600;
-      const scale = cameraDistance / (cameraDistance - z2);
-      const screenX = x1 * scale;
-      const screenY = y2 * scale;
+      const orbitScale = cameraDistance / (cameraDistance - z2);
+      const screenX = x1 * orbitScale;
+      const screenY = y2 * orbitScale;
+
+      // ── FOCUSED MODE: JS-lerp toward center instead of CSS transition ──
+      if (activeFocusedNode && node === activeFocusedNode) {
+        const lerpSpeed = 0.14;
+        state.cx = lerp(state.cx, 0, lerpSpeed);
+        state.cy = lerp(state.cy, 0, lerpSpeed);
+        state.cs = lerp(state.cs, 1.35, lerpSpeed);
+        node.style.transform = `translate3d(${state.cx.toFixed(2)}px, ${state.cy.toFixed(2)}px, 0px) scale(${state.cs.toFixed(3)})`;
+        node.style.opacity = "1";
+        node.style.filter = "none";
+        node.style.zIndex = "1000";
+        continue;
+      }
+
+      // ── NORMAL MODE: lerp toward 3D orbit position ───────────────────
+      const lerpSpeed = 0.12;
+      state.cx = lerp(state.cx, screenX, lerpSpeed);
+      state.cy = lerp(state.cy, screenY, lerpSpeed);
+      state.cs = lerp(state.cs, orbitScale, lerpSpeed);
 
       // Dynamic z-index prevents back nodes from overlapping front ones
       const zIndexValue = Math.round(normalizedDepth * 100);
       node.style.zIndex = String(zIndexValue);
 
       // Translation & Scale
-      node.style.transform = `translate3d(${screenX.toFixed(2)}px, ${screenY.toFixed(2)}px, 0px) scale(${scale.toFixed(3)})`;
+      node.style.transform = `translate3d(${state.cx.toFixed(2)}px, ${state.cy.toFixed(2)}px, 0px) scale(${state.cs.toFixed(3)})`;
 
       if (activeFocusedNode) {
         // ── OTHER NODES WHEN ONE IS SELECTED ──────────────────────────
@@ -1236,10 +1279,19 @@ function getSvgContent(iconPath?: string): string {
           const nodeCat = node.getAttribute("data-category");
           const isHighlight = node.getAttribute("data-highlight") === "true";
 
-          if (activeCategory === null) {
-            node.classList.toggle("hidden", !isHighlight);
-          } else {
-            node.classList.toggle("hidden", nodeCat !== activeCategory);
+          const shouldShow = activeCategory === null ? isHighlight : nodeCat === activeCategory;
+          const wasHidden = node.classList.contains("hidden");
+          node.classList.toggle("hidden", !shouldShow);
+
+          // Trigger bubble pop-in for newly revealed nodes
+          if (shouldShow && wasHidden) {
+            // Reset lerp state so node fades in from its new position
+            const state = getNodeState(node);
+            state.cx = 0;
+            state.cy = 0;
+            state.cs = 0.15;
+            node.classList.add("appearing-in");
+            setTimeout(() => node.classList.remove("appearing-in"), 500);
           }
         });
 
