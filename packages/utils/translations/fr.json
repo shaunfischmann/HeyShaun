@@ -112,7 +112,7 @@
     "label_message": "Message",
     "placeholder_message": "Parlez-moi de votre projet ou envoyez-moi un message...",
     "submit": "Envoyer le Message",
-    "success": "✨ Merci ! Votre message a bien été reçu. Je vous répondrai rapidement."
+    "success": "Merci ! Votre message a bien été reçu. Je vous répondrai rapidement."
   },
   "footer": {
     "built": "Fait avec ❤️",

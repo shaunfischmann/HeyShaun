@@ -438,57 +438,12 @@
     box-shadow: var(--neu-hover-outset);
   }
 
-  /* Neumorphic Button */
-  .btn-neu {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.625rem;
-    padding: clamp(0.75rem, 1.5vw, 0.875rem) clamp(1.25rem, 2.5vw, 1.75rem);
-    border-radius: var(--radius-full);
-    background: var(--color-surface);
-    color: var(--color-text);
-    font-family: var(--font-body);
-    font-weight: 600;
-    font-size: clamp(0.875rem, 1.2vw, 0.9375rem);
-    cursor: pointer;
-    box-shadow: var(--neu-shadow-outset);
-    transition:
-      box-shadow var(--transition-base),
-      transform var(--transition-spring);
-    text-decoration: none;
-  }
-
-  .btn-neu:hover {
-    box-shadow: var(--neu-hover-outset);
-    transform: translateY(-2px);
-  }
-
-  .btn-neu:active {
-    box-shadow: var(--neu-shadow-inset);
-    transform: translateY(0);
-  }
-
-  /* Primary variant */
-  .btn-neu--primary {
-    background: var(--gradient-primary);
-    color: #fff;
-    box-shadow:
-      6px 6px 18px var(--glow-primary),
-      -4px -4px 12px var(--glow-secondary),
-      inset 0px 0px 0px 1px var(--color-border);
-  }
-
-  .btn-neu--primary:hover {
-    box-shadow:
-      8px 8px 24px var(--glow-primary),
-      -6px -6px 16px var(--glow-secondary),
-      inset 0px 0px 0px 1px var(--color-border);
-  }
-
   /* ── Primary / Ghost Action Buttons ───────────────────────── */
   .btn {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    width: fit-content;
     gap: 0.65rem;
     padding: clamp(0.75rem, 1.4vw, 0.9rem) clamp(1.4rem, 2.2vw, 1.9rem);
     border-radius: var(--radius-full);
@@ -496,6 +451,7 @@
     font-weight: 700;
     font-size: clamp(0.875rem, 1.2vw, 0.9375rem);
     letter-spacing: 0.01em;
+    line-height: 1.75;
     text-decoration: none;
     cursor: pointer;
     transition:
@@ -503,6 +459,12 @@
       box-shadow var(--transition-base),
       border-color var(--transition-base),
       background-color var(--transition-base);
+  }
+
+  .btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
   }
 
   /* Dark default: white pill */
