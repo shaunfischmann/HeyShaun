@@ -1,0 +1,292 @@
+[
+  {
+    "id": "php",
+    "name": "PHP",
+    "nameKey": "",
+    "desc": "12+ yrs experience",
+    "descKey": "skill.php_desc",
+    "category": "Tech",
+    "highlight": true,
+    "svgIcon": "/icons/php.svg"
+  },
+  {
+    "id": "mysql",
+    "name": "MySQL",
+    "nameKey": "",
+    "desc": "Schema modeling & optimization",
+    "descKey": "skill.mysql_desc",
+    "category": "Tech",
+    "highlight": true,
+    "svgIcon": "/icons/mysql.svg"
+  },
+  {
+    "id": "symfony",
+    "name": "Symfony",
+    "nameKey": "",
+    "desc": "Legacy & Modern framework",
+    "descKey": "skill.symfony_desc",
+    "category": "Tech",
+    "highlight": true,
+    "svgIcon": "/icons/symfony.svg"
+  },
+  {
+    "id": "git",
+    "name": "Git",
+    "nameKey": "",
+    "desc": "",
+    "descKey": "",
+    "category": "Tech",
+    "highlight": true,
+    "svgIcon": "/icons/git.svg"
+  },
+  {
+    "id": "github",
+    "name": "GitHub",
+    "nameKey": "",
+    "desc": "",
+    "descKey": "",
+    "category": "Tech",
+    "highlight": true,
+    "svgIcon": "/icons/github.svg"
+  },
+  {
+    "id": "api",
+    "name": "REST APIs",
+    "nameKey": "skill.api",
+    "desc": "Over 60+ integrations (real estate specialization)",
+    "descKey": "skill.api_desc",
+    "category": "Tech",
+    "highlight": true,
+    "lucideIcon": "CloudSync"
+  },
+  {
+    "id": "crm",
+    "name": "PropTech CRM",
+    "nameKey": "skill.crm",
+    "desc": "Real estate platform architecture",
+    "descKey": "skill.crm_desc",
+    "category": "Tech",
+    "highlight": true,
+    "lucideIcon": "Building2"
+  },
+  {
+    "id": "apache",
+    "name": "Apache",
+    "nameKey": "",
+    "desc": "Server setup and configuration",
+    "descKey": "skill.apache_desc",
+    "category": "Tech",
+    "highlight": true,
+    "svgIcon": "/icons/apache.svg"
+  },
+  {
+    "id": "nginx",
+    "name": "Nginx",
+    "nameKey": "",
+    "desc": "Server setup and configuration",
+    "descKey": "skill.nginx_desc",
+    "category": "Tech",
+    "highlight": true,
+    "svgIcon": "/icons/nginx.svg"
+  },
+  {
+    "id": "postman",
+    "name": "Postman",
+    "nameKey": "",
+    "desc": "",
+    "descKey": "",
+    "category": "Tech",
+    "highlight": true,
+    "svgIcon": "/icons/postman.svg"
+  },
+  {
+    "id": "jquery",
+    "name": "jQuery",
+    "nameKey": "",
+    "desc": "Legacy DOM manipulation",
+    "descKey": "skill.jquery_desc",
+    "category": "Tech",
+    "highlight": true,
+    "svgIcon": "/icons/jquery.svg"
+  },
+  {
+    "id": "asana",
+    "name": "Asana",
+    "nameKey": "",
+    "desc": "Project & task management",
+    "descKey": "skill.asana_desc",
+    "category": "Tech",
+    "highlight": true,
+    "svgIcon": "/icons/asana.svg"
+  },
+  {
+    "id": "openai",
+    "name": "OpenAI",
+    "nameKey": "",
+    "desc": "API integration & prompt engineering",
+    "descKey": "skill.openai_desc",
+    "category": "Tech",
+    "highlight": true,
+    "svgIcon": "/icons/openai.svg"
+  },
+  {
+    "id": "ai",
+    "name": "AI Art",
+    "nameKey": "skill.ai",
+    "desc": "Generative prompting & diffusion",
+    "descKey": "skill.ai_desc",
+    "category": "Creative",
+    "highlight": true,
+    "lucideIcon": "Palette"
+  },
+  {
+    "id": "davinci",
+    "name": "DaVinci Resolve",
+    "nameKey": "skill.davinci",
+    "desc": "Video editing (social and short films)",
+    "descKey": "skill.davinci_desc",
+    "category": "Creative",
+    "highlight": true,
+    "svgIcon": "/icons/davinci.svg"
+  },
+  {
+    "id": "adobe",
+    "name": "Adobe Suite",
+    "nameKey": "skill.adobe",
+    "desc": "Photoshop, Illustrator & Premiere",
+    "descKey": "skill.adobe_desc",
+    "category": "Creative",
+    "highlight": true,
+    "svgIcon": "/icons/adobe.svg"
+  },
+  {
+    "id": "photo",
+    "name": "Photography",
+    "nameKey": "skill.photo",
+    "desc": "Currently learning",
+    "descKey": "skill.photo_desc",
+    "category": "Creative",
+    "highlight": true,
+    "lucideIcon": "Camera"
+  },
+  {
+    "id": "languages",
+    "name": "Languages",
+    "nameKey": "skill.languages",
+    "desc": "English, French, Spanish, Mandarin",
+    "descKey": "skill.languages_desc",
+    "category": "Creative",
+    "highlight": true,
+    "lucideIcon": "Languages"
+  },
+  {
+    "id": "html",
+    "name": "HTML",
+    "nameKey": "",
+    "desc": "Who doesn't know HTML?",
+    "descKey": "skill.html_desc",
+    "category": "Creative",
+    "highlight": true,
+    "svgIcon": "/icons/html.svg"
+  },
+  {
+    "id": "css",
+    "name": "CSS",
+    "nameKey": "",
+    "desc": "Love seeing new css tricks",
+    "descKey": "skill.css_desc",
+    "category": "Creative",
+    "highlight": true,
+    "svgIcon": "/icons/css.svg"
+  },
+  {
+    "id": "javascript",
+    "name": "JavaScript",
+    "nameKey": "",
+    "desc": "I know enough js to get by, but not enough to be dangerous",
+    "descKey": "skill.javascript_desc",
+    "category": "Creative",
+    "highlight": true,
+    "svgIcon": "/icons/javascript.svg"
+  },
+  {
+    "id": "gemini",
+    "name": "Gemini",
+    "nameKey": "",
+    "desc": "One of the main guys I used for this website",
+    "descKey": "skill.gemini_desc",
+    "category": "Creative",
+    "highlight": true,
+    "svgIcon": "/icons/gemini.svg"
+  },
+  {
+    "id": "mistral",
+    "name": "Mistral AI",
+    "nameKey": "",
+    "desc": "",
+    "descKey": "",
+    "category": "Creative",
+    "highlight": true,
+    "svgIcon": "/icons/mistral.svg"
+  },
+  {
+    "id": "claude",
+    "name": "Claude",
+    "nameKey": "",
+    "desc": "",
+    "descKey": "",
+    "category": "Creative",
+    "highlight": true,
+    "svgIcon": "/icons/claude.svg"
+  },
+  {
+    "id": "astro",
+    "name": "Astro",
+    "nameKey": "",
+    "desc": "This website is built on Astro ❤️",
+    "descKey": "skill.astro_desc",
+    "category": "Hobby",
+    "highlight": true,
+    "svgIcon": "/icons/astro.svg"
+  },
+  {
+    "id": "chess",
+    "name": "Chess",
+    "nameKey": "skill.chess",
+    "desc": "Mainly a bullet player (with terrible rating)",
+    "descKey": "skill.chess_desc",
+    "category": "Hobby",
+    "highlight": true,
+    "lucideIcon": "ChessKnight"
+  },
+  {
+    "id": "travel",
+    "name": "Travel",
+    "nameKey": "skill.travel",
+    "desc": "Culture, nature, but mainly for the food and coffee",
+    "descKey": "skill.travel_desc",
+    "category": "Hobby",
+    "highlight": true,
+    "lucideIcon": "Plane"
+  },
+  {
+    "id": "finance",
+    "name": "Investing",
+    "nameKey": "skill.investment",
+    "desc": "Stocks, ETFs & crypto",
+    "descKey": "skill.investment_desc",
+    "category": "Hobby",
+    "highlight": true,
+    "lucideIcon": "TrendingUp"
+  },
+  {
+    "id": "gaming",
+    "name": "Gaming",
+    "nameKey": "skill.gaming",
+    "desc": "Built my own PC",
+    "descKey": "skill.gaming_desc",
+    "category": "Hobby",
+    "highlight": true,
+    "lucideIcon": "Gamepad2"
+  }
+]
