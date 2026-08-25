@@ -11,6 +11,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
     "@heyshaun/design-tokens": "workspace:*",
     "@heyshaun/utils": "workspace:*",
     "@lucide/astro": "^1.33.0",
