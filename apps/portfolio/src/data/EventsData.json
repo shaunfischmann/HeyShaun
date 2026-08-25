@@ -1,0 +1,92 @@
+[
+  {
+    "date": "1993-09",
+    "category": "Milestone",
+    "titleKey": "event_born_title",
+    "descKey": "event_born_desc"
+  },
+  {
+    "date": "...",
+    "category": "Milestone",
+    "titleKey": "event_some_stuff_title",
+    "descKey": "event_some_stuff_desc"
+  },
+  {
+    "date": "2013-10",
+    "category": "Work",
+    "titleKey": "event_apimo_dev_title",
+    "descKey": "event_apimo_dev_desc",
+    "tags": ["PHP", "MySQL", "CRM", "API"],
+    "image": "/src/assets/images/apimo-jungle.jpg",
+    "imageAlt": "Apimo Logo",
+    "url": "https://www.apimo.com/"
+  },
+  {
+    "date": "2017-11",
+    "category": "Work",
+    "titleKey": "event_apimo_project_manager_title",
+    "descKey": "event_apimo_project_manager_desc",
+    "tags": ["Project Management", "Software Development"]
+  },
+  {
+    "date": "2018-02",
+    "category": "Work",
+    "titleKey": "event_ppw_bangkok_title",
+    "descKey": "event_ppw_bangkok_desc",
+    "tags": ["Networking", "Conferences", "Events"],
+    "url": "https://www.onlinemarketplaces.com/"
+  },
+  {
+    "date": "2022-12",
+    "category": "Work",
+    "titleKey": "event_apimo_partnership_title",
+    "descKey": "event_apimo_partnership_desc",
+    "tags": ["Partnerships", "Strategy", "PropTech"]
+  },
+  {
+    "date": "2023-09",
+    "category": "Milestone",
+    "titleKey": "event_skydiving_title",
+    "descKey": "event_skydiving_desc",
+    "image": "/src/assets/images/freefall.jpg",
+    "imageAlt": "First time skydiving"
+  },
+  {
+    "date": "2023-12",
+    "titleKey": "event_ai_art_title",
+    "descKey": "event_ai_art_desc",
+    "category": "Milestone",
+    "tags": ["Social media", "AI Art", "Photoshop"],
+    "image": "/src/assets/art/panda-painting-paris.jpg",
+    "imageAlt": "AI Art Exploration by Shaun.AI",
+    "url": "https://www.instagram.com/shaun.ai/"
+  },
+  {
+    "date": "2024-02",
+    "category": "Milestone",
+    "titleKey": "event_gen48_title",
+    "descKey": "event_gen48_desc",
+    "tags": ["Competition", "AI Short Film", "Davinci Resolve"],
+    "image": "/src/assets/art/gen48.jpg",
+    "imageAlt": "Gen:48 AI Short Film by Shaun.AI",
+    "url": "https://www.youtube.com/watch?v=6nEvyhT-wHQ || https://www.youtube.com/watch?v=8uPkb1N7AHE"
+    
+  },
+  {
+    "date": "2024-06",
+    "category": "Work",
+    "titleKey": "event_banque_postale_title",
+    "descKey": "event_banque_postale_desc",
+    "tags": ["Shaun.AI", "AI Art", "Creative"],
+    "image": "/src/assets/images/iartistes-challenge.jpg",
+    "imageAlt": "I.Artistes Challenge by La Banque Postale",
+    "url": "https://www.instagram.com/p/C9msvG2t_Ep/ || https://www.instagram.com/p/DA2sEO2yb0N/ || https://www.instagram.com/p/DBYjjAngrxv/"
+  },
+  {
+    "date": "2026-08",
+    "category": "Milestone",
+    "titleKey": "event_personal_portfolio_title",
+    "descKey": "event_personal_portfolio_desc",
+    "tags": ["Astro", "AI Agents", "Antigravity IDE"]
+  }
+]

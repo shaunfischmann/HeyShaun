@@ -1,0 +1,729 @@
+---
+import eventsData from "../../data/EventsData.json";
+import type { Lang, Translations } from "../../i18n/utils";
+import { getTranslations } from "../../i18n/utils";
+import { Link } from "@lucide/astro";
+
+type EventCategory = "Work" | "Milestone";
+
+interface TimelineEvent {
+  date: string;
+  category: EventCategory;
+  titleKey: string;
+  descKey?: string;
+  tags?: string[];
+  image?: string;
+  imageAlt?: string;
+  url?: string;
+}
+
+export interface Props {
+  lang?: Lang;
+  t?: Translations;
+}
+
+const { lang = "en" } = Astro.props;
+const t = Astro.props.t || getTranslations(lang);
+
+const MONTH_NAMES: Record<Lang, Record<string, string>> = {
+  en: {
+    "01": "Jan",
+    "02": "Feb",
+    "03": "Mar",
+    "04": "Apr",
+    "05": "May",
+    "06": "Jun",
+    "07": "Jul",
+    "08": "Aug",
+    "09": "Sep",
+    "10": "Oct",
+    "11": "Nov",
+    "12": "Dec",
+  },
+  fr: {
+    "01": "Janv",
+    "02": "Févr",
+    "03": "Mars",
+    "04": "Avr",
+    "05": "Mai",
+    "06": "Juin",
+    "07": "Juil",
+    "08": "Août",
+    "09": "Sept",
+    "10": "Oct",
+    "11": "Nov",
+    "12": "Déc",
+  },
+};
+
+function formatEventDate(dateStr: string, currentLang: Lang) {
+  const parts = dateStr.split("-");
+  const year = parts[0];
+  const monthNum = parts[1];
+  const months = MONTH_NAMES[currentLang] || MONTH_NAMES.en;
+  const month = monthNum ? months[monthNum] || "" : "";
+  const fullDate = month ? `${month} ${year}` : year;
+
+  return { year, month, fullDate };
+}
+
+const getTimelineText = (key?: string, fallback = "") => {
+  if (!key) return fallback;
+  const val = (t.timeline as Record<string, string>)?.[key];
+  return val !== undefined ? val : fallback;
+};
+
+// Import all asset images to resolve /src/assets/... paths if specified
+const assetImages = import.meta.glob<{ default: ImageMetadata }>("/src/assets/**/*.{png,jpg,jpeg,webp,svg}", {
+  eager: true,
+});
+
+function resolveImageUrl(imagePath?: string): string {
+  if (!imagePath) return "";
+  if (imagePath.startsWith("/src/assets/")) {
+    const mod = assetImages[imagePath];
+    return mod ? mod.default.src : imagePath;
+  }
+  return imagePath;
+}
+
+const events = eventsData as TimelineEvent[];
+---
+
+<section id="timeline" class="section" aria-labelledby="timeline-heading">
+  <div class="container">
+    <div class="timeline-header text-center" data-reveal>
+      <p class="section-tag" data-i18n="timeline.tag">
+        {t.timeline?.tag || "Timeline"}
+      </p>
+      <h2 id="timeline-heading" class="section-title" data-delay="1">
+        <span class="gradient-text" data-i18n="timeline.heading">
+          {t.timeline?.heading || "Work & Personal Journey"}
+        </span>
+      </h2>
+      <p class="section-sub" data-delay="2" data-i18n="timeline.sub">
+        {t.timeline?.sub || ""}
+      </p>
+    </div>
+
+    <div class="timeline-container" id="timeline-container">
+      <!-- Continuous Spline Curved SVG Line -->
+      <svg class="timeline-svg" id="timeline-svg" aria-hidden="true">
+        <defs>
+          <linearGradient id="timeline-gradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--color-primary)" stop-opacity="0.3"></stop>
+            <stop offset="12%" stop-color="var(--color-primary)"></stop>
+            <stop offset="45%" stop-color="var(--color-secondary)"></stop>
+            <stop offset="78%" stop-color="#ec4899"></stop>
+            <stop offset="92%" stop-color="var(--color-primary)"></stop>
+            <stop offset="100%" stop-color="var(--color-secondary)" stop-opacity="0.3"></stop>
+          </linearGradient>
+          <filter id="timeline-glow" x="-30%" y="-30%" width="160%" height="160%">
+            <feGaussianBlur stdDeviation="4" result="blur"></feGaussianBlur>
+            <feMerge>
+              <feMergeNode in="blur"></feMergeNode>
+              <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+          </filter>
+        </defs>
+        <path
+          id="timeline-path-bg"
+          class="timeline-path-bg"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.5"
+          stroke-linecap="round"></path>
+        <path
+          id="timeline-path-active"
+          class="timeline-path-active"
+          fill="none"
+          stroke="url(#timeline-gradient)"
+          stroke-width="3.5"
+          stroke-linecap="round"
+          filter="url(#timeline-glow)"></path>
+      </svg>
+
+      <div class="timeline-items" id="timeline-items" role="list">
+        {
+          events.map((item, i) => {
+            const isRight = i % 2 !== 0;
+            const resolvedImg = resolveImageUrl(item.image);
+            const isWork = item.category === "Work";
+            const { year, month, fullDate } = formatEventDate(item.date, lang);
+            const itemTitle = getTimelineText(item.titleKey, "");
+            const itemDesc = getTimelineText(item.descKey, "");
+            const itemUrls = item.url
+              ? item.url
+                  .split(" || ")
+                  .map((u) => u.trim())
+                  .filter(Boolean)
+              : [];
+
+            return (
+              <div
+                class={`timeline-item ${isRight ? "item-right" : "item-left"} ${isWork ? "theme-work" : "theme-milestone"}`}
+                data-reveal={isRight ? "slide-left" : "slide-right"}
+                data-delay={String((i % 2) + 1)}
+                role="listitem"
+              >
+                <div class="timeline-node" aria-label={fullDate}>
+                  <div class="node-content">
+                    {month && <span class="node-month">{month}</span>}
+                    <span class="node-year">{year}</span>
+                  </div>
+                </div>
+
+                <article class="timeline-card glass-card">
+                  <div class="card-accent-bar" aria-hidden="true" />
+
+                  <h3 class="card-title" data-i18n={item.titleKey ? `timeline.${item.titleKey}` : undefined}>
+                    {itemTitle}
+                  </h3>
+
+                  {resolvedImg && (
+                    <div class="card-media-wrapper">
+                      <img
+                        src={resolvedImg}
+                        alt={item.imageAlt || itemTitle}
+                        class="card-img timeline-img"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                      <div class="media-overlay" aria-hidden="true" />
+                    </div>
+                  )}
+
+                  {itemUrls.length > 0 && (
+                    <div class="card-links">
+                      {itemUrls.map((href, li) => (
+                        <a
+                          href={href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="card-link"
+                          aria-label={`${itemTitle} — link ${li + 1}`}
+                        >
+                          <Link size={12} aria-hidden="true" />
+                          {`Link ${li + 1}`}
+                        </a>
+                      ))}
+                    </div>
+                  )}
+
+                  {itemDesc && (
+                    <p class="card-desc" data-i18n={item.descKey ? `timeline.${item.descKey}` : undefined}>
+                      {itemDesc}
+                    </p>
+                  )}
+
+                  {item.tags && item.tags.length > 0 && (
+                    <div class="card-tags">
+                      {item.tags.map((tag) => (
+                        <span class="tag">{tag}</span>
+                      ))}
+                    </div>
+                  )}
+                </article>
+              </div>
+            );
+          })
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  #timeline {
+    overflow-x: clip;
+    position: relative;
+    padding-top: clamp(2rem, 4vw, 3rem);
+    padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  }
+
+  .timeline-header {
+    margin-bottom: clamp(2rem, 4vw, 3rem);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Timeline Container ── */
+  .timeline-container {
+    position: relative;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 1rem 0;
+  }
+
+  /* ── SVG Spine (Behind Cards) ── */
+  .timeline-svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: visible;
+  }
+
+  .timeline-path-bg {
+    color: var(--color-border);
+    opacity: 0.25;
+  }
+
+  .timeline-path-active {
+    will-change: stroke-dashoffset;
+    transition: stroke-dashoffset 0.1s ease-out;
+  }
+
+  .timeline-items {
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.75rem, 3.25vw, 2.5rem);
+    position: relative;
+    z-index: 2;
+  }
+
+  /* ── Timeline Item Layout ── */
+  .timeline-item {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    min-height: 54px;
+    transition:
+      opacity var(--transition-base),
+      transform var(--transition-base);
+  }
+
+  .item-left,
+  .item-right {
+    justify-content: flex-end;
+  }
+
+  @media (--md) {
+    .timeline-item {
+      margin-bottom: -4rem;
+    }
+
+    .item-left {
+      justify-content: flex-start;
+    }
+
+    .item-right {
+      justify-content: flex-end;
+    }
+  }
+
+  /* ── Central Spine Node ── */
+  .timeline-node {
+    position: absolute;
+    left: 24px;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--color-surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    user-select: none;
+    z-index: 3;
+    box-shadow: var(--neu-shadow-outset);
+    transition:
+      transform var(--transition-spring),
+      box-shadow var(--transition-base);
+
+    @media (--md) {
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 65px;
+      height: 65px;
+    }
+  }
+
+  .node-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .node-month {
+    font-family: var(--font-code, monospace);
+    font-size: 0.45rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    line-height: 1.2;
+    margin-bottom: 2px;
+
+    @media (--md) {
+      font-size: 0.62rem;
+    }
+  }
+
+  .node-year {
+    font-family: var(--font-code, monospace);
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1;
+
+    @media (--md) {
+      font-size: 0.75rem;
+    }
+  }
+
+  /* ── Color Themes: Work (Cyan/Teal) vs Milestone (Violet/Pink) ── */
+
+  /* Work Theme */
+  .theme-work .timeline-node {
+    border: 2px solid var(--color-secondary, #00cec9);
+    box-shadow:
+      0 0 14px rgba(0, 206, 201, 0.35),
+      var(--neu-shadow-outset);
+  }
+  .theme-work .node-month {
+    color: var(--color-secondary, #00cec9);
+  }
+  .theme-work .card-accent-bar {
+    background: linear-gradient(90deg, var(--color-secondary, #00cec9) 0%, rgba(0, 206, 201, 0) 100%);
+  }
+  .theme-work .timeline-card:hover {
+    border-color: rgba(0, 206, 201, 0.4);
+    box-shadow: 0 16px 32px -10px rgba(0, 206, 201, 0.22);
+  }
+  .theme-work .tag:hover {
+    border-color: var(--color-secondary, #00cec9);
+    color: var(--color-secondary, #00cec9);
+  }
+
+  /* Milestone Theme */
+  .theme-milestone .timeline-node {
+    border: 2px solid var(--color-primary, #6c5ce7);
+    box-shadow:
+      0 0 14px rgba(108, 92, 231, 0.38),
+      var(--neu-shadow-outset);
+  }
+  .theme-milestone .node-month {
+    color: var(--pastel-lavender, #c8c0ff);
+  }
+  .theme-milestone .card-accent-bar {
+    background: linear-gradient(90deg, #6c5ce7 0%, #ec4899 50%, rgba(236, 72, 153, 0) 100%);
+  }
+  .theme-milestone .timeline-card:hover {
+    border-color: rgba(108, 92, 231, 0.45);
+    box-shadow: 0 16px 32px -10px rgba(108, 92, 231, 0.26);
+  }
+  .theme-milestone .tag:hover {
+    border-color: var(--color-primary, #6c5ce7);
+    color: var(--pastel-lavender, #c8c0ff);
+  }
+
+  .timeline-item:hover .timeline-node {
+    transform: translate(-50%, -50%) scale(1.12);
+  }
+
+  /* ── Compact & Refined Card Design ── */
+  .timeline-card {
+    width: calc(100% - 3.75rem);
+    max-width: 440px;
+    padding: clamp(1rem, 2vw, 1.35rem);
+    border-radius: var(--radius-md);
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    position: relative;
+    overflow: hidden;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--glass-border);
+    transition:
+      transform var(--transition-spring),
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
+
+    @media (--md) {
+      width: calc(50% - 3.5rem);
+    }
+  }
+
+  .card-accent-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2.5px;
+    pointer-events: none;
+  }
+
+  .timeline-item:hover .timeline-card {
+    transform: translateY(-3px);
+  }
+
+  .card-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1rem, 1.3vw, 1.125rem);
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.3;
+  }
+
+  /* Image in Event Card */
+  .card-media-wrapper {
+    position: relative;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    max-height: 160px;
+    border: 1px solid var(--color-border);
+    background: var(--color-surface);
+  }
+
+  .card-img {
+    width: 100%;
+    height: 100%;
+    max-height: 160px;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--transition-spring);
+  }
+
+  .media-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 60%, rgba(0, 0, 0, 0.35) 100%);
+    pointer-events: none;
+  }
+
+  .timeline-card:hover .card-img {
+    transform: scale(1.04);
+  }
+
+  .card-desc {
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    line-height: 1.55;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-left: auto;
+  }
+
+  .tag {
+    padding: 0.18rem 0.55rem;
+    border-radius: var(--radius-full);
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 600;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    transition: all var(--transition-fast);
+  }
+
+  .card-links {
+    display: flex;
+    gap: 0.4rem;
+    flex-shrink: 0;
+  }
+
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 0.2rem 0.5rem;
+    border-radius: var(--radius-full);
+    border: 1px solid transparent;
+    text-decoration: none;
+    transition: all var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .theme-work .card-link {
+    color: var(--color-secondary);
+    background: var(--glow-secondary);
+    border-color: var(--glow-secondary);
+  }
+  .theme-work .card-link:hover {
+    color: var(--pastel-mint);
+    border-color: var(--color-secondary);
+  }
+
+  .theme-milestone .card-link {
+    color: var(--pastel-lavender);
+    background: var(--glow-primary);
+    border-color: var(--glow-primary);
+  }
+  .theme-milestone .card-link:hover {
+    color: var(--color-primary);
+    border-color: var(--color-primary);
+  }
+</style>
+
+<script>
+  function initCurvedTimeline() {
+    const container = document.getElementById("timeline-container");
+    const svg = document.getElementById("timeline-svg") as SVGSVGElement | null;
+    const bgPath = document.getElementById("timeline-path-bg") as SVGPathElement | null;
+    const activePath = document.getElementById("timeline-path-active") as SVGPathElement | null;
+    const items = Array.from(document.querySelectorAll<HTMLElement>(".timeline-item"));
+
+    if (!container || !svg || !bgPath || !activePath || items.length === 0) return;
+
+    function buildCurvedPath() {
+      if (!container || !svg || !bgPath || !activePath) return;
+
+      const cW = container.clientWidth;
+      const cH = container.clientHeight;
+
+      if (cW === 0 || cH === 0) return;
+
+      svg.setAttribute("width", String(cW));
+      svg.setAttribute("height", String(cH));
+      svg.setAttribute("viewBox", `0 0 ${cW} ${cH}`);
+
+      const isMobile = window.innerWidth < 768;
+      const spineX = isMobile ? 24 : cW / 2;
+
+      // Accurately compute each node's center Y relative to the container,
+      // immune to scroll or CSS reveal transform offsets
+      const nodeYList: number[] = items.map((item) => {
+        const itemTop = item.offsetTop;
+        const itemHeight = item.offsetHeight;
+        return itemTop + itemHeight / 2;
+      });
+
+      if (nodeYList.length === 0) return;
+
+      const firstY = nodeYList[0];
+      const lastY = nodeYList[nodeYList.length - 1];
+
+      let d = `M ${spineX} 0`;
+
+      if (isMobile) {
+        // Mobile: gentle, smooth sweeping arc between nodes on the left rail
+        const amp = 24;
+
+        // From top to first node
+        d += ` C ${spineX} ${firstY * 0.35}, ${spineX + amp} ${firstY * 0.65}, ${spineX} ${firstY}`;
+
+        // Connect directly from Node i to Node i+1 with smooth rounded S-curve
+        for (let i = 0; i < nodeYList.length - 1; i++) {
+          const y1 = nodeYList[i];
+          const y2 = nodeYList[i + 1];
+          const dir = i % 2 === 0 ? 1 : 0.4;
+          const cpX = spineX + amp * dir;
+          const dy = y2 - y1;
+          d += ` C ${cpX} ${y1 + dy * 0.35}, ${cpX} ${y1 + dy * 0.65}, ${spineX} ${y2}`;
+        }
+
+        // From last node to bottom
+        const remainY = cH - lastY;
+        d += ` C ${spineX + amp * 0.5} ${lastY + remainY * 0.35}, ${spineX} ${lastY + remainY * 0.65}, ${spineX} ${cH}`;
+      } else {
+        // Desktop: natural, silky smooth flowing curve linking center nodes directly
+        const amp = Math.min(Math.max(cW * 0.08, 55), 75);
+
+        // Entrance curve into first node
+        d += ` C ${spineX} ${firstY * 0.35}, ${spineX - amp * 0.6} ${firstY * 0.65}, ${spineX} ${firstY}`;
+
+        // Connect Node i -> Node i+1 directly through their exact centers
+        for (let i = 0; i < nodeYList.length - 1; i++) {
+          const y1 = nodeYList[i];
+          const y2 = nodeYList[i + 1];
+          // Alternate direction naturally
+          const dir = i % 2 === 0 ? 1 : -1;
+          const bowX = spineX + dir * amp;
+          const dy = y2 - y1;
+          d += ` C ${bowX} ${y1 + dy * 0.35}, ${bowX} ${y1 + dy * 0.65}, ${spineX} ${y2}`;
+        }
+
+        // Exit curve from last node to container bottom
+        const remainY = cH - lastY;
+        const lastDir = (nodeYList.length - 1) % 2 === 0 ? 1 : -1;
+        d += ` C ${spineX + lastDir * amp * 0.6} ${lastY + remainY * 0.35}, ${spineX} ${lastY + remainY * 0.65}, ${spineX} ${cH}`;
+      }
+
+      bgPath.setAttribute("d", d);
+      activePath.setAttribute("d", d);
+
+      const len = activePath.getTotalLength();
+      activePath.style.strokeDasharray = String(len);
+      updateScrollReveal(len);
+    }
+
+    function updateScrollReveal(totalLength?: number) {
+      if (!activePath || !container) return;
+      const len = totalLength || activePath.getTotalLength();
+      const cr = container.getBoundingClientRect();
+      const wH = window.innerHeight;
+
+      const total = cr.height + wH * 0.4;
+      const scrolled = wH * 0.85 - cr.top;
+      const progress = Math.min(Math.max(scrolled / total, 0), 1);
+
+      activePath.style.strokeDashoffset = (len * (1 - progress)).toFixed(2);
+    }
+
+    let ticking = false;
+    function onScroll() {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          updateScrollReveal();
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+
+    // Schedule path build on initial load, font ready, image loads, and resize
+    buildCurvedPath();
+    window.requestAnimationFrame(buildCurvedPath);
+    setTimeout(buildCurvedPath, 150);
+    setTimeout(buildCurvedPath, 600);
+
+    window.addEventListener("load", buildCurvedPath);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", buildCurvedPath, { passive: true });
+
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(buildCurvedPath);
+    }
+
+    // Recalculate when timeline images load
+    const images = container.querySelectorAll<HTMLImageElement>(".timeline-img");
+    images.forEach((img) => {
+      if (img.complete) return;
+      img.addEventListener("load", buildCurvedPath, { once: true });
+    });
+
+    if (typeof ResizeObserver !== "undefined") {
+      const ro = new ResizeObserver(() => {
+        buildCurvedPath();
+      });
+      ro.observe(container);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initCurvedTimeline);
+  } else {
+    initCurvedTimeline();
+  }
+</script>

@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Nav from "../../components/Nav.astro";
 import Hero from "../../components/sections/Hero.astro";
 import About from "../../components/sections/About.astro";
+import Timeline from "../../components/sections/Timeline.astro";
 import AiArt from "../../components/sections/AiArt.astro";
 import Contact from "../../components/sections/Contact.astro";
 import { LANGS, getTranslations } from "../../i18n/utils";
@@ -21,6 +22,7 @@ const t = getTranslations(lang);
   <main id="main-content">
     <Hero lang={lang} t={t} />
     <About lang={lang} t={t} />
+    <Timeline lang={lang} t={t} />
     <AiArt isHomepage={true} lang={lang} t={t} />
     <Contact lang={lang} t={t} />
   </main>
