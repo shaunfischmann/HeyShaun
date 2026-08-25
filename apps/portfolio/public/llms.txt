@@ -1,0 +1,49 @@
+# Shaun Fischmann
+
+> Partnership Manager and Senior Developer at Apimo with 12+ years of experience in PropTech, enterprise real estate CRMs, API integrations, and modern web development. Based in the South of France.
+
+## Profile & Contact
+
+- **Name**: Shaun Fischmann
+- **Role**: Partnership Manager & Developer @ [Apimo](https://www.apimo.com)
+- **Location**: South of France (Nice, Cannes, Monaco area)
+- **Languages**: English (fluent), French (fluent), Spanish, Chinese
+- **Website**: https://heyshaun.fr
+- **Contact**: contact@heyshaun.fr
+- **LinkedIn**: https://www.linkedin.com/in/sfischmann/
+- **GitHub**: https://github.com/shaunfischmann
+- **Instagram**: https://www.instagram.com/shaun.ai/
+
+## Overview
+
+Shaun bridges software engineering and business development in the PropTech sector. With tens of thousands of commits and millions of lines of code contributed over a decade at Apimo, he oversees the integration lifecycle of partner ecosystems (real estate portals, AI services, PropTech vendors) while remaining hands-on with API architecture, full-stack development, and technical specifications. Alongside engineering, he produces generative AI visual artworks and experimental short films under the pseudonym **Shaun.AI**.
+
+## Core Technical Skills
+
+- **Backend & Database**: PHP (12+ yrs), Symfony, MySQL, Schema modeling & query optimization, Apache, Nginx
+- **APIs & Architecture**: RESTful API design, OAuth2 authentication, Webhooks, Real estate data feeds, hundreds of portal integrations
+- **PropTech & CRM**: Multi-tenant CRM architecture, property transaction tools, agent management systems
+- **Frontend & Modern Web**: Astro, TypeScript, JavaScript, HTML5, CSS3 / Custom CSS design systems
+- **AI & Creative Tools**: Generative visual models (Midjourney, Stable Diffusion), OpenAI API, Gemini API, DaVinci Resolve, Adobe Creative Suite (Photoshop, Illustrator, Premiere Pro)
+
+## Timeline & Milestones
+
+- **1993-09**: Born in France; grew up between France and Malaysia.
+- **2014**: Bachelor's degree (Licence) in Networks & Telecommunications from the University of Sophia-Antipolis.
+- **2013-10**: Joined Apimo as Web Developer building core CRM applications, Symfony/MySQL backend services, and property feeds.
+- **2017-11**: Stepped into Project Manager role at Apimo leading white-label implementations and development teams.
+- **2018-02**: Began representing Apimo at major international industry conferences (Property Portal Watch Bangkok/Madrid, RENT Paris).
+- **2022-12**: Promoted to Partnership Manager @ Apimo, overseeing technical integrations, API partnerships, and strategic collaborations.
+- **2023-12**: Launched [@Shaun.AI](https://www.instagram.com/shaun.ai/) on Instagram exploring surreal aesthetics and generative digital art.
+- **2024-02**: Competed in Runway's GEN:48 AI short film competition with *Burning Canyons*, and ElevenLabs/PikaLabs contest with *Beyond Dreams*.
+- **2024-06**: Commissioned by La Banque Postale for their *I.Artistes* challenge (winner by public vote) and subsequent FOOH campaign featured on Brut.
+- **2026-08**: Built personal multilingual portfolio website with Astro and AI agentic tools.
+
+## Key Pages & Endpoints
+
+- [English Homepage](https://heyshaun.fr/en/): Full portfolio with interactive skills, timeline, AI art preview, and contact form.
+- [French Homepage](https://heyshaun.fr/fr/): Version francophone du portfolio.
+- [AI Art Gallery (EN)](https://heyshaun.fr/en/shaun-ai-gallery): Interactive gallery featuring 35+ curated AI artworks with 3D tilt cards and lightbox.
+- [AI Art Gallery (FR)](https://heyshaun.fr/fr/shaun-ai-gallery): Galerie complète des œuvres numériques Shaun.AI.
+- [Open Source Credits](https://heyshaun.fr/en/credits): Open-source libraries (Astro, Lucide Icons, Simple Icons) and design tools.
+- [Legal Notice](https://heyshaun.fr/en/legal-notice): Publisher details, Cloudflare privacy-friendly analytics, and GDPR compliance.

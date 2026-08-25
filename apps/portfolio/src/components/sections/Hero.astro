@@ -1,6 +1,7 @@
 ---
-import darkShaun from "../../assets/avatar/dark-shaun-transparent.png";
-import lightShaun from "../../assets/avatar/light-shaun-transparent.png";
+import darkShaun from "../../assets/avatar/dark-shaun-transparent.webp";
+import lightShaun from "../../assets/avatar/light-shaun-transparent.webp";
+import { Image } from "astro:assets";
 import { Send, Telescope } from "@lucide/astro";
 import type { Lang, Translations } from "../../i18n/utils";
 import { getTranslations } from "../../i18n/utils";
@@ -38,20 +39,24 @@ const t = Astro.props.t || getTranslations(lang);
         <div class="portrait-orb portrait-orb--mauve"></div>
       </div>
       <div class="portrait-mask">
-        <img
-          src={lightShaun.src}
+        <Image
+          src={lightShaun}
           alt={t.hero.aria_portrait}
-          width="760"
-          height="920"
+          widths={[360, 540, 760]}
+          sizes="(max-width: 640px) 360px, (max-width: 1024px) 540px, 760px"
+          width={760}
+          height={920}
           loading="eager"
           fetchpriority="high"
           class="portrait-img portrait-img--light"
         />
-        <img
-          src={darkShaun.src}
+        <Image
+          src={darkShaun}
           alt={t.hero.aria_portrait}
-          width="760"
-          height="920"
+          widths={[360, 540, 760]}
+          sizes="(max-width: 640px) 360px, (max-width: 1024px) 540px, 760px"
+          width={760}
+          height={920}
           loading="eager"
           fetchpriority="high"
           class="portrait-img portrait-img--dark"
@@ -73,7 +78,7 @@ const t = Astro.props.t || getTranslations(lang);
       </div>
 
       <div class="hero-actions">
-        <a href={`/${lang}/#contact`} class="btn btn--primary" id="hero-contact-btn">
+        <a href="#contact" class="btn btn--primary" id="hero-contact-btn">
           <span data-i18n="hero.cta_contact">{t.hero.cta_contact}</span>
           <Send size={18} stroke-width={2.2} />
         </a>
@@ -581,5 +586,14 @@ const t = Astro.props.t || getTranslations(lang);
       }
     }
     window.setTimeout(tick, 600);
+  }
+
+  // ── Jump Straight to Bottom for Contact CTA ────────────────
+  const contactBtn = document.getElementById("hero-contact-btn");
+  if (contactBtn) {
+    contactBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "instant" });
+    });
   }
 </script>

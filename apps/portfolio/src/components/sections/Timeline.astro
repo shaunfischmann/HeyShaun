@@ -73,16 +73,29 @@ const getTimelineText = (key?: string, fallback = "") => {
   return val !== undefined ? val : fallback;
 };
 
+import { getImage } from "astro:assets";
+
 // Import all asset images to resolve /src/assets/... paths if specified
 const assetImages = import.meta.glob<{ default: ImageMetadata }>("/src/assets/**/*.{png,jpg,jpeg,webp,svg}", {
   eager: true,
 });
 
+// Pre-optimize timeline images to 600px WebP at build time
+const optimizedTimelineImages: Record<string, string> = {};
+for (const [path, module] of Object.entries(assetImages)) {
+  const optimized = await getImage({
+    src: module.default,
+    width: 600,
+    format: "webp",
+    quality: 80,
+  });
+  optimizedTimelineImages[path] = optimized.src;
+}
+
 function resolveImageUrl(imagePath?: string): string {
   if (!imagePath) return "";
   if (imagePath.startsWith("/src/assets/")) {
-    const mod = assetImages[imagePath];
-    return mod ? mod.default.src : imagePath;
+    return optimizedTimelineImages[imagePath] || imagePath;
   }
   return imagePath;
 }

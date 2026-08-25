@@ -91,12 +91,17 @@ function getSvgContent(iconPath?: string): string {
       <!-- Bio Card -->
       <aside class="bio-card glass-card" data-reveal="slide-left" data-delay="2" aria-label="About Shaun">
         <h3 class="bio-heading" data-i18n="about.bio_heading">{t.about.bio_heading}</h3>
-        <a href="https://www.apimo.net" target="_blank" rel="noopener noreferrer" class="apimo-link">
-          <img src="/apimo-logo.svg" alt="Apimo" class="apimo-logo apimo-logo--color" width="60" height="20" />
+        <a
+          href="https://www.apimo.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="apimo-link"
+          aria-label="Apimo website"
+        >
+          <img src="/apimo-logo.svg" alt="Apimo logo" class="apimo-logo apimo-logo--color" width="60" height="20" />
           <img
             src="/apimo-logo-white.svg"
-            alt=""
-            aria-hidden="true"
+            alt="Apimo logo"
             class="apimo-logo apimo-logo--white"
             width="60"
             height="20"
@@ -141,7 +146,7 @@ function getSvgContent(iconPath?: string): string {
                     data-category={skill.category}
                     data-highlight={skill.highlight ? "true" : "false"}
                   >
-                    <div class="node-bubble" aria-label={skillName}>
+                    <div class="node-bubble">
                       {svgContent ? (
                         <span
                           class="skill-icon"
@@ -151,7 +156,7 @@ function getSvgContent(iconPath?: string): string {
                           set:html={svgContent}
                         />
                       ) : LucideIcon ? (
-                        <LucideIcon class="skill-lucide-icon" size={24} />
+                        <LucideIcon class="skill-lucide-icon" size={24} aria-label={skillName} />
                       ) : null}
                     </div>
 

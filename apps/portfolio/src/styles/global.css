@@ -205,6 +205,10 @@
   code, pre {
     font-family: var(--font-code);
   }
+
+  ul {
+    list-style: none;
+  }
 }
 
 /* ── Utilities ──────────────────────────────────────────────── */
@@ -507,7 +511,7 @@
   }
 
   /* Mobile: full-width stacking */
-  @media (max-width: 768px) {
+  @media (--mobile-only) {
     .btn {
       width: 100%;
       justify-content: center;

@@ -142,20 +142,18 @@ const artworks = await Promise.all(
     </div>
 
     <!-- Responsive Max-Width Grid -->
-    <div
+    <ul
       class={`art-grid ${isHomepage ? "art-grid--homepage" : ""}`}
       id="art-grid"
-      role="list"
       data-artworks={JSON.stringify(artworks)}
     >
       {
         artworks.map((art, i) => (
-          <article
+          <li
             class={`art-item art-item--${art.orientation}`}
             data-orientation={art.orientation}
             data-reveal="scale"
             data-delay={String((i % 4) + 1)}
-            role="listitem"
           >
             <div class="holo-scene">
               <button
@@ -208,10 +206,10 @@ const artworks = await Promise.all(
                 </div>
               </button>
             </div>
-          </article>
+          </li>
         ))
       }
-    </div>
+    </ul>
 
     <!-- CTA to full gallery page if on Homepage -->
     {

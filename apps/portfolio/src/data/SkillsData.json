@@ -53,7 +53,7 @@
     "id": "api",
     "name": "REST APIs",
     "nameKey": "skill.api",
-    "desc": "Over 60+ integrations (real estate specialization)",
+    "desc": "Over 60+ API integrations (real estate specialization)",
     "descKey": "skill.api_desc",
     "category": "Tech",
     "highlight": true,
