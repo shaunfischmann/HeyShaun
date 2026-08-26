@@ -5,7 +5,10 @@ import cloudflare from '@astrojs/cloudflare';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://heyshaun.fr',
-  adapter: cloudflare(),
+  output: 'server',
+  adapter: cloudflare({
+    imageService: 'passthrough',
+  }),
   compressHTML: true,
   build: {
     inlineStylesheets: 'auto',
