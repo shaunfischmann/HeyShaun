@@ -7,8 +7,15 @@ export default defineConfig({
   site: 'https://heyshaun.fr',
   output: 'static',
   adapter: cloudflare({
-    imageService: 'passthrough',
+    imageConfig: {
+      service: 'passthrough',
+    },
   }),
+  image: {
+    service: {
+      entrypoint: 'astro/assets/services/noop',
+    },
+  },
   compressHTML: true,
   build: {
     inlineStylesheets: 'auto',
