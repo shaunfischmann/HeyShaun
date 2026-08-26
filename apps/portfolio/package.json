@@ -11,11 +11,13 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^14.2.4",
     "@astrojs/sitemap": "^3.7.3",
     "@heyshaun/design-tokens": "workspace:*",
     "@heyshaun/utils": "workspace:*",
     "@lucide/astro": "^1.33.0",
-    "astro": "^7.2.4"
+    "astro": "^7.2.4",
+    "resend": "^6.22.1"
   },
   "devDependencies": {
     "image-size": "^2.0.2"

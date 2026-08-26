@@ -267,7 +267,7 @@ const socials = [
     color: var(--color-primary);
   }
 
-  /* ── Right Column: Sleek Glass Contact Form ── */
+  /* ── Right Column Contact Form ── */
   .footer-right {
     width: 100%;
   }
@@ -308,7 +308,11 @@ const socials = [
     width: 100%;
   }
 
-  /* Sleek Modern Liquid Glass Inputs */
+  #contact-submit {
+    width: 100%;
+  }
+
+  /* Form input */
   .glass-input {
     width: 100%;
     padding: 0.8rem 1rem;
@@ -346,9 +350,15 @@ const socials = [
   }
 
   .honeypot-field {
-    display: none !important;
     position: absolute;
     left: -9999px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    tab-index: -1;
   }
 
   /* Feedback message */
@@ -359,9 +369,18 @@ const socials = [
     font-size: 0.875rem;
     font-weight: 500;
     text-align: center;
+  }
+
+  .form-feedback.success {
     background: rgba(0, 206, 201, 0.1);
     border: 1px solid rgba(0, 206, 201, 0.3);
     color: var(--color-text);
+  }
+
+  .form-feedback.error {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+    color: #fca5a5;
   }
 
   /* ── Copyright Banner ── */
@@ -465,27 +484,75 @@ const socials = [
   const feedback = document.getElementById("form-feedback");
   const submitBtn = document.getElementById("contact-submit") as HTMLButtonElement | null;
 
-  form?.addEventListener("submit", (e) => {
+  // Derive the current lang from the URL path (e.g. /en/ or /fr/)
+  const lang = window.location.pathname.split("/")[1] || "en";
+
+  // Error messages (bilingual)
+  const errorMsg: Record<string, Record<string, string>> = {
+    en: {
+      missing_fields: "Please fill in all required fields.",
+      invalid_email: "Please enter a valid email address.",
+      server_config: "Server configuration error. Please try again later.",
+      send_failed: "Failed to send your message. Please try again.",
+      network: "Network error. Please check your connection and try again.",
+    },
+    fr: {
+      missing_fields: "Veuillez remplir tous les champs obligatoires.",
+      invalid_email: "Veuillez entrer une adresse e-mail valide.",
+      server_config: "Erreur de configuration serveur. Réessayez plus tard.",
+      send_failed: "Impossible d'envoyer votre message. Veuillez réessayer.",
+      network: "Erreur réseau. Vérifiez votre connexion et réessayez.",
+    },
+  };
+
+  function getError(code: string): string {
+    return errorMsg[lang]?.[code] ?? errorMsg["en"]?.[code] ?? "Something went wrong.";
+  }
+
+  function showFeedback(type: "success" | "error", message: string) {
+    if (!feedback) return;
+    feedback.removeAttribute("hidden");
+    feedback.className = `form-feedback ${type}`;
+    feedback.textContent = message;
+  }
+
+  form?.addEventListener("submit", async (e) => {
     e.preventDefault();
-    const formData = new FormData(form);
-    if (formData.get("_honeypot")) return;
+    if (!form || !submitBtn) return;
 
-    submitBtn?.setAttribute("disabled", "true");
+    submitBtn.setAttribute("disabled", "true");
+    const originalText = submitBtn.querySelector(".submit-text");
+    if (originalText) originalText.textContent = lang === "fr" ? "Envoi..." : "Sending...";
 
-    setTimeout(() => {
-      submitBtn?.classList.add("success");
+    try {
+      const res = await fetch(`/api/contact`, {
+        method: "POST",
+        body: new FormData(form),
+      });
 
-      if (feedback) {
-        feedback.removeAttribute("hidden");
-        feedback.className = "form-feedback success";
+      const json = (await res.json()) as { ok: boolean; error?: string };
+
+      if (json.ok) {
+        submitBtn.classList.add("success");
+        const successText =
+          lang === "fr" ? "Message envoyé ! Je vous répondrai bientôt." : "Message sent! I'll get back to you soon.";
+        showFeedback("success", successText);
+        form.reset();
+
+        setTimeout(() => {
+          submitBtn.classList.remove("success");
+          submitBtn.removeAttribute("disabled");
+          if (originalText) originalText.textContent = lang === "fr" ? "Envoyer" : "Send";
+        }, 3000);
+      } else {
+        showFeedback("error", getError(json.error ?? "send_failed"));
+        submitBtn.removeAttribute("disabled");
+        if (originalText) originalText.textContent = lang === "fr" ? "Envoyer" : "Send";
       }
-
-      form.reset();
-
-      setTimeout(() => {
-        submitBtn?.classList.remove("success");
-        submitBtn?.removeAttribute("disabled");
-      }, 3000);
-    }, 500);
+    } catch {
+      showFeedback("error", getError("network"));
+      submitBtn.removeAttribute("disabled");
+      if (originalText) originalText.textContent = lang === "fr" ? "Envoyer" : "Send";
+    }
   });
 </script>

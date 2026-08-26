@@ -1,9 +1,11 @@
 import { defineConfig, fontProviders } from 'astro/config';
-import sitemap from '@astrojs/sitemap'
+import sitemap from '@astrojs/sitemap';
+import cloudflare from '@astrojs/cloudflare';
 
 // https://astro.build/config
 export default defineConfig({
   site: 'https://heyshaun.fr',
+  adapter: cloudflare(),
   compressHTML: true,
   build: {
     inlineStylesheets: 'auto',
