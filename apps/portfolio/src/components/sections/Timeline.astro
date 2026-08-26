@@ -3,6 +3,7 @@ import eventsData from "../../data/EventsData.json";
 import type { Lang, Translations } from "../../i18n/utils";
 import { getTranslations } from "../../i18n/utils";
 import { Link } from "@lucide/astro";
+import { getImage } from "astro:assets";
 
 type EventCategory = "Work" | "Milestone";
 
@@ -73,31 +74,38 @@ const getTimelineText = (key?: string, fallback = "") => {
   return val !== undefined ? val : fallback;
 };
 
-import { getImage } from "astro:assets";
-
-// Import all asset images to resolve /src/assets/... paths if specified
+// 1. Eagerly import all assets matching your JSON paths
 const assetImages = import.meta.glob<{ default: ImageMetadata }>("/src/assets/**/*.{png,jpg,jpeg,webp,svg}", {
   eager: true,
 });
 
-// Pre-optimize timeline images to 600px WebP at build time
-const optimizedTimelineImages: Record<string, string> = {};
+// 2. Pre-optimize all timeline images at build time using Sharp
+const optimizedTimelineImages: Record<string, { src: string; width: number; height: number }> = {};
+
 for (const [path, module] of Object.entries(assetImages)) {
   const optimized = await getImage({
     src: module.default,
-    width: 600,
+    width: 600, // Cards are ~400px wide, so 600px provides crisp 1.5x Retina clarity
     format: "webp",
     quality: 80,
   });
-  optimizedTimelineImages[path] = optimized.src;
+
+  optimizedTimelineImages[path] = {
+    src: optimized.src,
+    width: optimized.attributes.width as number,
+    height: optimized.attributes.height as number,
+  };
 }
 
-function resolveImageUrl(imagePath?: string): string {
-  if (!imagePath) return "";
+function resolveImageData(imagePath?: string) {
+  if (!imagePath) return null;
+
   if (imagePath.startsWith("/src/assets/")) {
-    return optimizedTimelineImages[imagePath] || imagePath;
+    return optimizedTimelineImages[imagePath] || null;
   }
-  return imagePath;
+
+  // Fallback for public/ or external paths where width/height aren't pre-computed
+  return { src: imagePath, width: 600, height: 400 };
 }
 
 const events = eventsData as TimelineEvent[];
@@ -160,7 +168,7 @@ const events = eventsData as TimelineEvent[];
         {
           events.map((item, i) => {
             const isRight = i % 2 !== 0;
-            const resolvedImg = resolveImageUrl(item.image);
+            const imgData = resolveImageData(item.image);
             const isWork = item.category === "Work";
             const { year, month, fullDate } = formatEventDate(item.date, lang);
             const itemTitle = getTimelineText(item.titleKey, "");
@@ -193,10 +201,12 @@ const events = eventsData as TimelineEvent[];
                     {itemTitle}
                   </h3>
 
-                  {resolvedImg && (
+                  {imgData && (
                     <div class="card-media-wrapper">
                       <img
-                        src={resolvedImg}
+                        src={imgData.src}
+                        width={imgData.width}
+                        height={imgData.height}
                         alt={item.imageAlt || itemTitle}
                         class="card-img timeline-img"
                         loading="lazy"

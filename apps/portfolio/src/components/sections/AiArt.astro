@@ -37,32 +37,34 @@ const rawArtworks = Object.entries(imageImports).map(([path, module], index) => 
   };
 });
 
-// 3. Pre-transform all artworks (cached at build time)
+// 3. Pre-transform all artworks (cached at build time via Sharp)
 const allArtworks = await Promise.all(
   rawArtworks.map(async (art) => {
     const gridOptions: any = {
       src: art.rawImage,
       format: "webp",
+      quality: 80,
     };
     if (art.orientation === "landscape") {
-      gridOptions.width = 900;
+      gridOptions.width = 800;
     } else if (art.orientation === "portrait") {
-      gridOptions.height = 900;
+      gridOptions.height = 800;
     } else {
       gridOptions.width = 400;
     }
 
     const optimizedGridImage = await getImage(gridOptions);
 
-    // High-resolution lightbox version (up to 1800px)
+    // High-resolution lightbox version
     const lbOptions: any = {
       src: art.rawImage,
       format: "webp",
+      quality: 85,
     };
     if (art.orientation === "portrait") {
-      lbOptions.height = 1800;
+      lbOptions.height = 1600;
     } else {
-      lbOptions.width = 1800;
+      lbOptions.width = 1600;
     }
     const optimizedLightboxImage = await getImage(lbOptions);
 
@@ -71,6 +73,8 @@ const allArtworks = await Promise.all(
       title: art.title,
       src: optimizedGridImage.src,
       lightboxSrc: optimizedLightboxImage.src,
+      width: optimizedGridImage.attributes.width,
+      height: optimizedGridImage.attributes.height,
       orientation: art.orientation,
       aspectRatio: art.aspectRatio,
       gradientIdx: art.gradientIdx,
@@ -167,7 +171,15 @@ if (isHomepage) {
                   {/* Card content */}
                   <div class="holo-card__content">
                     {art.src ? (
-                      <img src={art.src} alt={art.title} width="900" height="600" loading="lazy" class="art-img" />
+                      <img
+                        src={art.src}
+                        alt={art.title}
+                        width={art.width}
+                        height={art.height}
+                        class="art-img"
+                        loading="lazy"
+                        decoding="async"
+                      />
                     ) : (
                       <div class={`art-placeholder art-ph--${art.gradientIdx}`} aria-hidden="true">
                         <div class="art-shimmer" />

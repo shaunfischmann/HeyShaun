@@ -1,4 +1,4 @@
-import { defineConfig, fontProviders } from 'astro/config';
+import { defineConfig, fontProviders, sharpImageService } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import cloudflare from '@astrojs/cloudflare';
 
@@ -6,9 +6,10 @@ import cloudflare from '@astrojs/cloudflare';
 export default defineConfig({
   site: 'https://heyshaun.fr',
   output: 'static',
-  adapter: cloudflare({
-    imageService: 'cloudflare',
-  }),
+  adapter: cloudflare(),
+  image: {
+    service: sharpImageService(), // Uses Sharp locally during pnpm build
+  },
   compressHTML: true,
   build: {
     inlineStylesheets: 'auto',
