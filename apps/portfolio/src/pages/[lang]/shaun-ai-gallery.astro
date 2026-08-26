@@ -14,7 +14,13 @@ const { lang } = Astro.params as { lang: Lang };
 const t = getTranslations(lang);
 ---
 
-<BaseLayout lang={lang} title={t.seo.gallery_title} description={t.seo.gallery_description} currentPath="/shaun-ai-gallery" isGallery={true}>
+<BaseLayout
+  lang={lang}
+  title={t.seo.gallery_title}
+  description={t.seo.gallery_description}
+  currentPath="/shaun-ai-gallery"
+  isGallery={true}
+>
   <Nav lang={lang} isHomepage={false} currentPath="/shaun-ai-gallery" />
   <main id="main-content">
     <AiArt isHomepage={false} lang={lang} t={t} />

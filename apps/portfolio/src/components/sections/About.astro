@@ -81,11 +81,13 @@ function getSvgContent(iconPath?: string): string {
 
 <section id="about" class="section" aria-labelledby="about-heading">
   <div class="container">
-    <p class="section-tag" data-reveal data-i18n="about.tag">{t.about.tag}</p>
-    <h2 id="about-heading" class="section-title" data-reveal data-delay="1">
-      <span class="gradient-text" data-i18n="about.heading">{t.about.heading}</span>
-    </h2>
-    <p class="section-sub" data-reveal data-delay="1" data-i18n="about.sub">{t.about.sub}</p>
+    <div class="about-header section-header">
+      <p class="section-tag" data-reveal data-i18n="about.tag">{t.about.tag}</p>
+      <h2 id="about-heading" class="section-title" data-reveal data-delay="1">
+        <span class="gradient-text" data-i18n="about.heading">{t.about.heading}</span>
+      </h2>
+      <p class="section-sub" data-reveal data-delay="1" data-i18n="about.sub">{t.about.sub}</p>
+    </div>
 
     <div class="about-layout">
       <!-- Bio Card -->
@@ -779,9 +781,6 @@ function getSvgContent(iconPath?: string): string {
   let currentSpeedX = baseSpeedX;
   let currentSpeedY = baseSpeedY;
 
-  let isHovered = false;
-  const hoverSpeedFactor = 0.5;
-
   let lastTime = performance.now();
 
   const brightnessFloor = 0.4;
@@ -859,12 +858,10 @@ function getSvgContent(iconPath?: string): string {
     lastTime = now;
 
     const isDark = document.documentElement.getAttribute("data-theme") !== "light";
-
-    const targetFactor = isHovered ? hoverSpeedFactor : 1.0;
     const lerpRate = 0.05;
 
-    currentSpeedX = lerp(currentSpeedX, baseSpeedX * targetFactor, lerpRate);
-    currentSpeedY = lerp(currentSpeedY, baseSpeedY * targetFactor, lerpRate);
+    currentSpeedX = lerp(currentSpeedX, baseSpeedX, lerpRate);
+    currentSpeedY = lerp(currentSpeedY, baseSpeedY, lerpRate);
 
     angleX += currentSpeedX * delta;
     angleY += currentSpeedY * delta;
@@ -905,7 +902,7 @@ function getSvgContent(iconPath?: string): string {
 
       // ── FOCUSED MODE: JS-lerp toward center instead of CSS transition ──
       if (activeFocusedNode && node === activeFocusedNode) {
-        const lerpSpeed = 0.14;
+        const lerpSpeed = 0.3;
         state.cx = lerp(state.cx, 0, lerpSpeed);
         state.cy = lerp(state.cy, 0, lerpSpeed);
         state.cs = lerp(state.cs, 1.35, lerpSpeed);
@@ -917,7 +914,7 @@ function getSvgContent(iconPath?: string): string {
       }
 
       // ── NORMAL MODE: lerp toward 3D orbit position ───────────────────
-      const lerpSpeed = 0.12;
+      const lerpSpeed = 0.3;
       state.cx = lerp(state.cx, screenX, lerpSpeed);
       state.cy = lerp(state.cy, screenY, lerpSpeed);
       state.cs = lerp(state.cs, orbitScale, lerpSpeed);
@@ -950,15 +947,6 @@ function getSvgContent(iconPath?: string): string {
     }
 
     requestAnimationFrame(animate);
-  }
-
-  if (stage) {
-    stage.addEventListener("mouseenter", () => {
-      isHovered = true;
-    });
-    stage.addEventListener("mouseleave", () => {
-      isHovered = false;
-    });
   }
 
   function clearFocus() {

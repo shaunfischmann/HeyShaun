@@ -80,23 +80,25 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
   </div>
 
   <!-- Minimalist Left Side Navigation -->
-  <aside class="side-menu glass-menu">
-    <ul class="nav-list" role="list">
-      {
-        navLinks.map((link, index) => {
-          return (
-            <li>
-              <a href={link.href} class={`nav-item ${index === 0 ? "active" : ""}`} data-section={link.id}>
-                <span class="nav-text">
-                  <span data-i18n={link.i18n}>{link.label}</span>
-                </span>
-              </a>
-            </li>
-          );
-        })
-      }
-    </ul>
-  </aside>
+  {
+    isHomepage && (
+      <aside class="side-menu glass-menu">
+        <ul class="nav-list" role="list">
+          {navLinks.map((link, index) => {
+            return (
+              <li>
+                <a href={link.href} class={`nav-item ${index === 0 ? "active" : ""}`} data-section={link.id}>
+                  <span class="nav-text">
+                    <span data-i18n={link.i18n}>{link.label}</span>
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ul>
+      </aside>
+    )
+  }
 
   <!-- Mobile / Tablet Top Bar (Active under 1180px screen width) -->
   <div class="mobile-bar">

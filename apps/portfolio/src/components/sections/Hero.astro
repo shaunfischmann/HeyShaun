@@ -42,10 +42,8 @@ const t = Astro.props.t || getTranslations(lang);
         <Image
           src={lightShaun}
           alt={t.hero.aria_portrait}
-          widths={[360, 540, 760]}
-          sizes="(max-width: 640px) 360px, (max-width: 1024px) 540px, 760px"
-          width={760}
-          height={920}
+          widths={[360, 540, 760, 1024, 1440, 2048]}
+          sizes="(max-width: 640px) 380px, (max-width: 1024px) 680px, (max-width: 1440px) 980px, 1440px"
           loading="eager"
           fetchpriority="high"
           class="portrait-img portrait-img--light"
@@ -53,10 +51,8 @@ const t = Astro.props.t || getTranslations(lang);
         <Image
           src={darkShaun}
           alt={t.hero.aria_portrait}
-          widths={[360, 540, 760]}
-          sizes="(max-width: 640px) 360px, (max-width: 1024px) 540px, 760px"
-          width={760}
-          height={920}
+          widths={[360, 540, 760, 1024, 1440, 2048]}
+          sizes="(max-width: 640px) 380px, (max-width: 1024px) 680px, (max-width: 1440px) 980px, 1440px"
           loading="eager"
           fetchpriority="high"
           class="portrait-img portrait-img--dark"

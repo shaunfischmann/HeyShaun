@@ -1,5 +1,5 @@
 ---
-import { Maximize2, X, ChevronLeft, ChevronRight } from "@lucide/astro";
+import { ArrowLeft, Maximize2, X, ChevronLeft, ChevronRight } from "@lucide/astro";
 import { getImage } from "astro:assets";
 import type { Lang, Translations } from "../../i18n/utils";
 import { getTranslations } from "../../i18n/utils";
@@ -132,13 +132,20 @@ const artworks = await Promise.all(
 <section id="art" class="section" aria-labelledby="art-heading">
   <div class="container">
     <div class="art-header section-header">
-      <div>
-        <p class="section-tag" data-reveal data-i18n="art.tag">{t.art.tag}</p>
-        <h2 id="art-heading" class="section-title" data-reveal data-delay="1">
-          <span class="gradient-text" data-i18n="art.heading">{t.art.heading}</span>
-        </h2>
-        <p class="section-sub" data-reveal data-delay="2" data-i18n="art.sub" set:html={t.art.sub} />
-      </div>
+      {
+        !isHomepage && (
+          <a href={`/${lang}/`} class="back-link glass-card">
+            <ArrowLeft size={16} stroke-width={2} />
+            <span>{t.credits_page?.back_home || (lang === "fr" ? "Retour à l'accueil" : "Back to Home")}</span>
+          </a>
+        )
+      }
+
+      <p class="section-tag" data-reveal data-i18n="art.tag">{t.art.tag}</p>
+      <h2 id="art-heading" class="section-title" data-reveal data-delay="1">
+        <span class="gradient-text" data-i18n="art.heading">{t.art.heading}</span>
+      </h2>
+      <p class="section-sub" data-reveal data-delay="2" data-i18n="art.sub" set:html={t.art.sub} />
     </div>
 
     <!-- Responsive Max-Width Grid -->
@@ -263,12 +270,6 @@ const artworks = await Promise.all(
 </div>
 
 <style>
-  .art-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-  }
-
   :global(.insta-link) {
     display: inline-flex;
     align-items: center;
@@ -318,17 +319,6 @@ const artworks = await Promise.all(
   /* Display only 3 images on mobile for homepage section */
   .art-grid--homepage .art-item:nth-child(n + 4) {
     display: none;
-  }
-
-  .art-header {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-
-    @media (--sm) {
-      flex-direction: row;
-    }
   }
 
   /* ── md (768px+): two-column grid ── */
