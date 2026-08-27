@@ -85,15 +85,19 @@ const optimizedTimelineImages: Record<string, { src: string; width: number; heig
 for (const [path, module] of Object.entries(assetImages)) {
   const optimized = await getImage({
     src: module.default,
-    width: 600, // Cards are ~400px wide, so 600px provides crisp 1.5x Retina clarity
+    width: 600,
     format: "webp",
     quality: 80,
   });
 
+  // Extract the original dimensions as fallback
+  const origWidth = module.default.width || 600;
+  const origHeight = module.default.height || 400;
+
   optimizedTimelineImages[path] = {
     src: optimized.src,
-    width: optimized.attributes.width as number,
-    height: optimized.attributes.height as number,
+    width: optimized.attributes?.width || origWidth,
+    height: optimized.attributes?.height || origHeight,
   };
 }
 

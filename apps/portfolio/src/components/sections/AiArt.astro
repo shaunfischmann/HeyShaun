@@ -68,13 +68,20 @@ const allArtworks = await Promise.all(
     }
     const optimizedLightboxImage = await getImage(lbOptions);
 
+    const gridWidth = optimizedGridImage.attributes.width ?? art.rawImage.width;
+    const gridHeight = optimizedGridImage.attributes.height ?? art.rawImage.height;
+    const lbWidth = optimizedLightboxImage.attributes.width ?? art.rawImage.width;
+    const lbHeight = optimizedLightboxImage.attributes.height ?? art.rawImage.height;
+
     return {
       id: art.id,
       title: art.title,
       src: optimizedGridImage.src,
       lightboxSrc: optimizedLightboxImage.src,
-      width: optimizedGridImage.attributes.width,
-      height: optimizedGridImage.attributes.height,
+      width: gridWidth,
+      height: gridHeight,
+      lbWidth,
+      lbHeight,
       orientation: art.orientation,
       aspectRatio: art.aspectRatio,
       gradientIdx: art.gradientIdx,

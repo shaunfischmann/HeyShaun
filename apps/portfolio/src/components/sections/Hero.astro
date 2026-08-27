@@ -1,7 +1,7 @@
 ---
-import darkShaun from "../../assets/avatar/dark-shaun-transparent.webp";
-import lightShaun from "../../assets/avatar/light-shaun-transparent.webp";
-import { Image } from "astro:assets";
+import { getImage } from "astro:assets";
+import darkShaunImport from "../../assets/avatar/dark-shaun-transparent.webp";
+import lightShaunImport from "../../assets/avatar/light-shaun-transparent.webp";
 import { Send, Telescope } from "@lucide/astro";
 import type { Lang, Translations } from "../../i18n/utils";
 import { getTranslations } from "../../i18n/utils";
@@ -13,6 +13,25 @@ export interface Props {
 
 const { lang = "en" } = Astro.props;
 const t = Astro.props.t || getTranslations(lang);
+
+// ── 1. Build-Time Static Image Generation for Light Mode ──────
+const light380 = await getImage({ src: lightShaunImport, width: 380, format: "webp" });
+const light680 = await getImage({ src: lightShaunImport, width: 680, format: "webp" });
+const light980 = await getImage({ src: lightShaunImport, width: 980, format: "webp" });
+const light1440 = await getImage({ src: lightShaunImport, width: 1440, format: "webp" });
+
+// ── 2. Build-Time Static Image Generation for Dark Mode ───────
+const dark380 = await getImage({ src: darkShaunImport, width: 380, format: "webp" });
+const dark680 = await getImage({ src: darkShaunImport, width: 680, format: "webp" });
+const dark980 = await getImage({ src: darkShaunImport, width: 980, format: "webp" });
+const dark1440 = await getImage({ src: darkShaunImport, width: 1440, format: "webp" });
+
+// ── 3. Construct Responsive Srcsets ────────────────────────────
+const lightSrcset = `${light380.src} 380w, ${light680.src} 680w, ${light980.src} 980w, ${light1440.src} 1440w`;
+const darkSrcset = `${dark380.src} 380w, ${dark680.src} 680w, ${dark980.src} 980w, ${dark1440.src} 1440w`;
+
+// Exact container sizing mapping your CSS media breakpoints
+const responsiveSizes = "(max-width: 47.98em) 86vw, (max-width: 63.98em) 68vw, 980px";
 ---
 
 <section id="hero" class="hero" aria-label="Introduction" data-lang={lang}>
@@ -39,22 +58,30 @@ const t = Astro.props.t || getTranslations(lang);
         <div class="portrait-orb portrait-orb--mauve"></div>
       </div>
       <div class="portrait-mask">
-        <Image
-          src={lightShaun}
+        <!-- Light Theme Responsive Portrait -->
+        <img
+          src={light980.src}
+          srcset={lightSrcset}
+          sizes={responsiveSizes}
+          width={lightShaunImport.width}
+          height={lightShaunImport.height}
           alt={t.hero.aria_portrait}
-          widths={[360, 540, 760, 1024, 1440, 2048]}
-          sizes="(max-width: 640px) 380px, (max-width: 1024px) 680px, (max-width: 1440px) 980px, 1440px"
           loading="eager"
           fetchpriority="high"
+          decoding="async"
           class="portrait-img portrait-img--light"
         />
-        <Image
-          src={darkShaun}
+        <!-- Dark Theme Responsive Portrait -->
+        <img
+          src={dark980.src}
+          srcset={darkSrcset}
+          sizes={responsiveSizes}
+          width={darkShaunImport.width}
+          height={darkShaunImport.height}
           alt={t.hero.aria_portrait}
-          widths={[360, 540, 760, 1024, 1440, 2048]}
-          sizes="(max-width: 640px) 380px, (max-width: 1024px) 680px, (max-width: 1440px) 980px, 1440px"
           loading="eager"
           fetchpriority="high"
+          decoding="async"
           class="portrait-img portrait-img--dark"
         />
       </div>
