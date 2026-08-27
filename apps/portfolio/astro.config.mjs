@@ -6,7 +6,9 @@ import cloudflare from '@astrojs/cloudflare';
 export default defineConfig({
   site: 'https://heyshaun.fr',
   output: 'static',
-  adapter: cloudflare(),
+  adapter: cloudflare({
+    imageService: 'custom', // Explicitly disable Cloudflare Images
+  }),
   image: {
     service: sharpImageService(), // Uses Sharp locally during pnpm build
   },
