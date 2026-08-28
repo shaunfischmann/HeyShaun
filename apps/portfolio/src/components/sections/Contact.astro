@@ -1,7 +1,7 @@
 ---
 import type { Lang, Translations } from "../../i18n/utils";
 import { getTranslations } from "../../i18n/utils";
-import { Send } from "@lucide/astro";
+import { Send, Copy, Check } from "@lucide/astro";
 
 export interface Props {
   lang?: Lang;
@@ -10,6 +10,7 @@ export interface Props {
 
 const { lang = "en" } = Astro.props;
 const t = Astro.props.t || getTranslations(lang);
+const contactEmail = import.meta.env.CONTACT_TO_EMAIL;
 
 const socials = [
   {
@@ -28,7 +29,7 @@ const socials = [
 <footer id="contact" class="site-footer" aria-labelledby="contact-heading">
   <div class="container">
     <div class="footer-grid" data-reveal>
-      <!-- Left Column: Heading, Subtitle, Socials -->
+      <!-- Left Column: Section Header & Subtitle -->
       <div class="footer-left">
         <div class="contact-header section-header">
           <p class="section-tag" data-i18n="contact.tag">{t.contact.tag}</p>
@@ -38,110 +39,53 @@ const socials = [
           <p class="contact-sub section-sub" data-i18n="contact.sub">
             {t.contact.sub}
           </p>
-        </div>
 
-        <!-- Social Pills -->
-        <ul class="social-row">
-          {
-            socials.map((s) => (
-              <li>
-                <a
-                  href={s.href}
-                  class="social-pill glass-card"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={s.label}
-                >
-                  <span class="social-icon" set:html={s.svg} />
-                  <span class="social-label">{s.label}</span>
-                </a>
-              </li>
-            ))
-          }
-        </ul>
+          <!-- Social Pills -->
+          <ul class="social-row">
+            {
+              socials.map((s) => (
+                <li>
+                  <a
+                    href={s.href}
+                    class="social-pill btn btn--ghost glass-card"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={s.label}
+                  >
+                    <span class="social-icon" set:html={s.svg} />
+                    <span class="social-label">{s.label}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
       </div>
 
-      <!-- Right Column: Sleek Modern Glass Contact Form -->
+      <!-- Right Column -->
       <div class="footer-right">
-        <form class="sleek-contact-form" id="contact-form" novalidate>
-          <div class="form-row">
-            <div class="field-group">
-              <label for="form-name" data-i18n="contact.label_name">{t.contact.label_name}</label>
-              <div class="input-wrapper">
-                <input
-                  type="text"
-                  id="form-name"
-                  name="name"
-                  required
-                  placeholder={t.contact.placeholder_name}
-                  data-i18n-placeholder="contact.placeholder_name"
-                  class="glass-input"
-                />
-              </div>
-            </div>
-            <div class="field-group">
-              <label for="form-email" data-i18n="contact.label_email">{t.contact.label_email}</label>
-              <div class="input-wrapper">
-                <input
-                  type="email"
-                  id="form-email"
-                  name="email"
-                  required
-                  placeholder={t.contact.placeholder_email}
-                  data-i18n-placeholder="contact.placeholder_email"
-                  class="glass-input"
-                />
-              </div>
-            </div>
-          </div>
+        <!-- Compound Email Pill Container -->
+        <div class="email-btn-wrapper">
+          <a href={`mailto:${contactEmail}`} class="btn btn--ghost email-main-btn">
+            <Send size={18} class="mail-icon" aria-hidden="true" />
+            <span class="email-text" id="email-address-text">{contactEmail}</span>
+          </a>
 
-          <div class="field-group">
-            <label for="form-subject" data-i18n="contact.label_subject">{t.contact.label_subject}</label>
-            <div class="input-wrapper">
-              <input
-                type="text"
-                id="form-subject"
-                name="subject"
-                placeholder={t.contact.placeholder_subject}
-                data-i18n-placeholder="contact.placeholder_subject"
-                class="glass-input"
-              />
-            </div>
-          </div>
-
-          <div class="field-group">
-            <label for="form-message" data-i18n="contact.label_message">{t.contact.label_message}</label>
-            <div class="input-wrapper">
-              <textarea
-                id="form-message"
-                name="message"
-                rows="4"
-                required
-                placeholder={t.contact.placeholder_message}
-                data-i18n-placeholder="contact.placeholder_message"
-                class="glass-input glass-textarea"></textarea>
-            </div>
-          </div>
-
-          <!-- Anti-spam honeypot -->
-          <input
-            type="text"
-            name="_honeypot"
-            class="honeypot-field"
-            tabindex="-1"
-            autocomplete="off"
-            aria-hidden="true"
-          />
-
-          <button type="submit" class="btn btn--primary" id="contact-submit" aria-label="Send message">
-            <span class="submit-text" data-i18n="contact.submit">{t.contact.submit}</span>
-            <Send size={18} stroke-width={2.2} />
+          <!-- Integrated Copy Button -->
+          <button
+            type="button"
+            class="inline-copy-btn"
+            id="copy-email-btn"
+            title={lang === "fr" ? "Copier l'adresse" : "Copy email"}
+            aria-label={lang === "fr" ? "Copier l'adresse e-mail" : "Copy email address"}
+          >
+            <span class="copy-icon" aria-hidden="true"><Copy size={16} /></span>
+            <span class="check-icon" hidden aria-hidden="true"><Check size={16} /></span>
           </button>
 
-          <div class="form-feedback" id="form-feedback" hidden aria-live="polite" data-i18n="contact.success">
-            {t.contact.success}
-          </div>
-        </form>
+          <!-- Screen Reader Feedback -->
+          <span id="copy-status" class="sr-only" aria-live="polite"></span>
+        </div>
       </div>
     </div>
   </div>
@@ -183,8 +127,46 @@ const socials = [
   </div>
 </footer>
 
+<script>
+  const copyBtn = document.getElementById("copy-email-btn");
+  const emailText = document.getElementById("email-address-text")?.textContent;
+  const copyStatus = document.getElementById("copy-status");
+  const copyIcon = copyBtn?.querySelector(".copy-icon") as HTMLElement | null;
+  const checkIcon = copyBtn?.querySelector(".check-icon") as HTMLElement | null;
+  const lang = window.location.pathname.split("/")[1] || "en";
+
+  copyBtn?.addEventListener("click", async (e) => {
+    e.preventDefault();
+
+    if (!emailText) return;
+
+    try {
+      await navigator.clipboard.writeText(emailText);
+
+      if (copyIcon && checkIcon) {
+        copyIcon.hidden = true;
+        checkIcon.hidden = false;
+        copyBtn.classList.add("copied");
+
+        if (copyStatus) {
+          copyStatus.textContent = lang === "fr" ? "Adresse e-mail copiée !" : "Email address copied!";
+        }
+
+        setTimeout(() => {
+          copyIcon.hidden = false;
+          checkIcon.hidden = true;
+          copyBtn.classList.remove("copied");
+          if (copyStatus) copyStatus.textContent = "";
+        }, 2000);
+      }
+    } catch (err) {
+      console.error("Failed to copy email:", err);
+    }
+  });
+</script>
+
 <style>
-  /* ── Footer ── */
+  /* ── Footer Grid ── */
   .site-footer {
     padding-top: clamp(4rem, 8vw, 6rem);
     margin-top: 4rem;
@@ -194,11 +176,11 @@ const socials = [
   .footer-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: clamp(2.5rem, 5vw, 4.5rem);
-    align-items: start;
+    gap: clamp(2rem, 4vw, 3.5rem);
+    align-items: center;
 
     @media (--md) {
-      grid-template-columns: 1.1fr 1fr;
+      grid-template-columns: 1.1fr 0.9fr;
     }
   }
 
@@ -206,181 +188,141 @@ const socials = [
   .footer-left {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
   }
 
   .contact-header {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    margin-bottom: 0;
   }
 
   .site-footer h2 {
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(2rem, 5vw, 3.25rem);
     margin-bottom: 0.25rem;
   }
 
-  .contact-sub {
-    font-family: var(--font-body);
-    color: var(--color-text-muted);
-    font-size: 0.9375rem;
-    line-height: 1.7;
-    max-width: 460px;
+  /* ── Right Column ── */
+  .footer-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.25rem;
+
+    @media (--md) {
+      align-items: flex-end;
+    }
   }
 
-  /* Social Pills */
+  /* ── Compound Ghost Email Button Container ── */
+  .email-btn-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    max-width: 100%;
+    transition: transform var(--transition-spring);
+  }
+
+  .email-btn-wrapper:hover {
+    transform: translateY(-3px);
+  }
+
+  .email-main-btn {
+    padding-right: 3.25rem; /* Reserve space inside pill for the copy button */
+  }
+
+  /* Synchronize main pill hover state */
+  .email-btn-wrapper:hover .email-main-btn {
+    border-color: var(--color-secondary);
+    color: var(--color-secondary);
+    box-shadow: 0 8px 25px rgba(0, 206, 201, 0.2);
+    transform: none; /* Prevent double-translation */
+  }
+
+  .email-main-btn .mail-icon {
+    transition: transform var(--transition-spring);
+  }
+
+  .email-btn-wrapper:hover .email-main-btn .mail-icon {
+    transform: translate(2px, -2px);
+  }
+
+  /* Embedded Copy Button */
+  .inline-copy-btn {
+    position: absolute;
+    right: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 1px;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: var(--radius-full);
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--color-text);
+    cursor: pointer;
+    z-index: 2;
+    transition:
+      color var(--transition-fast),
+      background-color var(--transition-fast),
+      border-color var(--transition-fast);
+  }
+
+  .email-btn-wrapper .inline-copy-btn:hover {
+    color: var(--color-secondary);
+  }
+
+  .inline-copy-btn:hover {
+    background: var(--color-surface-hover);
+    border-color: var(--color-border-hover);
+    color: var(--color-secondary) !important;
+  }
+
+  .inline-copy-btn.copied {
+    color: var(--pastel-mint) !important;
+    background: rgba(167, 243, 208, 0.15);
+    border-color: rgba(167, 243, 208, 0.3);
+  }
+
+  /* Visually Hidden Utility for Screen Readers */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* ── Social Pills ── */
   .social-row {
     display: flex;
+    margin-top: 1rem;
     gap: 0.75rem;
     flex-wrap: wrap;
-    margin-top: 0.5rem;
   }
 
   .social-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
     padding: 0.5rem 1.1rem;
-    border-radius: var(--radius-full);
-    font-family: var(--font-body);
     font-size: 0.8125rem;
     font-weight: 600;
-    color: var(--color-text-muted);
-    text-decoration: none;
     transition:
       color var(--transition-fast),
       transform var(--transition-spring),
-      border-color var(--transition-fast),
-      box-shadow var(--transition-base);
+      border-color var(--transition-fast);
   }
 
   .social-pill:hover {
     color: var(--color-text);
     border-color: var(--color-primary);
     transform: translateY(-3px);
-    box-shadow: 0 8px 24px var(--glow-primary);
   }
 
   .social-icon {
     display: flex;
     align-items: center;
     color: var(--color-primary);
-  }
-
-  /* ── Right Column Contact Form ── */
-  .footer-right {
-    width: 100%;
-  }
-
-  .sleek-contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.125rem;
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-
-    @media (--sm) {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  .field-group {
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-  }
-
-  .field-group label {
-    font-family: var(--font-body);
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--color-text-muted);
-  }
-
-  .input-wrapper {
-    position: relative;
-    width: 100%;
-  }
-
-  #contact-submit {
-    width: 100%;
-  }
-
-  /* Form input */
-  .glass-input {
-    width: 100%;
-    padding: 0.8rem 1rem;
-    border-radius: var(--radius-md);
-    background: var(--glass-bg);
-    backdrop-filter: var(--glass-blur);
-    border: 1px solid var(--glass-border);
-    color: var(--color-text);
-    font-family: var(--font-body);
-    font-size: 0.875rem;
-    outline: none;
-    transition:
-      border-color var(--transition-fast),
-      background-color var(--transition-fast),
-      box-shadow var(--transition-fast);
-  }
-
-  .glass-input::placeholder {
-    color: var(--color-text-faint);
-  }
-
-  .glass-input:hover {
-    border-color: var(--color-primary);
-  }
-
-  .glass-input:focus {
-    border-color: var(--color-primary);
-    background: var(--color-surface);
-    box-shadow: 0 0 0 3px var(--glow-primary);
-  }
-
-  .glass-textarea {
-    resize: vertical;
-    min-height: 100px;
-  }
-
-  .honeypot-field {
-    position: absolute;
-    left: -9999px;
-    top: auto;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    opacity: 0;
-    pointer-events: none;
-    tab-index: -1;
-  }
-
-  /* Feedback message */
-  .form-feedback {
-    padding: 0.875rem 1.25rem;
-    border-radius: var(--radius-md);
-    font-family: var(--font-body);
-    font-size: 0.875rem;
-    font-weight: 500;
-    text-align: center;
-  }
-
-  .form-feedback.success {
-    background: rgba(0, 206, 201, 0.1);
-    border: 1px solid rgba(0, 206, 201, 0.3);
-    color: var(--color-text);
-  }
-
-  .form-feedback.error {
-    background: rgba(239, 68, 68, 0.1);
-    border: 1px solid rgba(239, 68, 68, 0.4);
-    color: #fca5a5;
   }
 
   /* ── Copyright Banner ── */
@@ -392,6 +334,7 @@ const socials = [
   }
 
   .footer-copy {
+    padding: 0 2em;
     font-family: var(--font-body);
     font-size: 0.85rem;
     color: var(--color-text-muted);
@@ -446,7 +389,6 @@ const socials = [
 
   .waves-parallax > use {
     fill: var(--glass-bg);
-    /* @keyframes duration | timing-function | delay | iteration-count | direction | name */
     animation: 35s cubic-bezier(0.55, 0.5, 0.45, 0.5) 0s infinite reverse move-forever;
   }
   .waves-parallax > use:nth-child(1) {
@@ -469,6 +411,7 @@ const socials = [
     animation-delay: -5s;
     animation-duration: 30s;
   }
+
   @keyframes move-forever {
     0% {
       transform: translate3d(-90px, 0, 0);
@@ -478,81 +421,3 @@ const socials = [
     }
   }
 </style>
-
-<script>
-  const form = document.getElementById("contact-form") as HTMLFormElement | null;
-  const feedback = document.getElementById("form-feedback");
-  const submitBtn = document.getElementById("contact-submit") as HTMLButtonElement | null;
-
-  // Derive the current lang from the URL path (e.g. /en/ or /fr/)
-  const lang = window.location.pathname.split("/")[1] || "en";
-
-  // Error messages (bilingual)
-  const errorMsg: Record<string, Record<string, string>> = {
-    en: {
-      missing_fields: "Please fill in all required fields.",
-      invalid_email: "Please enter a valid email address.",
-      server_config: "Server configuration error. Please try again later.",
-      send_failed: "Failed to send your message. Please try again.",
-      network: "Network error. Please check your connection and try again.",
-    },
-    fr: {
-      missing_fields: "Veuillez remplir tous les champs obligatoires.",
-      invalid_email: "Veuillez entrer une adresse e-mail valide.",
-      server_config: "Erreur de configuration serveur. Réessayez plus tard.",
-      send_failed: "Impossible d'envoyer votre message. Veuillez réessayer.",
-      network: "Erreur réseau. Vérifiez votre connexion et réessayez.",
-    },
-  };
-
-  function getError(code: string): string {
-    return errorMsg[lang]?.[code] ?? errorMsg["en"]?.[code] ?? "Something went wrong.";
-  }
-
-  function showFeedback(type: "success" | "error", message: string) {
-    if (!feedback) return;
-    feedback.removeAttribute("hidden");
-    feedback.className = `form-feedback ${type}`;
-    feedback.textContent = message;
-  }
-
-  form?.addEventListener("submit", async (e) => {
-    e.preventDefault();
-    if (!form || !submitBtn) return;
-
-    submitBtn.setAttribute("disabled", "true");
-    const originalText = submitBtn.querySelector(".submit-text");
-    if (originalText) originalText.textContent = lang === "fr" ? "Envoi..." : "Sending...";
-
-    try {
-      const res = await fetch(`/api/contact`, {
-        method: "POST",
-        body: new FormData(form),
-      });
-
-      const json = (await res.json()) as { ok: boolean; error?: string };
-
-      if (json.ok) {
-        submitBtn.classList.add("success");
-        const successText =
-          lang === "fr" ? "Message envoyé ! Je vous répondrai bientôt." : "Message sent! I'll get back to you soon.";
-        showFeedback("success", successText);
-        form.reset();
-
-        setTimeout(() => {
-          submitBtn.classList.remove("success");
-          submitBtn.removeAttribute("disabled");
-          if (originalText) originalText.textContent = lang === "fr" ? "Envoyer" : "Send";
-        }, 3000);
-      } else {
-        showFeedback("error", getError(json.error ?? "send_failed"));
-        submitBtn.removeAttribute("disabled");
-        if (originalText) originalText.textContent = lang === "fr" ? "Envoyer" : "Send";
-      }
-    } catch {
-      showFeedback("error", getError("network"));
-      submitBtn.removeAttribute("disabled");
-      if (originalText) originalText.textContent = lang === "fr" ? "Envoyer" : "Send";
-    }
-  });
-</script>
