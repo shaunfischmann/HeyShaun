@@ -325,8 +325,15 @@ if (isHomepage) {
   }
 
   /* Display only 3 images on mobile for homepage section */
-  .art-grid--homepage .art-item:nth-child(n + 4) {
-    display: none;
+  @media (--mobile-only) {
+    .art-grid--homepage .art-item {
+      display: block !important;
+    }
+
+    /* Masquer tout ce qui dépasse le 3ème élément */
+    .art-grid--homepage .art-item:nth-child(n + 3) {
+      display: none !important;
+    }
   }
 
   /* ── md (768px+): two-column grid ── */

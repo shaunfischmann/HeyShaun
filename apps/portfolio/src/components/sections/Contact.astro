@@ -10,7 +10,7 @@ export interface Props {
 
 const { lang = "en" } = Astro.props;
 const t = Astro.props.t || getTranslations(lang);
-const contactEmail = import.meta.env.CONTACT_TO_EMAIL;
+const contactEmail = import.meta.env.PUBLIC_CONTACT_TO_EMAIL;
 
 const socials = [
   {
