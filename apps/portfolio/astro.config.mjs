@@ -7,7 +7,7 @@ export default defineConfig({
   site: 'https://heyshaun.fr',
   output: 'static',
   adapter: cloudflare({
-    mode: 'directory',
+    mode: 'advanced',
     imageService: 'compile', // Explicitly disable Cloudflare Images
   }),
   image: {
