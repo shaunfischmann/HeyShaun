@@ -14,24 +14,23 @@ export interface Props {
 const { lang = "en" } = Astro.props;
 const t = Astro.props.t || getTranslations(lang);
 
-// ── 1. Build-Time Static Image Generation for Light Mode ──────
-const light380 = await getImage({ src: lightShaunImport, width: 380, format: "webp" });
-const light680 = await getImage({ src: lightShaunImport, width: 680, format: "webp" });
-const light980 = await getImage({ src: lightShaunImport, width: 980, format: "webp" });
-const light1440 = await getImage({ src: lightShaunImport, width: 1440, format: "webp" });
+// ── Build-Time Image Processing ──────────
+const widths = [400, 800, 1600];
 
-// ── 2. Build-Time Static Image Generation for Dark Mode ───────
-const dark380 = await getImage({ src: darkShaunImport, width: 380, format: "webp" });
-const dark680 = await getImage({ src: darkShaunImport, width: 680, format: "webp" });
-const dark980 = await getImage({ src: darkShaunImport, width: 980, format: "webp" });
-const dark1440 = await getImage({ src: darkShaunImport, width: 1440, format: "webp" });
+const lightImage = await getImage({
+  src: lightShaunImport,
+  widths,
+  format: "webp",
+});
 
-// ── 3. Construct Responsive Srcsets ────────────────────────────
-const lightSrcset = `${light380.src} 380w, ${light680.src} 680w, ${light980.src} 980w, ${light1440.src} 1440w`;
-const darkSrcset = `${dark380.src} 380w, ${dark680.src} 680w, ${dark980.src} 980w, ${dark1440.src} 1440w`;
+const darkImage = await getImage({
+  src: darkShaunImport,
+  widths,
+  format: "webp",
+});
 
-// Exact container sizing mapping your CSS media breakpoints
-const responsiveSizes = "(max-width: 47.98em) 86vw, (max-width: 63.98em) 68vw, 980px";
+// Container sizing matching media queries
+const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
 ---
 
 <section id="hero" class="hero" aria-label="Introduction" data-lang={lang}>
@@ -60,8 +59,8 @@ const responsiveSizes = "(max-width: 47.98em) 86vw, (max-width: 63.98em) 68vw, 9
       <div class="portrait-mask">
         <!-- Light Theme Responsive Portrait -->
         <img
-          src={light980.src}
-          srcset={lightSrcset}
+          src={lightImage.src}
+          srcset={lightImage.srcSet.attribute}
           sizes={responsiveSizes}
           width={lightShaunImport.width}
           height={lightShaunImport.height}
@@ -73,8 +72,8 @@ const responsiveSizes = "(max-width: 47.98em) 86vw, (max-width: 63.98em) 68vw, 9
         />
         <!-- Dark Theme Responsive Portrait -->
         <img
-          src={dark980.src}
-          srcset={darkSrcset}
+          src={darkImage.src}
+          srcset={darkImage.srcSet.attribute}
           sizes={responsiveSizes}
           width={darkShaunImport.width}
           height={darkShaunImport.height}
