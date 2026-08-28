@@ -68,7 +68,7 @@ const getSkillText = (key: string, fallback: string) => {
 // Import all SVGs as raw strings at build time to avoid browser mask refetch loops in animation
 const svgRawFiles = import.meta.glob<string>("../../../public/icons/*.svg", {
   query: "?raw",
-  import: "default",
+  ["import"]: "default", // Use bracket notation for reserved keywords
   eager: true,
 });
 

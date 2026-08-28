@@ -7,7 +7,7 @@ export default defineConfig({
   site: 'https://heyshaun.fr',
   output: 'static',
   adapter: cloudflare({
-    imageService: 'custom', // Explicitly disable Cloudflare Images
+    imageService: 'compile', // Explicitly disable Cloudflare Images
   }),
   image: {
     service: sharpImageService(), // Uses Sharp locally during pnpm build
@@ -83,5 +83,5 @@ export default defineConfig({
         !page.endsWith('https://heyshaun.fr/legal-notice/') &&
         !page.endsWith('https://heyshaun.fr/shaun-ai-gallery/'),
     }),
-  ],
+  ]
 });

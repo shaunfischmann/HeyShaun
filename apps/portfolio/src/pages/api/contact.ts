@@ -1,20 +1,20 @@
 export const prerender = false;
-
 import type { APIRoute } from "astro";
 import { Resend } from "resend";
 
-// cloudflare:workers is available in the Cloudflare runtime.
-// In local dev (plain `astro dev`), we fall back to process.env.
-let cfEnv: Record<string, string | undefined> = {};
-try {
-  const m = await import("cloudflare:workers");
-  cfEnv = (m.env as Record<string, string | undefined>) ?? {};
-} catch {
-  // Not running under Cloudflare — use process.env
-  cfEnv = process.env as Record<string, string | undefined>;
-}
+export const POST: APIRoute = async ({ request, locals }) => {
+  // Handle CORS preflight
+  if (request.method === "OPTIONS") {
+    return new Response(null, {
+      status: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "POST, OPTIONS",
+        "Access-Control-Allow-Headers": "Content-Type",
+      },
+    });
+  }
 
-export const POST: APIRoute = async ({ request }) => {
   // Parse form data
   let data: FormData;
   try {
@@ -22,7 +22,10 @@ export const POST: APIRoute = async ({ request }) => {
   } catch {
     return new Response(JSON.stringify({ ok: false, error: "Invalid request" }), {
       status: 400,
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
     });
   }
 
@@ -32,7 +35,10 @@ export const POST: APIRoute = async ({ request }) => {
     // Silently succeed so bots don't know they were blocked
     return new Response(JSON.stringify({ ok: true }), {
       status: 200,
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
     });
   }
 
@@ -45,7 +51,10 @@ export const POST: APIRoute = async ({ request }) => {
   if (!name || !email || !message) {
     return new Response(JSON.stringify({ ok: false, error: "missing_fields" }), {
       status: 422,
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
     });
   }
 
@@ -54,16 +63,24 @@ export const POST: APIRoute = async ({ request }) => {
   if (!emailRegex.test(email)) {
     return new Response(JSON.stringify({ ok: false, error: "invalid_email" }), {
       status: 422,
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
     });
   }
 
-  // Read env vars — cloudflare:workers in production, process.env locally
-  const apiKey = cfEnv["RESEND_API_KEY"] ?? "";
-  const toEmail = cfEnv["CONTACT_TO_EMAIL"] ?? "";
+  // Get environment from Astro context
+  const apiKey = import.meta.env.RESEND_API_KEY;
+  const toEmail = import.meta.env.CONTACT_TO_EMAIL;
+  
+  // Log for debugging
+  console.log("[contact] apiKey exists:", !!apiKey);
+  console.log("[contact] toEmail exists:", !!toEmail);
+  console.log("[contact] All env vars:", Object.keys(import.meta.env));
 
   if (!apiKey || !toEmail) {
-    console.error("[contact] Missing RESEND_API_KEY or CONTACT_TO_EMAIL env vars");
+    console.error("[contact] Missing env vars - apiKey:", !!apiKey, "toEmail:", !!toEmail);
     return new Response(JSON.stringify({ ok: false, error: "server_config" }), {
       status: 500,
       headers: { "Content-Type": "application/json" },
@@ -78,7 +95,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   try {
     const { error } = await resend.emails.send({
-      from: "heyshaun.fr <onboarding@resend.dev>",
+      from: "contact@heyshaun.fr",
       to: [toEmail],
       replyTo: email,
       subject: emailSubject,
@@ -112,19 +129,28 @@ export const POST: APIRoute = async ({ request }) => {
       console.error("[contact] Resend error:", error);
       return new Response(JSON.stringify({ ok: false, error: "send_failed" }), {
         status: 500,
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
       });
     }
 
     return new Response(JSON.stringify({ ok: true }), {
       status: 200,
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
     });
   } catch (err) {
     console.error("[contact] Unexpected error:", err);
     return new Response(JSON.stringify({ ok: false, error: "send_failed" }), {
       status: 500,
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
     });
   }
 };
