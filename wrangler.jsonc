@@ -1,13 +1,7 @@
 {
   "name": "heyshaun-portfolio",
   "compatibility_date": "2026-08-26",
-  "site": {
-    "bucket": "apps/portfolio/dist/client"
-  },
-  "build": {
-    "command": "pnpm turbo run build",
-    "cwd": "."
-  },
+  "pages_build_output_dir": "apps/portfolio/dist",
   "observability": {
     "enabled": true
   }
