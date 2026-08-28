@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "include": ["/api/*", "/*"],
+  "exclude": [
+    "/assets/*",
+    "/_astro/*",
+    "/*.css",
+    "/*.js",
+    "/*.json",
+    "/*.svg",
+    "/*.webp",
+    "/*.jpg",
+    "/*.png",
+    "/*.txt",
+    "/*.xml"
+  ]
+}

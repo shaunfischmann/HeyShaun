@@ -1,7 +1,7 @@
 {
   "name": "heyshaun-portfolio",
   "compatibility_date": "2026-08-26",
-  "pages_build_output_dir": "apps/portfolio/dist",
+  "pages_build_output_dir": "apps/portfolio/dist/client",
   "observability": {
     "enabled": true
   }
