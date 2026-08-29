@@ -322,7 +322,7 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
   .side-menu {
     position: fixed;
     top: 12%;
-    left: clamp(0.7rem, 0.5vw, 0.75rem);
+    left: clamp(1rem, 2vw, 2rem);
     transform: translateY(-12%);
     z-index: 99;
     display: flex;
@@ -348,6 +348,7 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
     align-items: center;
     gap: 0.35rem;
     padding: 0.35rem;
+    font-family: var(--font-heading);
     text-decoration: none;
     background: transparent;
     border: none;
@@ -372,7 +373,6 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
 
   /* Number styling (1., 2., 3., 4.) */
   .nav-num {
-    font-family: var(--font-heading);
     font-size: 0.6rem;
     letter-spacing: 0.04em;
     color: var(--color-text-faint);
