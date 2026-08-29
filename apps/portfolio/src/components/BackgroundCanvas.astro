@@ -188,10 +188,19 @@
     }
 
     private resize = () => {
+      const newVw = window.innerWidth;
+      const newVh = window.innerHeight;
+
+      // On mobile, scrolling down toggles the address bar (small vertical change).
+      // Ignore this to prevent particles resetting or canvas flickering.
+      if (this.isMobile && newVw === this.vw && Math.abs(newVh - this.vh) < 140) {
+        return;
+      }
+
       this.dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       // Cache viewport dims here so animate() never reads layout
-      this.vw = window.innerWidth;
-      this.vh = window.innerHeight;
+      this.vw = newVw;
+      this.vh = newVh;
       this.isMobile = this.vw <= 768;
 
       this.canvas.width = this.vw * this.dpr;

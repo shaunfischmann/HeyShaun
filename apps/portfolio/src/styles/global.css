@@ -182,7 +182,8 @@
     line-height: 1.75;
     color: var(--color-text);
     background-color: var(--color-bg);
-    min-height: 100dvh;
+    min-height: 100vh;
+    min-height: 100svh;
     transition: background-color var(--transition-base), color var(--transition-base);
   }
 

@@ -118,14 +118,15 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
   /* ── Hero Section ───────────────────────────────────────────── */
   .hero {
     position: relative;
-    min-height: 100dvh;
-    height: 100dvh;
-    max-height: 100dvh;
+    min-height: 100vh;
+    min-height: 100svh;
+    height: 100vh;
+    height: 100svh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding-top: clamp(1.5rem, 3vh, 2.5rem);
-    padding-bottom: clamp(1.5rem, 3vh, 2.5rem);
+    padding-top: clamp(1.5rem, 3svh, 2.5rem);
+    padding-bottom: clamp(1.5rem, 3svh, 2.5rem);
     overflow: hidden;
     background: transparent;
   }
@@ -144,7 +145,7 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
     user-select: none;
 
     @media (--mobile-only) {
-      min-height: clamp(280px, 45vh, 420px);
+      min-height: clamp(280px, 45svh, 420px);
       margin-bottom: 0.5rem;
     }
   }
@@ -176,7 +177,7 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
 
   .hero-backdrop-greeting {
     font-family: var(--font-script);
-    font-size: clamp(1rem, min(4vw, 6vh), 2.5rem);
+    font-size: clamp(1rem, min(4vw, 6svh), 2.5rem);
     font-weight: 700;
     color: var(--color-secondary);
     align-self: flex-start;
@@ -188,7 +189,7 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
     display: inline-block;
 
     @media (--mobile-only) {
-      font-size: clamp(0.85rem, min(4vw, 3vh), 1.25rem);
+      font-size: clamp(0.85rem, min(4vw, 3svh), 1.25rem);
       margin-left: clamp(5%, 8vw, 12%);
       margin-bottom: 0rem;
     }
@@ -242,7 +243,7 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
     z-index: 2;
     width: clamp(380px, 68vw, 980px);
     height: 100%;
-    max-height: clamp(380px, 63vh, 760px);
+    max-height: clamp(380px, 63svh, 760px);
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -251,7 +252,7 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
 
     @media (--mobile-only) {
       width: clamp(280px, 86vw, 460px);
-      height: clamp(300px, 46vh, 440px);
+      height: clamp(300px, 46svh, 440px);
       margin-left: clamp(0.5rem, 2vw, 1.5rem);
     }
   }
