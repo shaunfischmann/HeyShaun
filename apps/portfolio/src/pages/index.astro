@@ -50,6 +50,16 @@ const ogImage = `${site}/og-image.jpg`;
     <link rel="alternate" hreflang="x-default" href="https://heyshaun.fr/en/" />
   </head>
   <body>
+    <main style="font-family: system-ui, sans-serif; padding: 2rem; text-align: center;">
+      <h1>Shaun Fischmann — Partnership Manager & Web Developer</h1>
+      <p>
+        <a href="/en/">English</a> | <a href="/fr/">Français</a>
+      </p>
+      <p style="font-size: 0.875rem; color: #666;">
+        <a href="/en/">Click here if you are not redirected automatically.</a>
+      </p>
+    </main>
+
     <script is:inline>
       // Detect browser language preference; redirect to /fr/ for French browsers
       const prefersFrench = (navigator.languages || [navigator.language]).some(

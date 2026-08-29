@@ -41,6 +41,16 @@ const ogImage = `${site}/og-image.jpg`;
     <link rel="alternate" hreflang="x-default" href="https://heyshaun.fr/en/legal-notice" />
   </head>
   <body>
+    <main style="font-family: system-ui, sans-serif; padding: 2rem; text-align: center;">
+      <h1>Legal Notice — Shaun Fischmann — Partnership Manager & Web Developer</h1>
+      <p>
+        <a href="/en/legal-notice">English</a> | <a href="/fr/legal-notice">Français</a>
+      </p>
+      <p style="font-size: 0.875rem; color: #666;">
+        <a href="/en/legal-notice">Click here if you are not redirected automatically.</a>
+      </p>
+    </main>
+
     <script is:inline>
       const prefersFrench = (navigator.languages || [navigator.language]).some(
         (l) => l && l.toString().startsWith("fr"),
