@@ -1,5 +1,9 @@
 ---
 // Root redirect for /legal-notice — detects browser language and sends to /en/legal-notice or /fr/legal-notice
+const title = "Legal Notice — Shaun Fischmann";
+const description = "Legal notice, host information, copyright, and terms for heyshaun.fr.";
+const site = "https://heyshaun.fr";
+const ogImage = `${site}/og-image.jpg`;
 ---
 
 <!doctype html>
@@ -7,10 +11,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Legal Notice — Shaun Fischmann</title>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://heyshaun.fr/en/legal-notice" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={`${site}/legal-notice`} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="Shaun Fischmann" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
     <!-- No-JS fallback: redirect to /en/legal-notice -->
     <meta http-equiv="refresh" content="0;url=/en/legal-notice" />
-    <link rel="canonical" href="https://heyshaun.fr/en/legal-notice" />
     <!-- hreflang for crawlers -->
     <link rel="alternate" hreflang="en" href="https://heyshaun.fr/en/legal-notice" />
     <link rel="alternate" hreflang="fr" href="https://heyshaun.fr/fr/legal-notice" />

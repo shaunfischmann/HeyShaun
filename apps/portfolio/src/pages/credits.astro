@@ -1,5 +1,9 @@
 ---
 // Root redirect for /credits — detects browser language and sends to /en/credits or /fr/credits
+const title = "Credits — Shaun Fischmann";
+const description = "Open-source packages, libraries, design assets, and fonts that power this portfolio.";
+const site = "https://heyshaun.fr";
+const ogImage = `${site}/og-image.jpg`;
 ---
 
 <!doctype html>
@@ -7,10 +11,30 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Credits — Shaun Fischmann</title>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://heyshaun.fr/en/credits" />
+
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={`${site}/credits`} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:site_name" content="Shaun Fischmann" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
     <!-- No-JS fallback: redirect to /en/credits -->
     <meta http-equiv="refresh" content="0;url=/en/credits" />
-    <link rel="canonical" href="https://heyshaun.fr/en/credits" />
     <!-- hreflang for crawlers -->
     <link rel="alternate" hreflang="en" href="https://heyshaun.fr/en/credits" />
     <link rel="alternate" hreflang="fr" href="https://heyshaun.fr/fr/credits" />

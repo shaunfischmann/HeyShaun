@@ -1,5 +1,10 @@
 ---
 // Root redirect — detects browser language and sends to /en/ or /fr/
+const title = "Shaun Fischmann — Partnership Manager & Web Developer";
+const description =
+  "Technical Partnership Manager and Senior Web Developer with 12+ years of experience in Proptech, enterprise real estate CRMs, API integrations, and SQL architecture.";
+const site = "https://heyshaun.fr";
+const ogImage = `${site}/og-image.jpg`;
 ---
 
 <!doctype html>
@@ -7,10 +12,38 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shaun Fischmann</title>
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Shaun Fischmann" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://heyshaun.fr/en/" />
+
+    <!-- Open Graph / Facebook / LinkedIn / Discord / WhatsApp -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={site} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="fr_FR" />
+    <meta property="og:site_name" content="Shaun Fischmann" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={site} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Favicon & Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
     <!-- No-JS fallback: redirect to /en/ -->
     <meta http-equiv="refresh" content="0;url=/en/" />
-    <link rel="canonical" href="https://heyshaun.fr/en/" />
     <!-- hreflang for crawlers -->
     <link rel="alternate" hreflang="en" href="https://heyshaun.fr/en/" />
     <link rel="alternate" hreflang="fr" href="https://heyshaun.fr/fr/" />
