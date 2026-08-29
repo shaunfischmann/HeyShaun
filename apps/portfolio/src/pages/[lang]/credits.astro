@@ -111,22 +111,17 @@ const t = getTranslations(lang);
 
   .legal-card {
     padding: 1.5rem;
-    border-radius: var(--radius-lg);
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
     transition:
       transform var(--transition-base),
-      border-color var(--transition-base);
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
 
     @media (--sm) {
-      padding: 2rem;
+      padding: clamp(1.5rem, 3vw, 2rem) clamp(1.25rem, 2.5vw, 1.75rem);
     }
-  }
-
-  .legal-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--color-border-hover);
   }
 
   .card-icon-header {
@@ -162,7 +157,6 @@ const t = getTranslations(lang);
     line-height: 1.7;
   }
 
-  .card-content :global(a.legal-link),
   .card-content :global(a) {
     color: var(--color-secondary);
     text-decoration: underline;

@@ -291,7 +291,12 @@ if (isHomepage) {
     font-weight: 600;
     font-size: 0.85rem;
     text-decoration: none;
-    transition: all var(--transition-fast);
+    transition:
+      color var(--transition-fast),
+      background var(--transition-fast),
+      border-color var(--transition-fast),
+      transform var(--transition-fast),
+      box-shadow var(--transition-fast);
     vertical-align: middle;
   }
 
@@ -648,7 +653,10 @@ if (isHomepage) {
     justify-content: center;
     cursor: pointer;
     color: var(--color-text-muted);
-    transition: all var(--transition-fast);
+    transition:
+      color var(--transition-fast),
+      background var(--transition-fast),
+      transform var(--transition-fast);
     z-index: 10;
   }
 
@@ -834,7 +842,11 @@ if (isHomepage) {
     justify-content: center;
     cursor: pointer;
     color: var(--color-text-muted);
-    transition: all var(--transition-base);
+    transition:
+      color var(--transition-base),
+      background var(--transition-base),
+      border-color var(--transition-base),
+      transform var(--transition-base);
   }
 
   .lb-nav-btn:hover {

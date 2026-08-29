@@ -652,7 +652,11 @@
     border: 1px solid var(--glass-border);
     backdrop-filter: var(--glass-blur);
     color: var(--color-text-muted);
-    transition: all var(--transition-base);
+    transition:
+      color var(--transition-base),
+      background-color var(--transition-base),
+      border-color var(--transition-base),
+      box-shadow var(--transition-base);
     box-shadow: var(--neu-shadow-outset);
   }
 
@@ -674,22 +678,12 @@
   100% { background-position: 0% 50%; }
 }
 
-@keyframes float-y {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-8px); }
-}
-
-@keyframes rotate-slow {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
-}
-
 @keyframes shimmer-sweep {
   0%   { background-position: -200% center; }
   100% { background-position:  200% center; }
 }
 
-@keyframes typing-cursor {
+@keyframes cursor-blink {
   0%, 100% { opacity: 1; }
   50%       { opacity: 0; }
 }

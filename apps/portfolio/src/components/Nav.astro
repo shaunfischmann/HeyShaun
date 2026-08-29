@@ -205,7 +205,11 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
     color: var(--color-text-muted);
     text-decoration: none;
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition:
+      color var(--transition-fast),
+      background-color var(--transition-fast),
+      box-shadow var(--transition-fast),
+      transform var(--transition-fast);
   }
 
   .lang-pill__btn.active {
@@ -238,7 +242,10 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
     box-shadow: inset 0 0 0 1px var(--color-border);
     color: var(--color-text-muted);
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition:
+      color var(--transition-fast),
+      background var(--transition-fast),
+      box-shadow var(--transition-fast);
   }
 
   .theme-btn:hover {

@@ -563,7 +563,9 @@ const events = eventsData as TimelineEvent[];
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     color: var(--color-text-muted);
-    transition: all var(--transition-fast);
+    transition:
+      color var(--transition-fast),
+      border-color var(--transition-fast);
   }
 
   .card-links {
@@ -584,7 +586,10 @@ const events = eventsData as TimelineEvent[];
     border-radius: var(--radius-full);
     border: 1px solid transparent;
     text-decoration: none;
-    transition: all var(--transition-fast);
+    transition:
+      color var(--transition-fast),
+      border-color var(--transition-fast),
+      background-color var(--transition-fast);
     white-space: nowrap;
   }
 
