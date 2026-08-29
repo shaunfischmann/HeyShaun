@@ -411,23 +411,18 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
   }
 
   .hero-heading {
-    font-family: var(--font-body);
+    font-family: var(--font-heading);
     font-size: clamp(1.1rem, 1.5vw, 1.5rem);
     font-weight: 700;
     color: var(--color-primary);
   }
 
   .hero-bio-text {
-    font-family: var(--font-body);
+    font-family: var(--font-heading);
     font-size: clamp(0.9rem, 1.2vw, 1.05rem);
-    color: var(--color-text-muted);
+    color: var(--color-text);
     max-width: 640px;
     margin: 0;
-  }
-
-  .hero-bio-text :global(strong) {
-    color: var(--color-text);
-    font-weight: 600;
   }
 
   .hero-actions {
@@ -459,7 +454,7 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
   }
 
   .hero-typing-text {
-    color: var(--color-text);
+    color: var(--color-text-muted);
   }
 
   .hero-typing-cursor {

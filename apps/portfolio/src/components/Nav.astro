@@ -14,15 +14,22 @@ const t = getTranslations(lang);
 
 // Define navigation links: use direct `#id` on the home page for native smooth scrolling
 const navLinks = [
-  { href: isHomepage ? "#about" : `/${lang}/#about`, label: t.nav.about, id: "about", i18n: "nav.about" },
+  { href: isHomepage ? "#about" : `/${lang}/#about`, label: t.nav.about, id: "about", i18n: "nav.about", num: "01" },
   {
     href: isHomepage ? "#timeline" : `/${lang}/#timeline`,
     label: t.nav.timeline,
     id: "timeline",
     i18n: "nav.timeline",
+    num: "02",
   },
-  { href: isHomepage ? "#art" : `/${lang}/#art`, label: t.nav.art, id: "art", i18n: "nav.art" },
-  { href: isHomepage ? "#contact" : `/${lang}/#contact`, label: t.nav.contact, id: "contact", i18n: "nav.contact" },
+  { href: isHomepage ? "#art" : `/${lang}/#art`, label: t.nav.art, id: "art", i18n: "nav.art", num: "03" },
+  {
+    href: isHomepage ? "#contact" : `/${lang}/#contact`,
+    label: t.nav.contact,
+    id: "contact",
+    i18n: "nav.contact",
+    num: "04",
+  },
 ];
 
 const enTarget = `/en${currentPath === "/" ? "/" : currentPath}`;
@@ -82,14 +89,17 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
   <!-- Minimalist Left Side Navigation -->
   {
     isHomepage && (
-      <aside class="side-menu glass-menu">
+      <aside class="side-menu" aria-label="Section navigation">
         <ul class="nav-list" role="list">
           {navLinks.map((link, index) => {
             return (
               <li>
                 <a href={link.href} class={`nav-item ${index === 0 ? "active" : ""}`} data-section={link.id}>
-                  <span class="nav-text">
-                    <span data-i18n={link.i18n}>{link.label}</span>
+                  <span class="nav-num" aria-hidden="true">
+                    {link.num}
+                  </span>
+                  <span class="nav-label" data-i18n={link.i18n}>
+                    {link.label}
                   </span>
                 </a>
               </li>
@@ -130,14 +140,17 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
 
   <!-- Mobile Drawer -->
   <div id="mobile-menu" class="mobile-menu" hidden>
-    <ul class="nav-list" role="list">
+    <ul class="nav-list mobile-nav-list" role="list">
       {
         navLinks.map((link, index) => {
           return (
             <li>
               <a href={link.href} class={`nav-item mobile-item ${index === 0 ? "active" : ""}`} data-section={link.id}>
-                <span class="nav-text">
-                  <span data-i18n={link.i18n}>{link.label}</span>
+                <span class="nav-num" aria-hidden="true">
+                  {link.num}
+                </span>
+                <span class="nav-label" data-i18n={link.i18n}>
+                  {link.label}
                 </span>
               </a>
             </li>
@@ -183,7 +196,7 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
     justify-content: center;
     padding: 0.375rem 0.75rem;
     border-radius: var(--radius-full);
-    font-family: var(--font-body);
+    font-family: var(--font-heading);
     font-size: 0.75rem;
     font-weight: 600;
     letter-spacing: 0.04em;
@@ -298,21 +311,20 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
     opacity: 1;
   }
 
-  /* ── Left Side Navigation Bar ── */
+  /* ── Minimalist Left Side Navigation Bar ── */
   .side-menu {
     position: fixed;
-    top: 50%;
-    left: clamp(1rem, 2.5vw, 2.25rem);
-    transform: translateY(-50%);
+    top: 12%;
+    left: clamp(0.7rem, 0.5vw, 0.75rem);
+    transform: translateY(-12%);
     z-index: 99;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem;
-    padding: 1.25rem 1rem 1.25rem 0;
+    padding: 0;
+    background: transparent;
     transition:
       transform var(--transition-base),
-      opacity var(--transition-base),
-      mask-position var(--transition-base);
+      opacity var(--transition-base);
   }
 
   .nav-list {
@@ -321,62 +333,86 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: 0.35rem;
+    gap: 0.7rem;
   }
 
   .nav-item {
     display: flex;
     align-items: center;
-    gap: 0.625rem;
-    padding: 0.4rem 0.625rem;
-    border-radius: var(--radius-sm);
+    gap: 0.35rem;
+    padding: 0.35rem;
     text-decoration: none;
-    color: var(--color-text-muted);
-    font-size: clamp(0.9rem, 1.1vw, 1.05rem);
-    font-weight: 500;
-    border-left: 2px solid transparent;
+    background: transparent;
+    border: none;
+    cursor: pointer;
     transition:
       color var(--transition-fast),
-      border-color var(--transition-fast),
-      background-color var(--transition-fast),
       transform var(--transition-fast);
+    text-shadow:
+      0 1px 4px rgba(0, 0, 0, 0.8),
+      0 0 8px rgba(0, 0, 0, 0.6);
   }
 
-  .nav-text {
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
+  :global([data-theme="dark"]) .nav-item {
+    text-shadow:
+      0 1px 6px rgba(0, 0, 0, 0.95),
+      0 0 12px rgba(0, 0, 0, 0.85);
   }
 
-  .nav-icon {
-    opacity: 0.6;
+  :global([data-theme="light"]) .nav-item {
+    text-shadow:
+      0 1px 4px rgba(255, 255, 255, 0.95),
+      0 0 8px rgba(255, 255, 255, 0.9);
+  }
+
+  /* Number styling (1., 2., 3., 4.) */
+  .nav-num {
+    font-family: var(--font-heading);
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
+    color: var(--color-text-faint);
     transition:
-      opacity var(--transition-fast),
-      stroke var(--transition-fast);
+      color var(--transition-fast),
+      font-weight var(--transition-fast);
     flex-shrink: 0;
   }
 
+  /* Label styling */
+  .nav-label {
+    font-size: clamp(0.85rem, 0.95vw, 0.95rem);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--color-text-muted);
+    transition:
+      color var(--transition-fast),
+      font-weight var(--transition-fast);
+  }
+
+  /* Hover State */
   .nav-item:hover {
+    transform: translateX(3px);
+  }
+
+  .nav-item:hover .nav-num {
+    color: var(--color-secondary);
+  }
+
+  .nav-item:hover .nav-label {
     color: var(--color-text);
-    background: var(--color-surface-hover);
-    transform: translateX(2px);
   }
 
-  .nav-item:hover .nav-icon {
-    opacity: 1;
-    stroke: var(--color-primary);
-  }
-
+  /* Active State */
   .nav-item.active {
-    color: var(--color-text);
-    border-left-color: var(--color-primary);
-    background: var(--color-surface-hover);
-    font-weight: 600;
+    transform: translateX(4px);
   }
 
-  .nav-item.active .nav-icon {
-    opacity: 1;
-    stroke: var(--color-primary);
+  .nav-item.active .nav-num {
+    color: var(--color-secondary);
+  }
+
+  .nav-item.active .nav-label {
+    color: var(--color-text);
+    font-weight: 600;
   }
 
   /* Mobile / Tablet Bar */
@@ -454,7 +490,7 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
     font-weight: 500;
     color: var(--color-text);
     text-decoration: none;
-    font-family: var(--font-body);
+    font-family: var(--font-heading);
   }
 
   /* ── Nav Visibility ────────────────────────────
@@ -503,7 +539,7 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
   .is-homepage .side-menu {
     opacity: 0;
     pointer-events: none;
-    transform: translateY(-50%) translateX(-20px);
+    transform: translateX(-20px);
     transition:
       opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
       transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
@@ -528,7 +564,7 @@ const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
   .is-homepage.scrolled-past-hero .side-menu {
     opacity: 1;
     pointer-events: auto;
-    transform: translateY(-50%) translateX(0);
+    transform: translateX(0);
   }
 
   .is-homepage.scrolled-past-hero .mobile-bar {
