@@ -91,6 +91,7 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
   <div class="container">
     <div class="hero-footer" data-reveal>
       <div class="hero-bio">
+        <h1 class="hero-heading" data-i18n="hero.title" set:html={t.hero.title} />
         <p class="hero-bio-text" data-i18n="hero.subtitle" set:html={t.hero.subtitle} />
         <div class="hero-typing" aria-hidden="true">
           <span class="hero-typing-prefix">&gt;</span>
@@ -127,43 +128,6 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
     padding-bottom: clamp(1.5rem, 3vh, 2.5rem);
     overflow: hidden;
     background: transparent;
-  }
-
-  /* ── Typing ────────────────────────────────────────────────── */
-  .hero-typing {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    color: var(--color-text);
-    font-family: var(--font-code);
-    font-size: clamp(0.6rem, 0.75vw, 0.8rem);
-    min-height: 1.5rem;
-  }
-
-  .hero-typing-prefix {
-    color: var(--color-primary);
-  }
-
-  .hero-typing-text {
-    color: var(--color-secondary);
-  }
-
-  .hero-typing-cursor {
-    display: inline-block;
-    width: 6px;
-    height: 1.1em;
-    background: var(--color-primary);
-    animation: cursor-blink 0.9s step-end infinite;
-  }
-
-  @keyframes cursor-blink {
-    0%,
-    100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0;
-    }
   }
 
   /* ── Stage ──────────────────────────────────────────────────── */
@@ -446,6 +410,13 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
     text-align: left;
   }
 
+  .hero-heading {
+    font-family: var(--font-body);
+    font-size: clamp(1.1rem, 1.5vw, 1.5rem);
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
   .hero-bio-text {
     font-family: var(--font-body);
     font-size: clamp(0.9rem, 1.2vw, 1.05rem);
@@ -469,6 +440,43 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
 
     @media (--mobile-only) {
       flex-direction: column;
+    }
+  }
+
+  /* ── Typing ────────────────────────────────────────────────── */
+  .hero-typing {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-text);
+    font-family: var(--font-code);
+    font-size: clamp(0.6rem, 0.75vw, 0.8rem);
+    min-height: 1.5rem;
+  }
+
+  .hero-typing-prefix {
+    color: var(--color-secondary);
+  }
+
+  .hero-typing-text {
+    color: var(--color-text);
+  }
+
+  .hero-typing-cursor {
+    display: inline-block;
+    width: 6px;
+    height: 1.1em;
+    background: var(--color-secondary);
+    animation: cursor-blink 0.9s step-end infinite;
+  }
+
+  @keyframes cursor-blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0;
     }
   }
 

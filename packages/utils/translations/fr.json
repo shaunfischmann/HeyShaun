@@ -1,11 +1,10 @@
 {
   "seo": {
     "title": "Shaun Fischmann — Partnership Manager & Développeur Web",
-    "description": "Partnership Manager Technique et Développeur Web Senior avec plus de 12 ans d'expérience en PropTech, CRM immobilier d'entreprise, intégrations API et architecture SQL. Basé en France (Nice, Cannes, Monaco), à concevoir des applications web évolutives et à explorer l'IA générative.",
+    "description": "Partnership Manager Technique & Dév Web Senior avec 12+ ans d'exp. en PropTech, CRMs & intégrations API. Basé en France, conception web et exploration de l'IA.",
     "gallery_title": "Shaun.AI — Galerie IA | Shaun Fischmann",
-    "gallery_description": "Galerie d'œuvres générées par IA par Shaun.ai — AI-generated, human-curated content - Explorez des esthétiques surréalistes, des univers fantastiques et des concepts amusants."
+    "gallery_description": "Galerie d'œuvres IA par Shaun.ai — AI-generated, human-curated content - Explorez des esthétiques surréalistes, des univers fantastiques, des concepts amusants."
   },
-
   "nav": {
     "home": "Accueil",
     "about": "À propos",
@@ -17,6 +16,7 @@
     "greeting": "Hey, je suis",
     "name1": "Shaun",
     "name2": "Fischmann",
+    "title": "Partnership Manager Technique & Développeur Web",
     "subtitle": "Spécialisé en <strong>plateformes immobilières</strong>, applications web <strong>PHP</strong>, <strong>intégrations API</strong> et <strong>architecture CRM</strong> d'entreprise. Passionné par l'<strong>IA générative</strong> et les expériences numériques <strong>créatives</strong>.",
     "cta_contact": "Me Contacter",
     "cta_gallery": "Explorer la Galerie",

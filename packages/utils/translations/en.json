@@ -1,11 +1,10 @@
 {
   "seo": {
     "title": "Shaun Fischmann — Partnership Manager & Web Developer",
-    "description": "Technical Partnership Manager and Senior Web Developer with 12+ years of experience in Proptech, enterprise real estate CRMs, API integrations, and SQL architecture. Based in France (Nice, Cannes, Monaco), building scalable web apps and exploring generative AI.",
+    "description": "Technical Partnership Manager & Senior Web Dev with 12+ yrs in PropTech, CRMs & API integrations. Based in France, building scalable web apps & exploring AI.",
     "gallery_title": "Shaun.AI — AI Gallery | Shaun Fischmann",
     "gallery_description": "AI art gallery by Shaun.ai — AI generated, human curated content - Explore surreal aesthetics, fantasy worlds and funny concepts."
   },
-
   "nav": {
     "home": "Home",
     "about": "About me",
@@ -17,6 +16,7 @@
     "greeting": "Hey, I'm",
     "name1": "Shaun",
     "name2": "Fischmann",
+    "title": "Technical Partnership Manager & Web Developer",
     "subtitle": "Specializing in <strong>real estate platforms</strong>, <strong>PHP</strong> web applications, <strong>API integrations</strong> & enterprise <strong>CRM architecture</strong>. Passionate about <strong>generative AI</strong> and <strong>creative</strong> digital experiences.",
     "cta_contact": "Connect With Me",
     "cta_gallery": "Explore Gallery",
