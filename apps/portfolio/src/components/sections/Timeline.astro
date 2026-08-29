@@ -441,8 +441,27 @@ const events = eventsData as TimelineEvent[];
     color: var(--pastel-lavender, #c8c0ff);
   }
 
+  .timeline-node {
+    transition:
+      transform var(--transition-spring),
+      box-shadow var(--transition-base),
+      border-color var(--transition-base);
+  }
+
   .timeline-item:hover .timeline-node {
-    transform: translate(-50%, -50%) scale(1.12);
+    transform: translate(-50%, -50%) scale(1.18);
+  }
+
+  .theme-work.timeline-item:hover .timeline-node {
+    box-shadow:
+      0 0 22px rgba(0, 206, 201, 0.65),
+      var(--neu-shadow-outset);
+  }
+
+  .theme-milestone.timeline-item:hover .timeline-node {
+    box-shadow:
+      0 0 22px rgba(108, 92, 231, 0.7),
+      var(--neu-shadow-outset);
   }
 
   /* ── Compact & Refined Card Design ── */

@@ -169,9 +169,37 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
     max-width: 100vw;
     container-type: inline-size;
     transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: heroBackdropEntrance 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
 
     @media (--mobile-only) {
       top: 20%;
+      animation: heroBackdropEntranceMobile 1.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+  }
+
+  @keyframes heroBackdropEntrance {
+    0% {
+      opacity: 0;
+      filter: blur(14px);
+      transform: translate(-50%, -46%) scale(0.94);
+    }
+    100% {
+      opacity: 1;
+      filter: blur(0px);
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+
+  @keyframes heroBackdropEntranceMobile {
+    0% {
+      opacity: 0;
+      filter: blur(14px);
+      transform: translate(-50%, -18%) scale(0.94);
+    }
+    100% {
+      opacity: 1;
+      filter: blur(0px);
+      transform: translate(-50%, -20%) scale(1);
     }
   }
 
@@ -187,11 +215,25 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
     text-shadow: 0 0 20px rgba(0, 206, 201, 0.35);
     z-index: 2;
     display: inline-block;
+    animation: heroGreetingEntrance 1.1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
 
     @media (--mobile-only) {
       font-size: clamp(0.85rem, min(4vw, 3svh), 1.25rem);
       margin-left: clamp(5%, 8vw, 12%);
       margin-bottom: 0rem;
+    }
+  }
+
+  @keyframes heroGreetingEntrance {
+    0% {
+      opacity: 0;
+      filter: blur(8px);
+      transform: rotate(-6deg) translateY(140%) scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      filter: blur(0px);
+      transform: rotate(-6deg) translateY(100%) scale(1);
     }
   }
 
@@ -249,11 +291,25 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
     justify-content: center;
     margin-left: clamp(4rem, 15vw, 12rem);
     transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: heroPortraitEntrance 1.35s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
 
     @media (--mobile-only) {
       width: clamp(280px, 86vw, 460px);
       height: clamp(300px, 46svh, 440px);
       margin-left: clamp(0.5rem, 2vw, 1.5rem);
+    }
+  }
+
+  @keyframes heroPortraitEntrance {
+    0% {
+      opacity: 0;
+      filter: blur(10px);
+      transform: translateY(32px) scale(0.96);
+    }
+    100% {
+      opacity: 1;
+      filter: blur(0px);
+      transform: translateY(0) scale(1);
     }
   }
 
@@ -297,9 +353,21 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
     inset: -35px;
     z-index: 1;
     pointer-events: none;
+    animation: heroOrbsEntrance 1.6s ease-out 0.4s both;
 
     @media (--mobile-only) {
       display: none;
+    }
+  }
+
+  @keyframes heroOrbsEntrance {
+    0% {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
     }
   }
 
@@ -439,6 +507,18 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
     }
   }
 
+  .hero-actions .btn svg {
+    transition: transform var(--transition-spring);
+  }
+
+  #hero-contact-btn:hover svg {
+    transform: translate(3px, -3px);
+  }
+
+  #hero-art-btn:hover svg {
+    transform: rotate(-12deg) scale(1.1);
+  }
+
   /* ── Typing ────────────────────────────────────────────────── */
   .hero-typing {
     display: flex;
@@ -463,6 +543,7 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
     width: 6px;
     height: 1.1em;
     background: var(--color-secondary);
+    box-shadow: 0 0 8px var(--color-secondary);
     animation: cursor-blink 0.9s step-end infinite;
   }
 
@@ -479,7 +560,12 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
   /* ── Reduced Motion ─────────────────────────────────────────── */
   @media (prefers-reduced-motion: reduce) {
     .hero-backdrop,
-    .portrait {
+    .hero-backdrop-greeting,
+    .portrait,
+    .portrait-orbs {
+      animation: none !important;
+      opacity: 1 !important;
+      filter: none !important;
       transform: none !important;
     }
   }

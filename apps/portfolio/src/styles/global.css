@@ -459,12 +459,32 @@
 
   /* Dark default: white pill */
   .btn--primary {
+    position: relative;
+    overflow: hidden;
     background: #ffffff;
     color: #090a0b;
     border: 1px solid rgba(255, 255, 255, 0.85);
     box-shadow:
       0 4px 20px rgba(255, 255, 255, 0.15),
       0 10px 30px rgba(0, 0, 0, 0.35);
+  }
+
+  .btn--primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      var(--glow-secondary),
+      transparent
+    );
+    transform: skewX(-20deg);
+    transition: left 0.65s ease;
+    pointer-events: none;
   }
 
   /* Light theme: inverted dark pill */
@@ -475,11 +495,24 @@
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
   }
 
+  [data-theme="light"] .btn--primary::before {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent
+    );
+  }
+
   .btn--primary:hover {
     transform: translateY(-3px) scale(1.02);
     box-shadow:
       0 8px 25px rgba(255, 255, 255, 0.3),
       0 15px 35px rgba(108, 92, 231, 0.3);
+  }
+
+  .btn--primary:hover::before {
+    left: 150%;
   }
 
   .btn--ghost {
@@ -591,6 +624,14 @@
     height: 3px;
     border-radius: 3px;
     background: var(--gradient-primary);
+    transition:
+      width var(--transition-spring),
+      box-shadow var(--transition-base);
+  }
+
+  .section-tag:hover::before {
+    width: clamp(1.75rem, 2.5vw, 2.2rem);
+    box-shadow: 0 0 10px var(--glow-secondary);
   }
 
   /* Standardized Filter Bar & Buttons */
