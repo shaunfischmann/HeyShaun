@@ -14,8 +14,6 @@
   },
   "hero": {
     "greeting": "Hey, je suis",
-    "name1": "Shaun",
-    "name2": "Fischmann",
     "title": "Partnership Manager Technique & Développeur Web",
     "subtitle": "Spécialisé en <strong>plateformes immobilières</strong>, applications web <strong>PHP</strong>, <strong>intégrations API</strong> et <strong>architecture CRM</strong> d'entreprise. Passionné par l'<strong>IA générative</strong> et les expériences numériques <strong>créatives</strong>.",
     "cta_contact": "Me Contacter",
@@ -120,17 +118,7 @@
   "contact": {
     "tag": "Restons en Contact",
     "heading": "Coucou !",
-    "sub": "Que vous ayez un projet en tête ou que vous souhaitiez discuter de développement web, de Proptech ou d'IA, n'hésitez pas à me suivre ou à m'envoyer un message.",
-    "label_name": "Nom",
-    "placeholder_name": "Votre Nom",
-    "label_email": "Email",
-    "placeholder_email": "votre.email@exemple.com",
-    "label_subject": "Sujet",
-    "placeholder_subject": "Proposition de projet / Bonjour",
-    "label_message": "Message",
-    "placeholder_message": "Parlez-moi de votre projet ou envoyez-moi un message...",
-    "submit": "Envoyer le Message",
-    "success": "Merci ! Votre message a bien été reçu. Je vous répondrai rapidement."
+    "sub": "Que vous ayez un projet en tête ou que vous souhaitiez discuter de développement web, de Proptech ou d'IA, n'hésitez pas à me suivre ou à m'envoyer un message."
   },
   "footer": {
     "built": "Fait avec ❤️",
@@ -157,13 +145,13 @@
     "sub": "Informations légales obligatoires pour un site personnel non commercial selon la loi LCEN et le RGPD.",
     "back_home": "Retour à l’accueil",
     "publisher_title": "1. Éditeur du site",
-    "publisher_desc": "Le présent site est un portfolio personnel non commercial édité à titre individuel par :<br /><strong>Shaun Fischmann</strong><br />Contact : <a href=\"mailto:contact@heyshaun.fr\" class=\"legal-link\">contact@heyshaun.fr</a> (ou via le <a href=\"/fr/#contact\" class=\"legal-link\">Formulaire de Contact</a>)<br /><br /><em>Note : Conformément à l'Article 6-III-2 de la loi LCEN (Loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique), les coordonnées personnelles (adresse physique et numéro de téléphone) sont préservées au titre de l'anonymat pour un éditeur non professionnel et ont été dûment transmises à l'hébergeur.</em>",
+    "publisher_desc": "Le présent site est un portfolio personnel non commercial édité à titre individuel par :<br /><strong>Shaun Fischmann</strong><br />Contact : <a href=\"mailto:contact@heyshaun.fr\" class=\"legal-link\">contact@heyshaun.fr</a><br /><br /><em>Note : Conformément à l'Article 6-III-2 de la loi LCEN (Loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique), les coordonnées personnelles (adresse physique et numéro de téléphone) sont préservées au titre de l'anonymat pour un éditeur non professionnel et ont été dûment transmises à l'hébergeur.</em>",
     "hosting_title": "2. Hébergeur du site",
     "hosting_desc": "Le site est hébergé par :<br /><strong>Cloudflare, Inc.</strong><br />101 Townsend St, San Francisco, CA 94107, États-Unis<br />Site web : <a href=\"https://www.cloudflare.com\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"legal-link\">https://www.cloudflare.com</a>",
     "intellectual_title": "3. Propriété Intellectuelle",
     "intellectual_desc": "L'ensemble des contenus originaux, textes, code, graphismes et œuvres visuelles sur ce site sont © Shaun Fischmann sauf mention contraire.<br /><br />Les bibliothèques et logiciels open-source utilisés restent la propriété de leurs auteurs respectifs et sont crédités sur la page <a href=\"/fr/credits\" class=\"legal-link\">Crédits</a>.",
     "privacy_title": "4. Protection des Données & Confidentialité",
-    "privacy_desc": "<strong>Formulaire de contact :</strong> Les informations transmises via le formulaire (nom, email, sujet et message) sont traitées uniquement pour répondre à vos messages sur la base de l'intérêt légitime. Aucune donnée personnelle n'est vendue, louée ou transmise à des tiers. Les données sont conservées pendant une durée maximale de 12 mois.<br /><br /><strong>Droits RGPD :</strong> Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification et de suppression de vos données personnelles sur simple demande par email à <a href=\"mailto:contact@heyshaun.fr\" class=\"legal-link\">contact@heyshaun.fr</a>. Vous pouvez également introduire une réclamation auprès de la CNIL (<a href=\"https://www.cnil.fr\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"legal-link\">www.cnil.fr</a>).<br /><br /><strong>Cloudflare Web Analytics :</strong> Ce site utilise Cloudflare Web Analytics pour la mesure d'audience. Ce service est respectueux de la vie privée, fonctionne sans aucun cookie et ne collecte aucune donnée personnelle permettant de tracer les visiteurs."
+    "privacy_desc": "<strong>Droits RGPD :</strong> Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez d'un droit d'accès, de rectification et de suppression de vos données personnelles sur simple demande par email à <a href=\"mailto:contact@heyshaun.fr\" class=\"legal-link\">contact@heyshaun.fr</a>. Vous pouvez également introduire une réclamation auprès de la CNIL (<a href=\"https://www.cnil.fr\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"legal-link\">www.cnil.fr</a>).<br /><br /><strong>Cloudflare Web Analytics :</strong> Ce site utilise Cloudflare Web Analytics pour la mesure d'audience. Ce service est respectueux de la vie privée, fonctionne sans aucun cookie et ne collecte aucune donnée personnelle permettant de tracer les visiteurs."
   },
   "not_found": {
     "title": "404 Page Introuvable — Shaun Fischmann",

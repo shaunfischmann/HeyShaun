@@ -712,6 +712,7 @@ function getSvgContent(iconPath?: string): string {
   .node-tooltip {
     position: absolute;
     bottom: calc(100% + 40px);
+    margin-left: 0;
     transform: translateX(-50%) translateY(8px) scale(0.9);
     display: flex;
     flex-direction: column;
@@ -728,8 +729,22 @@ function getSvgContent(iconPath?: string): string {
     pointer-events: none;
     transition:
       opacity var(--transition-fast),
-      transform var(--transition-spring);
+      transform var(--transition-spring),
+      margin-left var(--transition-spring);
     z-index: 100;
+
+    @media (--mobile-only) {
+      white-space: normal;
+      width: max-content;
+      max-width: min(220px, calc(100vw - 2rem));
+    }
+  }
+
+  /* Hidden when the tooltip has been nudged to stay in-viewport — the arrow
+     is a pseudo-element and can't be JS-shifted, so it would otherwise point
+     at the wrong spot. */
+  .node-tooltip.tt-shifted::after {
+    opacity: 0;
   }
 
   .node-tooltip::after {
@@ -770,6 +785,36 @@ function getSvgContent(iconPath?: string): string {
 
   let activeCategory: string | null = null;
   let activeFocusedNode: HTMLElement | null = null;
+  let hoveredNode: HTMLElement | null = null;
+
+  // Keeps a node's tooltip from spilling past the left/right edge of the
+  // viewport — the sphere layout can place nodes near the stage edges,
+  // where a centered tooltip would otherwise overflow (especially on mobile).
+  function clampTooltipToViewport(node: HTMLElement) {
+    const tooltip = node.querySelector<HTMLElement>(".node-tooltip");
+    if (!tooltip) return;
+    tooltip.style.marginLeft = "0px";
+    tooltip.classList.remove("tt-shifted");
+    const rect = tooltip.getBoundingClientRect();
+    const margin = 20;
+    let shift = 0;
+    if (rect.left < margin) {
+      shift = margin - rect.left;
+    } else if (rect.right > window.innerWidth - margin) {
+      shift = window.innerWidth - margin - rect.right;
+    }
+    if (shift !== 0) {
+      tooltip.style.marginLeft = `${shift.toFixed(1)}px`;
+      tooltip.classList.add("tt-shifted");
+    }
+  }
+
+  function resetTooltipShift(node: HTMLElement) {
+    const tooltip = node.querySelector<HTMLElement>(".node-tooltip");
+    if (!tooltip) return;
+    tooltip.style.marginLeft = "0px";
+    tooltip.classList.remove("tt-shifted");
+  }
 
   // Angles for 3D sphere rotation
   let angleX = 0;
@@ -910,6 +955,7 @@ function getSvgContent(iconPath?: string): string {
         node.style.opacity = "1";
         node.style.filter = "none";
         node.style.zIndex = "1000";
+        clampTooltipToViewport(node);
         continue;
       }
 
@@ -925,6 +971,10 @@ function getSvgContent(iconPath?: string): string {
 
       // Translation & Scale
       node.style.transform = `translate3d(${state.cx.toFixed(2)}px, ${state.cy.toFixed(2)}px, 0px) scale(${state.cs.toFixed(3)})`;
+
+      if (node === hoveredNode) {
+        clampTooltipToViewport(node);
+      }
 
       if (activeFocusedNode) {
         // ── OTHER NODES WHEN ONE IS SELECTED ──────────────────────────
@@ -952,6 +1002,7 @@ function getSvgContent(iconPath?: string): string {
   function clearFocus() {
     if (activeFocusedNode) {
       activeFocusedNode.classList.remove("focused");
+      resetTooltipShift(activeFocusedNode);
       activeFocusedNode = null;
     }
   }
@@ -968,6 +1019,15 @@ function getSvgContent(iconPath?: string): string {
         activeFocusedNode = node;
         node.classList.add("focused");
       }
+    });
+
+    node.addEventListener("mouseenter", () => {
+      hoveredNode = node;
+    });
+
+    node.addEventListener("mouseleave", () => {
+      if (hoveredNode === node) hoveredNode = null;
+      resetTooltipShift(node);
     });
   });
 

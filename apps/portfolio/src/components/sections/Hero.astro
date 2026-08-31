@@ -120,14 +120,12 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
     position: relative;
     min-height: 100vh;
     min-height: 100svh;
-    height: 100vh;
-    height: 100svh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding-top: clamp(1.5rem, 3svh, 2.5rem);
     padding-bottom: clamp(1.5rem, 3svh, 2.5rem);
-    overflow: hidden;
+    overflow-x: hidden;
     background: transparent;
   }
 
@@ -284,8 +282,7 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
     position: relative;
     z-index: 2;
     width: clamp(380px, 68vw, 980px);
-    height: 100%;
-    max-height: clamp(380px, 63svh, 760px);
+    height: clamp(380px, 63svh, 760px);
     display: flex;
     align-items: flex-end;
     justify-content: center;

@@ -12,6 +12,7 @@ interface Props {
 
 const { isHomepage = false, lang = "en" } = Astro.props;
 const t = Astro.props.t || getTranslations(lang);
+const HeadingTag = isHomepage ? "h2" : "h1";
 
 // 1. Fetch images as Astro Image Metadata objects from /src/assets/art/
 const imageImports = import.meta.glob<{ default: ImageMetadata }>("/src/assets/art/*.{png,jpg,jpeg,webp,svg}", {
@@ -141,9 +142,9 @@ if (isHomepage) {
       }
 
       <p class="section-tag" data-reveal data-i18n="art.tag">{t.art.tag}</p>
-      <h2 id="art-heading" class="section-title" data-reveal data-delay="1">
+      <HeadingTag id="art-heading" class="section-title" data-reveal data-delay="1">
         <span class="gradient-text" data-i18n="art.heading">{t.art.heading}</span>
-      </h2>
+      </HeadingTag>
       <p class="section-sub" data-reveal data-delay="2" data-i18n="art.sub" set:html={t.art.sub} />
     </div>
 

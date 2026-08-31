@@ -27,14 +27,13 @@ const SITE = "https://heyshaun.fr";
 const ogLocale = lang === "fr" ? "fr_FR" : "en_US";
 const ogLocaleAlt = lang === "fr" ? "en_US" : "fr_FR";
 
-// Detect if we are on the root URL or a localized subpath
+// Detect if we are on a localized homepage ("/")
 const isRoot = currentPath === "/";
 
-// If on root page without lang prefix, set exact requested canonical & og:url
-const canonicalURL = isRoot ? SITE : `${SITE}/${lang}${currentPath}`;
+const canonicalURL = `${SITE}/${lang}${isRoot ? "/" : currentPath}`;
 
-const hreflangEn = `${SITE}/en${isRoot ? "" : currentPath}`;
-const hreflangFr = `${SITE}/fr${isRoot ? "" : currentPath}`;
+const hreflangEn = `${SITE}/en${isRoot ? "/" : currentPath}`;
+const hreflangFr = `${SITE}/fr${isRoot ? "/" : currentPath}`;
 const ogImageURL = `${SITE}${image}`;
 
 // --- Dynamic Schema.org graph ---
@@ -150,7 +149,7 @@ const schemaData = { "@context": "https://schema.org", "@graph": schemaGraph };
 
     <!-- Favicon & Assets -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
     <Font cssVariable="--font-heading" />

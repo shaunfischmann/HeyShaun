@@ -41,7 +41,7 @@ Shaun bridges software engineering and business development in the PropTech sect
 
 ## Key Pages & Endpoints
 
-- [English Homepage](https://heyshaun.fr/en/): Full portfolio with interactive skills, timeline, AI art preview, and contact form.
+- [English Homepage](https://heyshaun.fr/en/): Full portfolio with interactive skills, timeline, AI art preview, and contact links.
 - [French Homepage](https://heyshaun.fr/fr/): Version francophone du portfolio.
 - [AI Art Gallery (EN)](https://heyshaun.fr/en/shaun-ai-gallery): Interactive gallery featuring 35+ curated AI artworks with 3D tilt cards and lightbox.
 - [AI Art Gallery (FR)](https://heyshaun.fr/fr/shaun-ai-gallery): Galerie complète des œuvres numériques Shaun.AI.
