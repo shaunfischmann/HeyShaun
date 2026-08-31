@@ -16,9 +16,7 @@
     "@heyshaun/design-tokens": "workspace:*",
     "@heyshaun/utils": "workspace:*",
     "@lucide/astro": "^1.33.0",
-    "astro": "^7.2.4"
-  },
-  "devDependencies": {
-    "image-size": "^2.0.2"
+    "astro": "^7.2.4",
+    "sharp": "^0.35.3"
   }
 }
