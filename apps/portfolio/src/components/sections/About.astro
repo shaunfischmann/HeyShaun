@@ -288,12 +288,18 @@ function getSvgContent(iconPath?: string): string {
     align-items: center;
     justify-content: center;
     user-select: none;
+    touch-action: none;
+    cursor: grab;
     /* Ensures children with z-index are stacked relative to the stage */
     isolation: isolate;
 
     @media (--md) {
       height: 500px;
     }
+  }
+
+  .constellation-stage.dragging {
+    cursor: grabbing;
   }
 
   /* ── Cosmic Nebula Wrapper ── */
@@ -823,6 +829,78 @@ function getSvgContent(iconPath?: string): string {
   const baseSpeedX = 0.0008;
   const baseSpeedY = 0.0018;
 
+  // ── Drag to rotate (mouse hold + move / touch drag) ──────────────────
+  let isPointerDown = false;
+  let isDragging = false;
+  let pointerCaptured = false;
+  let dragMoved = 0;
+  let lastPointerX = 0;
+  let lastPointerY = 0;
+  let suppressNextClick = false;
+
+  const DRAG_SENSITIVITY = 0.008;
+  const DRAG_CLICK_THRESHOLD = 6;
+
+  if (stage) {
+    stage.addEventListener("pointerdown", (e: PointerEvent) => {
+      if (e.pointerType === "mouse" && e.button !== 0) return;
+      isPointerDown = true;
+      pointerCaptured = false;
+      dragMoved = 0;
+      lastPointerX = e.clientX;
+      lastPointerY = e.clientY;
+    });
+
+    stage.addEventListener("pointermove", (e: PointerEvent) => {
+      if (!isPointerDown) return;
+      const dx = e.clientX - lastPointerX;
+      const dy = e.clientY - lastPointerY;
+      lastPointerX = e.clientX;
+      lastPointerY = e.clientY;
+      dragMoved += Math.abs(dx) + Math.abs(dy);
+
+      // Only commit to "dragging" (and steal the pointer from whatever's
+      // underneath) once the press has actually moved — this keeps a plain
+      // click on a node working exactly as before.
+      if (!isDragging && dragMoved > DRAG_CLICK_THRESHOLD) {
+        isDragging = true;
+        pointerCaptured = true;
+        stage.setPointerCapture(e.pointerId);
+        stage.classList.add("dragging");
+      }
+      if (!isDragging) return;
+
+      angleY += dx * DRAG_SENSITIVITY;
+      angleX -= dy * DRAG_SENSITIVITY;
+
+      // Feed the motion into the ambient speed so releasing mid-swipe
+      // keeps a bit of momentum that decays back to the idle drift.
+      currentSpeedY = dx * DRAG_SENSITIVITY;
+      currentSpeedX = -dy * DRAG_SENSITIVITY;
+    });
+
+    const endDrag = (e: PointerEvent) => {
+      if (!isPointerDown) return;
+      isPointerDown = false;
+      if (isDragging) {
+        isDragging = false;
+        suppressNextClick = true;
+        stage.classList.remove("dragging");
+      }
+      if (pointerCaptured) {
+        pointerCaptured = false;
+        try {
+          stage.releasePointerCapture(e.pointerId);
+        } catch {
+          // pointer capture may already be released (e.g. pointercancel)
+        }
+      }
+    };
+
+    stage.addEventListener("pointerup", endDrag);
+    stage.addEventListener("pointercancel", endDrag);
+  }
+
   let currentSpeedX = baseSpeedX;
   let currentSpeedY = baseSpeedY;
 
@@ -905,11 +983,13 @@ function getSvgContent(iconPath?: string): string {
     const isDark = document.documentElement.getAttribute("data-theme") !== "light";
     const lerpRate = 0.05;
 
-    currentSpeedX = lerp(currentSpeedX, baseSpeedX, lerpRate);
-    currentSpeedY = lerp(currentSpeedY, baseSpeedY, lerpRate);
+    if (!isDragging) {
+      currentSpeedX = lerp(currentSpeedX, baseSpeedX, lerpRate);
+      currentSpeedY = lerp(currentSpeedY, baseSpeedY, lerpRate);
 
-    angleX += currentSpeedX * delta;
-    angleY += currentSpeedY * delta;
+      angleX += currentSpeedX * delta;
+      angleY += currentSpeedY * delta;
+    }
 
     const cosX = Math.cos(angleX);
     const sinX = Math.sin(angleX);
@@ -1012,6 +1092,10 @@ function getSvgContent(iconPath?: string): string {
   allNodes.forEach((node) => {
     node.addEventListener("click", (e) => {
       e.stopPropagation();
+      if (suppressNextClick) {
+        suppressNextClick = false;
+        return;
+      }
       if (activeFocusedNode === node) {
         clearFocus();
       } else {
