@@ -17,6 +17,6 @@
     "@heyshaun/utils": "workspace:*",
     "@lucide/astro": "^1.33.0",
     "astro": "^7.2.4",
-    "sharp": "^0.35.3"
+    "sharp": "^0.35.4"
   }
 }
