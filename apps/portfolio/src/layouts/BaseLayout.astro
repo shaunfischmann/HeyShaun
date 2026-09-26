@@ -12,6 +12,7 @@ export interface Props {
   image?: string;
   currentPath?: string;
   isGallery?: boolean;
+  noindex?: boolean;
 }
 
 const {
@@ -21,6 +22,7 @@ const {
   image = "/og-image.jpg",
   currentPath = "/",
   isGallery = false,
+  noindex = false,
 } = Astro.props;
 
 const SITE = "https://heyshaun.fr";
@@ -30,10 +32,12 @@ const ogLocaleAlt = lang === "fr" ? "en_US" : "fr_FR";
 // Detect if we are on a localized homepage ("/")
 const isRoot = currentPath === "/";
 
-const canonicalURL = `${SITE}/${lang}${isRoot ? "/" : currentPath}`;
+// Always end with "/" — the host 308-redirects slashless URLs, so canonicals must match the served URL
+const pagePath = isRoot ? "/" : `${currentPath}/`;
+const canonicalURL = `${SITE}/${lang}${pagePath}`;
 
-const hreflangEn = `${SITE}/en${isRoot ? "/" : currentPath}`;
-const hreflangFr = `${SITE}/fr${isRoot ? "/" : currentPath}`;
+const hreflangEn = `${SITE}/en${pagePath}`;
+const hreflangFr = `${SITE}/fr${pagePath}`;
 const ogImageURL = `${SITE}${image}`;
 
 // --- Dynamic Schema.org graph ---
@@ -47,9 +51,13 @@ const personEntity = {
     "Partnership Manager and Senior web developer with 12+ years of experience specializing in PHP, enterprise real estate CRMs, REST API integrations, SQL, Proptech and generative AI.",
   url: SITE,
   image: ogImageURL,
-  sameAs: ["https://www.linkedin.com/in/sfischmann/", "https://github.com/shaunfischmann"],
+  sameAs: [
+    "https://www.linkedin.com/in/sfischmann/",
+    "https://github.com/shaunfischmann",
+    "https://www.instagram.com/shaun.ai/",
+  ],
   address: { "@type": "PostalAddress", addressCountry: "FR" },
-  worksFor: { "@type": "Organization", name: "Apimo", url: "https://www.apimo.pro" },
+  worksFor: { "@type": "Organization", name: "Apimo", url: "https://www.apimo.com" },
   knowsAbout: [
     "Technical Partnership Management",
     "API Integrations & Webhooks",
@@ -120,7 +128,7 @@ const schemaData = { "@context": "https://schema.org", "@graph": schemaGraph };
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Shaun Fischmann" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />
     <link rel="canonical" href={canonicalURL} />
 
     <!-- hreflang alternates for multilingual SEO -->
@@ -148,8 +156,10 @@ const schemaData = { "@context": "https://schema.org", "@graph": schemaGraph };
     <meta name="twitter:image" content={ogImageURL} />
 
     <!-- Favicon & Assets -->
+    <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
     <Font cssVariable="--font-heading" />

@@ -15,8 +15,9 @@ const t = getTranslations(lang);
   title="404 Page Not Found — Shaun Fischmann"
   description="The page you are looking for does not exist."
   currentPath="/404"
+  noindex
 >
-  <Nav lang={lang} isHomepage={false} currentPath="/404" />
+  <Nav lang={lang} isHomepage={false} currentPath="/" />
 
   <main id="main-content" class="not-found-container">
     <div class="container">
@@ -38,7 +39,7 @@ const t = getTranslations(lang);
             <Home size={18} stroke-width={2} />
             <span id="404-home-text">{t.not_found?.cta_home || "Return to Homepage"}</span>
           </a>
-          <a href="/en/shaun-ai-gallery" id="404-gallery-btn" class="btn btn--ghost">
+          <a href="/en/shaun-ai-gallery/" id="404-gallery-btn" class="btn btn--ghost">
             <Palette size={18} stroke-width={2} />
             <span id="404-gallery-text">{t.not_found?.cta_gallery || "Explore AI Gallery"}</span>
           </a>
@@ -72,7 +73,7 @@ const t = getTranslations(lang);
       sub.textContent = "La page que vous recherchez n'existe pas, a été supprimée ou est temporairement indisponible.";
     if (homeBtn) homeBtn.setAttribute("href", "/fr/");
     if (homeText) homeText.textContent = "Retour à l'accueil";
-    if (galleryBtn) galleryBtn.setAttribute("href", "/fr/shaun-ai-gallery");
+    if (galleryBtn) galleryBtn.setAttribute("href", "/fr/shaun-ai-gallery/");
     if (galleryText) galleryText.textContent = "Explorer la Galerie IA";
   }
 </script>

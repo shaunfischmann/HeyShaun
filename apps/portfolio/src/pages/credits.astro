@@ -1,5 +1,5 @@
 ---
-// Root redirect for /credits — detects browser language and sends to /en/credits or /fr/credits
+// Root redirect for /credits — detects browser language and sends to /en/credits/ or /fr/credits/
 const title = "Credits — Shaun Fischmann";
 const description = "Open-source packages, libraries, design assets, and fonts that power this portfolio.";
 const site = "https://heyshaun.fr";
@@ -14,7 +14,7 @@ const ogImage = `${site}/og-image.jpg`;
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://heyshaun.fr/en/credits" />
+    <link rel="canonical" href="https://heyshaun.fr/en/credits/" />
 
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website" />
@@ -33,21 +33,21 @@ const ogImage = `${site}/og-image.jpg`;
     <!-- Favicon & Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- No-JS fallback: redirect to /en/credits -->
-    <meta http-equiv="refresh" content="0;url=/en/credits" />
+    <!-- No-JS fallback: redirect to /en/credits/ -->
+    <meta http-equiv="refresh" content="0;url=/en/credits/" />
     <!-- hreflang for crawlers -->
-    <link rel="alternate" hreflang="en" href="https://heyshaun.fr/en/credits" />
-    <link rel="alternate" hreflang="fr" href="https://heyshaun.fr/fr/credits" />
-    <link rel="alternate" hreflang="x-default" href="https://heyshaun.fr/en/credits" />
+    <link rel="alternate" hreflang="en" href="https://heyshaun.fr/en/credits/" />
+    <link rel="alternate" hreflang="fr" href="https://heyshaun.fr/fr/credits/" />
+    <link rel="alternate" hreflang="x-default" href="https://heyshaun.fr/en/credits/" />
   </head>
   <body>
     <main style="font-family: system-ui, sans-serif; padding: 2rem; text-align: center;">
       <h1>Credits — Shaun Fischmann — Partnership Manager & Web Developer</h1>
       <p>
-        <a href="/en/credits">English</a> | <a href="/fr/credits">Français</a>
+        <a href="/en/credits/">English</a> | <a href="/fr/credits/">Français</a>
       </p>
       <p style="font-size: 0.875rem; color: #666;">
-        <a href="/en/credits">Click here if you are not redirected automatically.</a>
+        <a href="/en/credits/">Click here if you are not redirected automatically.</a>
       </p>
     </main>
 
@@ -55,7 +55,7 @@ const ogImage = `${site}/og-image.jpg`;
       const prefersFrench = (navigator.languages || [navigator.language]).some(
         (l) => l && l.toString().startsWith("fr"),
       );
-      window.location.replace(prefersFrench ? "/fr/credits" : "/en/credits");
+      window.location.replace(prefersFrench ? "/fr/credits/" : "/en/credits/");
     </script>
   </body>
 </html>

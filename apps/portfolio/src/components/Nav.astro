@@ -32,8 +32,8 @@ const navLinks = [
   },
 ];
 
-const enTarget = `/en${currentPath === "/" ? "/" : currentPath}`;
-const frTarget = `/fr${currentPath === "/" ? "/" : currentPath}`;
+const enTarget = `/en${currentPath === "/" ? "/" : `${currentPath}/`}`;
+const frTarget = `/fr${currentPath === "/" ? "/" : `${currentPath}/`}`;
 ---
 
 <nav id="site-nav" class={isHomepage ? "is-homepage" : ""} role="navigation" aria-label="Main Navigation">

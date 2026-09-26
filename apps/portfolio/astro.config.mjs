@@ -6,6 +6,7 @@ import cloudflare from '@astrojs/cloudflare';
 export default defineConfig({
   site: 'https://heyshaun.fr',
   output: 'static',
+  trailingSlash: 'always', // Cloudflare serves /page/ and 308-redirects /page
   adapter: cloudflare({
     imageService: 'compile', // Explicitly disable Cloudflare Images
   }),

@@ -1,5 +1,5 @@
 ---
-// Root redirect for /legal-notice — detects browser language and sends to /en/legal-notice or /fr/legal-notice
+// Root redirect for /legal-notice — detects browser language and sends to /en/legal-notice/ or /fr/legal-notice/
 const title = "Legal Notice — Shaun Fischmann";
 const description = "Legal notice, host information, copyright, and terms for heyshaun.fr.";
 const site = "https://heyshaun.fr";
@@ -14,7 +14,7 @@ const ogImage = `${site}/og-image.jpg`;
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://heyshaun.fr/en/legal-notice" />
+    <link rel="canonical" href="https://heyshaun.fr/en/legal-notice/" />
 
     <!-- Open Graph / Social Media -->
     <meta property="og:type" content="website" />
@@ -33,21 +33,21 @@ const ogImage = `${site}/og-image.jpg`;
     <!-- Favicon & Icons -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
-    <!-- No-JS fallback: redirect to /en/legal-notice -->
-    <meta http-equiv="refresh" content="0;url=/en/legal-notice" />
+    <!-- No-JS fallback: redirect to /en/legal-notice/ -->
+    <meta http-equiv="refresh" content="0;url=/en/legal-notice/" />
     <!-- hreflang for crawlers -->
-    <link rel="alternate" hreflang="en" href="https://heyshaun.fr/en/legal-notice" />
-    <link rel="alternate" hreflang="fr" href="https://heyshaun.fr/fr/legal-notice" />
-    <link rel="alternate" hreflang="x-default" href="https://heyshaun.fr/en/legal-notice" />
+    <link rel="alternate" hreflang="en" href="https://heyshaun.fr/en/legal-notice/" />
+    <link rel="alternate" hreflang="fr" href="https://heyshaun.fr/fr/legal-notice/" />
+    <link rel="alternate" hreflang="x-default" href="https://heyshaun.fr/en/legal-notice/" />
   </head>
   <body>
     <main style="font-family: system-ui, sans-serif; padding: 2rem; text-align: center;">
       <h1>Legal Notice — Shaun Fischmann — Partnership Manager & Web Developer</h1>
       <p>
-        <a href="/en/legal-notice">English</a> | <a href="/fr/legal-notice">Français</a>
+        <a href="/en/legal-notice/">English</a> | <a href="/fr/legal-notice/">Français</a>
       </p>
       <p style="font-size: 0.875rem; color: #666;">
-        <a href="/en/legal-notice">Click here if you are not redirected automatically.</a>
+        <a href="/en/legal-notice/">Click here if you are not redirected automatically.</a>
       </p>
     </main>
 
@@ -55,7 +55,7 @@ const ogImage = `${site}/og-image.jpg`;
       const prefersFrench = (navigator.languages || [navigator.language]).some(
         (l) => l && l.toString().startsWith("fr"),
       );
-      window.location.replace(prefersFrench ? "/fr/legal-notice" : "/en/legal-notice");
+      window.location.replace(prefersFrench ? "/fr/legal-notice/" : "/en/legal-notice/");
     </script>
   </body>
 </html>
