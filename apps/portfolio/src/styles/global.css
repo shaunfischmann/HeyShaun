@@ -42,8 +42,9 @@
     --section-padding: clamp(6rem, 12vw, 9rem);
   }
 
-  /* ── Dark Theme ─────────────────────────────────────────────── */
-  [data-theme="dark"] {
+  /* ── Dark Theme (default) ───────────────────────────────────── */
+  [data-theme="dark"],
+  :root:not([data-theme="light"]) {
     color-scheme: dark;
 
     /* Brand */
@@ -99,9 +100,8 @@
     --color-pink: #a29bfe;
   }
 
-  /* ── Light Theme (default) ──────────────────────────────────── */
-  [data-theme="light"],
-  :root:not([data-theme="dark"]) {
+  /* ── Light Theme ────────────────────────────────────────────── */
+  [data-theme="light"] {
     color-scheme: light;
 
     /* Brand */
