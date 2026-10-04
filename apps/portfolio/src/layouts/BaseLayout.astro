@@ -125,6 +125,22 @@ const schemaData = { "@context": "https://schema.org", "@graph": schemaGraph };
     <!-- Essential Meta -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Theme: set before first paint (saved choice > OS preference > light) -->
+    <script is:inline>
+      (function () {
+        var theme;
+        try {
+          theme = localStorage.getItem("theme-choice");
+          localStorage.removeItem("theme"); // legacy key, auto-saved on every first visit
+        } catch (e) {}
+        if (theme !== "light" && theme !== "dark") {
+          theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
+
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Shaun Fischmann" />

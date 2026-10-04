@@ -156,7 +156,7 @@
       if (themeAttr) {
         this.isDarkMode = themeAttr === "dark";
       } else {
-        this.isDarkMode = !window.matchMedia("(prefers-color-scheme: light)").matches;
+        this.isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
       }
     }
 
