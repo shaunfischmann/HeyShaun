@@ -57,6 +57,26 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
         <div class="portrait-orb portrait-orb--mauve"></div>
       </div>
       <div class="portrait-mask">
+        <!--
+          Both portraits are lazy so the hidden one (display: none) is never downloaded;
+          the one matching the theme set in <head> is preloaded right away instead.
+        -->
+        <script
+          is:inline
+          define:vars={{
+            lightSrcset: lightImage.srcSet.attribute,
+            darkSrcset: darkImage.srcSet.attribute,
+            sizes: responsiveSizes,
+          }}
+        >
+          var link = document.createElement("link");
+          link.rel = "preload";
+          link.as = "image";
+          link.fetchPriority = "high";
+          link.imageSrcset = document.documentElement.getAttribute("data-theme") === "dark" ? darkSrcset : lightSrcset;
+          link.imageSizes = sizes;
+          document.head.appendChild(link);
+        </script>
         <!-- Light Theme Responsive Portrait -->
         <img
           src={lightImage.src}
@@ -65,7 +85,7 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
           width={lightShaunImport.width}
           height={lightShaunImport.height}
           alt={t.hero.aria_portrait}
-          loading="eager"
+          loading="lazy"
           fetchpriority="high"
           decoding="async"
           class="portrait-img portrait-img--light"
@@ -78,7 +98,7 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
           width={darkShaunImport.width}
           height={darkShaunImport.height}
           alt={t.hero.aria_portrait}
-          loading="eager"
+          loading="lazy"
           fetchpriority="high"
           decoding="async"
           class="portrait-img portrait-img--dark"
@@ -621,6 +641,17 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
       rafId = requestAnimationFrame(renderLoop);
     }
   }
+
+  // ── Other theme's portrait ────────────────────────────────────
+  // It stays lazy (and hidden) until the theme toggle is approached, so switching shows it straight away
+  const loadAllPortraits = () => {
+    document.querySelectorAll<HTMLImageElement>(".portrait-img").forEach((img) => (img.loading = "eager"));
+  };
+  document.querySelectorAll("#theme-toggle, #mobile-theme-toggle").forEach((btn) => {
+    ["pointerenter", "focus", "touchstart"].forEach((type) =>
+      btn.addEventListener(type, loadAllPortraits, { once: true, passive: true }),
+    );
+  });
 
   // ── Scroll Parallax ───────────────────────────────────────────
   window.addEventListener(
