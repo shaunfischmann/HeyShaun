@@ -591,7 +591,6 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
     currentBgY = 0;
   let currentPortX = 0,
     currentPortY = 0;
-  let isHovering = false;
   let rafId: number | null = null;
 
   if (heroSection && !isReduced && window.innerWidth > 768) {
@@ -604,26 +603,31 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
       const { left, top, width, height } = heroSection.getBoundingClientRect();
       targetX = (e.clientX - left) / width - 0.5;
       targetY = (e.clientY - top) / height - 0.5;
-      isHovering = true;
       startLoop();
     });
 
     heroSection.addEventListener("mouseleave", () => {
       targetX = 0;
       targetY = 0;
-      isHovering = false;
       startLoop();
     });
 
     function renderLoop() {
-      if (!isHovering && Math.abs(currentBgX) < 0.05 && Math.abs(currentBgY) < 0.05) {
-        rafId = null;
-        return;
-      }
       const destBgX = targetX * -30,
         destBgY = targetY * -20;
       const destPortX = targetX * 22,
         destPortY = targetY * 12;
+
+      // Eased all the way to where the mouse is (or back to rest): stop until it moves again
+      if (
+        Math.abs(destBgX - currentBgX) < 0.05 &&
+        Math.abs(destBgY - currentBgY) < 0.05 &&
+        Math.abs(destPortX - currentPortX) < 0.05 &&
+        Math.abs(destPortY - currentPortY) < 0.05
+      ) {
+        rafId = null;
+        return;
+      }
 
       currentBgX += (destBgX - currentBgX) * 0.07;
       currentBgY += (destBgY - currentBgY) * 0.07;
