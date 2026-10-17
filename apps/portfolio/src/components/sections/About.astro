@@ -996,9 +996,7 @@ function getSvgContent(iconPath?: string): string {
     const cosY = Math.cos(angleY);
     const sinY = Math.sin(angleY);
 
-    // Use cached visible nodes
-    updateVisibleNodesCache();
-
+    // Use cached visible nodes (refreshed by layout3DSphere and the filter buttons)
     for (let i = 0; i < visibleNodesCache.length; i++) {
       const node = visibleNodesCache[i];
       const state = getNodeState(node);
@@ -1076,7 +1074,17 @@ function getSvgContent(iconPath?: string): string {
       }
     }
 
-    requestAnimationFrame(animate);
+    rafId = isStageVisible ? requestAnimationFrame(animate) : null;
+  }
+
+  // Only spin the sphere while it's on screen
+  let rafId: number | null = null;
+  let isStageVisible = true;
+
+  function startAnimation() {
+    if (rafId !== null) return;
+    lastTime = performance.now();
+    rafId = requestAnimationFrame(animate);
   }
 
   function clearFocus() {
@@ -1176,4 +1184,14 @@ function getSvgContent(iconPath?: string): string {
 
   layout3DSphere();
   animate();
+
+  if (stage && typeof IntersectionObserver !== "undefined") {
+    new IntersectionObserver(
+      ([entry]) => {
+        isStageVisible = entry.isIntersecting;
+        if (isStageVisible) startAnimation();
+      },
+      { rootMargin: "100px 0px" },
+    ).observe(stage);
+  }
 </script>

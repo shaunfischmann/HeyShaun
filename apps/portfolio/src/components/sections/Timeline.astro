@@ -79,10 +79,15 @@ const assetImages = import.meta.glob<{ default: ImageMetadata }>("/src/assets/**
   eager: true,
 });
 
-// 2. Pre-optimize all timeline images at build time using Sharp
+const events = eventsData as TimelineEvent[];
+
+// 2. Pre-optimize the images the timeline actually uses at build time using Sharp
+//    (optimizing every asset would emit an unused 600px copy of each gallery image)
+const usedImagePaths = new Set(events.map((e) => e.image).filter(Boolean));
 const optimizedTimelineImages: Record<string, { src: string; width: number; height: number }> = {};
 
 for (const [path, module] of Object.entries(assetImages)) {
+  if (!usedImagePaths.has(path)) continue;
   const optimized = await getImage({
     src: module.default,
     width: 600,
@@ -111,8 +116,6 @@ function resolveImageData(imagePath?: string) {
   // Fallback for public/ or external paths where width/height aren't pre-computed
   return { src: imagePath, width: 600, height: 400 };
 }
-
-const events = eventsData as TimelineEvent[];
 ---
 
 <section id="timeline" class="section" aria-labelledby="timeline-heading">

@@ -572,24 +572,32 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
   let currentPortX = 0,
     currentPortY = 0;
   let isHovering = false;
+  let rafId: number | null = null;
 
   if (heroSection && !isReduced && window.innerWidth > 768) {
+    // The loop only runs while the mouse moves or the parallax eases back to rest
+    const startLoop = () => {
+      if (rafId === null) rafId = requestAnimationFrame(renderLoop);
+    };
+
     heroSection.addEventListener("mousemove", (e) => {
       const { left, top, width, height } = heroSection.getBoundingClientRect();
       targetX = (e.clientX - left) / width - 0.5;
       targetY = (e.clientY - top) / height - 0.5;
       isHovering = true;
+      startLoop();
     });
 
     heroSection.addEventListener("mouseleave", () => {
       targetX = 0;
       targetY = 0;
       isHovering = false;
+      startLoop();
     });
 
     function renderLoop() {
       if (!isHovering && Math.abs(currentBgX) < 0.05 && Math.abs(currentBgY) < 0.05) {
-        requestAnimationFrame(renderLoop);
+        rafId = null;
         return;
       }
       const destBgX = targetX * -30,
@@ -610,9 +618,8 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
         portrait.style.transform = `translate3d(${currentPortX.toFixed(2)}px, ${currentPortY.toFixed(2)}px, 0)`;
       }
 
-      requestAnimationFrame(renderLoop);
+      rafId = requestAnimationFrame(renderLoop);
     }
-    requestAnimationFrame(renderLoop);
   }
 
   // ── Scroll Parallax ───────────────────────────────────────────
