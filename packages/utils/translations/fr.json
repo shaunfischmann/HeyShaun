@@ -103,7 +103,9 @@
     "event_banque_postale_title": "Campagne avec La Banque Postale",
     "event_banque_postale_desc": "Mandaté par La Banque Postale pour créer une œuvre dans le cadre de leur défi I.Artistes (remporté par vote du public). J'ai ensuite conçu une campagne en ligne FOOH (Fake Out Of Home) pour eux, relayée par Brut. et d'autres médias.",
     "event_personal_portfolio_title": "Création de ce portfolio",
-    "event_personal_portfolio_desc": "J'ai enfin sauté le pas après des années de réflexion et d'hésitation (et aussi par manque de temps). Grâce aux outils IA, le développement a été fluide et passionnant, me permettant d'expérimenter de nouvelles technologies et fonctionnalités UI/UX très rapidement."
+    "event_personal_portfolio_desc": "J'ai enfin sauté le pas après des années de réflexion et d'hésitation (et aussi par manque de temps). Grâce aux outils IA, le développement a été fluide et passionnant, me permettant d'expérimenter de nouvelles technologies et fonctionnalités UI/UX très rapidement.",
+    "event_apimo_partners_title": "Lancement d'apimo.heyshaun.fr",
+    "event_apimo_partners_desc": "Création d'une constellation des 500+ intégrations d'Apimo (portails, fichiers MLS et outils proptech) en six langues, pour que les agences vérifient que leurs outils fonctionnent avec Apimo et que les entreprises découvrent comment devenir partenaire."
   },
   "art": {
     "tag": "AI-generated, human-curated content",

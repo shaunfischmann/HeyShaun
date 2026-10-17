@@ -84,7 +84,7 @@
     baseX: number;
     baseY: number;
     size: number;
-    baseOpacity: number;
+    opacity: number; // base opacity × vignette, precomputed since neither changes per frame
   }
 
   interface StarParticle {
@@ -126,9 +126,11 @@
     private time = 0;
     private animationFrameId: number | null = null;
     private observer: MutationObserver | null = null;
+    private resizeObserver: ResizeObserver | null = null;
 
     // Footer waves occlusion tracking
     private wavesEl: HTMLElement | null = null;
+    private wavesDocTop: number | null = null; // offset from the top of the document, re-measured only when the layout changes
     private wavesTop = 99999;
     private currentWavesTop = 99999;
 
@@ -148,8 +150,15 @@
       this.findWavesElement();
       this.resize();
       this.bindEvents();
-      this.animate();
+      this.requestFrame();
     }
+
+    // The loop stops once everything has settled (see the end of animate()); events restart it
+    private requestFrame = () => {
+      if (this.animationFrameId === null) {
+        this.animationFrameId = requestAnimationFrame(this.animate);
+      }
+    };
 
     private checkTheme() {
       const themeAttr = document.documentElement.getAttribute("data-theme");
@@ -170,21 +179,20 @@
     }
 
     private updateWavesPosition() {
-      if (this.wavesEl) {
-        const rect = this.wavesEl.getBoundingClientRect();
-        this.wavesTop = rect.top;
-      } else {
+      if (!this.wavesEl) {
         this.wavesEl =
           document.querySelector(".waves-parallax") ||
           document.querySelector(".waves-container") ||
           document.querySelector(".site-footer") ||
           document.querySelector("footer");
-        if (this.wavesEl) {
-          this.wavesTop = this.wavesEl.getBoundingClientRect().top;
-        } else {
-          this.wavesTop = 99999;
-        }
       }
+      this.wavesDocTop = this.wavesEl ? this.wavesEl.getBoundingClientRect().top + window.scrollY : null;
+      this.syncWavesTop();
+    }
+
+    // Viewport position of the waves, derived from the cached document offset (no layout read while scrolling)
+    private syncWavesTop() {
+      this.wavesTop = this.wavesDocTop === null ? 99999 : this.wavesDocTop - window.scrollY;
     }
 
     private resize = () => {
@@ -225,14 +233,22 @@
         const buffer = 100;
         // On mobile, double the spacing to halve draw call count
         const spacing = this.isMobile ? CONFIG.grid.spacing * 2 : CONFIG.grid.spacing;
+        const centerX = width / 2;
+        const centerY = height / 2;
+        const maxDist = Math.sqrt(centerX * centerX + centerY * centerY);
 
         for (let x = -buffer; x < width + buffer; x += spacing) {
           for (let y = -buffer; y < height + buffer; y += spacing) {
+            const baseOpacity = Math.random() * 0.15 + CONFIG.grid.lightOpacityBase;
+            // Center fade / vignette
+            const distFromCenter = Math.sqrt((x - centerX) ** 2 + (y - centerY) ** 2);
+            const centerFade = Math.pow(distFromCenter / maxDist, 1.2);
+
             this.gridDots.push({
               baseX: x,
               baseY: y,
               size: CONFIG.grid.dotSize,
-              baseOpacity: Math.random() * 0.15 + CONFIG.grid.lightOpacityBase,
+              opacity: baseOpacity * centerFade * CONFIG.grid.lightOpacityMultiplier,
             });
           }
         }
@@ -296,32 +312,44 @@
       });
     }
 
+    private onResize = () => {
+      this.resize();
+      this.requestFrame();
+    };
+
+    private onMouseMove = (e: MouseEvent) => {
+      this.mouse.targetX = e.clientX;
+      this.mouse.targetY = e.clientY;
+      this.requestFrame();
+    };
+
+    private onScroll = () => {
+      this.targetScrollY = window.scrollY;
+      this.syncWavesTop();
+      this.requestFrame();
+    };
+
     private bindEvents() {
-      window.addEventListener("resize", () => {
-        this.resize();
-        this.updateWavesPosition();
-      });
-
-      window.addEventListener("mousemove", (e) => {
-        this.mouse.targetX = e.clientX;
-        this.mouse.targetY = e.clientY;
-      });
-
+      window.addEventListener("resize", this.onResize);
+      window.addEventListener("mousemove", this.onMouseMove, { passive: true });
       // passive: true — scroll listener must never call preventDefault()
-      window.addEventListener(
-        "scroll",
-        () => {
-          this.targetScrollY = window.scrollY;
+      window.addEventListener("scroll", this.onScroll, { passive: true });
+
+      // The footer moves when content above it changes size (fonts, images, filters…)
+      if (typeof ResizeObserver !== "undefined") {
+        this.resizeObserver = new ResizeObserver(() => {
           this.updateWavesPosition();
-        },
-        { passive: true },
-      );
+          this.requestFrame();
+        });
+        this.resizeObserver.observe(document.body);
+      }
 
       this.observer = new MutationObserver(() => {
         const wasDark = this.isDarkMode;
         this.checkTheme();
         if (wasDark !== this.isDarkMode) {
           this.initParticles();
+          this.requestFrame();
         }
       });
 
@@ -347,20 +375,17 @@
       this.ctx.clearRect(0, 0, width, height);
 
       // ==========================================
-      // LAYER 1: GRID DITHER FIELD (Optimized)
+      // LAYER 1: GRID DITHER FIELD (Light Mode Only)
       // ==========================================
-      const gridRGB = this.isDarkMode ? CONFIG.grid.darkColor : CONFIG.grid.lightColor;
-      const opacityMultiplier = this.isDarkMode
-        ? CONFIG.grid.darkOpacityMultiplier
-        : CONFIG.grid.lightOpacityMultiplier;
-      const centerX = width / 2;
-      const centerY = height / 2;
-      const maxDist = Math.sqrt(centerX * centerX + centerY * centerY);
       const mouseInfluenceRadius = 200;
+      const mouseInfluenceRadiusSq = mouseInfluenceRadius * mouseInfluenceRadius;
+      const parallaxY = this.scrollY * CONFIG.grid.parallaxSpeed;
+
+      // One fill colour for every dot; per-dot opacity goes through globalAlpha (no rgba string per dot)
+      this.ctx.fillStyle = `rgb(${CONFIG.grid.lightColor})`;
 
       for (let i = 0; i < this.gridDots.length; i++) {
         const dot = this.gridDots[i];
-        const parallaxY = this.scrollY * CONFIG.grid.parallaxSpeed;
         let x = dot.baseX;
         let y = dot.baseY + parallaxY;
 
@@ -375,17 +400,15 @@
         }
         if (waveFade <= 0.005) continue;
 
-        // Center fade / vignette (always calculate this - it's cheap)
-        const distFromCenter = Math.sqrt((dot.baseX - centerX) ** 2 + (dot.baseY - centerY) ** 2);
-        const centerFade = Math.pow(distFromCenter / maxDist, 1.2);
-        let opacity = dot.baseOpacity * centerFade * opacityMultiplier * waveFade;
+        let opacity = dot.opacity * waveFade;
 
         // Mouse displacement - ONLY for dots near cursor (huge optimization!)
         const dx = this.mouse.x - x;
         const dy = this.mouse.y - y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
+        const distSq = dx * dx + dy * dy;
 
-        if (dist < mouseInfluenceRadius) {
+        if (distSq < mouseInfluenceRadiusSq) {
+          const dist = Math.sqrt(distSq);
           const influence = 1 - dist / mouseInfluenceRadius;
           if (dist > 0) {
             x += (dx / dist) * influence * -8;
@@ -395,17 +418,18 @@
         }
 
         if (opacity > 0.01) {
-          this.ctx.fillStyle = `rgba(${gridRGB}, ${Math.min(opacity, 1)})`;
+          this.ctx.globalAlpha = Math.min(opacity, 1);
           this.ctx.fillRect(x, y, dot.size, dot.size);
         }
       }
+      this.ctx.globalAlpha = 1;
 
       // ==========================================
       // LAYER 2: STARDUST with PARALLAX & TWINKLE (Dark Mode Only)
       // ==========================================
       if (this.isDarkMode && this.stars.length > 0) {
         const mouseCenterX = this.mouse.x - width / 2;
-        const mouseCenterY = this.mouse.y - height / 2;
+        this.ctx.fillStyle = `rgb(${CONFIG.stars.color})`;
 
         for (let i = 0; i < this.stars.length; i++) {
           const star = this.stars[i];
@@ -446,7 +470,6 @@
           const finalOpacity = Math.max(0, Math.min(1, (star.opacity + twinkle + influence * 0.08) * waveFade));
 
           this.ctx.globalAlpha = finalOpacity;
-          this.ctx.fillStyle = `rgba(${CONFIG.stars.color}, 1)`;
           this.ctx.fillRect(x, y, star.size, star.size);
         }
         this.ctx.globalAlpha = 1;
@@ -507,13 +530,25 @@
         }
       }
 
-      this.animationFrameId = requestAnimationFrame(this.animate);
+      // Twinkling stars need every frame. The light grid only moves with the mouse, scroll and footer,
+      // so once those have eased to rest the loop stops until an event restarts it.
+      const isSettled =
+        Math.abs(this.mouse.targetX - this.mouse.x) < 0.1 &&
+        Math.abs(this.mouse.targetY - this.mouse.y) < 0.1 &&
+        Math.abs(this.targetScrollY - this.scrollY) < 0.1 &&
+        Math.abs(this.wavesTop - this.currentWavesTop) < 0.1;
+      const isAnimated = this.stars.length > 0 || this.activeShootingStars.length > 0;
+
+      this.animationFrameId = isAnimated || !isSettled ? requestAnimationFrame(this.animate) : null;
     };
 
     public destroy() {
       if (this.animationFrameId) cancelAnimationFrame(this.animationFrameId);
       if (this.observer) this.observer.disconnect();
-      window.removeEventListener("resize", this.resize);
+      if (this.resizeObserver) this.resizeObserver.disconnect();
+      window.removeEventListener("resize", this.onResize);
+      window.removeEventListener("mousemove", this.onMouseMove);
+      window.removeEventListener("scroll", this.onScroll);
     }
   }
 

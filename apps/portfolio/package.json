@@ -4,19 +4,18 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "sync-i18n": "shx mkdir -p public/i18n && shx cp ../../packages/utils/translations/*.json public/i18n/",
-    "dev": "pnpm sync-i18n && astro dev",
-    "build": "pnpm sync-i18n && astro build",
+    "dev": "astro dev",
+    "build": "astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/cloudflare": "^14.3.3",
-    "@astrojs/sitemap": "^3.7.3",
+    "@astrojs/cloudflare": "^14.4.0",
+    "@astrojs/sitemap": "^3.7.4",
     "@heyshaun/design-tokens": "workspace:*",
     "@heyshaun/utils": "workspace:*",
-    "@lucide/astro": "^1.33.0",
-    "astro": "^7.2.8",
-    "sharp": "^0.35.4"
+    "@lucide/astro": "^1.58.0",
+    "astro": "^7.4.0",
+    "sharp": "^0.35.5"
   }
 }

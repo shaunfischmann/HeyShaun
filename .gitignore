@@ -11,9 +11,6 @@ dist/
 .astro/
 .turbo/
 
-# Ignore generated/duplicated runtime translation files in public directory
-apps/portfolio/public/i18n/
-
 # Environment files
 .env
 .env.*

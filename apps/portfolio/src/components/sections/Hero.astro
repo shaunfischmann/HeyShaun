@@ -38,7 +38,7 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
   <div class="hero-stage">
     <!-- Giant Background Typography -->
     <div class="hero-backdrop" id="hero-backdrop" aria-hidden="true">
-      <span class="hero-backdrop-greeting" data-i18n="hero.greeting">{t.hero.greeting}</span>
+      <span class="hero-backdrop-greeting">{t.hero.greeting}</span>
       <div class="hero-backdrop-row hero-backdrop-row--shaun">
         <span>S</span><span>H</span><span>A</span><span>U</span><span>N</span>
       </div>
@@ -57,6 +57,26 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
         <div class="portrait-orb portrait-orb--mauve"></div>
       </div>
       <div class="portrait-mask">
+        <!--
+          Both portraits are lazy so the hidden one (display: none) is never downloaded;
+          the one matching the theme set in <head> is preloaded right away instead.
+        -->
+        <script
+          is:inline
+          define:vars={{
+            lightSrcset: lightImage.srcSet.attribute,
+            darkSrcset: darkImage.srcSet.attribute,
+            sizes: responsiveSizes,
+          }}
+        >
+          var link = document.createElement("link");
+          link.rel = "preload";
+          link.as = "image";
+          link.fetchPriority = "high";
+          link.imageSrcset = document.documentElement.getAttribute("data-theme") === "dark" ? darkSrcset : lightSrcset;
+          link.imageSizes = sizes;
+          document.head.appendChild(link);
+        </script>
         <!-- Light Theme Responsive Portrait -->
         <img
           src={lightImage.src}
@@ -65,7 +85,7 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
           width={lightShaunImport.width}
           height={lightShaunImport.height}
           alt={t.hero.aria_portrait}
-          loading="eager"
+          loading="lazy"
           fetchpriority="high"
           decoding="async"
           class="portrait-img portrait-img--light"
@@ -78,7 +98,7 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
           width={darkShaunImport.width}
           height={darkShaunImport.height}
           alt={t.hero.aria_portrait}
-          loading="eager"
+          loading="lazy"
           fetchpriority="high"
           decoding="async"
           class="portrait-img portrait-img--dark"
@@ -91,8 +111,8 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
   <div class="container">
     <div class="hero-footer" data-reveal>
       <div class="hero-bio">
-        <h1 class="hero-heading" data-i18n="hero.title" set:html={t.hero.title} />
-        <p class="hero-bio-text" data-i18n="hero.subtitle" set:html={t.hero.subtitle} />
+        <h1 class="hero-heading" set:html={t.hero.title} />
+        <p class="hero-bio-text" set:html={t.hero.subtitle} />
         <div class="hero-typing" aria-hidden="true">
           <span class="hero-typing-prefix">&gt;</span>
           <span class="hero-typing-text" id="typing-text"></span>
@@ -102,11 +122,11 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
 
       <div class="hero-actions">
         <a href="#contact" class="btn btn--primary" id="hero-contact-btn">
-          <span data-i18n="hero.cta_contact">{t.hero.cta_contact}</span>
+          <span>{t.hero.cta_contact}</span>
           <Send size={18} stroke-width={2.2} />
         </a>
         <a href={`/${lang}/shaun-ai-gallery/`} class="btn btn--ghost" id="hero-art-btn">
-          <span data-i18n="hero.cta_gallery">{t.hero.cta_gallery}</span>
+          <span>{t.hero.cta_gallery}</span>
           <Telescope size={18} stroke-width={2.2} />
         </a>
       </div>
@@ -571,31 +591,43 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
     currentBgY = 0;
   let currentPortX = 0,
     currentPortY = 0;
-  let isHovering = false;
+  let rafId: number | null = null;
 
   if (heroSection && !isReduced && window.innerWidth > 768) {
+    // The loop only runs while the mouse moves or the parallax eases back to rest
+    const startLoop = () => {
+      if (rafId === null) rafId = requestAnimationFrame(renderLoop);
+    };
+
     heroSection.addEventListener("mousemove", (e) => {
       const { left, top, width, height } = heroSection.getBoundingClientRect();
       targetX = (e.clientX - left) / width - 0.5;
       targetY = (e.clientY - top) / height - 0.5;
-      isHovering = true;
+      startLoop();
     });
 
     heroSection.addEventListener("mouseleave", () => {
       targetX = 0;
       targetY = 0;
-      isHovering = false;
+      startLoop();
     });
 
     function renderLoop() {
-      if (!isHovering && Math.abs(currentBgX) < 0.05 && Math.abs(currentBgY) < 0.05) {
-        requestAnimationFrame(renderLoop);
-        return;
-      }
       const destBgX = targetX * -30,
         destBgY = targetY * -20;
       const destPortX = targetX * 22,
         destPortY = targetY * 12;
+
+      // Eased all the way to where the mouse is (or back to rest): stop until it moves again
+      if (
+        Math.abs(destBgX - currentBgX) < 0.05 &&
+        Math.abs(destBgY - currentBgY) < 0.05 &&
+        Math.abs(destPortX - currentPortX) < 0.05 &&
+        Math.abs(destPortY - currentPortY) < 0.05
+      ) {
+        rafId = null;
+        return;
+      }
 
       currentBgX += (destBgX - currentBgX) * 0.07;
       currentBgY += (destBgY - currentBgY) * 0.07;
@@ -610,10 +642,20 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
         portrait.style.transform = `translate3d(${currentPortX.toFixed(2)}px, ${currentPortY.toFixed(2)}px, 0)`;
       }
 
-      requestAnimationFrame(renderLoop);
+      rafId = requestAnimationFrame(renderLoop);
     }
-    requestAnimationFrame(renderLoop);
   }
+
+  // ── Other theme's portrait ────────────────────────────────────
+  // It stays lazy (and hidden) until the theme toggle is approached, so switching shows it straight away
+  const loadAllPortraits = () => {
+    document.querySelectorAll<HTMLImageElement>(".portrait-img").forEach((img) => (img.loading = "eager"));
+  };
+  document.querySelectorAll("#theme-toggle, #mobile-theme-toggle").forEach((btn) => {
+    ["pointerenter", "focus", "touchstart"].forEach((type) =>
+      btn.addEventListener(type, loadAllPortraits, { once: true, passive: true }),
+    );
+  });
 
   // ── Scroll Parallax ───────────────────────────────────────────
   window.addEventListener(

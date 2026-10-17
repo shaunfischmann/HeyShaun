@@ -103,7 +103,9 @@
     "event_banque_postale_title": "Campaign with La Banque Postale",
     "event_banque_postale_desc": "Shaun.AI was commissioned by La Banque Postale to create artwork for their I.Artistes Challenge, which I won via public vote. Later on, I worked on a FOOH (Fake Out Of Home) online campaign for them, which was featured on Brut and other media outlets.",
     "event_personal_portfolio_title": "Building this website",
-    "event_personal_portfolio_desc": "Decided to build my own website after many years of thinking about it (and also lacking time). With AI and the tools surrounding it, the process has been much easier and very interesting. On top of the speed of development, I'm able to learn and experiment with modern technologies and UI/UX features."
+    "event_personal_portfolio_desc": "Decided to build my own website after many years of thinking about it (and also lacking time). With AI and the tools surrounding it, the process has been much easier and very interesting. On top of the speed of development, I'm able to learn and experiment with modern technologies and UI/UX features.",
+    "event_apimo_partners_title": "Launched apimo.heyshaun.fr",
+    "event_apimo_partners_desc": "Built a constellation of Apimo's 500+ integrations (portals, MLS and proptech tools) in six languages, so agencies can check that their tools work with Apimo and companies can see how to become a partner."
   },
   "art": {
     "tag": "AI-generated, human-curated content",

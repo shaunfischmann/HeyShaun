@@ -14,20 +14,18 @@ const t = getTranslations(lang);
 
 // Define navigation links: use direct `#id` on the home page for native smooth scrolling
 const navLinks = [
-  { href: isHomepage ? "#about" : `/${lang}/#about`, label: t.nav.about, id: "about", i18n: "nav.about", num: "01" },
+  { href: isHomepage ? "#about" : `/${lang}/#about`, label: t.nav.about, id: "about", num: "01" },
   {
     href: isHomepage ? "#timeline" : `/${lang}/#timeline`,
     label: t.nav.timeline,
     id: "timeline",
-    i18n: "nav.timeline",
     num: "02",
   },
-  { href: isHomepage ? "#art" : `/${lang}/#art`, label: t.nav.art, id: "art", i18n: "nav.art", num: "03" },
+  { href: isHomepage ? "#art" : `/${lang}/#art`, label: t.nav.art, id: "art", num: "03" },
   {
     href: isHomepage ? "#contact" : `/${lang}/#contact`,
     label: t.nav.contact,
     id: "contact",
-    i18n: "nav.contact",
     num: "04",
   },
 ];
@@ -98,7 +96,7 @@ const frTarget = `/fr${currentPath === "/" ? "/" : `${currentPath}/`}`;
                   <span class="nav-num" aria-hidden="true">
                     {link.num}
                   </span>
-                  <span class="nav-label" data-i18n={link.i18n}>
+                  <span class="nav-label">
                     {link.label}
                   </span>
                 </a>
@@ -149,7 +147,7 @@ const frTarget = `/fr${currentPath === "/" ? "/" : `${currentPath}/`}`;
                 <span class="nav-num" aria-hidden="true">
                   {link.num}
                 </span>
-                <span class="nav-label" data-i18n={link.i18n}>
+                <span class="nav-label">
                   {link.label}
                 </span>
               </a>
@@ -709,82 +707,4 @@ const frTarget = `/fr${currentPath === "/" ? "/" : `${currentPath}/`}`;
       }
     });
   });
-
-  // ── Multilingual i18n System ─────────────────────────────────
-  const TRANSLATIONS: Record<string, Record<string, string>> = {};
-
-  async function loadTranslations(lang: string) {
-    if (TRANSLATIONS[lang]) return TRANSLATIONS[lang];
-    try {
-      const res = await fetch(`/i18n/${lang}.json`);
-      if (!res.ok) return {};
-      const data = await res.json();
-      TRANSLATIONS[lang] = flattenObject(data);
-      return TRANSLATIONS[lang];
-    } catch {
-      return {};
-    }
-  }
-
-  function flattenObject(obj: Record<string, unknown>, prefix = ""): Record<string, string> {
-    return Object.entries(obj).reduce(
-      (acc, [key, val]) => {
-        const path = prefix ? `${prefix}.${key}` : key;
-        if (typeof val === "object" && val !== null) {
-          Object.assign(acc, flattenObject(val as Record<string, unknown>, path));
-        } else {
-          acc[path] = String(val);
-        }
-        return acc;
-      },
-      {} as Record<string, string>,
-    );
-  }
-
-  async function applyLanguage(lang: string, animate = false) {
-    const t = await loadTranslations(lang);
-    if (!Object.keys(t).length) return;
-
-    const elements = document.querySelectorAll<HTMLElement>("[data-i18n], [data-i18n-placeholder], [data-i18n-label]");
-
-    if (animate) {
-      // Step 1: Fade / blur out current text
-      elements.forEach((el) => el.classList.add("i18n-swap-out"));
-      await new Promise((resolve) => setTimeout(resolve, 140));
-    }
-
-    // Step 2: Swap content
-    elements.forEach((el) => {
-      if (el.hasAttribute("data-i18n")) {
-        const key = el.getAttribute("data-i18n") || "";
-        if (t[key] !== undefined) el.innerHTML = t[key];
-      }
-      if (el.hasAttribute("data-i18n-placeholder")) {
-        const key = el.getAttribute("data-i18n-placeholder") || "";
-        if (el instanceof HTMLInputElement || el instanceof HTMLTextAreaElement) {
-          if (t[key] !== undefined) el.placeholder = t[key];
-        }
-      }
-      if (el.hasAttribute("data-i18n-label")) {
-        const key = el.getAttribute("data-i18n-label") || "";
-        if (t[key] !== undefined) el.setAttribute("aria-label", t[key]);
-      }
-    });
-
-    if (animate) {
-      // Step 3: Unblur & spring back in
-      requestAnimationFrame(() => {
-        elements.forEach((el) => el.classList.remove("i18n-swap-out"));
-      });
-    }
-
-    // Update html lang attribute
-    document.documentElement.lang = lang;
-    localStorage.setItem("lang", lang);
-
-    // Update toggle button states
-    document.querySelectorAll<HTMLElement>("[data-lang]").forEach((btn) => {
-      btn.classList.toggle("active", btn.getAttribute("data-lang") === lang);
-    });
-  }
 </script>

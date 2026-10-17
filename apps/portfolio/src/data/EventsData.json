@@ -87,5 +87,15 @@
     "titleKey": "event_personal_portfolio_title",
     "descKey": "event_personal_portfolio_desc",
     "tags": ["Astro", "AI Agents", "Antigravity IDE"]
+  },
+  {
+    "date": "2026-09",
+    "category": "Work",
+    "titleKey": "event_apimo_partners_title",
+    "descKey": "event_apimo_partners_desc",
+    "tags": ["Partnerships", "Astro", "Cloudflare Workers", "i18n"],
+    "image": "/src/assets/images/apimo-partners.jpg",
+    "imageAlt": "Apimo Partners: 500+ integrations orbiting one real estate CRM",
+    "url": "https://apimo.heyshaun.fr/"
   }
 ]

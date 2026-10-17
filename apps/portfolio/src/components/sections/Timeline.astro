@@ -68,6 +68,15 @@ function formatEventDate(dateStr: string, currentLang: Lang) {
   return { year, month, fullDate };
 }
 
+// Link label: the site's hostname, numbered when an event links to the same site more than once
+function getLinkLabels(urls: string[]) {
+  const hosts = urls.map((u) => new URL(u).hostname.replace(/^www\./, ""));
+  return hosts.map((host, i) => {
+    if (hosts.filter((h) => h === host).length === 1) return host;
+    return `${host} ${hosts.slice(0, i + 1).filter((h) => h === host).length}`;
+  });
+}
+
 const getTimelineText = (key?: string, fallback = "") => {
   if (!key) return fallback;
   const val = (t.timeline as Record<string, string>)?.[key];
@@ -79,10 +88,15 @@ const assetImages = import.meta.glob<{ default: ImageMetadata }>("/src/assets/**
   eager: true,
 });
 
-// 2. Pre-optimize all timeline images at build time using Sharp
+const events = eventsData as TimelineEvent[];
+
+// 2. Pre-optimize the images the timeline actually uses at build time using Sharp
+//    (optimizing every asset would emit an unused 600px copy of each gallery image)
+const usedImagePaths = new Set(events.map((e) => e.image).filter(Boolean));
 const optimizedTimelineImages: Record<string, { src: string; width: number; height: number }> = {};
 
 for (const [path, module] of Object.entries(assetImages)) {
+  if (!usedImagePaths.has(path)) continue;
   const optimized = await getImage({
     src: module.default,
     width: 600,
@@ -111,22 +125,20 @@ function resolveImageData(imagePath?: string) {
   // Fallback for public/ or external paths where width/height aren't pre-computed
   return { src: imagePath, width: 600, height: 400 };
 }
-
-const events = eventsData as TimelineEvent[];
 ---
 
 <section id="timeline" class="section" aria-labelledby="timeline-heading">
   <div class="container">
     <div class="timeline-header section-header">
-      <p class="section-tag" data-i18n="timeline.tag">
+      <p class="section-tag">
         {t.timeline?.tag || "Timeline"}
       </p>
       <h2 id="timeline-heading" class="section-title" data-delay="1">
-        <span class="gradient-text" data-i18n="timeline.heading">
+        <span class="gradient-text">
           {t.timeline?.heading || "Work & Personal Journey"}
         </span>
       </h2>
-      <p class="section-sub" data-delay="2" data-i18n="timeline.sub">
+      <p class="section-sub" data-delay="2">
         {t.timeline?.sub || ""}
       </p>
     </div>
@@ -183,6 +195,7 @@ const events = eventsData as TimelineEvent[];
                   .map((u) => u.trim())
                   .filter(Boolean)
               : [];
+            const linkLabels = getLinkLabels(itemUrls);
 
             return (
               <div
@@ -201,7 +214,7 @@ const events = eventsData as TimelineEvent[];
                 <article class="timeline-card glass-card">
                   <div class="card-accent-bar" aria-hidden="true" />
 
-                  <h3 class="card-title" data-i18n={item.titleKey ? `timeline.${item.titleKey}` : undefined}>
+                  <h3 class="card-title">
                     {itemTitle}
                   </h3>
 
@@ -228,17 +241,17 @@ const events = eventsData as TimelineEvent[];
                           target="_blank"
                           rel="noopener noreferrer"
                           class="card-link"
-                          aria-label={`${itemTitle} — link ${li + 1}`}
+                          aria-label={`${linkLabels[li]} — ${itemTitle}`}
                         >
                           <Link size={12} aria-hidden="true" />
-                          {`Link ${li + 1}`}
+                          {linkLabels[li]}
                         </a>
                       ))}
                     </div>
                   )}
 
                   {itemDesc && (
-                    <p class="card-desc" data-i18n={item.descKey ? `timeline.${item.descKey}` : undefined}>
+                    <p class="card-desc">
                       {itemDesc}
                     </p>
                   )}
@@ -570,6 +583,7 @@ const events = eventsData as TimelineEvent[];
 
   .card-links {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.4rem;
     flex-shrink: 0;
   }
