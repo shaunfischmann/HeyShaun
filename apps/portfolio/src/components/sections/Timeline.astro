@@ -68,6 +68,15 @@ function formatEventDate(dateStr: string, currentLang: Lang) {
   return { year, month, fullDate };
 }
 
+// Link label: the site's hostname, numbered when an event links to the same site more than once
+function getLinkLabels(urls: string[]) {
+  const hosts = urls.map((u) => new URL(u).hostname.replace(/^www\./, ""));
+  return hosts.map((host, i) => {
+    if (hosts.filter((h) => h === host).length === 1) return host;
+    return `${host} ${hosts.slice(0, i + 1).filter((h) => h === host).length}`;
+  });
+}
+
 const getTimelineText = (key?: string, fallback = "") => {
   if (!key) return fallback;
   const val = (t.timeline as Record<string, string>)?.[key];
@@ -186,6 +195,7 @@ function resolveImageData(imagePath?: string) {
                   .map((u) => u.trim())
                   .filter(Boolean)
               : [];
+            const linkLabels = getLinkLabels(itemUrls);
 
             return (
               <div
@@ -231,10 +241,10 @@ function resolveImageData(imagePath?: string) {
                           target="_blank"
                           rel="noopener noreferrer"
                           class="card-link"
-                          aria-label={`${itemTitle} — link ${li + 1}`}
+                          aria-label={`${linkLabels[li]} — ${itemTitle}`}
                         >
                           <Link size={12} aria-hidden="true" />
-                          {`Link ${li + 1}`}
+                          {linkLabels[li]}
                         </a>
                       ))}
                     </div>
@@ -573,6 +583,7 @@ function resolveImageData(imagePath?: string) {
 
   .card-links {
     display: flex;
+    flex-wrap: wrap;
     gap: 0.4rem;
     flex-shrink: 0;
   }
