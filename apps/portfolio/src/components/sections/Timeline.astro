@@ -130,15 +130,15 @@ function resolveImageData(imagePath?: string) {
 <section id="timeline" class="section" aria-labelledby="timeline-heading">
   <div class="container">
     <div class="timeline-header section-header">
-      <p class="section-tag" data-i18n="timeline.tag">
+      <p class="section-tag">
         {t.timeline?.tag || "Timeline"}
       </p>
       <h2 id="timeline-heading" class="section-title" data-delay="1">
-        <span class="gradient-text" data-i18n="timeline.heading">
+        <span class="gradient-text">
           {t.timeline?.heading || "Work & Personal Journey"}
         </span>
       </h2>
-      <p class="section-sub" data-delay="2" data-i18n="timeline.sub">
+      <p class="section-sub" data-delay="2">
         {t.timeline?.sub || ""}
       </p>
     </div>
@@ -214,7 +214,7 @@ function resolveImageData(imagePath?: string) {
                 <article class="timeline-card glass-card">
                   <div class="card-accent-bar" aria-hidden="true" />
 
-                  <h3 class="card-title" data-i18n={item.titleKey ? `timeline.${item.titleKey}` : undefined}>
+                  <h3 class="card-title">
                     {itemTitle}
                   </h3>
 
@@ -251,7 +251,7 @@ function resolveImageData(imagePath?: string) {
                   )}
 
                   {itemDesc && (
-                    <p class="card-desc" data-i18n={item.descKey ? `timeline.${item.descKey}` : undefined}>
+                    <p class="card-desc">
                       {itemDesc}
                     </p>
                   )}

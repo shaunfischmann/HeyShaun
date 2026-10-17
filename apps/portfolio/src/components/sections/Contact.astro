@@ -32,11 +32,11 @@ const socials = [
       <!-- Left Column: Section Header & Subtitle -->
       <div class="footer-left">
         <div class="contact-header section-header">
-          <p class="section-tag" data-i18n="contact.tag">{t.contact.tag}</p>
+          <p class="section-tag">{t.contact.tag}</p>
           <h2 id="contact-heading" class="section-title">
-            <span class="gradient-text" data-i18n="contact.heading"> {t.contact.heading} </span>
+            <span class="gradient-text"> {t.contact.heading} </span>
           </h2>
-          <p class="contact-sub section-sub" data-i18n="contact.sub">
+          <p class="contact-sub section-sub">
             {t.contact.sub}
           </p>
 
@@ -94,12 +94,12 @@ const socials = [
   <div class="footer-bottom">
     <p class="footer-copy">
       © {new Date().getFullYear()} Shaun Fischmann.
-      <span data-i18n="footer.built">{t.footer?.built || "Built with ❤️"}</span>
-      <a href={`/${lang}/credits/`} class="footer-link" data-i18n="footer.credits"
+      <span>{t.footer?.built || "Built with ❤️"}</span>
+      <a href={`/${lang}/credits/`} class="footer-link"
         >{t.footer?.credits || " and some help"}</a
       >
       <span class="footer-sep" aria-hidden="true">•</span>
-      <a href={`/${lang}/legal-notice/`} class="footer-link" data-i18n="footer.legal_notice"
+      <a href={`/${lang}/legal-notice/`} class="footer-link"
         >{t.footer?.legal_notice || "Legal Notice"}</a
       >
     </p>

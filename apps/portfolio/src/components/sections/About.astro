@@ -82,17 +82,17 @@ function getSvgContent(iconPath?: string): string {
 <section id="about" class="section" aria-labelledby="about-heading">
   <div class="container">
     <div class="about-header section-header">
-      <p class="section-tag" data-reveal data-i18n="about.tag">{t.about.tag}</p>
+      <p class="section-tag" data-reveal>{t.about.tag}</p>
       <h2 id="about-heading" class="section-title" data-reveal data-delay="1">
-        <span class="gradient-text" data-i18n="about.heading">{t.about.heading}</span>
+        <span class="gradient-text">{t.about.heading}</span>
       </h2>
-      <p class="section-sub" data-reveal data-delay="1" data-i18n="about.sub">{t.about.sub}</p>
+      <p class="section-sub" data-reveal data-delay="1">{t.about.sub}</p>
     </div>
 
     <div class="about-layout">
       <!-- Bio Card -->
       <aside class="bio-card glass-card" data-reveal="slide-left" data-delay="2" aria-label="About Shaun">
-        <h3 class="bio-heading" data-i18n="about.bio_heading">{t.about.bio_heading}</h3>
+        <h3 class="bio-heading">{t.about.bio_heading}</h3>
         <a
           href="https://www.apimo.com"
           target="_blank"
@@ -109,7 +109,7 @@ function getSvgContent(iconPath?: string): string {
             height="20"
           />
         </a>
-        <p class="bio-text" data-i18n="about.bio_text" set:html={t.about.bio_text} />
+        <p class="bio-text" set:html={t.about.bio_text} />
       </aside>
 
       <!-- 3D Constellation Cloud -->
@@ -163,10 +163,10 @@ function getSvgContent(iconPath?: string): string {
                     </div>
 
                     <div class="node-tooltip">
-                      <span class="tooltip-title" data-i18n={skill.nameKey}>
+                      <span class="tooltip-title">
                         {skillName}
                       </span>
-                      <span class="tooltip-desc" data-i18n={skill.descKey}>
+                      <span class="tooltip-desc">
                         {skillDesc}
                       </span>
                     </div>

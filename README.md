@@ -78,7 +78,7 @@ pnpm dev:portfolio
 |---|---|
 | `pnpm dev` | Start development servers across all workspace apps |
 | `pnpm dev:portfolio` | Run only the portfolio Astro dev server |
-| `pnpm build` | Sync translation bundles and build static production bundles |
+| `pnpm build` | Build static production bundles |
 | `pnpm preview` | Locally preview production build |
 
 ---

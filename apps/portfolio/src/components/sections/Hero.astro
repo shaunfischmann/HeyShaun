@@ -38,7 +38,7 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
   <div class="hero-stage">
     <!-- Giant Background Typography -->
     <div class="hero-backdrop" id="hero-backdrop" aria-hidden="true">
-      <span class="hero-backdrop-greeting" data-i18n="hero.greeting">{t.hero.greeting}</span>
+      <span class="hero-backdrop-greeting">{t.hero.greeting}</span>
       <div class="hero-backdrop-row hero-backdrop-row--shaun">
         <span>S</span><span>H</span><span>A</span><span>U</span><span>N</span>
       </div>
@@ -111,8 +111,8 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
   <div class="container">
     <div class="hero-footer" data-reveal>
       <div class="hero-bio">
-        <h1 class="hero-heading" data-i18n="hero.title" set:html={t.hero.title} />
-        <p class="hero-bio-text" data-i18n="hero.subtitle" set:html={t.hero.subtitle} />
+        <h1 class="hero-heading" set:html={t.hero.title} />
+        <p class="hero-bio-text" set:html={t.hero.subtitle} />
         <div class="hero-typing" aria-hidden="true">
           <span class="hero-typing-prefix">&gt;</span>
           <span class="hero-typing-text" id="typing-text"></span>
@@ -122,11 +122,11 @@ const responsiveSizes = "(max-width: 48em) 86vw, (max-width: 64em) 68vw, 980px";
 
       <div class="hero-actions">
         <a href="#contact" class="btn btn--primary" id="hero-contact-btn">
-          <span data-i18n="hero.cta_contact">{t.hero.cta_contact}</span>
+          <span>{t.hero.cta_contact}</span>
           <Send size={18} stroke-width={2.2} />
         </a>
         <a href={`/${lang}/shaun-ai-gallery/`} class="btn btn--ghost" id="hero-art-btn">
-          <span data-i18n="hero.cta_gallery">{t.hero.cta_gallery}</span>
+          <span>{t.hero.cta_gallery}</span>
           <Telescope size={18} stroke-width={2.2} />
         </a>
       </div>
