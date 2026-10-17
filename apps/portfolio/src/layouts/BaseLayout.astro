@@ -125,6 +125,21 @@ const schemaData = { "@context": "https://schema.org", "@graph": schemaGraph };
     <!-- Essential Meta -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Theme: set before first paint so the page never flashes the other one (same rule as the toggle in Nav) -->
+    <script is:inline>
+      (function () {
+        var theme;
+        try {
+          theme = localStorage.getItem("theme");
+        } catch (e) {}
+        if (theme !== "light" && theme !== "dark") {
+          theme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+        }
+        document.documentElement.setAttribute("data-theme", theme);
+      })();
+    </script>
+
     <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="author" content="Shaun Fischmann" />
