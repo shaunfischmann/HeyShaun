@@ -229,6 +229,16 @@ const schemaData = { "@context": "https://schema.org", "@graph": schemaGraph };
         revealObserver.observe(el);
       });
 
+      // Flag sections that are off screen so their looping CSS animations pause (see global.css)
+      const offscreenObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => entry.target.toggleAttribute("data-offscreen", !entry.isIntersecting));
+        },
+        { rootMargin: "100px 0px" },
+      );
+
+      document.querySelectorAll("section, footer").forEach((el) => offscreenObserver.observe(el));
+
       // 2. High-Performance Background Parallax
       const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (!prefersReducedMotion) {

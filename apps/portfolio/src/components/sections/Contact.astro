@@ -163,15 +163,6 @@ const socials = [
       console.error("Failed to copy email:", err);
     }
   });
-
-  // SVG transform animations can't run on the compositor: they cost a style + layout pass
-  // every frame, so the waves only move while they're on screen
-  const waves = document.querySelector<HTMLElement>(".waves-container");
-  if (waves && typeof IntersectionObserver !== "undefined") {
-    new IntersectionObserver(([entry]) => {
-      waves.classList.toggle("is-offscreen", !entry.isIntersecting);
-    }).observe(waves);
-  }
 </script>
 
 <style>
@@ -425,10 +416,6 @@ const socials = [
     fill: var(--glow-secondary);
     animation-delay: -5s;
     animation-duration: 30s;
-  }
-
-  .waves-container.is-offscreen .waves-parallax > use {
-    animation-play-state: paused;
   }
 
   @keyframes move-forever {

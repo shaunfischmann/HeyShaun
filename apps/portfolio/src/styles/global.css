@@ -300,6 +300,12 @@
     }
   }
 
+  /* Sections scrolled out of view (flagged in BaseLayout) pause their looping animations */
+  [data-offscreen],
+  [data-offscreen] * {
+    animation-play-state: paused !important;
+  }
+
   /* Language Switch Transition Effect */
   [data-i18n],
   [data-i18n-placeholder] {
