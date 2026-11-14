@@ -15,7 +15,7 @@
     "@heyshaun/design-tokens": "workspace:*",
     "@heyshaun/utils": "workspace:*",
     "@lucide/astro": "^1.58.0",
-    "astro": "^7.4.0",
+    "astro": "^7.4.7",
     "sharp": "^0.35.5"
   }
 }
